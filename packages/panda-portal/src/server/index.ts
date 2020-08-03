@@ -1,6 +1,7 @@
 import fs from "fs";
 import http from "http";
 import pino from "pino";
+import sqlite3 from "sqlite3";
 import ws from "ws";
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -12,6 +13,8 @@ const httpServerOptions = {};
 const server = http.createServer(httpServerOptions, requestListener);
 const wsServerOptions = { server };
 const webSocketServer = new ws.Server(wsServerOptions);
+
+const database = new sqlite3.Database("panda-portal.db");
 
 ////////////////////////////////////////////////////////////////////////////////
 // functions
@@ -68,3 +71,7 @@ export function handleListen(this: http.Server): void {
 server.listen(PORT, handleListen);
 webSocketServer.on("connection", handleConnection);
 webSocketServer.on("error", handleError);
+
+database.on("open", () => {
+  logger.info({ database });
+});
