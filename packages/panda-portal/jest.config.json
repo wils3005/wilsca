@@ -1,0 +1,19 @@
+{
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "src/*.{js,jsx,ts,tsx}",
+    "!src/*.test.{js,jsx,ts,tsx}"
+  ],
+  "coverageDirectory": "coverage",
+  "coverageReporters": ["html", "text"],
+  "coverageThreshold": {
+    "global": {
+      "branches": 1,
+      "functions": 1,
+      "lines": 1,
+      "statements": 1
+    }
+  },
+  "preset": "ts-jest/presets/js-with-ts",
+  "testEnvironment": "node"
+}

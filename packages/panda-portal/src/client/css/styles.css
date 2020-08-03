@@ -1,0 +1,479 @@
+:root{
+  --panda-primary-color: #0D1017;
+  --panda-low-gray-color: #50545D;
+  --panda-font: Work Sans;
+}
+
+/* Images */
+.panda-nav-logo,
+.panda-icon,
+.panda-nav-logo-footer,
+.panda-shape-1,
+.panda-shape-2,
+.panda-shape-3,
+.panda-shape-4,
+.panda-shape-5,
+.panda-shape-6,
+.panda-shape-7,
+.panda-shape-8,
+.panda-shape-9
+{
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* Navbar */
+.panda-nav-logo{
+  display: inline-block;
+  height: 5rem;
+  width: 10rem;
+}
+
+button.panda-btn-menu{
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+  border: 0px;
+  background-color: transparent;
+  border-bottom: 2px solid black;
+  border-top: 2px solid black;
+  position: relative;
+}
+
+.panda-btn-menu::before{
+  content: "";
+  display: inline-block;
+  position: absolute;
+  height: 2px;
+  background-color: black;
+  top: 50%;
+  left: 0px;
+  right: 0px;
+  transform: scaleY(-50%);
+}
+
+.panda-movil-menu .modal-content{
+  height: 100vh;
+  border-radius: 0px;
+}
+
+/* Buttons */
+.panda-btn{
+  display: inline-block;
+  font-size: 1rem;
+  padding: 1rem 2rem; 
+}
+
+.panda-btn-boder{
+  border: 1px solid var(--panda-primary-color);
+}
+
+.panda-low-gray-text{
+  color: var(--panda-low-gray-color);
+}
+
+/* Inputs */
+.panda-input{
+  display: inline-block;
+  font-size: 1rem;
+  padding: 1rem ;
+  border: 0px;
+  background-color: #F2F2F3;
+
+}
+
+/* Text */
+*{
+  font-family: var(--panda-font);
+}
+
+
+.panda-text-high{
+  font-size: 3rem;
+  line-height: 3rem;
+}
+
+.panda-text-middle{
+  font-size: 2rem;
+  line-height: 2.5rem;
+}
+
+.panda-text-low{
+  font-size: 1.5rem;
+}
+.panda-text-s{
+  font-size: 1rem;
+}
+.panda-text{
+  font-size: 1.2rem;
+  
+}
+
+.panda-text-acua{
+  color: #24DCBA !important;
+}
+.panda-text-effect{
+  font-size: 8rem;
+  position: relative;
+  font-weight: 900;
+  text-align: center;
+}
+
+
+.panda-rgba-gray{
+  color: rgba(0, 0, 0, .05);
+}
+
+/* Backgrounds */
+.panda-bg-low-gray{
+  background-color: #E8E9EA;
+}
+
+.panda-bg-dark{
+  background-color: #0E1117;
+}
+
+.panda-bg-pink{
+  background-color: #FEA19E;
+}
+
+.panda-bg-acua{
+  background-color: #24DCBA;
+}
+
+.panda-bg-low-gray{
+  background-color: #F2F2F3;
+}
+
+/* Footer */
+.panda-nav-logo-footer{
+  display: inline-block;
+  height: 5rem;
+  width: 10rem;
+}
+
+
+/* Shapes */
+.panda-shape-1{
+  display: inline-block;
+  height: 15rem;
+  width: 15rem;
+  position: absolute;
+  left: -8rem;
+  background-image: url(../assets/images/frontend/shape-1.png);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.panda-shape-2{
+  display: inline-block;
+  height: 25rem;
+  width: 25rem;
+  position: absolute;
+  right: -15rem;
+  background-image: url(../assets/images/frontend/shape-2.png);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.panda-shape-3{
+  display: inline-block;
+  height: 15rem;
+  width: 15rem;
+  position: absolute;
+  left: -10rem;
+  background-image: url(../assets/images/frontend/shape-3.png);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.panda-shape-4{
+  display: inline-block;
+  height: 25rem;
+  width: 25rem;
+  position: absolute;
+  right: -15rem;
+  background-image: url(../assets/images/frontend/shape-4.png);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.panda-shape-5{
+  display: inline-block;
+    height: 15rem;
+    width: 15rem;
+    position: absolute;
+    
+    left: -10.5rem;
+    background-image: url(../assets/images/frontend/shape-5.png);
+    top: 50%;
+    transform: translateY(-10%);
+}
+.panda-shape-6{
+  display: inline-block;
+    height: 10rem;
+    width: 10rem;
+    position: absolute;
+    
+    right: -6rem;
+    background-image: url(../assets/images/frontend/shape-6.png);
+    top: -4rem;
+}
+.panda-shape-7{
+  display: inline-block;
+    height: 25rem;
+    width: 25rem;
+    position: absolute;
+    right: 4%;
+    background-image: url(../assets/images/frontend/shape-7.png);
+    top: 5rem;
+}
+
+.panda-shape-8 {
+  display: inline-block;
+  height: 10rem;
+  width: 10rem;
+  position: absolute;
+  left: -6rem;
+  background-image: url(../assets/images/frontend/shape-6.png);
+  bottom: 0rem;
+}
+
+.panda-shape-9{
+  display: inline-block;
+    height: 10rem;
+    width: 10rem;
+    position: absolute;
+    right: -7rem;
+    background-image: url(../assets/images/frontend/shape-7.png);
+    bottom: -8rem;
+}
+
+/* Utils */
+.panda-position-center{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.panda-vertical-center{
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+
+
+.mt-20{
+  margin-top: 20rem;
+}
+.mb-20{
+  margin-bottom: 20rem;
+}
+.py-10{
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+.py-15{
+  padding-top: 10rem;
+  padding-bottom: 10rem;
+}
+.pt-10{
+  padding-top: 5rem;
+ 
+}
+.pt-15{
+  padding-top: 10rem;
+ 
+}
+
+/* Agencies */
+
+
+.panda-person-1{
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+
+.panda-content-form{
+  height: 40rem;
+  overflow: hidden;
+}
+
+.panda-content-form input{
+  width: 22rem;
+}
+
+/* Schools */
+.panda-content-calc{
+position: relative;
+top: -5rem;
+z-index: 10;
+background-color: white; 
+}
+
+
+
+
+/* Works */
+.panda-nav-works .active::before{
+  content: "";
+  display: inline-block;
+  height: .3rem;
+  width: 1.5rem;
+  position: absolute;
+  bottom: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+}
+
+.panda-tabs a{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  border-left: 1px solid white;
+  position: relative;
+  opacity: .7;
+}
+
+.panda-tabs a.active{
+  opacity: 1;
+}
+
+.panda-tabs a:before{
+  content: "";
+  display: inline-block;
+  width: .6rem;
+  height: .6rem;
+  background-color: white;
+  position: absolute;
+  left: -.3rem;
+  top: 50%;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+.panda-tabs a:first-child::after{
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 3rem;
+  background-color: var(--panda-primary-color);
+  position: absolute;
+  left: -1px;
+  top: 0px;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.panda-tabs a:last-child::after{
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 3rem;
+  background-color: var(--panda-primary-color);
+  position: absolute;
+  left: -1px;
+  bottom: -1.4rem;
+  border-radius: 50%;
+  
+}
+
+a{
+  color: inherit;
+}
+a:hover{
+  text-decoration: none;
+  color: inherit;
+}
+
+.dropdown:hover> .dropdown-menu {
+  display: block;
+}
+
+
+.panda-nav-bar .dropdown-menu{
+  border: 0px solid red;
+
+}
+
+.panda-nav-bar .dropdown-menu li{
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  text-transform: uppercase;
+  padding-left: 1rem;
+}
+
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (max-width: 1200px) { 
+  html{
+    font-size: 14px;
+  }
+  .w-md-100{
+    width: 100% !important;
+  }
+} 
+ /* Large devices (desktops, 992px and up) */
+@media (max-width: 992px) { 
+  html{
+    font-size: 14px;
+  }
+  
+ }
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 768px) { 
+  html{
+    font-size: 10.5px;
+  }
+  .panda-content-experts img{
+    width: 6rem;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) { 
+  html{
+    font-size: 12px;
+  }
+  .pt-15{
+    padding-top: 3rem;
+  }
+  .panda-text-effect{
+    font-size: 6rem;
+    overflow: hidden;
+  }
+  .panda-text-effect .panda-position-center{
+    width: 100%;
+  }
+  .panda-content-logos img{
+    width: 6rem;
+  }
+
+  .panda-content-experts img{
+    width: 4rem;
+  }
+
+  .panda-schools-cards img,
+  .panda-cards-agencies img{
+    width: 75%;
+  }
+
+  .panda-content-leaders,
+  .panda-content-become{
+    margin-top: 5rem;
+    margin-bottom: 0rem;
+  }
+ }
+ 
+#result1,
+#result2{
+  display: inline-block;
+  font-size: 3rem;
+  text-align: center;
+  border: 0px;
+  width: 100%;
+}
