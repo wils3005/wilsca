@@ -6,7 +6,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "jquery";
 import "popper.js";
 import App from "./App";
-import React from "react";
 import ReactDOM from "react-dom";
 
 const { hostname } = window.location;
@@ -18,18 +17,13 @@ const isLocalhost = Boolean(
     /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/.exec(hostname)
 );
 
-const element = (
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
+const element = App();
 const container = document.querySelector("#root");
 
-type Config = {
+interface IConfig {
   onSuccess?: (registration: ServiceWorkerRegistration) => void;
   onUpdate?: (registration: ServiceWorkerRegistration) => void;
-};
+}
 
 webSocket.addEventListener("open", handleOpen);
 webSocket.addEventListener("message", handleMessage);
@@ -43,7 +37,7 @@ export function handleOpen(this: WebSocket, event: Event): void {
   this.send("Hello Server!");
 }
 
-export function register(config?: Config): void {
+export function register(config?: IConfig): void {
   if (
     process.env.REACT_APP_NODE_ENV === "production" &&
     "serviceWorker" in navigator
@@ -79,7 +73,7 @@ export function register(config?: Config): void {
   }
 }
 
-export function registerValidSW(swUrl: string, config?: Config): void {
+export function registerValidSW(swUrl: string, config?: IConfig): void {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
@@ -111,7 +105,7 @@ export function handleError(error: Error): void {
   console.error({ error });
 }
 
-export function checkValidServiceWorker(swUrl: string, config?: Config): void {
+export function checkValidServiceWorker(swUrl: string, config?: IConfig): void {
   fetch(swUrl, {
     headers: { "Service-Worker": "script" },
   })
