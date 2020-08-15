@@ -1,5 +1,5 @@
 {
-  "name": "panda-portal",
+  "name": "@wilsjs/panda-portal",
   "private": true,
   "scripts": {
     "build": "rm -rf build/ && tsc --build ./tsconfig.build.json",

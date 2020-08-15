@@ -1,5 +1,5 @@
 {
-  "name": "tic-tac-toe",
+  "name": "@wilsjs/tic-tac-toe",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://wils3005.github.io/tic-tac-toe",

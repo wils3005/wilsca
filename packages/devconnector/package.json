@@ -1,5 +1,5 @@
 {
-  "name": "devconnector",
+  "name": "@wilsjs/devconnector",
   "version": "0.1.0",
   "description": "Udemy MERN Stack Front to Back",
   "main": "server.js",

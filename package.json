@@ -85,10 +85,13 @@
   },
   "dependencies": {
     "@wilsjs/colyseus": "file:packages/colyseus",
+    "@wilsjs/devconnector": "file:packages/devconnector",
     "@wilsjs/monolith": "file:packages/monolith",
+    "@wilsjs/panda-portal": "file:packages/panda-portal",
     "@wilsjs/peer": "file:packages/peer",
     "@wilsjs/phone-cam-client": "file:packages/phone-cam-client",
     "@wilsjs/sqlite3": "file:packages/sqlite3",
+    "@wilsjs/tic-tac-toe": "file:packages/tic-tac-toe",
     "@wilsjs/ws": "file:packages/ws"
   }
 }
