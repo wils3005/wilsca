@@ -1,5 +1,4 @@
-import * as z from "zod";
-import Knex from "knex";
+import { Knex, zod as z } from "@wilsjs/dependencies";
 import path from "path";
 
 const filename = path.join(

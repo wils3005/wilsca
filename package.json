@@ -94,6 +94,7 @@
   },
   "dependencies": {
     "@wilsjs/colyseus": "file:packages/colyseus",
+    "@wilsjs/dependencies": "file:packages/dependencies",
     "@wilsjs/devconnector": "file:packages/devconnector",
     "@wilsjs/monolith": "file:packages/monolith",
     "@wilsjs/panda-portal": "file:packages/panda-portal",

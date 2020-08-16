@@ -1,25 +1,28 @@
-import * as bcrypt from "bcrypt";
-import * as passportLocal from "passport-local";
-import * as z from "zod";
+import {
+  WebSocket,
+  bcrypt,
+  connectSessionKnex,
+  express,
+  expressSession,
+  helmet,
+  passport,
+  passportLocal,
+  pinoHttp,
+  serveStatic,
+  zod as z,
+} from "@wilsjs/dependencies";
+
 import User from "./user";
-import connectSessionKnex from "connect-session-knex";
-import express from "express";
-import expressSession from "express-session";
-import helmet from "helmet";
 import http from "http";
 import knex from "./knex";
 import logger from "./logger";
 import net from "net";
-import passport from "passport";
-import pinoHttp from "pino-http";
-import serveStatic from "serve-static";
-import ws from "ws";
 
 const { PORT, ROOT, SECRET } = process.env;
 const app = express();
 const port = z.number().parse(Number(PORT));
 const server = app.listen(port, handleListen);
-const wsServer = new ws.Server({ server });
+const webSocketServer = new WebSocket.Server({ server });
 const StoreFactory = connectSessionKnex(expressSession);
 
 app.use(
@@ -59,11 +62,11 @@ passport.use(new passportLocal.Strategy(verifyCredentials));
 passport.serializeUser(handleUserSerialization);
 passport.deserializeUser(handleUserDeserialization);
 server.on("upgrade", handleServerUpgrade);
-wsServer.on("connection", handleConnection);
-wsServer.on("error", handleError);
+webSocketServer.on("connection", handleConnection);
+webSocketServer.on("error", handleError);
 
 ////////////////////////////////////////////////////////////////////////////////
-export function handleConnection(socket: ws): void {
+export function handleConnection(socket: WebSocket): void {
   logger.info("handleConnection");
   socket.on("message", handleMessage);
   socket.on("error", handleError);
@@ -87,10 +90,10 @@ export function handleLogout(
   next();
 }
 
-export function handleMessage(this: ws, data: ws.Data): void {
+export function handleMessage(this: WebSocket, data: WebSocket.Data): void {
   logger.info({ this: this, data });
 
-  for (const client of wsServer.clients) {
+  for (const client of webSocketServer.clients) {
     if (client == this) continue;
 
     client.send(`Message broadcast: ${String(data)}`);
@@ -102,8 +105,8 @@ export function handleServerUpgrade(
   socket: net.Socket,
   head: Buffer
 ): void {
-  wsServer.handleUpgrade(request, socket, head, (webSocket) => {
-    wsServer.emit("connection", webSocket, request);
+  webSocketServer.handleUpgrade(request, socket, head, (webSocket) => {
+    webSocketServer.emit("connection", webSocket, request);
   });
 }
 
