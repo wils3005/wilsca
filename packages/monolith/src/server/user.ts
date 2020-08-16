@@ -1,7 +1,7 @@
+import { Objection } from "@wilsjs/dependencies";
 import knex from "./knex";
-import o from "objection";
 
-o.Model.knex(knex);
+Objection.Model.knex(knex);
 
 interface User {
   id: string;
@@ -15,7 +15,7 @@ interface User {
 //   password: z.string()
 // });
 
-class User extends o.Model {
+class User extends Objection.Model {
   static tableName = "users";
 
   // static relationMappings = {
