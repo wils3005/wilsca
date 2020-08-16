@@ -65,6 +65,7 @@
     "jest-puppeteer": "4.4.0",
     "jquery": "3.5.1",
     "lerna": "^3.22.1",
+    "nexe": "3.3.7",
     "nodemon": "^1.19.4",
     "npm-check": "5.9.2",
     "peerjs": "1.3.1",
@@ -99,7 +100,6 @@
     "@wilsjs/peer": "file:packages/peer",
     "@wilsjs/phone-cam-client": "file:packages/phone-cam-client",
     "@wilsjs/tic-tac-toe": "file:packages/tic-tac-toe",
-    "@wilsjs/util": "file:packages/util",
     "@wilsjs/ws": "file:packages/ws"
   }
 }
