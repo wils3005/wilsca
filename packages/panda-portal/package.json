@@ -3,6 +3,7 @@
   "private": true,
   "scripts": {
     "build": "rm -rf build/ && tsc --build ./tsconfig.build.json",
+    "check": "../../node_modules/.bin/npm-check --update-all",
     "server": "ts-node-dev --require dotenv/config --respawn --transpile-only src/server/index.ts",
     "eslint": "eslint .",
     "eslint-fix": "eslint --fix .",
@@ -14,7 +15,7 @@
   },
   "dependencies": {
     "express": "4.17.1",
-    "pino": "6.5.0",
+    "pino": "6.5.1",
     "sqlite3": "5.0.0",
     "uuid": "8.3.0",
     "ws": "7.3.1"
