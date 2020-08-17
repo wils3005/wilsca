@@ -1,5 +1,4 @@
 import * as bcrypt from "bcrypt";
-import * as uuid from "uuid";
 import * as z from "zod";
 import Knex from "knex";
 
@@ -13,7 +12,6 @@ export async function seed(knex: Knex): Promise<number[]> {
     .then(async () =>
       knex("users").insert([
         {
-          id: uuid.v4(),
           username,
           password: await bcrypt.hash(password, 10),
         },

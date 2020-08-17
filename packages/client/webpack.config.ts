@@ -1,11 +1,12 @@
-require("dotenv").config();
-const DotenvWebpackPlugin = require("dotenv-webpack");
-const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const ManifestPlugin = require("webpack-manifest-plugin");
+import "dotenv/config";
+import DotenvWebpackPlugin from "dotenv-webpack";
+import FaviconsWebpackPlugin from "favicons-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
+import ManifestPlugin from "webpack-manifest-plugin";
+import path from "path";
 
-module.exports = {
-  entry: `${__dirname}/src/client/index.ts`,
+export default {
+  entry: path.join(__dirname, "src", "index.ts"),
   mode: "development",
   module: {
     rules: [
@@ -29,20 +30,22 @@ module.exports = {
         exclude: /node_modules/,
         test: /\.tsx?$/,
         loader: "ts-loader",
-        options: { configFile: "tsconfig.build.json" },
+        options: { configFile: path.join(__dirname, "tsconfig.build.json") },
       },
     ],
   },
   output: {
-    path: `${__dirname}/build/client/`,
+    path: path.join(__dirname, "build"),
   },
   plugins: [
     new DotenvWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: "src/client/index.html",
-      title: "monolith",
+      template: path.join("src", "index.html"),
+      title: "client",
     }),
-    new FaviconsWebpackPlugin(),
+    new FaviconsWebpackPlugin(
+      path.join(__dirname, "src", "heyyeyaaeyaaaeyaeyaa-large.jpg")
+    ),
     new ManifestPlugin(),
   ],
   resolve: {

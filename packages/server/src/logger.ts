@@ -1,4 +1,5 @@
-import { pino, zod as z } from "@wilsjs/dependencies";
+import * as z from "zod";
+import pino from "pino";
 
 const loggerOptions = z
   .record(z.unknown())

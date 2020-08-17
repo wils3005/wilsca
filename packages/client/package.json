@@ -1,0 +1,10 @@
+{
+  "name": "@wilsjs/client",
+  "private": true,
+  "scripts": {
+    "ts-node": "node --require dotenv/config --require ts-node/register",
+    "webpack": "npm run ts-node -- ../../node_modules/.bin/webpack",
+    "webpack-production": "npm run webpack -- --mode production",
+    "webpack-watch": "npm run webpack -- --watch"
+  }
+}

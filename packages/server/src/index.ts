@@ -1,22 +1,19 @@
-import {
-  WebSocket,
-  bcrypt,
-  connectSessionKnex,
-  express,
-  expressSession,
-  helmet,
-  passport,
-  passportLocal,
-  pinoHttp,
-  serveStatic,
-  zod as z,
-} from "@wilsjs/dependencies";
-
+import * as bcrypt from "bcrypt";
+import * as z from "zod";
 import User from "./user";
+import WebSocket from "ws";
+import connectSessionKnex from "connect-session-knex";
+import express from "express";
+import expressSession from "express-session";
+import helmet from "helmet";
 import http from "http";
 import knex from "./knex";
 import logger from "./logger";
 import net from "net";
+import passport from "passport";
+import passportLocal from "passport-local";
+import pinoHttp from "pino-http";
+import serveStatic from "serve-static";
 
 const { PORT, ROOT, SECRET } = process.env;
 const app = express();
@@ -196,7 +193,7 @@ export function verifyCredentials(
     .findOne({ username })
     .then(async (user) => {
       logger.info({ user });
-      (await bcrypt.compare(password, user.password))
+      (await bcrypt.compare(password, z.string().parse(user.password)))
         ? done(null, user)
         : done(null, false);
     })

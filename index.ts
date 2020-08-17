@@ -1,5 +1,6 @@
 export * as bcrypt from "bcrypt";
 export * as passportLocal from "passport-local";
+export * as uuid from "uuid";
 export * as zod from "zod";
 export { default as connectSessionKnex } from "connect-session-knex";
 export { default as express } from "express";

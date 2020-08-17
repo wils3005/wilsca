@@ -1,4 +1,3 @@
-import "knex";
 import path from "path";
 
 export const development = {

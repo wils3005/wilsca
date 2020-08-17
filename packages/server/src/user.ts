@@ -1,21 +1,13 @@
-import { Objection } from "@wilsjs/dependencies";
+import Objection from "objection";
 import knex from "./knex";
 
 Objection.Model.knex(knex);
 
-interface User {
-  id: string;
-  username: string;
-  password: string;
-}
-
-// const zodObject = z.object({
-//   id: z.string(),
-//   username: z.string(),
-//   password: z.string()
-// });
-
 class User extends Objection.Model {
+  id?: string;
+  username?: string;
+  password?: string;
+
   static tableName = "users";
 
   // static relationMappings = {

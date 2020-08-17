@@ -14,11 +14,23 @@
     "prettier": "prettier --list-different .",
     "prettier-write": "prettier --write ."
   },
+  "dependencies": {
+    "@wilsjs/colyseus": "file:packages/colyseus",
+    "@wilsjs/devconnector": "file:packages/devconnector",
+    "@wilsjs/client": "file:packages/client",
+    "@wilsjs/server": "file:packages/server",
+    "@wilsjs/panda-portal": "file:packages/panda-portal",
+    "@wilsjs/peer": "file:packages/peer",
+    "@wilsjs/phone-cam-client": "file:packages/phone-cam-client",
+    "@wilsjs/tic-tac-toe": "file:packages/tic-tac-toe",
+    "@wilsjs/ws": "file:packages/ws"
+  },
   "devDependencies": {
     "@types/annyang": "2.6.1",
     "@types/bcrypt": "3.0.0",
     "@types/bootstrap": "4.5.0",
     "@types/cookie-parser": "1.4.2",
+    "@types/dotenv-webpack": "1.8.0",
     "@types/express": "4.17.7",
     "@types/express-jwt": "0.0.42",
     "@types/express-pino-logger": "4.0.2",
@@ -34,6 +46,8 @@
     "@types/react-router-dom": "5.1.5",
     "@types/sqlite3": "3.1.6",
     "@types/uuid": "8.0.0",
+    "@types/webpack-manifest-plugin": "2.1.0",
+    "@types/webpack-node-externals": "2.5.0",
     "@types/ws": "7.2.6",
     "@typescript-eslint/eslint-plugin": "3.7.1",
     "@typescript-eslint/parser": "3.7.1",
@@ -60,7 +74,6 @@
     "file-loader": "6.0.0",
     "html-loader": "1.1.0",
     "html-webpack-plugin": "4.3.0",
-    "io-ts": "2.2.9",
     "jest": "26.2.2",
     "jest-puppeteer": "4.4.0",
     "jquery": "3.5.1",
@@ -90,17 +103,7 @@
     "typescript": "3.9.7",
     "webpack": "4.44.1",
     "webpack-cli": "3.3.12",
-    "webpack-manifest-plugin": "2.2.0"
-  },
-  "dependencies": {
-    "@wilsjs/colyseus": "file:packages/colyseus",
-    "@wilsjs/dependencies": "file:packages/dependencies",
-    "@wilsjs/devconnector": "file:packages/devconnector",
-    "@wilsjs/monolith": "file:packages/monolith",
-    "@wilsjs/panda-portal": "file:packages/panda-portal",
-    "@wilsjs/peer": "file:packages/peer",
-    "@wilsjs/phone-cam-client": "file:packages/phone-cam-client",
-    "@wilsjs/tic-tac-toe": "file:packages/tic-tac-toe",
-    "@wilsjs/ws": "file:packages/ws"
+    "webpack-manifest-plugin": "2.2.0",
+    "webpack-node-externals": "2.5.1"
   }
 }
