@@ -79,12 +79,10 @@ export function handleListen(): void {
 
 export function handleLogout(
   req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  res: express.Response
 ): void {
   req.logout();
   res.redirect("/");
-  next();
 }
 
 export function handleMessage(this: WebSocket, data: WebSocket.Data): void {
@@ -124,60 +122,45 @@ export function handleUserDeserialization(
     .catch((err) => done(err));
 }
 
-export function logoutUser(
-  req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
-): void {
+export function logoutUser(req: express.Request, res: express.Response): void {
   req.logout();
   res.redirect("/");
-  next();
 }
 
 export function respondInternalServerError(
   _error: Error,
   _req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  res: express.Response
 ): void {
   res.status(500).json();
-  next();
 }
 
 export function respondNotFound(
   _req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  res: express.Response
 ): void {
   res.status(404).json();
-  next();
 }
 
 export function respondNoContent(
   _req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  res: express.Response
 ): void {
   res.sendStatus(204);
-  next();
 }
 
 export function respondRedirectUsers(
   _req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  res: express.Response
 ): void {
   res.redirect("/users");
-  next();
 }
 
 export async function respondUsers(
   _req: express.Request,
-  res: express.Response,
-  next: express.NextFunction
+  res: express.Response
 ): Promise<void> {
   res.json(await User.query());
-  next();
 }
 
 export function verifyCredentials(
