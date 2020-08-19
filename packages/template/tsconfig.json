@@ -16,5 +16,5 @@
     "target": "ES5"
   },
   "exclude": ["build/", "coverage/", "node_modules/"],
-  "include": ["**/*.js", "**/*.ts"]
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }
