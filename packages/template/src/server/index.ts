@@ -24,7 +24,7 @@ const StoreFactory = connectSessionKnex(expressSession);
 
 app.use(
   express.json(),
-  serveStatic(z.string().parse(ROOT), {}),
+  serveStatic(z.string().parse(ROOT)),
   helmet(),
   pinoHttp(logger),
   expressSession({

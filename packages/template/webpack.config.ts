@@ -3,10 +3,18 @@ import FaviconsWebpackPlugin from "favicons-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ManifestPlugin from "webpack-manifest-plugin";
 import path from "path";
+import webpackNodeExternals from "webpack-node-externals";
 
-export default {
+const configFile = path.join(__dirname, "tsconfig.build.json");
+const mode = "development";
+
+const resolve = {
+  extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+};
+
+const client = {
   entry: path.join(__dirname, "src", "client", "index.ts"),
-  mode: "development",
+  mode,
   module: {
     rules: [
       {
@@ -29,11 +37,12 @@ export default {
         exclude: /node_modules/,
         test: /\.tsx?$/,
         loader: "ts-loader",
-        options: { configFile: path.join(__dirname, "tsconfig.json") },
+        options: { configFile },
       },
     ],
   },
   output: {
+    filename: "client.js",
     path: path.join(__dirname, "build"),
   },
   plugins: [
@@ -47,8 +56,29 @@ export default {
     ),
     new ManifestPlugin(),
   ],
-  resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
-  },
-  stats: "verbose",
+  resolve,
 };
+
+const server = {
+  entry: path.join(__dirname, "src", "server", "index.ts"),
+  externals: [webpackNodeExternals()],
+  mode,
+  module: {
+    rules: [
+      {
+        exclude: /node_modules/,
+        test: /\.tsx?$/,
+        loader: "ts-loader",
+        options: { configFile },
+      },
+    ],
+  },
+  output: {
+    filename: "server.js",
+    path: path.join(__dirname, "build"),
+  },
+  resolve,
+  target: "node",
+};
+
+export default [client, server];
