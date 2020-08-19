@@ -13,6 +13,7 @@ export const test = {
   connection: {
     filename: ":memory:",
   },
+  useNullAsDefault: true,
   seeds: {
     directory: path.join(__dirname, "seeds"),
   },

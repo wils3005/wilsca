@@ -17,11 +17,10 @@
   "dependencies": {
     "@wilsjs/colyseus": "file:packages/colyseus",
     "@wilsjs/devconnector": "file:packages/devconnector",
-    "@wilsjs/client": "file:packages/client",
-    "@wilsjs/server": "file:packages/server",
     "@wilsjs/panda-portal": "file:packages/panda-portal",
     "@wilsjs/peer": "file:packages/peer",
     "@wilsjs/phone-cam-client": "file:packages/phone-cam-client",
+    "@wilsjs/template": "file:packages/template",
     "@wilsjs/tic-tac-toe": "file:packages/tic-tac-toe",
     "@wilsjs/ws": "file:packages/ws"
   },
@@ -92,6 +91,7 @@
     "react-dom": "16.13.1",
     "react-router-dom": "5.2.0",
     "redux": "4.0.5",
+    "serverless": "1.78.1",
     "style-loader": "1.2.1",
     "svg-inline-loader": "0.8.2",
     "ts-jest": "26.1.4",

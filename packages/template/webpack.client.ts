@@ -1,4 +1,3 @@
-import "dotenv/config";
 import DotenvWebpackPlugin from "dotenv-webpack";
 import FaviconsWebpackPlugin from "favicons-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
@@ -6,7 +5,7 @@ import ManifestPlugin from "webpack-manifest-plugin";
 import path from "path";
 
 export default {
-  entry: path.join(__dirname, "src", "index.ts"),
+  entry: path.join(__dirname, "src", "client", "index.ts"),
   mode: "development",
   module: {
     rules: [
@@ -30,7 +29,7 @@ export default {
         exclude: /node_modules/,
         test: /\.tsx?$/,
         loader: "ts-loader",
-        options: { configFile: path.join(__dirname, "tsconfig.build.json") },
+        options: { configFile: path.join(__dirname, "tsconfig.json") },
       },
     ],
   },

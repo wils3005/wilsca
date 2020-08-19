@@ -1,9 +1,8 @@
-import "dotenv/config";
 import path from "path";
 import webpackNodeExternals from "webpack-node-externals";
 
 export default {
-  entry: path.join(__dirname, "src", "index.ts"),
+  entry: path.join(__dirname, "src", "server", "index.ts"),
   externals: [webpackNodeExternals()],
   mode: "development",
   module: {
@@ -12,7 +11,7 @@ export default {
         exclude: /node_modules/,
         test: /\.tsx?$/,
         loader: "ts-loader",
-        options: { configFile: path.join(__dirname, "tsconfig.build.json") },
+        options: { configFile: path.join(__dirname, "tsconfig.json") },
       },
     ],
   },
