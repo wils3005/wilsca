@@ -1,6 +1,6 @@
 import path from "path";
 
-export const development = {
+const development = {
   client: "sqlite3",
   connection: {
     filename: "development.sqlite3",
@@ -8,7 +8,7 @@ export const development = {
   useNullAsDefault: true,
 };
 
-export const test = {
+const test = {
   client: "sqlite3",
   connection: {
     filename: ":memory:",
@@ -19,7 +19,7 @@ export const test = {
   },
 };
 
-export const staging = {
+const staging = {
   client: "sqlite3",
   connection: {
     filename: "staging.sqlite3",
@@ -27,10 +27,12 @@ export const staging = {
   useNullAsDefault: true,
 };
 
-export const production = {
+const production = {
   client: "sqlite3",
   connection: {
     filename: "production.sqlite3",
   },
   useNullAsDefault: true,
 };
+
+export { development, test, staging, production };

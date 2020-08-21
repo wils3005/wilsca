@@ -2,19 +2,19 @@
   "name": "@wilsjs/template",
   "private": true,
   "scripts": {
-    "build": "rm -rf build/ && npm run webpack --mode production",
+    "build": "rm -rf build/ && npm run webpack -- --mode production",
     "check": "npx npm-check --update-all",
+    "docker": "docker build --tag wilsjs-template .",
     "eslint": "npx eslint .",
     "eslint-fix": "npx eslint --fix .",
     "jest": "npx jest --forceExit",
-    "knex": "npm run ts-node -- node_modules/.bin/knex --knexfile db/knexfile.ts",
+    "knex": "node --require dotenv/config --require ts-node/register node_modules/.bin/knex --knexfile knexfile.ts",
     "knex-migrate": "npm run knex -- migrate:latest",
     "knex-seed": "npm run knex -- seed:run",
     "prettier": "npx prettier --list-different .",
     "prettier-write": "npx prettier --write .",
     "start": "npx ts-node-dev --require dotenv/config --respawn --transpile-only src/server/index.ts",
-    "ts-node": "npx ts-node --require dotenv/config",
-    "webpack": "npm run ts-node -- node_modules/.bin/webpack"
+    "webpack": "node --require dotenv/config --require ts-node/register node_modules/.bin/webpack"
   },
   "dependencies": {
     "aws-sdk": "2.736.0",
