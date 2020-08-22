@@ -5,9 +5,8 @@ import "popper.js";
 import App from "./App";
 import ReactDOM from "react-dom";
 
-const { PUBLIC_URL, WEBSOCKET_URL } = process.env;
-const { hostname } = window.location;
-const webSocket = new WebSocket(String(WEBSOCKET_URL));
+const { host, hostname } = window.location;
+const webSocket = new WebSocket(`ws://${host}`);
 
 const isLocalhost = Boolean(
   hostname === "localhost" ||
@@ -36,14 +35,15 @@ export function handleOpen(this: WebSocket, event: Event): void {
 }
 
 export function register(config?: IConfig): void {
-  if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
-    const publicUrl = new URL(String(PUBLIC_URL), window.location.href);
+  if ("serviceWorker" in navigator) {
+    const publicUrl = new URL(host, window.location.href);
+
     if (publicUrl.origin !== window.location.origin) {
       return;
     }
 
     window.addEventListener("load", () => {
-      const swUrl = `${String(PUBLIC_URL)}/service-worker.js`;
+      const swUrl = `${host}/service-worker.js`;
 
       if (isLocalhost) {
         checkValidServiceWorker(swUrl, config);

@@ -16,6 +16,7 @@ import pinoHttp from "pino-http";
 import serveStatic from "serve-static";
 
 const { PORT, ROOT, SECRET } = process.env;
+
 const app = express();
 const port = z.number().parse(Number(PORT));
 const server = app.listen(port, handleListen);

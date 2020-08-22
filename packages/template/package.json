@@ -2,9 +2,8 @@
   "name": "@wilsjs/template",
   "private": true,
   "scripts": {
-    "build": "rm -rf build/ && npm run webpack -- --mode production",
+    "build": "npm run webpack -- --mode production",
     "check": "npx npm-check --update-all",
-    "docker": "docker build --tag wilsjs-template .",
     "eslint": "npx eslint .",
     "eslint-fix": "npx eslint --fix .",
     "jest": "npx jest --forceExit",
@@ -14,7 +13,7 @@
     "prettier": "npx prettier --list-different .",
     "prettier-write": "npx prettier --write .",
     "start": "npx ts-node-dev --require dotenv/config --respawn --transpile-only src/server/index.ts",
-    "webpack": "node --require dotenv/config --require ts-node/register node_modules/.bin/webpack"
+    "webpack": "node --require ts-node/register node_modules/.bin/webpack"
   },
   "dependencies": {
     "aws-sdk": "2.736.0",
@@ -38,10 +37,10 @@
     "@types/bcrypt": "3.0.0",
     "@types/bootstrap": "4.5.0",
     "@types/cookie-parser": "1.4.2",
-    "@types/dotenv-webpack": "1.8.0",
     "@types/express": "4.17.7",
     "@types/express-pino-logger": "4.0.2",
     "@types/express-session": "1.17.0",
+    "@types/favicons-webpack-plugin": "1.0.0",
     "@types/jest": "26.0.10",
     "@types/node": "14.6.0",
     "@types/passport": "1.0.4",
@@ -60,7 +59,6 @@
     "chartjs": "0.3.24",
     "css-loader": "4.2.1",
     "dotenv": "8.2.0",
-    "dotenv-webpack": "2.0.0",
     "eslint": "7.7.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-import": "2.22.0",
