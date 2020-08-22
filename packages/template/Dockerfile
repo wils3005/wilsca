@@ -4,7 +4,7 @@ COPY package.json package-lock.json ./
 RUN npm ci
 COPY src/ ./src/
 COPY tsconfig.json tsconfig.build.json webpack.config.ts ./
-RUN npx webpack --mode production
+RUN npm run build
 RUN npm prune --production
 
 FROM node:lts-alpine
