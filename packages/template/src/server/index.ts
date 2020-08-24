@@ -13,23 +13,24 @@ import net from "net";
 import passport from "passport";
 import passportLocal from "passport-local";
 import pinoHttp from "pino-http";
-import serveStatic from "serve-static";
 
 const { PORT, ROOT, SECRET } = process.env;
+const port = z.number().parse(Number(PORT));
+const root = z.string().parse(ROOT);
+const secret = z.string().parse(SECRET);
 
 const app = express();
-const port = z.number().parse(Number(PORT));
 const server = app.listen(port, handleListen);
 const webSocketServer = new WebSocket.Server({ server });
 const StoreFactory = connectSessionKnex(expressSession);
 
 app.use(
   express.json(),
-  serveStatic(z.string().parse(ROOT)),
+  express.static(root),
   helmet(),
   pinoHttp(logger),
   expressSession({
-    secret: z.string().parse(SECRET),
+    secret,
     resave: false,
     saveUninitialized: false,
     store: new StoreFactory({

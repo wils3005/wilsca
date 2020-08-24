@@ -1,12 +1,7 @@
 {
   "name": "@wilsjs/root",
   "private": true,
-  "scripts": {
-    "lerna-build": "npx lerna run build",
-    "lerna-check": "npx lerna run check && npm run check",
-    "lerna-ci": "npx lerna exec 'npm ci' && npm ci",
-    "lerna-install": "npx lerna exec 'npm install' && npm install"
-  },
+  "scripts": {},
   "dependencies": {
     "@wilsjs/colyseus": "file:packages/colyseus",
     "@wilsjs/devconnector": "file:packages/devconnector",
@@ -18,7 +13,7 @@
     "@wilsjs/ws": "file:packages/ws"
   },
   "devDependencies": {
-    "lerna": "3.22.1",
-    "npm-check": "5.9.2"
+    "npm-check": "5.9.2",
+    "pnpm": "5.5.3"
   }
 }
