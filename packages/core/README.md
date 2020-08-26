@@ -1,4 +1,4 @@
-# @wilsjs/app
+# @wilsjs/core
 
 ## manual packages
 
@@ -30,13 +30,13 @@ nodejs-12.15.0-r1
 #!/sbin/openrc-run
 # /etc/init.d/app
 
-name="app"
+name="wilsjs-core"
 description="todo"
 
-command="app"
+command="wilsjs-core"
 command_background="true"
 command_user="alpine"
-pidfile="/var/run/app.pid"
+pidfile="/var/run/wilsjs-core.pid"
 ```
 
 ```sh
@@ -48,7 +48,7 @@ pidfile="/var/run/app.pid"
 
 ```sh
 #!/bin/sh
-# /usr/local/bin/app
+# /usr/local/bin/wilsjs-core
 
 cd /home/alpine
 node --require dotenv/config server.js

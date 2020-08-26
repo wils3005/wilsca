@@ -13,7 +13,7 @@ const webSocket = new WebSocket(`${wsProtocol}//${host}`);
 webSocket.addEventListener("open", () => console.info("WEBSOCKET OPEN"));
 webSocket.addEventListener("message", handleMessage);
 
-Object.assign(globalThis, say);
+Object.assign(globalThis, { say });
 
 export default webSocket;
 

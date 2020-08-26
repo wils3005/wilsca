@@ -46,7 +46,7 @@ devDependencies:
   eslint-plugin-import: 2.22.0_eslint@7.7.0
   eslint-plugin-jest: 23.20.0_eslint@7.7.0+typescript@4.0.2
   eslint-plugin-jsx-a11y: 6.3.1_eslint@7.7.0
-  eslint-plugin-prettier: 3.1.4_eslint@7.7.0+prettier@2.1.0
+  eslint-plugin-prettier: 3.1.4_eslint@7.7.0+prettier@2.1.1
   eslint-plugin-react: 7.20.6_eslint@7.7.0
   eslint-plugin-react-hooks: 4.1.0_eslint@7.7.0
   eslint-plugin-tsdoc: 0.2.6
@@ -61,7 +61,7 @@ devDependencies:
   pino-pretty: 4.1.0
   pnpm: 5.5.3
   popper.js: 1.16.1
-  prettier: 2.1.0
+  prettier: 2.1.1
   react: 16.13.1
   react-bootstrap: 1.3.0_react-dom@16.13.1+react@16.13.1
   react-dom: 16.13.1_react@16.13.1
@@ -69,7 +69,7 @@ devDependencies:
   redux: 4.0.5
   style-loader: 1.2.1_webpack@4.44.1
   svg-inline-loader: 0.8.2
-  ts-jest: 26.2.0_jest@26.4.2+typescript@4.0.2
+  ts-jest: 26.3.0_jest@26.4.2+typescript@4.0.2
   ts-loader: 8.0.3_typescript@4.0.2
   ts-node: 9.0.0_typescript@4.0.2
   ts-node-dev: 1.0.0-pre.58_typescript@4.0.2
@@ -3889,10 +3889,10 @@ packages:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7
     resolution:
       integrity: sha512-i1S+P+c3HOlBJzMFORRbC58tHa65Kbo8b52/TwCwSKLohwvpfT5rm2GjGWzOHTEuq4xxf2aRlHHTtmExDQOP+g==
-  /eslint-plugin-prettier/3.1.4_eslint@7.7.0+prettier@2.1.0:
+  /eslint-plugin-prettier/3.1.4_eslint@7.7.0+prettier@2.1.1:
     dependencies:
       eslint: 7.7.0
-      prettier: 2.1.0
+      prettier: 2.1.1
       prettier-linter-helpers: 1.0.0
     dev: true
     engines:
@@ -8311,13 +8311,13 @@ packages:
       node: '>=6.0.0'
     resolution:
       integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==
-  /prettier/2.1.0:
+  /prettier/2.1.1:
     dev: true
     engines:
       node: '>=10.13.0'
     hasBin: true
     resolution:
-      integrity: sha512-lz28cCbA1cDFHVuY8vvj6QuqOwIpyIfPUYkSl8AZ/vxH8qBXMMjE2knfLHCrZCmUsK/H1bg1P0tOo0dJkTJHvw==
+      integrity: sha512-9bY+5ZWCfqj3ghYBLxApy2zf6m+NJo5GzmLTpr9FsApsfjriNnS2dahWReHMi7qNPhhHl9SYHJs2cHZLgexNIw==
   /pretty-error/2.1.1:
     dependencies:
       renderkid: 2.0.3
@@ -10189,7 +10189,7 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-WIeWa7WCpFA6QetST301ARgVphM=
-  /ts-jest/26.2.0_jest@26.4.2+typescript@4.0.2:
+  /ts-jest/26.3.0_jest@26.4.2+typescript@4.0.2:
     dependencies:
       '@types/jest': 26.0.10
       bs-logger: 0.2.6
@@ -10210,9 +10210,9 @@ packages:
     hasBin: true
     peerDependencies:
       jest: '>=26 <27'
-      typescript: '>=3.8 <4.0'
+      typescript: '>=3.8 <5.0'
     resolution:
-      integrity: sha512-9+y2qwzXdAImgLSYLXAb/Rhq9+K4rbt0417b8ai987V60g2uoNWBBmMkYgutI7D8Zhu+IbCSHbBtrHxB9d7xyA==
+      integrity: sha512-Jq2uKfx6bPd9+JDpZNMBJMdMQUC3sJ08acISj8NXlVgR2d5OqslEHOR2KHMgwymu8h50+lKIm0m0xj/ioYdW2Q==
   /ts-loader/8.0.3_typescript@4.0.2:
     dependencies:
       chalk: 2.4.2
@@ -11214,7 +11214,7 @@ specifiers:
   pino-pretty: 4.1.0
   pnpm: 5.5.3
   popper.js: 1.16.1
-  prettier: 2.1.0
+  prettier: 2.1.1
   react: 16.13.1
   react-bootstrap: 1.3.0
   react-dom: 16.13.1
@@ -11223,7 +11223,7 @@ specifiers:
   sqlite3: 5.0.0
   style-loader: 1.2.1
   svg-inline-loader: 0.8.2
-  ts-jest: 26.2.0
+  ts-jest: 26.3.0
   ts-loader: 8.0.3
   ts-node: 9.0.0
   ts-node-dev: 1.0.0-pre.58

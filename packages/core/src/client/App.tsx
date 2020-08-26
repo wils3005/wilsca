@@ -14,10 +14,7 @@ import {
 import React from "react";
 import ReactDOM from "react-dom";
 
-const element = App();
-const container = document.querySelector("#root");
-
-ReactDOM.render(element, container);
+ReactDOM.render(App(), document.querySelector("#root"));
 
 export default function App(): JSX.Element {
   const date = new Date();
@@ -59,15 +56,15 @@ export default function App(): JSX.Element {
         <Row>
           <Col>
             <Card>
-              <Card.Header>Card Header</Card.Header>
+              <Card.Header>Card.Header</Card.Header>
               <Card.Body>
-                <Card.Title>Card Title</Card.Title>
-                <Card.Subtitle>Card Subtitle</Card.Subtitle>
-                <Card.Text>Card Text</Card.Text>
-                <Card.Link href="#">Card Link</Card.Link>
+                <Card.Title>Card.Title</Card.Title>
+                <Card.Subtitle>Card.Subtitle</Card.Subtitle>
+                <Card.Text>Card.Text</Card.Text>
+                <Card.Link href="#">Card.Link</Card.Link>
               </Card.Body>
               <Card.Footer>
-                Card Footer<span className="float-right">{utcString}</span>
+                Card.Footer<span className="float-right">{utcString}</span>
               </Card.Footer>
             </Card>
           </Col>

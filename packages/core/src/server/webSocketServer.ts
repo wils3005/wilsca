@@ -15,8 +15,6 @@ export function handleConnection(socket: WebSocket): void {
 
 export function handleMessage(this: WebSocket, data: WebSocket.Data): void {
   for (const client of webSocketServer.clients) {
-    if (client == this) continue;
-
     client.send(String(data));
   }
 }
