@@ -9,6 +9,7 @@ import http from "http";
 import passport from "passport";
 import passportLocal from "passport-local";
 import pinoHttp from "pino-http";
+import process from "process";
 
 const { HOST, PORT, ROOT, SECRET } = process.env;
 const host = z.string().parse(HOST);
@@ -20,8 +21,13 @@ const app = express();
 
 const StoreFactory = connectSessionKnex(expressSession);
 
-const server: http.Server = app.listen(port, () => {
+const httpServer: http.Server = app.listen(port, () => {
   logger.info(`Listening at http://${host}:${port}`);
+});
+
+process.on("SIGINT", () => {
+  logger.info("Shutting down...");
+  process.exit(0);
 });
 
 app.use(
@@ -61,6 +67,8 @@ app.use(respondNotFound, respondInternalServerError);
 passport.use(new passportLocal.Strategy(verifyCredentials));
 passport.serializeUser(handleUserSerialization);
 passport.deserializeUser(handleUserDeserialization);
+
+export default httpServer;
 
 export function handleLogout(
   req: express.Request,
@@ -153,5 +161,3 @@ export function verifyCredentials(
       done(e);
     });
 }
-
-export default server;
