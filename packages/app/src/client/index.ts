@@ -2,11 +2,19 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "jquery";
 import "popper.js";
+import * as z from "zod";
 import App from "./App";
 import ReactDOM from "react-dom";
 
-const { host, hostname } = window.location;
-const webSocket = new WebSocket(`ws://${host}`);
+const { host, hostname, protocol } = window.location;
+
+const protocolMap = new Map([
+  ["http:", "ws:"],
+  ["https:", "wss:"],
+]);
+
+const wsProtocol = z.string().parse(protocolMap.get(protocol));
+const webSocket = new WebSocket(`${wsProtocol}//${host}`);
 
 const isLocalhost = Boolean(
   hostname === "localhost" ||

@@ -14,13 +14,18 @@ import passport from "passport";
 import passportLocal from "passport-local";
 import pinoHttp from "pino-http";
 
-const { PORT, ROOT, SECRET } = process.env;
+const { HOST, PORT, ROOT, SECRET } = process.env;
+const host = z.string().parse(HOST);
 const port = z.number().parse(Number(PORT));
 const root = z.string().parse(ROOT);
 const secret = z.string().parse(SECRET);
 
 const app = express();
-const server = app.listen(port);
+
+const server = app.listen(port, () => {
+  logger.info(`Listening at http://${host}:${port}`);
+});
+
 const webSocketServer = new WebSocket.Server({ server });
 const StoreFactory = connectSessionKnex(expressSession);
 
