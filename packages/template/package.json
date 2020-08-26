@@ -12,7 +12,7 @@
     "knex-seed": "npm run knex -- seed:run",
     "prettier": "npx prettier --list-different .",
     "prettier-write": "npx prettier --write .",
-    "start": "npx ts-node-dev --require dotenv/config --respawn --transpile-only src/server/index.ts"
+    "server": "npx ts-node-dev --require dotenv/config --respawn --transpile-only src/server/index.ts"
   },
   "dependencies": {
     "aws-sdk": "2.739.0",
