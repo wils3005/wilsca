@@ -2,8 +2,8 @@
   "bail": true,
   "collectCoverage": true,
   "collectCoverageFrom": [
-    "packages/**/src/**/*.{js,jsx,ts,tsx}",
-    "!packages/**/src/**/*.{d,test}.{js,jsx,ts,tsx}"
+    "src/**/*.{js,jsx,ts,tsx}",
+    "!src/**/*.{d,test}.{js,jsx,ts,tsx}"
   ],
   "coverageDirectory": "coverage/",
   "coverageReporters": ["html", "text"],

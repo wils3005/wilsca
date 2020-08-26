@@ -2,7 +2,7 @@ import * as z from "zod";
 import AWS from "aws-sdk";
 import Knex from "knex";
 import fs from "fs";
-import logger from "./logger";
+import { logger } from ".";
 import path from "path";
 
 const s3 = new AWS.S3({ apiVersion: "latest" });
@@ -41,7 +41,7 @@ export function main(): void {
     // };
 
     // logger.info(await s3.putObject(putParams).promise());
-  } catch (err) {
-    logger.error(err);
+  } catch (e) {
+    logger.error(e);
   }
 }

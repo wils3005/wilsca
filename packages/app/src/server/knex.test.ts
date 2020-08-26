@@ -1,4 +1,4 @@
-import knex from "./knex";
+import { knex } from ".";
 
 describe("knex", () => {
   it("is defined", () => {
