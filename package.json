@@ -10,7 +10,8 @@
     "@wilsjs/phone-cam-client": "file:packages/phone-cam-client",
     "@wilsjs/template": "file:packages/template",
     "@wilsjs/tic-tac-toe": "file:packages/tic-tac-toe",
-    "@wilsjs/ws": "file:packages/ws"
+    "@wilsjs/ws": "file:packages/ws",
+    "peerjs": "1.3.1"
   },
   "devDependencies": {
     "npm-check": "5.9.2",

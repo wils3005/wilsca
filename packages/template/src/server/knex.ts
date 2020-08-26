@@ -1,11 +1,9 @@
 import * as z from "zod";
 import AWS from "aws-sdk";
 import Knex from "knex";
-import childProcess from "child_process";
 import fs from "fs";
 import logger from "./logger";
 import path from "path";
-import util from "util";
 
 const s3 = new AWS.S3({ apiVersion: "latest" });
 const Bucket = "wilsjs";
@@ -19,13 +17,12 @@ const knexConfig: Knex.Config = {
 };
 
 const knex = Knex(knexConfig);
-const exec = util.promisify(childProcess.exec);
 
-void main();
+// main();
 
 export default knex;
 
-export async function main(): Promise<void> {
+export function main(): void {
   try {
     const getParams = {
       Bucket,
@@ -35,15 +32,15 @@ export async function main(): Promise<void> {
     const s3Stream = s3.getObject(getParams).createReadStream();
     const fileStream = fs.createWriteStream(filename);
     s3Stream.pipe(fileStream);
-    logger.info(await exec("npm run knex-migrate"));
+    // logger.info(await knex.migrate.latest());
 
-    const putParams = {
-      Body: fs.createReadStream(filename),
-      Bucket,
-      Key,
-    };
+    // const putParams = {
+    //   Body: fs.createReadStream(filename),
+    //   Bucket,
+    //   Key,
+    // };
 
-    logger.info(await s3.putObject(putParams).promise());
+    // logger.info(await s3.putObject(putParams).promise());
   } catch (err) {
     logger.error(err);
   }

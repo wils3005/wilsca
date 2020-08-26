@@ -20,7 +20,7 @@ const root = z.string().parse(ROOT);
 const secret = z.string().parse(SECRET);
 
 const app = express();
-const server = app.listen(port, handleListen);
+const server = app.listen(port);
 const webSocketServer = new WebSocket.Server({ server });
 const StoreFactory = connectSessionKnex(expressSession);
 
@@ -73,10 +73,6 @@ export function handleConnection(socket: WebSocket): void {
 
 export function handleError(this: unknown, error: Error): void {
   logger.error({ this: this, error });
-}
-
-export function handleListen(): void {
-  logger.info(`Listening at http://localhost:${port}`);
 }
 
 export function handleLogout(

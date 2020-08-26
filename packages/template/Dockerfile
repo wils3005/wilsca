@@ -1,14 +1,21 @@
-FROM node:lts-alpine AS build
+FROM node:lts-alpine
+RUN apk --no-cache add openssh=8.1_p1-r0 rsync=3.1.3-r2
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY package.json pnpm-lock.yaml ./
+RUN npx pnpm install
 COPY src/ ./src/
 COPY tsconfig.json tsconfig.build.json webpack.config.ts ./
-RUN npm run build
-RUN npm prune --production
+RUN npx webpack --mode production
+RUN npx pnpm prune --production
+COPY wilsca.pem ./
 
-FROM node:lts-alpine
-WORKDIR /app
-COPY --from=build /app/node_modules/ ./node_modules/
-COPY --from=build /app/build/ ./
-CMD ["node", "server.js"]
+RUN rsync \
+  --compress \
+  --recursive \
+  --rsh "ssh -i wilsca.pem" \
+  --verbose \
+  /app/node_modules \
+  /app/build/* \
+  alpine@wils.ca:/home/alpine/
+
+CMD ["true"]
