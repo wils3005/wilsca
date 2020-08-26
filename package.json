@@ -8,7 +8,7 @@
     "@wilsjs/panda-portal": "file:packages/panda-portal",
     "@wilsjs/peer": "file:packages/peer",
     "@wilsjs/phone-cam-client": "file:packages/phone-cam-client",
-    "@wilsjs/template": "file:packages/template",
+    "@wilsjs/app": "file:packages/app",
     "@wilsjs/tic-tac-toe": "file:packages/tic-tac-toe",
     "@wilsjs/ws": "file:packages/ws",
     "peerjs": "1.3.1"

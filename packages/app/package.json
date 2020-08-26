@@ -1,8 +1,8 @@
 {
-  "name": "@wilsjs/template",
+  "name": "@wilsjs/app",
   "private": true,
   "scripts": {
-    "build": "time docker build -t wilsjs-template .",
+    "build": "time docker build -t wilsjs-app .",
     "check": "npx npm-check --update-all",
     "eslint": "npx eslint .",
     "eslint-fix": "npx eslint --fix .",

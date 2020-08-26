@@ -1,4 +1,4 @@
-# @wilsjs/template
+# @wilsjs/app
 
 ## manual packages
 
