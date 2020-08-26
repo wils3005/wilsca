@@ -11,11 +11,12 @@ COPY wilsca.pem ./
 
 RUN rsync \
   --compress \
+  --links \
   --recursive \
-  --rsh "ssh -i wilsca.pem" \
+  --rsh "ssh -i /app/wilsca.pem -o StrictHostKeyChecking=accept-new" \
   --verbose \
   /app/node_modules \
   /app/build/* \
   alpine@wils.ca:/home/alpine/
 
-CMD ["true"]
+ENTRYPOINT ["/bin/sh"]
