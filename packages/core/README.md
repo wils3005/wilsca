@@ -5,6 +5,7 @@
 - certbot-1.0.0-r0
 - certbot-nginx-1.0.0-r0
 - htop-2.2.0-r0
+- inotify-tools-3.20.1-r1
 - nginx-1.16.1-r6
 - nodejs-12.15.0-r1
 
@@ -28,15 +29,20 @@ nodejs-12.15.0-r1
 
 ```sh
 #!/sbin/openrc-run
-# /etc/init.d/app
+# /etc/init.d/wilsjs-core
 
 name="wilsjs-core"
 description="todo"
 
-command="wilsjs-core"
-command_background="true"
+command="/usr/bin/node"
+command_args="--require dotenv/config server.js"
 command_user="alpine"
-pidfile="/var/run/wilsjs-core.pid"
+supervisor="supervise-daemon"
+supervise_daemon_args="--chdir '/home/alpine'"
+
+start_post() {
+  (inotifywait --event modify /home/alpine/server.js && rc-service wilsjs-core restart) &
+}
 ```
 
 ```sh
@@ -44,14 +50,6 @@ pidfile="/var/run/wilsjs-core.pid"
 # /etc/periodic/weekly/certbot-renew.sh
 
 /usr/bin/certbot renew --nginx --post-hook "rc-service nginx restart"
-```
-
-```sh
-#!/bin/sh
-# /usr/local/bin/wilsjs-core
-
-cd /home/alpine
-node --require dotenv/config server.js
 ```
 
 ```sh

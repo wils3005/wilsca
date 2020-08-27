@@ -5,21 +5,20 @@ import {
   Container,
   Form,
   FormControl,
+  ListGroup,
   Nav,
   NavDropdown,
   Navbar,
   Row,
 } from "react-bootstrap";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
+import { webSocket } from ".";
 
-ReactDOM.render(App(), document.querySelector("#root"));
+ReactDOM.render(<App />, document.querySelector("#root"));
 
 export default function App(): JSX.Element {
-  const date = new Date();
-  const utcString = date.toUTCString();
-
   return (
     <React.StrictMode>
       <Container>
@@ -58,18 +57,45 @@ export default function App(): JSX.Element {
             <Card>
               <Card.Header>Card.Header</Card.Header>
               <Card.Body>
-                <Card.Title>Card.Title</Card.Title>
-                <Card.Subtitle>Card.Subtitle</Card.Subtitle>
-                <Card.Text>Card.Text</Card.Text>
-                <Card.Link href="#">Card.Link</Card.Link>
+                <MyListGroup />
               </Card.Body>
-              <Card.Footer>
-                Card.Footer<span className="float-right">{utcString}</span>
-              </Card.Footer>
+              <Card.Footer>Card.Footer</Card.Footer>
             </Card>
           </Col>
         </Row>
       </Container>
     </React.StrictMode>
+  );
+}
+
+export function MyListGroup(): JSX.Element {
+  const [messages, setMessage] = useState<string[]>([]);
+
+  const handleMessage = (eventMessage: MessageEvent) => {
+    const msg = String(eventMessage.data);
+    setMessage(messages.concat(msg));
+  };
+
+  const style: Record<string, unknown> = { overflowY: "auto" };
+
+  console.log({ webSocket });
+
+  useEffect(() => {
+    console.log({ webSocket });
+    if (!(webSocket instanceof WebSocket)) return;
+
+    webSocket.addEventListener("message", handleMessage);
+
+    return () => {
+      webSocket.removeEventListener("message", handleMessage);
+    };
+  });
+
+  return (
+    <ListGroup style={style}>
+      {messages.map((message, index) => (
+        <ListGroup.Item key={index}>{message}</ListGroup.Item>
+      ))}
+    </ListGroup>
   );
 }
