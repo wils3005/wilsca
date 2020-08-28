@@ -1,12 +1,12 @@
 import * as z from "zod";
-import AWS from "aws-sdk";
+// import AWS from "aws-sdk";
 import Knex from "knex";
-import fs from "fs";
+// import fs from "fs";
 import { logger } from ".";
 import path from "path";
 
-const s3 = new AWS.S3({ apiVersion: "latest" });
-const Bucket = "wilsjs";
+// const s3 = new AWS.S3({ apiVersion: "latest" });
+// const Bucket = "wilsjs";
 const Key = `${z.string().parse(process.env.NODE_ENV)}.sqlite3`;
 const filename = path.join(process.cwd(), Key);
 
@@ -18,20 +18,22 @@ const knexConfig: Knex.Config = {
 
 const knex = Knex(knexConfig);
 
-// main();
+// void main();
 
 export default knex;
 
-export function main(): void {
+export async function main(): Promise<void> {
   try {
-    const getParams = {
-      Bucket,
-      Key,
-    };
+    await knex.raw("PRAGMA journal_mode = WAL");
 
-    const s3Stream = s3.getObject(getParams).createReadStream();
-    const fileStream = fs.createWriteStream(filename);
-    s3Stream.pipe(fileStream);
+    // const getParams = {
+    //   Bucket,
+    //   Key,
+    // };
+
+    // const s3Stream = s3.getObject(getParams).createReadStream();
+    // const fileStream = fs.createWriteStream(filename);
+    // s3Stream.pipe(fileStream);
     // logger.info(await knex.migrate.latest());
 
     // const putParams = {

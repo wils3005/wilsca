@@ -25,11 +25,6 @@ const httpServer: http.Server = app.listen(port, () => {
   logger.info(`Listening at http://${host}:${port}`);
 });
 
-process.on("SIGINT", () => {
-  logger.info("Shutting down...");
-  process.exit(0);
-});
-
 app.use(
   express.json(),
   express.static(root),
@@ -47,6 +42,20 @@ app.use(
   passport.initialize(),
   passport.session()
 );
+
+app.get("/debug/knex", async (_req, res) => {
+  const body: unknown = await knex.raw(
+    "SELECT * FROM users ORDER BY random() LIMIT 1;"
+  );
+
+  res.status(200).json(body);
+});
+
+app.get("/debug/objection", async (_req, res) => {
+  const body = await User.query().orderByRaw("random()").limit(1);
+
+  res.status(200).json(body);
+});
 
 app.get("/healthz", respondNoContent);
 
