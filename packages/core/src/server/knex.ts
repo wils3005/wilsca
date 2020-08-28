@@ -1,6 +1,7 @@
 import * as z from "zod";
 // import AWS from "aws-sdk";
 import Knex from "knex";
+import Objection from "objection";
 // import fs from "fs";
 import { logger } from ".";
 import path from "path";
@@ -18,7 +19,9 @@ const knexConfig: Knex.Config = {
 
 const knex = Knex(knexConfig);
 
-// void main();
+Objection.Model.knex(knex);
+
+void main();
 
 export default knex;
 

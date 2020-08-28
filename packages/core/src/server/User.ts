@@ -1,7 +1,4 @@
 import Objection from "objection";
-import { knex } from ".";
-
-Objection.Model.knex(knex);
 
 class User extends Objection.Model {
   id?: string;
