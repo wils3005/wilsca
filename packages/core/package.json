@@ -8,7 +8,7 @@
     "eslint": "npx eslint .",
     "eslint-fix": "npx eslint --fix .",
     "jest": "npx jest --forceExit",
-    "knex": "node --require dotenv/config --require ts-node/register node_modules/.bin/knex --knexfile knexfile.ts",
+    "knex": "node --require dotenv/config --require ts-node/register node_modules/knex/bin/cli.js --knexfile knexfile.ts",
     "knex-migrate": "npm run knex -- migrate:latest",
     "knex-seed": "npm run knex -- seed:run",
     "prettier": "npx prettier --list-different .",

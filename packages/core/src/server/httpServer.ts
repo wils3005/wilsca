@@ -62,8 +62,8 @@ app.post(
 
 app.get("/logout", logoutUser);
 app.get("/users", respondUsers);
-app.use(respondNotFound, respondInternalServerError);
 
+app.use(respondNotFound, respondInternalServerError);
 passport.use(new passportLocal.Strategy(verifyCredentials));
 passport.serializeUser(handleUserSerialization);
 passport.deserializeUser(handleUserDeserialization);
