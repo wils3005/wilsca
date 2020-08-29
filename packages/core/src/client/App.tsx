@@ -16,7 +16,9 @@ import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import { webSocket } from ".";
 
-ReactDOM.render(<App />, document.querySelector("#root"));
+window.addEventListener("load", () => {
+  ReactDOM.render(<App />, document.getElementById("root"));
+});
 
 export default function App(): JSX.Element {
   return (

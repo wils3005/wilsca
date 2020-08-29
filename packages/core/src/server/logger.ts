@@ -1,10 +1,10 @@
-import * as z from "zod";
+// import * as z from "zod";
 import pino from "pino";
 
-const loggerOptions = z
-  .record(z.unknown())
-  .parse(JSON.parse(z.string().parse(process.env.PINO_OPTIONS)));
+// const loggerOptions = z
+//   .record(z.unknown())
+//   .parse(JSON.parse(z.string().parse(process.env.PINO_OPTIONS)));
 
-const logger = pino(loggerOptions);
+const logger = pino();
 
 export default logger;

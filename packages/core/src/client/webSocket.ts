@@ -1,5 +1,3 @@
-import * as z from "zod";
-
 const { host, protocol } = window.location;
 
 const protocolMap = new Map([
@@ -7,7 +5,7 @@ const protocolMap = new Map([
   ["https:", "wss:"],
 ]);
 
-const wsProtocol = z.string().parse(protocolMap.get(protocol));
+const wsProtocol = String(protocolMap.get(protocol));
 let webSocket = createWebSocket();
 let webSocketErrors = 0;
 const maxErrors = 10;

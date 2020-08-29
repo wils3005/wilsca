@@ -1,16 +1,11 @@
-const { host, hostname } = window.location;
+const { host, protocol } = window.location;
 
-const isLocalhost = Boolean(
-  hostname === "localhost" ||
-    hostname === "[::1]" ||
-    /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/.exec(hostname)
-);
+const isLocalhost = Boolean(/http:/.exec(protocol));
+
 interface IConfig {
   onSuccess?: (registration: ServiceWorkerRegistration) => void;
   onUpdate?: (registration: ServiceWorkerRegistration) => void;
 }
-
-unregister();
 
 export function handleError(error: Error): void {
   console.error({ error });
