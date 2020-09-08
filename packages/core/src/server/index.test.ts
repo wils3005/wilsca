@@ -1,7 +1,9 @@
+import "mocha";
 import * as server from ".";
+import assert from "assert";
 
 describe("server", () => {
   it("is defined", () => {
-    expect(server).toBeDefined();
+    assert(server);
   });
 });

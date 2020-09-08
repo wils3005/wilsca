@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "module": "CommonJS",
+    "outDir": "build/server"
+  },
+  "include": ["src/server/"],
+  "exclude": ["src/server/**/*.test.*"]
+}

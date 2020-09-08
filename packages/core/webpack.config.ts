@@ -1,27 +1,23 @@
 import FaviconsWebpackPlugin from "favicons-webpack-plugin";
-import HtmlWebpackPlugin from "html-webpack-plugin";
 import ManifestPlugin from "webpack-manifest-plugin";
 import path from "path";
 import webpackNodeExternals from "webpack-node-externals";
 
-const tsRule = {
-  exclude: /node_modules/,
-  test: /\.tsx?$/,
-  loader: "ts-loader",
-  options: {
-    transpileOnly: true,
-    configFile: path.join(__dirname, "tsconfig.build.json"),
+const src = path.join(__dirname, "src");
+
+export default {
+  entry: {
+    client: path.join(src, "client.ts"),
+    serviceWorker: path.join(src, "serviceWorker.ts"),
+    server: path.join(src, "server.ts"),
   },
-};
-
-const resolve = {
-  extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
-};
-
-const client = {
-  entry: path.join(__dirname, "src", "client", "index.ts"),
+  externals: [webpackNodeExternals()],
   module: {
     rules: [
+      {
+        test: /\.html$/,
+        use: ["html-loader"],
+      },
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
@@ -38,38 +34,35 @@ const client = {
         test: /\.svg$/,
         loader: "svg-inline-loader",
       },
-      tsRule,
+      {
+        exclude: /node_modules/,
+        test: /\.tsx?$/,
+        loader: "ts-loader",
+        options: {
+          transpileOnly: true,
+          configFile: path.join(__dirname, "tsconfig.build.json"),
+        },
+      },
     ],
   },
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
+  },
   output: {
-    filename: "client.js",
-    path: path.join(__dirname, "build"),
+    filename: "[name].js",
+    path: path.join(__dirname, "public"),
+    publicPath: "public/",
   },
   plugins: [
     new FaviconsWebpackPlugin(
-      path.join(__dirname, "src", "heyyeyaaeyaaaeyaeyaa-196x196.jpg")
+      path.join(__dirname, "public", "heyyeyaaeyaaaeyaeyaa-196x196.jpg")
     ),
-    new HtmlWebpackPlugin({
-      template: path.join("src", "index.html"),
-      title: "client",
-    }),
     new ManifestPlugin(),
   ],
-  resolve,
-};
-
-const server = {
-  entry: path.join(__dirname, "src", "server", "index.ts"),
-  externals: [webpackNodeExternals()],
-  module: {
-    rules: [tsRule],
+  resolve: {
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
   },
-  output: {
-    filename: "server.js",
-    path: path.join(__dirname, "build"),
-  },
-  resolve,
   target: "node",
 };
-
-export default [client, server];

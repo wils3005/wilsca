@@ -1,110 +1,82 @@
-const { host, protocol } = window.location;
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 
-const isLocalhost = Boolean(/http:/.exec(protocol));
+// import * as webSocket from "./webSocket";
 
-interface IConfig {
-  onSuccess?: (registration: ServiceWorkerRegistration) => void;
-  onUpdate?: (registration: ServiceWorkerRegistration) => void;
+// const ws = webSocket.create();
+// location: WorkerLocation
+//   hash: ""
+//   host: "localhost:64596"
+//   hostname: "localhost"
+//   href: "http://localhost:64596/serviceWorker.bundle.js"
+//   origin: "http://localhost:64596"
+//   pathname: "/serviceWorker.bundle.js"
+//   port: "64596"
+//   protocol: "http:"
+//   search: ""
+
+const { name } = globalThis.constructor;
+const url = "http://localhost:64596/serviceWorker.js";
+
+// const workerScope = (globalThis as unknown) as ServiceWorkerGlobalScope;
+
+if (name == "Window") {
+  addEventListener("load", () => void register());
+} else if (name == "ServiceWorkerGlobalScope") {
+  addEventListener("activate", handleEvent);
+  addEventListener("contentdelete", handleEvent);
+  addEventListener("fetch", handleEvent);
+  addEventListener("install", handleEvent);
+  addEventListener("message", handleEvent);
+  addEventListener("messageerror", handleEvent);
+  addEventListener("notificationclick", handleEvent);
+  addEventListener("notificationclose", handleEvent);
+  addEventListener("push", handleEvent);
+  addEventListener("pushsubscriptionchange", handleEvent);
+  addEventListener("sync", handleEvent);
 }
 
-export function handleError(error: Error): void {
-  console.error({ error });
+export function handleEvent(...args: unknown[]): void {
+  console.info(timestamp(), name, ...args);
 }
 
-export function register(config?: IConfig): void {
-  if ("serviceWorker" in navigator) {
-    const publicUrl = new URL(host, window.location.href);
+export async function register(): Promise<void> {
+  try {
+    const { serviceWorker: container } = navigator;
+    container.addEventListener("controllerchange", handleEvent);
+    container.addEventListener("message", handleEvent);
+    container.addEventListener("messageerror", handleEvent);
 
-    if (publicUrl.origin !== window.location.origin) {
-      return;
-    }
-
-    window.addEventListener("load", () => {
-      const swUrl = `${host}/service-worker.js`;
-
-      if (isLocalhost) {
-        checkValidServiceWorker(swUrl, config);
-
-        navigator.serviceWorker.ready
-          .then(() => {
-            console.log(
-              "This web app is being served cache-first by a service " +
-                "worker. To learn more, visit https://bit.ly/CRA-PWA"
-            );
-          })
-          .catch(handleError);
-      } else {
-        registerValidSW(swUrl, config);
-      }
-    });
+    const registration = await container.register(url);
+    registration.addEventListener("updatefound", handleEvent);
+  } catch (e) {
+    console.error(timestamp(), name, e);
   }
 }
 
-export function registerValidSW(swUrl: string, config?: IConfig): void {
-  navigator.serviceWorker
-    .register(swUrl)
-    .then((registration) => {
-      registration.onupdatefound = () => {
-        const installingWorker = registration.installing;
-        if (installingWorker == null) return;
-
-        installingWorker.onstatechange = () => {
-          if (installingWorker.state === "installed") {
-            if (navigator.serviceWorker.controller) {
-              console.log(
-                "New content is available and will be used when all " +
-                  "tabs for this page are closed. See https://bit.ly/CRA-PWA."
-              );
-
-              if (config && config.onUpdate) config.onUpdate(registration);
-            } else {
-              console.log("Content is cached for offline use.");
-              if (config && config.onSuccess) config.onSuccess(registration);
-            }
-          }
-        };
-      };
-    })
-    .catch(handleError);
+export function handleControllerChange(
+  this: ServiceWorkerContainer,
+  ev: Event
+): void {
+  console.info(timestamp(), name, ev);
 }
 
-export function checkValidServiceWorker(swUrl: string, config?: IConfig): void {
-  fetch(swUrl, {
-    headers: { "Service-Worker": "script" },
-  })
-    .then((response) => {
-      const contentType = response.headers.get("content-type");
-      if (
-        response.status === 404 ||
-        (contentType != null && contentType.indexOf("javascript") === -1)
-      ) {
-        navigator.serviceWorker.ready
-          .then((registration) => {
-            registration
-              .unregister()
-              .then(() => {
-                window.location.reload();
-              })
-              .catch(handleError);
-          })
-          .catch(handleError);
-      } else {
-        registerValidSW(swUrl, config);
-      }
-    })
-    .catch(() => {
-      console.log(
-        "No internet connection found. App is running in offline mode."
-      );
-    });
+export function handleContainerMessage(
+  this: ServiceWorkerContainer,
+  ev: MessageEvent
+): void {
+  console.info(timestamp(), name, ev);
 }
 
-export function unregister(): void {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.ready
-      .then((registration) => {
-        registration.unregister().catch(handleError);
-      })
-      .catch(handleError);
-  }
+export function handleRegistrationUpdateFound(
+  this: ServiceWorkerRegistration,
+  ev: Event
+): void {
+  console.info(timestamp(), name, ev);
+}
+
+export function timestamp(): string {
+  const a = /\d{2}:\d{2}:\d{2}\.\d{3}/.exec(new Date().toJSON()) || [""];
+  return a[0];
 }

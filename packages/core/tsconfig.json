@@ -4,17 +4,16 @@
     "baseUrl": ".",
     "checkJs": true,
     "downlevelIteration": true,
-    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "module": "commonjs",
-    "outDir": "build/",
+    "lib": ["DOM", "ESNext", "WebWorker"],
     "paths": {},
     "removeComments": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES5"
+    "target": "ES5",
+    "typeRoots": ["node_modules/@types"]
   },
   "exclude": ["build/", "coverage/", "node_modules/"],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"]
 }

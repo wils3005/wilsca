@@ -1,11 +1,13 @@
+.storybook/
 .vscode/
 build/
 coverage/
 node_modules/
+stories/
 tmp/
 
 .env*
 !.env.sample
 *.code-workspace
 *.pem
-*.sqlite3
+*.sqlite*

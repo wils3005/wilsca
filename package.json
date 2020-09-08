@@ -1,13 +1,11 @@
 {
-  "name": "@wilsjs/root",
+  "name": "@wilsca/root",
   "private": true,
   "scripts": {},
   "dependencies": {
-    "@wilsjs/core": "file:packages/core",
-    "@wilsjs/panda-portal": "file:packages/panda-portal",
-    "@wilsjs/peer": "file:packages/peer",
-    "@wilsjs/phone-cam-client": "file:packages/phone-cam-client",
-    "@wilsjs/tic-tac-toe": "file:packages/tic-tac-toe"
+    "@wilsca/core": "file:packages/core",
+    "@wilsca/phone-cam-client": "file:packages/phone-cam-client",
+    "@wilsca/tic-tac-toe": "file:packages/tic-tac-toe"
   },
   "devDependencies": {
     "npm-check": "5.9.2",
