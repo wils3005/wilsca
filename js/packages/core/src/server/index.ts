@@ -1,6 +1,7 @@
 import * as z from "zod";
 import { Server } from "@hapi/hapi";
 import plugins from "./plugins";
+import inert from "@hapi/inert";
 
 const { HOST, PORT, PUBLIC_PATH } = process.env;
 const host = z.string().parse(HOST);
@@ -23,7 +24,8 @@ process.on("unhandledRejection", (reason: unknown) => {
 void start();
 
 export async function start(): Promise<void> {
-  await server.register(plugins);
+  console.info({ msg: "hi", inert });
+  await server.register(inert);
 
   server.route({
     method: "GET",

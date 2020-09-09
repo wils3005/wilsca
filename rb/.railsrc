@@ -1,0 +1,22 @@
+# .railsrc
+
+--api
+
+--database=sqlite3
+
+--skip-action-cable
+--skip-action-mailbox
+--skip-action-mailer
+--skip-action-text
+--skip-bootsnap
+--skip-bundle
+--skip-coffee
+--skip-javascript
+--skip-keeps
+--skip-listen
+--skip-spring
+--skip-sprockets
+--skip-system-test
+--skip-test
+--skip-turbolinks
+--skip-webpack-install

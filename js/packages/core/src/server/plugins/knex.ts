@@ -1,12 +1,12 @@
 import * as z from "zod";
 import { Plugin, Server } from "@hapi/hapi";
-import Knex from "knex";
+import Knex, { Config } from "knex";
 import Objection from "objection";
 import path from "path";
 
 const { NODE_ENV } = process.env;
 
-const knexConfig: Knex.Config = {
+const knexConfig: Config = {
   client: "sqlite3",
   connection: {
     filename: path.join(process.cwd(), `${z.string().parse(NODE_ENV)}.sqlite3`),
@@ -14,7 +14,7 @@ const knexConfig: Knex.Config = {
   useNullAsDefault: true,
 };
 
-const knex = Knex(knexConfig);
+const knex: Knex<any, unknown[]> = Knex(knexConfig);
 
 const plugin: Plugin<unknown> = {
   name: "knex",
