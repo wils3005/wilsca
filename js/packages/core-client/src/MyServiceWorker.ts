@@ -45,7 +45,6 @@ export function handleEvent(): void {
   console.info(
     `[${timestamp()}] ${globalThisName}.${moduleName}.${functionName}`
   );
-  console.info(String(new Error().stack).split("\n"));
 }
 
 export async function register(): Promise<void> {
