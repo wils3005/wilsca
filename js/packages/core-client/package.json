@@ -2,12 +2,13 @@
   "name": "@wilsca/core-client",
   "private": true,
   "scripts": {
-    "build": "npx webpack --production",
+    "build": "npx webpack --mode production",
     "check": "npx npm-check --update-all",
     "eslint": "npx eslint .",
     "eslint-fix": "npx eslint --fix .",
     "prettier": "npx prettier --list-different .",
     "prettier-write": "npx prettier --write .",
+    "start": "npx webpack --mode development --watch",
     "test": "npx mocha 'src/**/*.test.ts'"
   }
 }

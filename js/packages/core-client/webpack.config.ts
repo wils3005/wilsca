@@ -1,23 +1,19 @@
 import FaviconsWebpackPlugin from "favicons-webpack-plugin";
+import HtmlWebpackPlugin from "html-webpack-plugin";
 import ManifestPlugin from "webpack-manifest-plugin";
 import path from "path";
-import webpackNodeExternals from "webpack-node-externals";
+import seed from "./manifest";
 
 const src = path.join(__dirname, "src");
 
-export default {
+const config = {
   entry: {
-    client: path.join(src, "client.ts"),
-    serviceWorker: path.join(src, "serviceWorker.ts"),
-    server: path.join(src, "server.ts"),
+    index: path.join(src, "index.ts"),
+    MyServiceWorker: path.join(src, "MyServiceWorker.ts"),
+    MyWebSocket: path.join(src, "MyWebSocket.ts"),
   },
-  externals: [webpackNodeExternals()],
   module: {
     rules: [
-      {
-        test: /\.html$/,
-        use: ["html-loader"],
-      },
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
@@ -52,17 +48,17 @@ export default {
   },
   output: {
     filename: "[name].js",
-    path: path.join(__dirname, "public"),
-    publicPath: "public/",
+    path: path.join(__dirname, "build"),
   },
   plugins: [
-    new FaviconsWebpackPlugin(
-      path.join(__dirname, "public", "heyyeyaaeyaaaeyaeyaa-196x196.jpg")
-    ),
-    new ManifestPlugin(),
+    new HtmlWebpackPlugin({ template: path.join(src, "index.html") }),
+    new FaviconsWebpackPlugin(path.join(src, "logo.jpg")),
+    new ManifestPlugin({ seed }),
   ],
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
   },
   target: "node",
 };
+
+export default config;

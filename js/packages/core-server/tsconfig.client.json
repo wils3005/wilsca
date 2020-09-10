@@ -1,8 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "outDir": "build/client"
-  },
-  "include": ["src/client/"],
-  "exclude": ["src/client/**/*.test.*"]
-}

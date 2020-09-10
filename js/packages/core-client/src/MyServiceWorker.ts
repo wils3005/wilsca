@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
-// import * as webSocket from "./webSocket";
+import "./MyWebSocket";
 
 // const ws = webSocket.create();
 // location: WorkerLocation
@@ -16,14 +16,16 @@
 //   protocol: "http:"
 //   search: ""
 
-const { name } = globalThis.constructor;
-const url = "http://localhost:64596/serviceWorker.js";
+const { name: globalThisName } = globalThis.constructor;
+const moduleName = "MyServiceWorker";
 
-// const workerScope = (globalThis as unknown) as ServiceWorkerGlobalScope;
+addEventListeners();
 
-if (name == "Window") {
-  addEventListener("load", () => void register());
-} else if (name == "ServiceWorkerGlobalScope") {
+console.info({ globalThis });
+
+export function addEventListeners(): void {
+  if (globalThisName !== "ServiceWorkerGlobalScope") return;
+
   addEventListener("activate", handleEvent);
   addEventListener("contentdelete", handleEvent);
   addEventListener("fetch", handleEvent);
@@ -37,43 +39,46 @@ if (name == "Window") {
   addEventListener("sync", handleEvent);
 }
 
-export function handleEvent(...args: unknown[]): void {
-  console.info(timestamp(), name, ...args);
+// export function handleEvent(...args: unknown[]): void {
+export function handleEvent(): void {
+  const functionName = "handleEvent";
+  console.info(
+    `[${timestamp()}] ${globalThisName}.${moduleName}.${functionName}`
+  );
+  console.info(String(new Error().stack).split("\n"));
 }
 
 export async function register(): Promise<void> {
+  const functionName = "register";
+
   try {
     const { serviceWorker: container } = navigator;
     container.addEventListener("controllerchange", handleEvent);
     container.addEventListener("message", handleEvent);
     container.addEventListener("messageerror", handleEvent);
 
-    const registration = await container.register(url);
+    const registration = await container.register("./MyServiceWorker.js");
     registration.addEventListener("updatefound", handleEvent);
   } catch (e) {
-    console.error(timestamp(), name, e);
+    console.error(timestamp(), globalThisName, moduleName, functionName);
   }
 }
 
-export function handleControllerChange(
-  this: ServiceWorkerContainer,
-  ev: Event
-): void {
-  console.info(timestamp(), name, ev);
+export function handleControllerChange(this: ServiceWorkerContainer): void {
+  const functionName = "handleControllerChange";
+  console.info(timestamp(), globalThisName, moduleName, functionName);
 }
 
-export function handleContainerMessage(
-  this: ServiceWorkerContainer,
-  ev: MessageEvent
-): void {
-  console.info(timestamp(), name, ev);
+export function handleContainerMessage(this: ServiceWorkerContainer): void {
+  const functionName = "handleContainerMessage";
+  console.info(timestamp(), globalThisName, moduleName, functionName);
 }
 
 export function handleRegistrationUpdateFound(
-  this: ServiceWorkerRegistration,
-  ev: Event
+  this: ServiceWorkerRegistration
 ): void {
-  console.info(timestamp(), name, ev);
+  const functionName = "handleRegistrationUpdateFound";
+  console.info(timestamp(), globalThisName, moduleName, functionName);
 }
 
 export function timestamp(): string {
