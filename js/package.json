@@ -75,6 +75,7 @@
     "webpack-cli": "3.3.12",
     "webpack-dev-server": "3.11.0",
     "webpack-manifest-plugin": "2.2.0",
-    "webpack-node-externals": "2.5.2"
+    "webpack-node-externals": "2.5.2",
+    "worker-loader": "3.0.2"
   }
 }

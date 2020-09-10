@@ -15,16 +15,12 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: "file-loader",
       },
       {
-        test: /\.(png|jpe?g|gif)$/i,
-        use: [
-          {
-            loader: "file-loader",
-          },
-        ],
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.svg$/,
@@ -39,6 +35,13 @@ const config = {
           configFile: path.join(__dirname, "tsconfig.build.json"),
         },
       },
+      {
+        test: /MyServiceWorker.js$/,
+        loader: "worker-loader",
+        options: {
+          worker: "ServiceWorker",
+        },
+      },
     ],
   },
   optimization: {
@@ -48,6 +51,7 @@ const config = {
   },
   output: {
     filename: "[name].js",
+    globalObject: "this",
     path: path.join(__dirname, "build"),
   },
   plugins: [
@@ -58,7 +62,6 @@ const config = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
   },
-  target: "node",
 };
 
 export default config;

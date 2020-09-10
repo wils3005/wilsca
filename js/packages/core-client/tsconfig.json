@@ -15,11 +15,10 @@
     "removeComments": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "sourceMap": true,
     "strict": true,
     "target": "ES2018",
     "typeRoots": ["node_modules/@types"]
   },
-  "exclude": ["build/", "coverage/", "node_modules/"],
+  "exclude": ["build/"],
   "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"]
 }
