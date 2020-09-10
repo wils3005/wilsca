@@ -1,4 +1,4 @@
-const { name: globalThisName } = globalThis.constructor;
+const { name: globalThisType } = globalThis.constructor;
 const moduleName = "MyWebSocket";
 const { host, protocol } = location;
 
@@ -29,19 +29,19 @@ export function setWebSocket(): void {
 
 export function handleError(this: WebSocket): void {
   const functionName = "handleError";
-  console.error(timestamp(), globalThisName, moduleName, functionName);
+  console.error(timestamp(), globalThisType, moduleName, functionName);
   webSocketErrors += 1;
   setWebSocket();
 }
 
 export function handleOpen(this: WebSocket): void {
   const functionName = "handleOpen";
-  console.info(timestamp(), globalThisName, moduleName, functionName);
+  console.info(timestamp(), globalThisType, moduleName, functionName);
 }
 
 export function handleMessage(this: WebSocket): void {
   const functionName = "handleMessage";
-  console.info(timestamp(), globalThisName, moduleName, functionName);
+  console.info(timestamp(), globalThisType, moduleName, functionName);
   // const message = String(eventMessage.data);
 }
 

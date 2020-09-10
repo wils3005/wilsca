@@ -4,27 +4,13 @@
 
 import "./MyWebSocket";
 
-// const ws = webSocket.create();
-// location: WorkerLocation
-//   hash: ""
-//   host: "localhost:64596"
-//   hostname: "localhost"
-//   href: "http://localhost:64596/serviceWorker.bundle.js"
-//   origin: "http://localhost:64596"
-//   pathname: "/serviceWorker.bundle.js"
-//   port: "64596"
-//   protocol: "http:"
-//   search: ""
-
-const { name: globalThisName } = globalThis.constructor;
+const { name: globalThisType } = globalThis.constructor;
 const moduleName = "MyServiceWorker";
 
 addEventListeners();
 
-console.info({ globalThis });
-
 export function addEventListeners(): void {
-  if (globalThisName !== "ServiceWorkerGlobalScope") return;
+  if (globalThisType !== "ServiceWorkerGlobalScope") return;
 
   addEventListener("activate", handleEvent);
   addEventListener("contentdelete", handleEvent);
@@ -42,9 +28,7 @@ export function addEventListeners(): void {
 // export function handleEvent(...args: unknown[]): void {
 export function handleEvent(): void {
   const functionName = "handleEvent";
-  console.info(
-    `[${timestamp()}] ${globalThisName}.${moduleName}.${functionName}`
-  );
+  console.info(timestamp(), globalThisType, moduleName, functionName);
 }
 
 export async function register(): Promise<void> {
@@ -59,25 +43,25 @@ export async function register(): Promise<void> {
     const registration = await container.register("./MyServiceWorker.js");
     registration.addEventListener("updatefound", handleEvent);
   } catch (e) {
-    console.error(timestamp(), globalThisName, moduleName, functionName);
+    console.error(timestamp(), globalThisType, moduleName, functionName, e);
   }
 }
 
 export function handleControllerChange(this: ServiceWorkerContainer): void {
   const functionName = "handleControllerChange";
-  console.info(timestamp(), globalThisName, moduleName, functionName);
+  console.info(timestamp(), globalThisType, moduleName, functionName);
 }
 
 export function handleContainerMessage(this: ServiceWorkerContainer): void {
   const functionName = "handleContainerMessage";
-  console.info(timestamp(), globalThisName, moduleName, functionName);
+  console.info(timestamp(), globalThisType, moduleName, functionName);
 }
 
 export function handleRegistrationUpdateFound(
   this: ServiceWorkerRegistration
 ): void {
   const functionName = "handleRegistrationUpdateFound";
-  console.info(timestamp(), globalThisName, moduleName, functionName);
+  console.info(timestamp(), globalThisType, moduleName, functionName);
 }
 
 export function timestamp(): string {

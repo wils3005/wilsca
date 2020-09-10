@@ -8,7 +8,7 @@
     "eslint-fix": "npx eslint --fix .",
     "prettier": "npx prettier --list-different .",
     "prettier-write": "npx prettier --write .",
-    "start": "npx webpack --mode development --watch",
+    "start": "npx webpack-dev-server",
     "test": "npx mocha 'src/**/*.test.ts'"
   }
 }
