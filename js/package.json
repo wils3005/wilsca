@@ -9,7 +9,8 @@
     "@wilsjs/core-client": "file:packages/core-client",
     "@wilsjs/core-server": "file:packages/core-server",
     "@wilsjs/phone-cam-client": "file:packages/phone-cam-client",
-    "@wilsjs/tic-tac-toe": "file:packages/tic-tac-toe"
+    "@wilsjs/tic-tac-toe": "file:packages/tic-tac-toe",
+    "clean-webpack-plugin": "3.0.0"
   },
   "devDependencies": {
     "@hapi/glue": "8.0.0",
