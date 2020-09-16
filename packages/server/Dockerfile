@@ -7,13 +7,13 @@ COPY src/ ./src/
 COPY tsconfig.json tsconfig.build.json webpack.config.ts ./
 RUN npx webpack --mode production
 RUN npx pnpm prune --production
-COPY wilsca.pem ./
+COPY wilsjs.pem ./
 
 RUN rsync \
   --compress \
   --links \
   --recursive \
-  --rsh "ssh -i /app/wilsca.pem -o StrictHostKeyChecking=accept-new" \
+  --rsh "ssh -i /app/wilsjs.pem -o StrictHostKeyChecking=accept-new" \
   --verbose \
   /app/node_modules \
   /app/build/* \

@@ -1,5 +1,5 @@
 {
-  "name": "@wilsca/client",
+  "name": "@wilsjs/client",
   "private": true,
   "scripts": {
     "build": "npx webpack --mode production",
@@ -8,6 +8,6 @@
     "prettier": "npx prettier --list-different .",
     "prettier-write": "npx prettier --write .",
     "start": "npx webpack-dev-server",
-    "test": "npx mocha 'src/**/*.test.ts'"
+    "test": "npx nyc --require ts-node/register ../../node_modules/mocha/bin/mocha 'test/**/*'"
   }
 }

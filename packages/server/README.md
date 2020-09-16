@@ -23,7 +23,7 @@ nodejs-12.15.0-r1
 ## manual files
 
 - /home/alpine/\*.sqlite3
-- /home/alpine/wilsca.pem
+- /home/alpine/wilsjs.pem
 
 ---
 

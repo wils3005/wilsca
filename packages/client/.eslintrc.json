@@ -32,7 +32,11 @@
   },
   "root": true,
   "rules": {
-    "import/no-relative-parent-imports": "error",
     "sort-imports": "error"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }
