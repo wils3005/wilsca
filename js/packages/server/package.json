@@ -1,5 +1,5 @@
 {
-  "name": "@wilsjs/core-server",
+  "name": "@wilsjs/server",
   "private": true,
   "scripts": {
     "check": "npx npm-check --update-all",
@@ -14,9 +14,7 @@
     "start": "npx ts-node-dev --require dotenv/config --respawn --transpile-only src/server/index.ts",
     "ssh": "ssh -i wilsca.pem alpine@wils.ca",
     "test": "npx mocha 'src/**/*.test.ts'",
-    "tsc": "npm run tsc-client && npm run tsc-server",
-    "tsc-client": "npx tsc --build tsconfig.client.json",
-    "tsc-server": "npx tsc --build tsconfig.server.json"
+    "tsc": "npx tsc --build tsconfig.build.json"
   },
   "dependencies": {
     "@hapi/basic": "6.0.0",
@@ -24,7 +22,7 @@
     "@hapi/inert": "6.0.2",
     "@hapi/nes": "12.0.3",
     "@hapi/vision": "6.0.1",
-    "aws-sdk": "2.747.0",
+    "aws-sdk": "2.751.0",
     "bcrypt": "5.0.0",
     "dotenv": "8.2.0",
     "hapi-pino": "8.3.0",

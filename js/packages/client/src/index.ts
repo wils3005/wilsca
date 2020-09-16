@@ -1,8 +1,10 @@
 import App from "./App";
 import ReactDOM from "react-dom";
-import { register } from "./MyServiceWorker";
+import log from "./log";
 
-addEventListener("load", () => {
+addEventListener("load", handleLoad);
+
+export function handleLoad(): void {
+  log();
   ReactDOM.render(App(), document.getElementById("root"));
-  void register();
-});
+}

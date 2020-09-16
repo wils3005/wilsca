@@ -6,5 +6,9 @@
     "check": "../../node_modules/.bin/npm-check --update-all",
     "start": "../../node_modules/.bin/webpack --watch"
   },
-  "dependencies": {}
+  "dependencies": {
+    "dotenv": "8.2.0",
+    "dotenv-webpack": "2.0.0",
+    "peerjs": "1.3.1"
+  }
 }

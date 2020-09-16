@@ -4,7 +4,7 @@ dependencies:
   '@hapi/inert': 6.0.2
   '@hapi/nes': 12.0.3
   '@hapi/vision': 6.0.1
-  aws-sdk: 2.747.0
+  aws-sdk: 2.751.0
   bcrypt: 5.0.0
   dotenv: 8.2.0
   hapi-pino: 8.3.0
@@ -597,7 +597,7 @@ packages:
       node: '>=8.0.0'
     resolution:
       integrity: sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==
-  /aws-sdk/2.747.0:
+  /aws-sdk/2.751.0:
     dependencies:
       buffer: 4.9.2
       events: 1.1.1
@@ -612,7 +612,7 @@ packages:
     engines:
       node: '>= 0.8.0'
     resolution:
-      integrity: sha512-JA2ygLXFw0tLjc6nlauH3wnc6haoPU023fJCZN01xrw22l+s4rRjVGxJmG83VrfCmq+lrqCv0kVwlzyxbixGhA==
+      integrity: sha512-0lo7YKTfjEwoP+2vK7F7WGNigvwFxqiM96PzBaseOpOelfhFHPKEJpk2Poa12JI89c8dGoc1PhTQ1TSTJK3ZqQ==
   /aws-sign2/0.7.0:
     dev: false
     optional: true
@@ -3371,7 +3371,7 @@ specifiers:
   '@hapi/inert': 6.0.2
   '@hapi/nes': 12.0.3
   '@hapi/vision': 6.0.1
-  aws-sdk: 2.747.0
+  aws-sdk: 2.751.0
   bcrypt: 5.0.0
   dotenv: 8.2.0
   hapi-pino: 8.3.0
