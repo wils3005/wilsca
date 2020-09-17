@@ -12,7 +12,12 @@
     }
   },
   "preset": "ts-jest",
-  "setupFiles": ["<rootDir>/__mocks__/global.ts"],
+  "setupFiles": [
+    "<rootDir>/__mocks__/http.ts",
+    "<rootDir>/__mocks__/https.ts",
+    "<rootDir>/__mocks__/process.ts",
+    "<rootDir>/__mocks__/stream.ts"
+  ],
   "testURL": "http://localhost/",
   "verbose": true
 }

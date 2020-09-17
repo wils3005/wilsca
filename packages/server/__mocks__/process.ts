@@ -1,6 +1,9 @@
 import path from "path";
+import process from "process";
 
-Object.assign(process.env, {
+const { env } = process;
+
+Object.assign(env, {
   HOST: "localhost",
   NODE_ENV: "test",
   PINO_OPTIONS: "{}",
@@ -9,5 +12,3 @@ Object.assign(process.env, {
   TLS_CERT: path.join(process.cwd(), "localhost-cert.pem"),
   TLS_KEY: path.join(process.cwd(), "localhost-key.pem"),
 });
-
-export {};
