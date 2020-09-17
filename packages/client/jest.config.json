@@ -15,6 +15,7 @@
     "\\.(css|gif|ttf|eot|svg)$": "<rootDir>/__mocks__/assets.ts"
   },
   "preset": "ts-jest",
+  "setupFiles": ["<rootDir>/__mocks__/global.ts"],
   "testURL": "http://localhost/",
   "verbose": true
 }
