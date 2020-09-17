@@ -1,9 +1,0 @@
-.vscode/
-build/
-coverage/
-node_modules/
-
-.env*
-!.env.sample
-*.code-workspace
-*.sqlite3

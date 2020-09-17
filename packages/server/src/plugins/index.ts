@@ -15,16 +15,15 @@ const proxied = Boolean(PROXIED);
 const plugins: Array<{
   plugin: Plugin<Record<string, unknown>>;
   options: unknown;
-}> = [inert];
+}> = [
+  { plugin: basic, options: {} },
+  { plugin: hapiPino, options: { instance: logger } },
+  { plugin: healthz, options: {} },
+  { plugin: inert, options: {} },
+  { plugin: knex, options: {} },
+  { plugin: models, options: {} },
+  { plugin: nes, options: {} },
+  { plugin: peerServer, options: { path: "/peer", proxied } },
+];
 
 export default plugins;
-
-// { plugin: basic, options: {} },
-// { plugin: healthz, options: {} },
-//
-// { plugin: nes, options: {} },
-// { plugin: hapiPino, options: { instance: logger } },
-// { plugin: knex, options: {} },
-// { plugin: models, options: {} },
-
-// { plugin: peerServer, options: { path: "/peer", proxied } },

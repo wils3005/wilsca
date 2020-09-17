@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "check": "npx npm-check --update-all",
-    "docker": "time docker build -t wilsjs-core .",
+    "docker": "time docker build -t wilsjs-server .",
     "eslint": "npx eslint .",
     "eslint-fix": "npx eslint --fix .",
     "knex": "node --require dotenv/config --require ts-node/register node_modules/knex/bin/cli.js --knexfile knexfile.ts",
@@ -11,9 +11,8 @@
     "knex-seed": "npm run knex -- seed:run",
     "prettier": "npx prettier --list-different .",
     "prettier-write": "npx prettier --write .",
-    "start": "npx ts-node-dev --require dotenv/config --respawn --transpile-only src/server/index.ts",
-    "ssh": "ssh -i wilsjs.pem alpine@wils.ca",
-    "test": "npx mocha 'src/**/*.test.ts'",
+    "start": "npx ts-node-dev --require dotenv/config --respawn --transpile-only src/index.ts",
+    "test": "npx jest",
     "tsc": "npx tsc --build tsconfig.build.json"
   },
   "dependencies": {

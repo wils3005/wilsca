@@ -1,31 +1,28 @@
 import * as z from "zod";
-import { Server } from "@hapi/hapi";
+import { Server, ServerOptions } from "@hapi/hapi";
+import fs from "fs";
 import plugins from "./plugins";
-import inert from "@hapi/inert";
 
-const { HOST, PORT, PUBLIC_PATH } = process.env;
+const { HOST, PORT, PUBLIC_PATH, TLS_CERT, TLS_KEY } = process.env;
 const host = z.string().parse(HOST);
 const port = z.string().parse(PORT);
 const relativeTo = z.string().parse(PUBLIC_PATH);
+const cert = fs.readFileSync(z.string().parse(TLS_CERT));
+const key = fs.readFileSync(z.string().parse(TLS_KEY));
 
-const server = new Server({
+const serverOptions: ServerOptions = {
   host,
   port,
   routes: {
     files: { relativeTo },
   },
-});
+  tls: { cert, key },
+};
 
-process.on("unhandledRejection", (reason: unknown) => {
-  console.error(reason);
-  process.exit(1);
-});
+const server = new Server(serverOptions);
 
-void start();
-
-export async function start(): Promise<void> {
-  console.info({ msg: "hi", inert });
-  await server.register(inert);
+async function main(): Promise<void> {
+  await server.register(plugins);
 
   server.route({
     method: "GET",
@@ -41,3 +38,12 @@ export async function start(): Promise<void> {
   await server.start();
   server.logger.info(`Server running at: ${server.info.uri}`);
 }
+
+process.on("unhandledRejection", (reason: unknown) => {
+  console.error(reason);
+  process.exit(1);
+});
+
+void main();
+
+export default main;

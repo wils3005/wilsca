@@ -1,0 +1,18 @@
+{
+  "collectCoverage": true,
+  "collectCoverageFrom": ["src/*.{js,ts}"],
+  "coverageDirectory": "coverage",
+  "coverageReporters": ["html", "text"],
+  "coverageThreshold": {
+    "global": {
+      "branches": 1,
+      "functions": 1,
+      "lines": 1,
+      "statements": 1
+    }
+  },
+  "preset": "ts-jest",
+  "setupFiles": ["<rootDir>/__mocks__/global.ts"],
+  "testURL": "http://localhost/",
+  "verbose": true
+}
