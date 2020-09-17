@@ -8,6 +8,6 @@
     "prettier": "npx prettier --list-different .",
     "prettier-write": "npx prettier --write .",
     "start": "npx webpack-dev-server",
-    "test": "npx nyc --require ts-node/register ../../node_modules/mocha/bin/mocha 'test/**/*'"
+    "test": "npx jest"
   }
 }
