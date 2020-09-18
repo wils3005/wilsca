@@ -6,8 +6,6 @@
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "checkJs": true,
-    "declaration": true,
-    "declarationMap": true,
     "diagnostics": true,
     "downlevelIteration": true,
     "esModuleInterop": true,
@@ -23,7 +21,6 @@
     "removeComments": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "sourceMap": true,
     "strict": true,
     "target": "ES5",
     "typeRoots": ["node_modules/@types"]

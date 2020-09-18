@@ -1,14 +1,6 @@
-import * as z from "zod";
 import { Server, ServerOptions } from "@hapi/hapi";
-import fs from "fs";
+import { cert, host, key, port, relativeTo } from "./env";
 import plugins from "./plugins";
-
-const { HOST, PORT, PUBLIC_PATH, TLS_CERT, TLS_KEY } = process.env;
-const host = z.string().parse(HOST);
-const port = z.string().parse(PORT);
-const relativeTo = z.string().parse(PUBLIC_PATH);
-const cert = fs.readFileSync(z.string().parse(TLS_CERT));
-const key = fs.readFileSync(z.string().parse(TLS_KEY));
 
 const serverOptions: ServerOptions = {
   host,
