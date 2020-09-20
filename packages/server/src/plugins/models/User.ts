@@ -1,11 +1,11 @@
-import Objection from "objection";
+import Objection from 'objection';
 
-class User extends Objection.Model {
+class Model extends Objection.Model {
   id?: string;
   username?: string;
   password?: string;
 
-  static tableName = "users";
+  static tableName = 'users';
 
   // static relationMappings = {
   //   children: {
@@ -19,4 +19,4 @@ class User extends Objection.Model {
   // };
 }
 
-export default User;
+export { Model };

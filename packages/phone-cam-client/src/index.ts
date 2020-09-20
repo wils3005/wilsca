@@ -1,4 +1,4 @@
-import Peer from "peerjs";
+import Peer from 'peerjs';
 
 interface MyConnection extends Peer.MediaConnection {
   element?: HTMLVideoElement;
@@ -16,7 +16,7 @@ const streamConstraints = {
 const peer = new Peer({
   host: process.env.HOST,
   port: Number(process.env.PORT),
-  path: "/",
+  path: '/',
 });
 
 const myConnections: Set<MyConnection> = new Set();
@@ -52,7 +52,7 @@ const handleCall = (connection: Peer.MediaConnection): void => {
 };
 
 const addStreamToVideoElement = (stream: MediaStream): void => {
-  const e = document.querySelector<HTMLVideoElement>("video");
+  const e = document.querySelector<HTMLVideoElement>('video');
   if (e instanceof HTMLVideoElement) e.srcObject = stream;
 };
 
@@ -69,5 +69,5 @@ fetch(clientsURL)
   .then(callPeers)
   .catch(handleError);
 
-peer.on("call", handleCall);
-peer.on("error", handleError);
+peer.on('call', handleCall);
+peer.on('error', handleError);

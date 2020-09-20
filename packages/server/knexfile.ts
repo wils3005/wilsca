@@ -1,36 +1,36 @@
-import path from "path";
+import path from 'path';
 
 const development = {
-  client: "sqlite3",
+  client: 'sqlite3',
   connection: {
-    filename: "development.sqlite3",
+    filename: 'development.sqlite3',
   },
   useNullAsDefault: true,
 };
 
 const test = {
-  client: "sqlite3",
+  client: 'sqlite3',
   connection: {
-    filename: ":memory:",
+    filename: ':memory:',
   },
   useNullAsDefault: true,
   seeds: {
-    directory: path.join(__dirname, "seeds"),
+    directory: path.join(__dirname, 'seeds'),
   },
 };
 
 const staging = {
-  client: "sqlite3",
+  client: 'sqlite3',
   connection: {
-    filename: "staging.sqlite3",
+    filename: 'staging.sqlite3',
   },
   useNullAsDefault: true,
 };
 
 const production = {
-  client: "sqlite3",
+  client: 'sqlite3',
   connection: {
-    filename: "production.sqlite3",
+    filename: 'production.sqlite3',
   },
   useNullAsDefault: true,
 };

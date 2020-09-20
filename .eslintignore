@@ -1,0 +1,8 @@
+.nyc_output/
+.storybook/
+.vscode/
+build/
+coverage/
+node_modules/
+stories/
+tmp/

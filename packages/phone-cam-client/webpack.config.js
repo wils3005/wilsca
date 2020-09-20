@@ -1,35 +1,35 @@
-require("dotenv").config();
-const DotenvWebpackPlugin = require("dotenv-webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+require('dotenv').config();
+const DotenvWebpackPlugin = require('dotenv-webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: `${__dirname}/src/index.ts`,
-  mode: "development",
+  mode: 'development',
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.html$/,
-        loader: "html-loader",
+        loader: 'html-loader',
       },
       {
         exclude: /node_modules/,
         test: /\.tsx?$/,
-        loader: "ts-loader",
-        options: { configFile: "tsconfig.build.json" },
+        loader: 'ts-loader',
+        options: { configFile: 'tsconfig.build.json' },
       },
     ],
   },
   output: {
-    filename: "bundle.js",
+    filename: 'bundle.js',
     path: `${__dirname}/build`,
   },
   plugins: [new DotenvWebpackPlugin(), new HtmlWebpackPlugin()],
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
-  stats: "verbose",
+  stats: 'verbose',
 };

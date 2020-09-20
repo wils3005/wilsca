@@ -1,7 +1,7 @@
-import { EventEmitter } from "events";
-import { ExpressPeerServer } from "peer";
-import { Server } from "@hapi/hapi";
-import WebSocket from "ws";
+import { EventEmitter } from 'events';
+import { ExpressPeerServer } from 'peer';
+import { Server } from '@hapi/hapi';
+import WebSocket from 'ws';
 
 declare type PeerWebSocket = WebSocket & EventEmitter;
 
@@ -35,36 +35,32 @@ declare interface PeerConfig {
 const peerClients: Set<PeerClient> = new Set();
 
 const plugin = {
-  name: "peer-server",
+  name: 'peer-server',
   register,
 };
 
-export default plugin;
-
-export function register(server: Server, options?: PeerConfig): void {
+function register(server: Server, options?: PeerConfig): void {
   const { path, proxied } = options || {};
   const { logger } = server;
 
-  const peerServer = ExpressPeerServer(server.listener, {
+  ExpressPeerServer(server.listener, {
     path,
     proxied,
-  });
-
-  peerServer.on("error", (error) => {
-    logger.error("PeerServer error", error);
-  });
-
-  peerServer.on("connection", (client) => {
-    peerClients.add(client);
-    logger.info("PeerServer connection", { client });
-  });
-
-  peerServer.on("disconnect", (client) => {
-    peerClients.delete(client);
-    logger.info("PeerServer disconnect", { client });
-  });
-
-  peerServer.on("message", (client, message) => {
-    logger.info("PeerServer message", { client, message });
-  });
+  })
+    .on('error', (error) => {
+      logger.error('PeerServer error', error);
+    })
+    .on('connection', (client) => {
+      peerClients.add(client);
+      logger.info('PeerServer connection', { client });
+    })
+    .on('disconnect', (client) => {
+      peerClients.delete(client);
+      logger.info('PeerServer disconnect', { client });
+    })
+    .on('message', (client, message) => {
+      logger.info('PeerServer message', { client, message });
+    });
 }
+
+export { plugin, register };
