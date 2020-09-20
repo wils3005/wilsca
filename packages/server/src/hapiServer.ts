@@ -10,14 +10,11 @@ import {
   relativeTo,
 } from './env';
 
+import { healthz, knex, models, peerServer } from './plugins';
 import basic from '@hapi/basic';
 import hapiPino from 'hapi-pino';
-import { plugin as healthz } from './plugins/healthz';
 import inert from '@hapi/inert';
-import { plugin as knex } from './plugins/knex';
-import { plugin as models } from './plugins/models';
 import nes from '@hapi/nes';
-import { plugin as peerServer } from './plugins/peerServer';
 import pino from 'pino';
 
 const serverOptions: ServerOptions = {
