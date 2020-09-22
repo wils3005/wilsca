@@ -3,4 +3,4 @@ Object.assign(console, {
   error: jest.fn(),
 });
 
-export default {};
+export {};

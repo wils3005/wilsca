@@ -1,13 +1,12 @@
 import {
   getWebSocket,
-  handleError,
-  handleMessage,
-  handleOpen,
+  onError,
+  onMessage,
+  onOpen,
   setWebSocket,
-  timestamp,
-} from '../src/MyWebSocket';
+} from '../src/webSocket';
 
-describe('MyWebSocket', () => {
+describe('webSocket', () => {
   describe('getWebSocket', () => {
     it("doesn't throw", () => {
       expect.hasAssertions();
@@ -17,29 +16,29 @@ describe('MyWebSocket', () => {
     });
   });
 
-  describe('handleError', () => {
+  describe('onError', () => {
     it("doesn't throw", () => {
       expect.hasAssertions();
       expect(() => {
-        handleError.bind(new WebSocket('ws://example.com'))();
+        onError.bind(new WebSocket('ws://example.com'))();
       }).not.toThrow();
     });
   });
 
-  describe('handleMessage', () => {
+  describe('onMessage', () => {
     it("doesn't throw", () => {
       expect.hasAssertions();
       expect(() => {
-        handleMessage.bind(new WebSocket('ws://example.com'))();
+        onMessage.bind(new WebSocket('ws://example.com'))();
       }).not.toThrow();
     });
   });
 
-  describe('handleOpen', () => {
+  describe('onOpen', () => {
     it("doesn't throw", () => {
       expect.hasAssertions();
       expect(() => {
-        handleOpen.bind(new WebSocket('ws://example.com'))();
+        onOpen.bind(new WebSocket('ws://example.com'))();
       }).not.toThrow();
     });
   });
@@ -49,15 +48,6 @@ describe('MyWebSocket', () => {
       expect.hasAssertions();
       expect(() => {
         setWebSocket.bind(new WebSocket('ws://example.com'))();
-      }).not.toThrow();
-    });
-  });
-
-  describe('timestamp', () => {
-    it("doesn't throw", () => {
-      expect.hasAssertions();
-      expect(() => {
-        timestamp.bind(new WebSocket('ws://example.com'))();
       }).not.toThrow();
     });
   });

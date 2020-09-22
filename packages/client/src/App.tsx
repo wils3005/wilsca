@@ -15,7 +15,7 @@ import {
 
 import React from 'react';
 
-export default function App(): JSX.Element {
+function App(): JSX.Element {
   return (
     <React.StrictMode>
       <Container>
@@ -62,3 +62,5 @@ export default function App(): JSX.Element {
     </React.StrictMode>
   );
 }
+
+export { App };

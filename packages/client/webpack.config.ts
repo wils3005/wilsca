@@ -96,4 +96,4 @@ const webpackConfiguration: webpack.Configuration = {
   resolve,
 };
 
-export default webpackConfiguration;
+export = webpackConfiguration;

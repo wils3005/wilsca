@@ -1,0 +1,6 @@
+{
+  "name": "@wilsjs/tools",
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}

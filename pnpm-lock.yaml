@@ -2,6 +2,7 @@ dependencies:
   '@wilsjs/client': 'link:packages/client'
   '@wilsjs/phone-cam-client': 'link:packages/phone-cam-client'
   '@wilsjs/server': 'link:packages/server'
+  '@wilsjs/tools': 'link:packages/tools'
 devDependencies:
   '@hapi/glue': 8.0.0
   '@popperjs/core': 2.4.4
@@ -52,6 +53,7 @@ devDependencies:
   html-loader: 1.3.0_webpack@4.44.1
   html-webpack-plugin: 4.4.1_webpack@4.44.1
   husky: 4.3.0
+  ini: 1.3.5
   jest: 26.4.2
   jquery: 3.5.1
   jsdom: 16.4.0
@@ -16959,6 +16961,7 @@ specifiers:
   '@wilsjs/client': 'file:packages/client'
   '@wilsjs/phone-cam-client': 'file:packages/phone-cam-client'
   '@wilsjs/server': 'file:packages/server'
+  '@wilsjs/tools': 'file:packages/tools'
   bootstrap: 4.5.2
   chartjs: 0.3.24
   clean-webpack-plugin: 3.0.0
@@ -16979,6 +16982,7 @@ specifiers:
   html-loader: 1.3.0
   html-webpack-plugin: 4.4.1
   husky: 4.3.0
+  ini: 1.3.5
   jest: 26.4.2
   jquery: 3.5.1
   jsdom: 16.4.0

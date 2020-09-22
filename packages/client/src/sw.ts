@@ -1,57 +1,65 @@
-import './MyWebSocket';
-import log from './log';
+import './webSocket';
+import { log } from './log';
 
 const { name: globalThisType } = globalThis.constructor;
+const scriptUrl = './sw.js';
 
-addEventListener('load', handleLoad);
+function addEventListeners(): void {
+  addEventListener('activate', onEvent);
+  addEventListener('contentdelete', onEvent);
+  addEventListener('fetch', onEvent);
+  addEventListener('install', onEvent);
+  addEventListener('message', onEvent);
+  addEventListener('messageerror', onEvent);
+  addEventListener('notificationclick', onEvent);
+  addEventListener('notificationclose', onEvent);
+  addEventListener('push', onEvent);
+  addEventListener('pushsubscriptionchange', onEvent);
+  addEventListener('sync', onEvent);
+}
 
-////////////////////////////////////////////////////////////////////////////////
-export function handleLoad(): void {
+function onContainerMessage(this: ServiceWorkerContainer): void {
+  log();
+}
+
+function onControllerChange(this: ServiceWorkerContainer): void {
+  log();
+}
+
+function onEvent(): void {
+  log();
+}
+
+function onLoad(): void {
   if (globalThisType == 'ServiceWorkerGlobalScope') addEventListeners();
   void register();
 }
 
-export function addEventListeners(): void {
-  addEventListener('activate', handleEvent);
-  addEventListener('contentdelete', handleEvent);
-  addEventListener('fetch', handleEvent);
-  addEventListener('install', handleEvent);
-  addEventListener('message', handleEvent);
-  addEventListener('messageerror', handleEvent);
-  addEventListener('notificationclick', handleEvent);
-  addEventListener('notificationclose', handleEvent);
-  addEventListener('push', handleEvent);
-  addEventListener('pushsubscriptionchange', handleEvent);
-  addEventListener('sync', handleEvent);
+function onRegistrationUpdateFound(this: ServiceWorkerRegistration): void {
+  log();
 }
 
-export async function register(): Promise<void> {
+async function register(): Promise<void> {
   try {
     const { serviceWorker: container } = navigator;
-    container.addEventListener('controllerchange', handleEvent);
-    container.addEventListener('message', handleEvent);
-    container.addEventListener('messageerror', handleEvent);
-    const registration = await container.register('./sw.js');
-    registration.addEventListener('updatefound', handleEvent);
+    container.addEventListener('controllerchange', onEvent);
+    container.addEventListener('message', onEvent);
+    container.addEventListener('messageerror', onEvent);
+    const registration = await container.register(scriptUrl);
+    registration.addEventListener('updatefound', onEvent);
   } catch (e) {
     log(e);
   }
 }
 
-export function handleEvent(): void {
-  log();
-}
+export {
+  addEventListeners,
+  onContainerMessage,
+  onControllerChange,
+  onEvent,
+  onLoad,
+  onRegistrationUpdateFound,
+  register,
+};
 
-export function handleControllerChange(this: ServiceWorkerContainer): void {
-  log();
-}
-
-export function handleContainerMessage(this: ServiceWorkerContainer): void {
-  log();
-}
-
-export function handleRegistrationUpdateFound(
-  this: ServiceWorkerRegistration
-): void {
-  log();
-}
+addEventListener('load', onLoad);

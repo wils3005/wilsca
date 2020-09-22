@@ -1,12 +1,19 @@
-import App from './App';
+import { App } from './App';
 import ReactDOM from 'react-dom';
-import log from './log';
+import { log } from './log';
 
-if (globalThis.constructor.name == 'Window') {
-  globalThis.addEventListener('load', handleLoad);
+const {
+  document,
+  constructor: { name },
+} = globalThis;
+
+function onLoad(): void {
+  log();
+  ReactDOM.render(App(), document.getElementById('root'));
 }
 
-export function handleLoad(): void {
-  log();
-  ReactDOM.render(App(), globalThis.document.getElementById('root'));
+export { onLoad };
+
+if (name == 'Window') {
+  globalThis.addEventListener('load', onLoad);
 }

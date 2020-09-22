@@ -1,10 +1,10 @@
-import { handleLoad } from '../src';
+import { onLoad } from '../src';
 
 describe('client', () => {
-  describe('handleLoad', () => {
+  describe('onLoad', () => {
     it("doesn't throw", () => {
       expect.hasAssertions();
-      expect(() => handleLoad()).not.toThrow();
+      expect(() => onLoad()).not.toThrow();
     });
   });
 });
