@@ -1,30 +1,11 @@
-import { Server, ServerOptions } from '@hapi/hapi';
-
-import {
-  cert,
-  host,
-  key,
-  loggerOptions,
-  port,
-  proxied,
-  relativeTo,
-} from './env';
-
 import { healthz, knex, models, peerServer } from './plugins';
+import { loggerOptions, proxied, serverOptions } from './env';
+import { Server } from '@hapi/hapi';
 import basic from '@hapi/basic';
 import hapiPino from 'hapi-pino';
 import inert from '@hapi/inert';
 import nes from '@hapi/nes';
 import pino from 'pino';
-
-const serverOptions: ServerOptions = {
-  host,
-  port,
-  routes: {
-    files: { relativeTo },
-  },
-  tls: { cert, key },
-};
 
 const server = new Server(serverOptions);
 

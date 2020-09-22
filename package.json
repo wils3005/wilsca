@@ -7,7 +7,8 @@
     "lerna-check": "npx lerna run check && npx npm-check --update-all",
     "lerna-install": "npx lerna exec 'npx pnpm install' && npx pnpm install",
     "prettier": "npx prettier --list-different .",
-    "prettier-write": "npx prettier --write ."
+    "prettier-write": "npx prettier --write .",
+    "test": "npx jest"
   },
   "dependencies": {
     "@wilsjs/client": "file:packages/client",

@@ -1,6 +1,6 @@
 {
   "collectCoverage": true,
-  "collectCoverageFrom": ["src/*.{js,jsx,ts,tsx}"],
+  "collectCoverageFrom": ["**/src/*.{js,jsx,ts,tsx}"],
   "coverageDirectory": "coverage",
   "coverageReporters": ["html", "text"],
   "coverageThreshold": {
@@ -15,7 +15,13 @@
     "\\.(css|gif|ttf|eot|svg)$": "<rootDir>/__mocks__/assets.ts"
   },
   "preset": "ts-jest",
-  "setupFiles": ["<rootDir>/__mocks__/global.ts"],
+  "setupFiles": [
+    "<rootDir>/__mocks__/global.ts",
+    "<rootDir>/__mocks__/http.ts",
+    "<rootDir>/__mocks__/https.ts",
+    "<rootDir>/__mocks__/process.ts",
+    "<rootDir>/__mocks__/stream.ts"
+  ],
   "testURL": "http://localhost/",
   "verbose": true
 }
