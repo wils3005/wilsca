@@ -1,4 +1,4 @@
-import * as hapiServer from '../src/hapiServer';
+import * as hapiServer from './hapiServer';
 
 describe('hapiServer', () => {
   it('is defined', () => {

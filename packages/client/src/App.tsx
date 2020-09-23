@@ -12,7 +12,6 @@ import {
   Navbar,
   Row,
 } from 'react-bootstrap';
-
 import React = require('react');
 
 function App(): JSX.Element {

@@ -2,7 +2,11 @@ import Knex = require('knex');
 
 const tableName = 'users';
 
-export function up(knex: Knex): Knex.SchemaBuilder {
+function down(knex: Knex): Knex.SchemaBuilder {
+  return knex.schema.dropTable(tableName);
+}
+
+function up(knex: Knex): Knex.SchemaBuilder {
   return knex.schema.createTable(tableName, (table) => {
     table.integer('id').primary();
     table.string('username').unique().notNullable();
@@ -11,6 +15,4 @@ export function up(knex: Knex): Knex.SchemaBuilder {
   });
 }
 
-export function down(knex: Knex): Knex.SchemaBuilder {
-  return knex.schema.dropTable(tableName);
-}
+export { down, up };
