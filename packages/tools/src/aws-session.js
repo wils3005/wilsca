@@ -2,8 +2,8 @@
 
 const childProcess = require('child_process');
 const fs = require('fs');
-const ini = require('ini');
 const path = require('path');
+const ini = require('ini');
 
 const {
   AWS_ARN_MFA,

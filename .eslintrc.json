@@ -42,8 +42,10 @@
   },
   "root": true,
   "rules": {
+    "import/exports-last": "error",
     "import/no-default-export": "error",
     "import/no-relative-parent-imports": "error",
+    "import/order": "error",
     "sort-imports": "error"
   },
   "settings": {

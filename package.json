@@ -2,13 +2,12 @@
   "name": "@wilsjs/wilsjs",
   "private": true,
   "scripts": {
-    "eslint": "npx eslint .",
-    "eslint-fix": "npx eslint --fix .",
-    "lerna-check": "npx lerna run check && npx npm-check --update-all",
+    "eslint": "eslint --format table --fix --report-unused-disable-directives .",
+    "lerna-build": "lerna run build",
+    "lerna-check": "lerna run check && npm-check --update-all",
     "lerna-install": "npx lerna exec 'npx pnpm install' && npx pnpm install",
-    "prettier": "npx prettier --list-different .",
-    "prettier-write": "npx prettier --write .",
-    "test": "npx jest"
+    "prettier": "prettier --list-different .",
+    "test": "npm run eslint && jest"
   },
   "dependencies": {
     "@wilsjs/client": "file:packages/client",

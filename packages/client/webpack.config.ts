@@ -1,12 +1,12 @@
+import path = require('path');
 import * as cleanWebpackPlugin from 'clean-webpack-plugin';
 import { FaviconWebpackPlugionOptions } from 'favicons-webpack-plugin/src/options';
 import FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 import HtmlWebpackPlugin = require('html-webpack-plugin');
 import ManifestPlugin = require('webpack-manifest-plugin');
 import MiniCssExtractPlugin = require('mini-css-extract-plugin');
-import path = require('path');
-import seed = require('./src/manifest.json');
 import webpack = require('webpack');
+import seed = require('./src/manifest.json');
 
 const srcPath = path.join(__dirname, 'src');
 

@@ -1,4 +1,9 @@
 import { Server, ServerOptions } from '@hapi/hapi';
+import basic = require('@hapi/basic');
+import hapiPino = require('hapi-pino');
+import inert = require('@hapi/inert');
+import nes = require('@hapi/nes');
+import pino = require('pino');
 import {
   cert,
   host,
@@ -8,13 +13,7 @@ import {
   proxied,
   publicPath,
 } from './config';
-
 import { healthz, knex, models, peerServer } from './plugins';
-import basic = require('@hapi/basic');
-import hapiPino = require('hapi-pino');
-import inert = require('@hapi/inert');
-import nes = require('@hapi/nes');
-import pino = require('pino');
 
 const serverOptions: ServerOptions = {
   host,

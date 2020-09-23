@@ -1,8 +1,8 @@
+import path = require('path');
 import * as z from 'zod';
 import Knex = require('knex');
 import { Plugin, Server } from '@hapi/hapi';
 import Objection = require('objection');
-import path = require('path');
 
 const { NODE_ENV } = process.env;
 const knexConfig: Knex.Config = {

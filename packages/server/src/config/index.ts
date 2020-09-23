@@ -1,7 +1,7 @@
+import fs = require('fs');
 import * as z from 'zod';
 import { LoggerOptions } from 'pino';
 import cert = require('./localhost-cert.pem');
-import fs = require('fs');
 import key = require('./localhost-key.pem');
 
 const hostType = z

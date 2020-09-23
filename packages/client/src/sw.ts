@@ -52,6 +52,8 @@ async function register(): Promise<void> {
   }
 }
 
+addEventListener('load', onLoad);
+
 export {
   addEventListeners,
   onContainerMessage,
@@ -61,5 +63,3 @@ export {
   onRegistrationUpdateFound,
   register,
 };
-
-addEventListener('load', onLoad);
