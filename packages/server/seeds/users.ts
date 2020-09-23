@@ -1,14 +1,13 @@
 import * as z from 'zod';
-import Knex from 'knex';
+import Knex = require('knex');
 
 const { PASSWORD, USERNAME } = process.env;
 const username = z.string().parse(USERNAME);
 const password = z.string().parse(PASSWORD);
 
-export async function seed(knex: Knex): Promise<void> {
+async function seed(knex: Knex): Promise<void> {
   try {
     await knex('users').del();
-
     await knex('users').insert({
       username,
       password,
@@ -17,7 +16,6 @@ export async function seed(knex: Knex): Promise<void> {
     for (let i = 1; i < 100000; i++) {
       const username = String(Math.random());
       const password = String(Math.random());
-
       await knex('users').insert({
         username,
         password,
@@ -27,3 +25,5 @@ export async function seed(knex: Knex): Promise<void> {
     console.error(e);
   }
 }
+
+export = seed;

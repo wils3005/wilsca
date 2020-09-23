@@ -1,14 +1,32 @@
+import { Server, ServerOptions } from '@hapi/hapi';
+import {
+  cert,
+  host,
+  key,
+  loggerOptions,
+  port,
+  proxied,
+  publicPath,
+} from './config';
+
 import { healthz, knex, models, peerServer } from './plugins';
-import { loggerOptions, proxied, serverOptions } from './env';
-import { Server } from '@hapi/hapi';
-import basic from '@hapi/basic';
-import hapiPino from 'hapi-pino';
-import inert from '@hapi/inert';
-import nes from '@hapi/nes';
-import pino from 'pino';
+import basic = require('@hapi/basic');
+import hapiPino = require('hapi-pino');
+import inert = require('@hapi/inert');
+import nes = require('@hapi/nes');
+import pino = require('pino');
+
+const serverOptions: ServerOptions = {
+  host,
+  port,
+  routes: { files: { relativeTo: publicPath } },
+  tls: {
+    cert,
+    key,
+  },
+};
 
 const server = new Server(serverOptions);
-
 const plugins = [
   { plugin: basic, options: {} },
   { plugin: hapiPino, options: { instance: pino(loggerOptions) } },
@@ -28,7 +46,6 @@ function onUnhandledRejection(reason: unknown): void {
 async function start(): Promise<void> {
   process.on('unhandledRejection', onUnhandledRejection);
   await server.register(plugins);
-
   server.route({
     method: 'GET',
     path: '/{param*}',

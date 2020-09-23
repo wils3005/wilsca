@@ -12,7 +12,9 @@
     }
   },
   "moduleNameMapper": {
-    "\\.(css|gif|ttf|eot|svg)$": "<rootDir>/__mocks__/assets.ts"
+    "\\.(css)$": "<rootDir>/__mocks__/assets.ts",
+    "localhost-cert.pem": "<rootDir>/__mocks__/localhost-cert.ts",
+    "localhost-key.pem": "<rootDir>/__mocks__/localhost-key.ts"
   },
   "preset": "ts-jest",
   "setupFiles": [

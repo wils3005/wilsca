@@ -2,7 +2,6 @@ import { Plugin, Server } from '@hapi/hapi';
 import { Model as User } from './User';
 
 const models = { User };
-
 const plugin: Plugin<unknown> = {
   name: 'User',
   register,

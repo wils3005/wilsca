@@ -1,12 +1,12 @@
 import * as cleanWebpackPlugin from 'clean-webpack-plugin';
 import { FaviconWebpackPlugionOptions } from 'favicons-webpack-plugin/src/options';
-import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import ManifestPlugin from 'webpack-manifest-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import path from 'path';
-import seed from './src/manifest.json';
-import webpack from 'webpack';
+import FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+import HtmlWebpackPlugin = require('html-webpack-plugin');
+import ManifestPlugin = require('webpack-manifest-plugin');
+import MiniCssExtractPlugin = require('mini-css-extract-plugin');
+import path = require('path');
+import seed = require('./src/manifest.json');
+import webpack = require('webpack');
 
 const srcPath = path.join(__dirname, 'src');
 
@@ -53,6 +53,8 @@ const rules: webpack.RuleSetRule[] = [
 ];
 
 ////////////////////////////////////////////////////////////////////////////////
+const devtool = 'source-map';
+
 const entry: webpack.Entry = {
   App: path.join(srcPath, 'App.tsx'),
   MyWebSocket: path.join(srcPath, 'MyWebSocket.ts'),
@@ -86,7 +88,7 @@ const resolve: webpack.Resolve = {
 
 ////////////////////////////////////////////////////////////////////////////////
 const webpackConfiguration: webpack.Configuration = {
-  devtool: 'source-map',
+  devtool,
   entry,
   mode: 'development',
   module: { rules },

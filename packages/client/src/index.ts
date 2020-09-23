@@ -1,5 +1,5 @@
 import { App } from './App';
-import ReactDOM from 'react-dom';
+import ReactDOM = require('react-dom');
 import { log } from './log';
 
 const {

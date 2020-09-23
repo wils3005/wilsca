@@ -1,4 +1,4 @@
-import Peer from 'peerjs';
+import Peer = require('peerjs');
 
 interface MyConnection extends Peer.MediaConnection {
   element?: HTMLVideoElement;
@@ -71,3 +71,5 @@ fetch(clientsURL)
 
 peer.on('call', handleCall);
 peer.on('error', handleError);
+
+export {};

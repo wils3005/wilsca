@@ -1,9 +1,9 @@
-import { EventEmitter } from 'events';
+import events = require('events');
 import { ExpressPeerServer } from 'peer';
 import { Server } from '@hapi/hapi';
-import WebSocket from 'ws';
+import WebSocket = require('ws');
 
-declare type PeerWebSocket = WebSocket & EventEmitter;
+declare type PeerWebSocket = WebSocket & events.EventEmitter;
 
 declare interface PeerClient {
   getId(): string;
@@ -33,7 +33,6 @@ declare interface PeerConfig {
 }
 
 const peerClients: Set<PeerClient> = new Set();
-
 const plugin = {
   name: 'peer-server',
   register,

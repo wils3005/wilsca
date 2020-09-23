@@ -1,5 +1,5 @@
-import path from 'path';
-import process from 'process';
+import path = require('path');
+import process = require('process');
 
 const { env } = process;
 
@@ -10,6 +10,4 @@ Object.assign(env, {
   PORT: '8443',
   PROXIED: true,
   PUBLIC_PATH: path.join(__dirname, 'public'),
-  TLS_CERT: __filename,
-  TLS_KEY: __filename,
 });

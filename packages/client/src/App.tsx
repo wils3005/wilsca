@@ -13,7 +13,7 @@ import {
   Row,
 } from 'react-bootstrap';
 
-import React from 'react';
+import React = require('react');
 
 function App(): JSX.Element {
   return (

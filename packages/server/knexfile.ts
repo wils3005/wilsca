@@ -1,4 +1,4 @@
-import path from 'path';
+import path = require('path');
 
 const development = {
   client: 'sqlite3',

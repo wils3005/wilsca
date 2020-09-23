@@ -3,12 +3,12 @@
   "exclude": ["build/", "coverage/", "node_modules/"],
   "compilerOptions": {
     "allowJs": true,
-    "allowSyntheticDefaultImports": true,
+    // "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
     "checkJs": true,
     "diagnostics": true,
     "downlevelIteration": true,
-    "esModuleInterop": true,
+    // "esModuleInterop": true,
     "extendedDiagnostics": true,
     "forceConsistentCasingInFileNames": true,
     "jsx": "react",
@@ -23,6 +23,6 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "ES5",
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["node_modules/@types", "types"]
   }
 }

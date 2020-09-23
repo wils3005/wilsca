@@ -1,11 +1,18 @@
-import path from 'path';
-import webpackNodeExternals from 'webpack-node-externals';
+import * as cleanWebpackPlugin from 'clean-webpack-plugin';
+import path = require('path');
+import webpack = require('webpack');
+import webpackNodeExternals = require('webpack-node-externals');
 
-const src = path.join(__dirname, 'src');
+const cleanWebpackPluginOptions: cleanWebpackPlugin.Options = {
+  verbose: true,
+};
 
-const config = {
-  entry: path.join(src, 'index.ts'),
+const webpackConfiguration: webpack.Configuration = {
+  entry: {
+    index: path.join(__dirname, 'src', 'index.ts'),
+  },
   externals: [webpackNodeExternals()],
+  mode: 'production',
   module: {
     rules: [
       {
@@ -17,18 +24,21 @@ const config = {
           configFile: path.join(__dirname, 'tsconfig.build.json'),
         },
       },
+      {
+        loader: 'file-loader',
+      },
     ],
   },
   output: {
-    filename: 'server.js',
     path: path.join(__dirname, 'build'),
   },
-  plugins: [],
+  plugins: [
+    new cleanWebpackPlugin.CleanWebpackPlugin(cleanWebpackPluginOptions),
+  ],
   resolve: {
     extensions: ['.ts', '.js', '.json'],
   },
   target: 'node',
 };
 
-// eslint-disable-next-line import/no-default-export
-export default config;
+export = webpackConfiguration;
