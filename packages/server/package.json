@@ -12,7 +12,7 @@
     "prettier": "npx prettier --list-different .",
     "prettier-write": "npx prettier --write .",
     "start": "node ../../node_modules/ts-node-dev/bin/ts-node-dev --require dotenv/config --respawn --transpile-only src/index.ts",
-    "build": "npx webpack"
+    "build": "npx webpack --verbose"
   },
   "dependencies": {
     "@hapi/basic": "6.0.0",

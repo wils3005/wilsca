@@ -1,3 +1,4 @@
+import fs = require('fs');
 import path = require('path');
 
 import * as cleanWebpackPlugin from 'clean-webpack-plugin';
@@ -57,13 +58,7 @@ const rules: webpack.RuleSetRule[] = [
 ////////////////////////////////////////////////////////////////////////////////
 const devtool = 'source-map';
 
-const entry: webpack.Entry = {
-  App: path.join(srcPath, 'App.tsx'),
-  MyWebSocket: path.join(srcPath, 'MyWebSocket.ts'),
-  index: path.join(srcPath, 'index.ts'),
-  log: path.join(srcPath, 'log.ts'),
-  sw: path.join(srcPath, 'sw.ts'),
-};
+const entry = fs.readdirSync(path.join(__dirname, 'src')).reduce(fn, {});
 
 const optimization: webpack.Options.Optimization = {
   splitChunks: {
@@ -99,5 +94,14 @@ const webpackConfiguration: webpack.Configuration = {
   plugins,
   resolve,
 };
+
+function fn(entry: webpack.Entry, s: string): webpack.Entry {
+  if (/^[^.]+\.[jt]sx?$/.test(s)) {
+    const key = path.basename(s, path.extname(s));
+    entry[key] = path.join(srcPath, s);
+  }
+
+  return entry;
+}
 
 export = webpackConfiguration;

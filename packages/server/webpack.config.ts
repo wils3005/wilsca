@@ -9,24 +9,19 @@ const cleanWebpackPluginOptions: cleanWebpackPlugin.Options = {
 };
 
 const webpackConfiguration: webpack.Configuration = {
-  entry: {
-    index: path.join(__dirname, 'src', 'index.ts'),
-  },
+  entry: path.join(__dirname, 'src', 'index.ts'),
   externals: [webpackNodeExternals()],
   mode: 'production',
   module: {
     rules: [
       {
         exclude: /node_modules/,
-        test: /\.tsx?$/,
+        test: /(?<!test)\.tsx?$/,
         loader: 'ts-loader',
         options: {
           transpileOnly: true,
           configFile: path.join(__dirname, 'tsconfig.build.json'),
         },
-      },
-      {
-        loader: 'file-loader',
       },
     ],
   },

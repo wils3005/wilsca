@@ -1,3 +1,5 @@
+import { mock } from 'jest-mock-extended';
+
 import {
   getWebSocket,
   onError,
@@ -9,45 +11,40 @@ import {
 describe('webSocket', () => {
   describe('getWebSocket', () => {
     it("doesn't throw", () => {
-      expect.hasAssertions();
       expect(() => {
-        getWebSocket.bind(new WebSocket('ws://example.com'))();
+        getWebSocket.bind(mock<WebSocket>())();
       }).not.toThrow();
     });
   });
 
   describe('onError', () => {
     it("doesn't throw", () => {
-      expect.hasAssertions();
       expect(() => {
-        onError.bind(new WebSocket('ws://example.com'))();
+        onError.bind(mock<WebSocket>())();
       }).not.toThrow();
     });
   });
 
   describe('onMessage', () => {
     it("doesn't throw", () => {
-      expect.hasAssertions();
       expect(() => {
-        onMessage.bind(new WebSocket('ws://example.com'))();
+        onMessage.bind(mock<WebSocket>())();
       }).not.toThrow();
     });
   });
 
   describe('onOpen', () => {
     it("doesn't throw", () => {
-      expect.hasAssertions();
       expect(() => {
-        onOpen.bind(new WebSocket('ws://example.com'))();
+        onOpen.bind(mock<WebSocket>())();
       }).not.toThrow();
     });
   });
 
   describe('setWebSocket', () => {
     it("doesn't throw", () => {
-      expect.hasAssertions();
       expect(() => {
-        setWebSocket.bind(new WebSocket('ws://example.com'))();
+        setWebSocket.bind(mock<WebSocket>())();
       }).not.toThrow();
     });
   });

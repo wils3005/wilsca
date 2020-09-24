@@ -18,7 +18,6 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "build/",
-    "removeComments": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,

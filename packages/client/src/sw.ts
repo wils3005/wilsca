@@ -1,21 +1,23 @@
 import './webSocket';
 import { log } from './log';
 
-const { name: globalThisType } = globalThis.constructor;
+const { name } = globalThis.constructor;
 const scriptUrl = './sw.js';
 
 function addEventListeners(): void {
-  addEventListener('activate', onEvent);
-  addEventListener('contentdelete', onEvent);
-  addEventListener('fetch', onEvent);
-  addEventListener('install', onEvent);
-  addEventListener('message', onEvent);
-  addEventListener('messageerror', onEvent);
-  addEventListener('notificationclick', onEvent);
-  addEventListener('notificationclose', onEvent);
-  addEventListener('push', onEvent);
-  addEventListener('pushsubscriptionchange', onEvent);
-  addEventListener('sync', onEvent);
+  if (name != 'ServiceWorkerGlobalScope') return;
+
+  globalThis.addEventListener('activate', onEvent);
+  globalThis.addEventListener('contentdelete', onEvent);
+  globalThis.addEventListener('fetch', onEvent);
+  globalThis.addEventListener('install', onEvent);
+  globalThis.addEventListener('message', onEvent);
+  globalThis.addEventListener('messageerror', onEvent);
+  globalThis.addEventListener('notificationclick', onEvent);
+  globalThis.addEventListener('notificationclose', onEvent);
+  globalThis.addEventListener('push', onEvent);
+  globalThis.addEventListener('pushsubscriptionchange', onEvent);
+  globalThis.addEventListener('sync', onEvent);
 }
 
 function onContainerMessage(this: ServiceWorkerContainer): void {
@@ -28,11 +30,6 @@ function onControllerChange(this: ServiceWorkerContainer): void {
 
 function onEvent(): void {
   log();
-}
-
-function onLoad(): void {
-  if (globalThisType == 'ServiceWorkerGlobalScope') addEventListeners();
-  void register();
 }
 
 function onRegistrationUpdateFound(this: ServiceWorkerRegistration): void {
@@ -52,14 +49,11 @@ async function register(): Promise<void> {
   }
 }
 
-addEventListener('load', onLoad);
-
 export {
   addEventListeners,
   onContainerMessage,
   onControllerChange,
   onEvent,
-  onLoad,
   onRegistrationUpdateFound,
   register,
 };

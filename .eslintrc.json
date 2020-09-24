@@ -47,8 +47,7 @@
         "groups": ["builtin", "external", "parent", "sibling", "index"],
         "newlines-between": "always"
       }
-    ],
-    "sort-imports": "error"
+    ]
   },
   "settings": {
     "react": {

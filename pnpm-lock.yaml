@@ -17,6 +17,7 @@ devDependencies:
   '@types/hapi__hapi': 20.0.0
   '@types/hapi__inert': 5.2.0
   '@types/hapi__nes': 11.0.3
+  '@types/ini': 1.3.30
   '@types/jest': 26.0.14
   '@types/jsdom': 16.2.4
   '@types/mini-css-extract-plugin': 0.9.1
@@ -55,6 +56,7 @@ devDependencies:
   husky: 4.3.0
   ini: 1.3.5
   jest: 26.4.2
+  jest-mock-extended: 1.0.10_jest@26.4.2+typescript@4.0.2
   jquery: 3.5.1
   jsdom: 16.4.0
   lerna: 3.22.1
@@ -3269,6 +3271,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-Y7dsVhTn75IaD4lMIY02UP1L8e0ou8KQu8DKPJAegEFKdJR28/8ejayDG8ykfR0DtYCx3dCEHIkdpN8AOB6txQ==
+  /@types/ini/1.3.30:
+    dev: true
+    resolution:
+      integrity: sha512-2+iF8zPSbpU83UKE+PNd4r/MhwNAdyGpk3H+VMgEH3EhjFZq1kouLgRoZrmIcmoGX97xFvqdS44DkICR5Nz3tQ==
   /@types/invariant/2.2.34:
     dev: true
     resolution:
@@ -10090,6 +10096,16 @@ packages:
       node: '>= 10.14.2'
     resolution:
       integrity: sha512-xIavRYqr4/otGOiLxLZGj3ieMmjcNE73Ui+LdSW/Y790j5acqCsAdDiLIbzHCZMpN07JOENRWX5DcU+OQ+TjTA==
+  /jest-mock-extended/1.0.10_jest@26.4.2+typescript@4.0.2:
+    dependencies:
+      jest: 26.4.2
+      ts-essentials: 4.0.0_typescript@4.0.2
+    dev: true
+    peerDependencies:
+      jest: ^24.0.0 || ^25.0.0 || ^26.0.0
+      typescript: '*'
+    resolution:
+      integrity: sha512-R2wKiOgEUPoHZ2kLsAQeQP2IfVEgo3oQqWLSXKdMXK06t3UHkQirA2Xnsdqg/pX6KPWTsdnrzE2ig6nqNjdgVw==
   /jest-mock/26.3.0:
     dependencies:
       '@jest/types': 26.3.0
@@ -15544,6 +15560,14 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-yy4SAwZ+DI3h9hQJS5/kVwTqYAM=
+  /ts-essentials/4.0.0_typescript@4.0.2:
+    dependencies:
+      typescript: 4.0.2
+    dev: true
+    peerDependencies:
+      typescript: '>=3.7.0'
+    resolution:
+      integrity: sha512-uQJX+SRY9mtbKU+g9kl5Fi7AEMofPCvHfJkQlaygpPmHPZrtgaBqbWFOYyiA47RhnSwwnXdepUJrgqUYxoUyhQ==
   /ts-jest/26.3.0_jest@26.4.2+typescript@4.0.2:
     dependencies:
       '@types/jest': 26.0.14
@@ -16942,6 +16966,7 @@ specifiers:
   '@types/hapi__hapi': 20.0.0
   '@types/hapi__inert': 5.2.0
   '@types/hapi__nes': 11.0.3
+  '@types/ini': 1.3.30
   '@types/jest': 26.0.14
   '@types/jsdom': 16.2.4
   '@types/mini-css-extract-plugin': 0.9.1
@@ -16984,6 +17009,7 @@ specifiers:
   husky: 4.3.0
   ini: 1.3.5
   jest: 26.4.2
+  jest-mock-extended: 1.0.10
   jquery: 3.5.1
   jsdom: 16.4.0
   lerna: ^3.22.1
