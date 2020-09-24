@@ -1,11 +1,11 @@
 dependencies:
   '@hapi/basic': 6.0.0
-  '@hapi/hapi': 20.0.0
+  '@hapi/hapi': 20.0.1
   '@hapi/inert': 6.0.2
   '@hapi/nes': 12.0.3
   '@hapi/vision': 6.0.1
   '@types/ws': 7.2.6
-  aws-sdk: 2.751.0
+  aws-sdk: 2.759.0
   bcrypt: 5.0.0
   dotenv: 8.2.0
   hapi-pino: 8.3.0
@@ -13,15 +13,15 @@ dependencies:
   knex: 0.21.5_sqlite3@5.0.0
   objection: 2.2.3_knex@0.21.5
   peer: 0.5.3
-  pino: 6.6.0
-  pino-http: 5.2.0
+  pino: 6.6.1
+  pino-http: 5.3.0
   pino-pretty: 4.2.1
-  schwifty: 5.4.0_ccc492fe34d54b9d1c23470d39cd08e3
+  schwifty: 5.4.0_2f0c17183a43bca3f87023619fc0f55e
   sqlite3: 5.0.0
-  tozod: 0.0.1_zod@1.11.5
+  tozod: 0.0.1_zod@1.11.9
   uuid: 8.3.0
   ws: 7.3.1
-  zod: 1.11.5
+  zod: 1.11.9
 lockfileVersion: 5.1
 packages:
   /@hapi/accept/5.0.1:
@@ -129,7 +129,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-V87P8fv7PI0LH7LiVi8Lkf3x+KCO7pQozXRssAHNXXL9L1K+uyu4XypLXwxqVDKgyQai6qj3/KteNlrqDx4W5A==
-  /@hapi/hapi/20.0.0:
+  /@hapi/hapi/20.0.1:
     dependencies:
       '@hapi/accept': 5.0.1
       '@hapi/ammo': 5.0.1
@@ -142,7 +142,7 @@ packages:
       '@hapi/hoek': 9.1.0
       '@hapi/mimos': 5.0.0
       '@hapi/podium': 4.1.1
-      '@hapi/shot': 5.0.3
+      '@hapi/shot': 5.0.4
       '@hapi/somever': 3.0.0
       '@hapi/statehood': 7.0.3
       '@hapi/subtext': 7.0.3
@@ -153,7 +153,7 @@ packages:
     engines:
       node: '>=12.0.0'
     resolution:
-      integrity: sha512-Wh0tIDFsl7nemU2JQYW4zZVr9XkpuZ1eM3yaX8tzaYdaYXon8QeB5NzrTNQY3R1/+fO7amQUrOoLLNPRwIZfgw==
+      integrity: sha512-v8NapLf5vkKWIJoBCUBIOk6ZdH9vrxZco4GZbjdM3ROQBDl4eXwW3pySTBL7xWANYp3Nzdn+fiFWjDwdgsSoQg==
   /@hapi/heavy/7.0.1:
     dependencies:
       '@hapi/boom': 9.1.0
@@ -217,7 +217,7 @@ packages:
   /@hapi/mimos/5.0.0:
     dependencies:
       '@hapi/hoek': 9.1.0
-      mime-db: 1.44.0
+      mime-db: 1.45.0
     dev: false
     resolution:
       integrity: sha512-EVS6wJYeE73InTlPWt+2e3Izn319iIvffDreci3qDNT+t3lA5ylJ0/SoTaID8e0TPNUkHUSsgJZXEmLHvoYzrA==
@@ -273,13 +273,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-jh7a6+5Z4FUWzx8fgmxjaAa1DTBu+Qfg+NbVdo0f++rE5DgsVidUYrLDp3db65+QjDLleA2MfKQXkpT8ylBDXA==
-  /@hapi/shot/5.0.3:
+  /@hapi/shot/5.0.4:
     dependencies:
       '@hapi/hoek': 9.1.0
       '@hapi/validate': 1.1.2
     dev: false
     resolution:
-      integrity: sha512-qbccs8KL4YSL9x0J/17Z6Udmtrrn32ieGbrCW8iivl2ha8YzlDy9Wvv1pFKh3mzbTsomWHGLF3UsKcQFk/BqPg==
+      integrity: sha512-PcEz0WJgFDA3xNSMeONgQmothFr7jhbbRRSAKaDh7chN7zOXBlhl13bvKZW6CMb2xVfJUmt34CW3e/oExMgBhQ==
   /@hapi/somever/3.0.0:
     dependencies:
       '@hapi/bounce': 2.0.0
@@ -603,7 +603,7 @@ packages:
       node: '>=8.0.0'
     resolution:
       integrity: sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==
-  /aws-sdk/2.751.0:
+  /aws-sdk/2.759.0:
     dependencies:
       buffer: 4.9.2
       events: 1.1.1
@@ -618,7 +618,7 @@ packages:
     engines:
       node: '>= 0.8.0'
     resolution:
-      integrity: sha512-0lo7YKTfjEwoP+2vK7F7WGNigvwFxqiM96PzBaseOpOelfhFHPKEJpk2Poa12JI89c8dGoc1PhTQ1TSTJK3ZqQ==
+      integrity: sha512-XTmt6b8NfluqmixO18Bu9ZttZMW9rwEDVO+XITsIQ5dZvLectwrjlbEn2refudJI1Y2pxLguw+tABvXi1wtbbQ==
   /aws-sign2/0.7.0:
     dev: false
     optional: true
@@ -1998,6 +1998,12 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-/NOTfLrsPBVeH7YtFPgsVWveuL+4SjjYxaQ1xtM1KMFj7HdxlBlxeyNLzhyJVx7r4rZGJAZ/6lkKCitSc/Nmpg==
+  /mime-db/1.45.0:
+    dev: false
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha512-CkqLUxUk15hofLoLyljJSrukZi8mAtgd+yE5uO4tqRZsdsAJKv0O+rFMhVDRJgozy+yG6md5KwuXhD4ocIoP+w==
   /mime-types/2.1.27:
     dependencies:
       mime-db: 1.44.0
@@ -2434,14 +2440,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-ukMTJXLI7/hZIwTW7hGMZJ0Lj0S2XQBCJ4Shv4y1zgQ/vqVea+FLhzywvPj0ujSuofu+yA4MYHGZPTsgjBgJ+w==
-  /pino-http/5.2.0:
+  /pino-http/5.3.0:
     dependencies:
       fast-url-parser: 1.1.3
-      pino: 6.5.1
+      pino: 6.6.1
       pino-std-serializers: 2.5.0
     dev: false
     resolution:
-      integrity: sha512-uGmC6UbzLaCWu+sG9l2wTp2EoXMQ53GRSY9P1sgqNsq3JSh6HdoleMijyuGj2d02OOr1z3/JHcRUy6hYDYWe9Q==
+      integrity: sha512-aV4e7L8ez2MCa1qsuuliKYX5CDJug3LjW8oht+r4H4+fcf7ZvxPOppTs7P9dNHccF8k8oqhOcU/myiP4GvzJiA==
   /pino-pretty/4.2.0:
     dependencies:
       '@hapi/bourne': 2.0.0
@@ -2492,18 +2498,18 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-76+RUhQkqjUD4AtQcSfEzh6vlsjXmoWZK5gg+2d70aCLXZTbo4/5js4I9rN1Xk6z1h2/7pnOFX10G4c2T4qNiA==
-  /pino/6.6.0:
+  /pino/6.6.1:
     dependencies:
       fast-redact: 2.0.0
       fast-safe-stringify: 2.0.7
       flatstr: 1.0.12
       pino-std-serializers: 2.5.0
       quick-format-unescaped: 4.0.1
-      sonic-boom: 1.1.0
+      sonic-boom: 1.3.0
     dev: false
     hasBin: true
     resolution:
-      integrity: sha512-rLfJXX8i2P1VNXZY05fDMI/qK1IQSpKnOg5iNY5TRJn+vKhc9hBg1iCiAuOw3hKEAf54MZMlT8P6T+wgYQYpIA==
+      integrity: sha512-DOgm7rn6ctBkBYemHXSLj7+j3o3U1q1FWBXbHcprur8mA93QcJSycEkEqhqKiFB9Mx/3Qld2FGr6+9yfQza0kA==
   /posix-character-classes/0.1.1:
     dev: false
     engines:
@@ -2748,9 +2754,9 @@ packages:
     dev: false
     resolution:
       integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
-  /schwifty/5.4.0_ccc492fe34d54b9d1c23470d39cd08e3:
+  /schwifty/5.4.0_2f0c17183a43bca3f87023619fc0f55e:
     dependencies:
-      '@hapi/hapi': 20.0.0
+      '@hapi/hapi': 20.0.1
       '@hapi/hoek': 8.5.1
       '@hapi/joi': 16.1.8
       knex: 0.21.5_sqlite3@5.0.0
@@ -2870,6 +2876,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-JyOf+Xt7GBN4tAic/DD1Bitw6OMgSHAnswhPeOiLpfRoSjPNjEIi73UF3OxHzhSNn9WavxGuCZzprFCGFSNwog==
+  /sonic-boom/1.3.0:
+    dependencies:
+      atomic-sleep: 1.0.0
+      flatstr: 1.0.12
+    dev: false
+    resolution:
+      integrity: sha512-4nX6OYvOYr6R76xfQKi6cZpTO3YSWe/vd+QdIfoH0lBy0MnPkeAbb2rRWgmgADkXUeCKPwO1FZAKlAVWAadELw==
   /source-map-resolve/0.5.3:
     dependencies:
       atob: 2.1.2
@@ -3128,9 +3141,9 @@ packages:
     dev: false
     resolution:
       integrity: sha512-EMafQNzl4pzD/MO11B+lyCiPGu51J3r+TXC0i7eYycx4hL9/1tLZXxrEKN91x57RM7jk5mGK1z8A866fAopCEQ==
-  /tozod/0.0.1_zod@1.11.5:
+  /tozod/0.0.1_zod@1.11.9:
     dependencies:
-      zod: 1.11.5
+      zod: 1.11.9
     dev: false
     peerDependencies:
       zod: ^1.9.1
@@ -3367,18 +3380,18 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
-  /zod/1.11.5:
+  /zod/1.11.9:
     dev: false
     resolution:
-      integrity: sha512-wtVHhYZi9OTvnokOy9dv1x6lI1mn+fntcr8vB5+9DOPkWbKA3nkcaVnDaMrRpMrulW1y47Nf0iJ1q63u6xPuyg==
+      integrity: sha512-qZjs9DkvPYHOiOUdAtNcxOC0u5cv7tx9DCmlNZN0MxWeFvgqyr3XkXFqUlaSpmTiZ4A4YVkB2s1Zw2ENJ9/fSg==
 specifiers:
   '@hapi/basic': 6.0.0
-  '@hapi/hapi': 20.0.0
+  '@hapi/hapi': 20.0.1
   '@hapi/inert': 6.0.2
   '@hapi/nes': 12.0.3
   '@hapi/vision': 6.0.1
   '@types/ws': 7.2.6
-  aws-sdk: 2.751.0
+  aws-sdk: 2.759.0
   bcrypt: 5.0.0
   dotenv: 8.2.0
   hapi-pino: 8.3.0
@@ -3386,12 +3399,12 @@ specifiers:
   knex: 0.21.5
   objection: 2.2.3
   peer: 0.5.3
-  pino: 6.6.0
-  pino-http: 5.2.0
+  pino: 6.6.1
+  pino-http: 5.3.0
   pino-pretty: 4.2.1
   schwifty: 5.4.0
   sqlite3: 5.0.0
   tozod: 0.0.1
   uuid: 8.3.0
   ws: 7.3.1
-  zod: 1.11.5
+  zod: 1.11.9
