@@ -12,7 +12,13 @@ import {
   Navbar,
   Row,
 } from 'react-bootstrap';
+
 import React from 'react';
+import { render } from 'react-dom';
+
+function asdf(): void {
+  render(<Element />, document.getElementById('root'));
+}
 
 function Element(): JSX.Element {
   return (
@@ -62,4 +68,4 @@ function Element(): JSX.Element {
   );
 }
 
-export { Element };
+export { asdf, Element };

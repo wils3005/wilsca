@@ -10,8 +10,5 @@
     "prettier-write": "npx prettier --write .",
     "start": "npx webpack-dev-server",
     "test": "npx jest"
-  },
-  "devDependencies": {
-    "@wilsjs/config": "file:../../packages/config"
   }
 }

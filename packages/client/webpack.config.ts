@@ -26,24 +26,20 @@ const webpackConfiguration: Configuration = {
   module: {
     rules: [
       {
+        exclude: /node_modules/,
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: {
+          configFile: join(__dirname, 'tsconfig.json'),
+        },
+      },
+      {
         test: /\.css$/,
         use: [{ loader }, 'css-loader'],
       },
       {
         test: /\.svg$/,
         loader: 'svg-inline-loader',
-      },
-      {
-        exclude: /node_modules/,
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        options: {
-          transpileOnly: true,
-          configFile: join(__dirname, 'tsconfig.json'),
-        },
-      },
-      {
-        loader: 'file-loader',
       },
     ],
   },
@@ -71,6 +67,10 @@ const webpackConfiguration: Configuration = {
       verbose: true,
     }),
   ],
+  resolve: {
+    // Add `.ts` and `.tsx` as a resolvable extension.
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+  },
 };
 
 export = webpackConfiguration;

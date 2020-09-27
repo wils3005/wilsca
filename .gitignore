@@ -11,4 +11,5 @@ tmp/
 .env*
 !.env.sample
 *.code-workspace
+*.pem
 *.sqlite*
