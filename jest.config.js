@@ -1,28 +1,32 @@
+const { join } = require('path');
+const rootDir = join(__dirname);
+const mocksDir = join(rootDir, '__mocks__');
+
 module.exports = {
   collectCoverage: true,
-  collectCoverageFrom: ['<rootDir>/packages/*/src/*.{js,jsx,ts,tsx}'],
+  collectCoverageFrom: [join(rootDir, 'packages', '*', 'src', '[jt]s*')],
   coverageDirectory: 'coverage',
   coverageReporters: ['text'],
   coverageThreshold: {
     global: {
-      branches: 40,
-      functions: 60,
-      lines: 60,
-      statements: 60,
+      branches: 46,
+      functions: 65,
+      lines: 72,
+      statements: 72,
     },
   },
   moduleNameMapper: {
-    '\\.(css)$': '<rootDir>/__mocks__/css.ts',
-    'localhost-cert.pem': '<rootDir>/__mocks__/localhost-cert.ts',
-    'localhost-key.pem': '<rootDir>/__mocks__/localhost-key.ts',
+    '\\.(css)$': join(mocksDir, 'css.ts'),
+    'localhost-cert.pem': join(mocksDir, 'localhost-cert.ts'),
+    'localhost-key.pem': join(mocksDir, 'localhost-key.ts'),
   },
   preset: 'ts-jest',
   setupFiles: [
-    '<rootDir>/__mocks__/global.ts',
-    '<rootDir>/__mocks__/http.ts',
-    '<rootDir>/__mocks__/https.ts',
-    '<rootDir>/__mocks__/process.ts',
-    '<rootDir>/__mocks__/stream.ts',
+    join(mocksDir, 'global.ts'),
+    join(mocksDir, 'http.ts'),
+    join(mocksDir, 'https.ts'),
+    join(mocksDir, 'process.ts'),
+    join(mocksDir, 'stream.ts'),
   ],
   testURL: 'http://localhost/',
 };
