@@ -1,27 +1,28 @@
-import path = require('path');
-
-import * as z from 'zod';
-import Knex = require('knex');
+import Knex, { Config } from 'knex';
 import { Plugin, Server } from '@hapi/hapi';
-import Objection = require('objection');
+import { Model } from 'objection';
+import { join } from 'path';
+import { string } from '@wilsjs/zod';
 
 const { NODE_ENV } = process.env;
-const knexConfig: Knex.Config = {
+
+const knexConfig: Config = {
   client: 'sqlite3',
   connection: {
-    filename: path.join(process.cwd(), `${z.string().parse(NODE_ENV)}.sqlite3`),
+    filename: join(process.cwd(), `${string().parse(NODE_ENV)}.sqlite3`),
   },
   useNullAsDefault: true,
 };
 
 const knex: Knex<Record<string, unknown>, unknown[]> = Knex(knexConfig);
+
 const plugin: Plugin<unknown> = {
   name: 'knex',
   register,
 };
 
 function register(server: Server): void {
-  Objection.Model.knex(knex);
+  Model.knex(knex);
   server.expose('knex', knex);
 }
 

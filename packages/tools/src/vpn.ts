@@ -1,26 +1,23 @@
 #!/usr/bin/env node
 
-import childProcess = require('child_process');
-
-import * as z from 'zod';
+import { execSync } from 'child_process';
+import { string } from '@wilsjs/zod';
 
 const { VPN_SERVICE_NAME, VPN_SHARED_SECRET } = process.env;
-const vpnServiceName = z.string().parse(VPN_SERVICE_NAME);
-const vpnSharedSecret = z.string().parse(VPN_SHARED_SECRET);
+const vpnServiceName = string().parse(VPN_SERVICE_NAME);
+const vpnSharedSecret = string().parse(VPN_SHARED_SECRET);
 
 function isConnected(): boolean {
-  return /^Connected/.test(
-    String(childProcess.execSync(`scutil --nc status "${vpnServiceName}"`))
-  );
+  const s = `scutil --nc status "${vpnServiceName}"`;
+  return /^Connected/.test(execSync(s).toString());
 }
 
 function main(): void {
   try {
     if (isConnected()) return;
 
-    childProcess.execSync(
-      `scutil --nc start "${vpnServiceName}" --secret "${vpnSharedSecret}"`
-    );
+    const s = `scutil --nc start "${vpnServiceName}" --secret "${vpnSharedSecret}"`;
+    execSync(s);
   } catch (e) {
     console.error(e);
   }

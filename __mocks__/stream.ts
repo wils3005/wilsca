@@ -1,4 +1,4 @@
-import stream = require('stream');
+import stream from 'stream';
 
 Object.assign(stream.Writable.prototype, {
   write: jest.fn(),

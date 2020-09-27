@@ -5,6 +5,7 @@ dependencies:
   '@hapi/nes': 12.0.3
   '@hapi/vision': 6.0.1
   '@types/ws': 7.2.6
+  '@wilsjs/zod': 'link:../zod'
   aws-sdk: 2.759.0
   bcrypt: 5.0.0
   dotenv: 8.2.0
@@ -18,10 +19,8 @@ dependencies:
   pino-pretty: 4.2.1
   schwifty: 5.4.0_2f0c17183a43bca3f87023619fc0f55e
   sqlite3: 5.0.0
-  tozod: 0.0.1_zod@1.11.9
   uuid: 8.3.0
   ws: 7.3.1
-  zod: 1.11.9
 lockfileVersion: 5.1
 packages:
   /@hapi/accept/5.0.1:
@@ -3141,14 +3140,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-EMafQNzl4pzD/MO11B+lyCiPGu51J3r+TXC0i7eYycx4hL9/1tLZXxrEKN91x57RM7jk5mGK1z8A866fAopCEQ==
-  /tozod/0.0.1_zod@1.11.9:
-    dependencies:
-      zod: 1.11.9
-    dev: false
-    peerDependencies:
-      zod: ^1.9.1
-    resolution:
-      integrity: sha512-ox1AY5/VvxktVpZWHsZZnhUT2fUa4KsQwPHzI/YJh9CkvESLbqX5Nstp0imuPnWj1KZ8c31kTJoSNwT2tHEwCw==
   /tunnel-agent/0.6.0:
     dependencies:
       safe-buffer: 5.2.1
@@ -3380,10 +3371,6 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
-  /zod/1.11.9:
-    dev: false
-    resolution:
-      integrity: sha512-qZjs9DkvPYHOiOUdAtNcxOC0u5cv7tx9DCmlNZN0MxWeFvgqyr3XkXFqUlaSpmTiZ4A4YVkB2s1Zw2ENJ9/fSg==
 specifiers:
   '@hapi/basic': 6.0.0
   '@hapi/hapi': 20.0.1
@@ -3391,6 +3378,7 @@ specifiers:
   '@hapi/nes': 12.0.3
   '@hapi/vision': 6.0.1
   '@types/ws': 7.2.6
+  '@wilsjs/zod': ../../packages/zod
   aws-sdk: 2.759.0
   bcrypt: 5.0.0
   dotenv: 8.2.0
@@ -3404,7 +3392,5 @@ specifiers:
   pino-pretty: 4.2.1
   schwifty: 5.4.0
   sqlite3: 5.0.0
-  tozod: 0.0.1
   uuid: 8.3.0
   ws: 7.3.1
-  zod: 1.11.9

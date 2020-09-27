@@ -1,5 +1,5 @@
-import path = require('path');
-import process = require('process');
+import path from 'path';
+import process from 'process';
 
 const { env } = process;
 

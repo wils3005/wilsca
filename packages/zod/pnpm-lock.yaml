@@ -1,0 +1,10 @@
+dependencies:
+  zod: 1.11.9
+lockfileVersion: 5.1
+packages:
+  /zod/1.11.9:
+    dev: false
+    resolution:
+      integrity: sha512-qZjs9DkvPYHOiOUdAtNcxOC0u5cv7tx9DCmlNZN0MxWeFvgqyr3XkXFqUlaSpmTiZ4A4YVkB2s1Zw2ENJ9/fSg==
+specifiers:
+  zod: 1.11.9

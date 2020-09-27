@@ -1,4 +1,4 @@
-import path = require('path');
+import { join } from 'path';
 
 const development = {
   client: 'sqlite3',
@@ -15,7 +15,7 @@ const test = {
   },
   useNullAsDefault: true,
   seeds: {
-    directory: path.join(__dirname, 'seeds'),
+    directory: join(__dirname, 'seeds'),
   },
 };
 

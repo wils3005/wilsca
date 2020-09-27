@@ -1,5 +1,3 @@
-import * as awsSession from './aws-session';
-
 jest.mock('child_process');
 
 jest.mock('fs', () => {
@@ -9,8 +7,11 @@ jest.mock('fs', () => {
   };
 });
 
-describe('awsSession', () => {
-  it('is defined', () => {
-    expect(awsSession).toBeDefined();
+describe('aws-session', () => {
+  it("doesn't throw", async () => {
+    return new Promise((done) => {
+      expect(async () => await import('./aws-session')).not.toThrow();
+      done();
+    });
   });
 });

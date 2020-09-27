@@ -1,6 +1,3 @@
-import * as hapiServer from './hapiServer';
-import * as plugins from './plugins';
+import { start } from './hapiServer';
 
-void hapiServer.start();
-
-export { hapiServer, plugins };
+void start();

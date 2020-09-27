@@ -1,10 +1,4 @@
 import { Server, ServerOptions } from '@hapi/hapi';
-import basic = require('@hapi/basic');
-import hapiPino = require('hapi-pino');
-import inert = require('@hapi/inert');
-import nes = require('@hapi/nes');
-import pino = require('pino');
-
 import {
   cert,
   host,
@@ -14,7 +8,13 @@ import {
   proxied,
   publicPath,
 } from './config';
+
 import { healthz, knex, models, peerServer } from './plugins';
+import basic from '@hapi/basic';
+import hapiPino from 'hapi-pino';
+import inert from '@hapi/inert';
+import nes from '@hapi/nes';
+import pino from 'pino';
 
 const serverOptions: ServerOptions = {
   host,
@@ -38,8 +38,8 @@ const plugins = [
   { plugin: peerServer, options: { path: '/peer', proxied } },
 ];
 
-function onUnhandledRejection(reason: unknown): void {
-  console.error(reason);
+function onUnhandledRejection(...args: unknown[]): void {
+  console.error(...args);
   process.exit(1);
 }
 
@@ -61,4 +61,4 @@ async function start(): Promise<void> {
   server.logger.info(`Server running at: ${server.info.uri}`);
 }
 
-export { server, onUnhandledRejection, start };
+export { onUnhandledRejection, start };

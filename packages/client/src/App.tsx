@@ -12,7 +12,7 @@ import {
   Navbar,
   Row,
 } from 'react-bootstrap';
-import React = require('react');
+import React from 'react';
 
 function Element(): JSX.Element {
   return (

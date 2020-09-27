@@ -1,6 +1,7 @@
 {
   "name": "@wilsjs/client",
   "private": true,
+  "main": "build/index.js",
   "scripts": {
     "build": "npx webpack --mode production",
     "eslint": "npx eslint .",
@@ -9,5 +10,8 @@
     "prettier-write": "npx prettier --write .",
     "start": "npx webpack-dev-server",
     "test": "npx jest"
+  },
+  "devDependencies": {
+    "@wilsjs/config": "file:../../packages/config"
   }
 }

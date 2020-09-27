@@ -1,37 +1,77 @@
 #!/usr/bin/env node
 
-import childProcess = require('child_process');
+import { execSync } from 'child_process';
 
-const gitBranchRegExp = /\* (bugfix|feature)\/(?<jira_issue>\w+-\d+)/;
+const jiraBranchRegExp = /\* (bugfix|feature)\/(?<jira_issue>\w+-\d+)/;
 const { argv } = process;
 const titleBody = argv[2] || new Date().toUTCString();
 
+function gitAdd(): Buffer {
+  const s = 'git add --all';
+  return execSync(s);
+}
+
+function gitBranch(): string {
+  const s = 'git branch --show-current';
+  return execSync(s).toString().trim();
+}
+
+function gitStatus(): string {
+  const s = 'git status';
+  return execSync(s).toString();
+}
+
+function gitCommit(title: string, body: string): Buffer {
+  const s = `git commit --message "${title}" --message "${body}"`;
+  return execSync(s);
+}
+
+function gitDiff(): string {
+  const s = 'git diff --staged --shortstat';
+  return execSync(s).toString();
+}
+
+function gitTitle(): string {
+  return `${jiraTitle()}${titleBody}`;
+}
+
+function jiraIssue(): string {
+  return (jiraBranchRegExp.exec(gitBranch()) || [])[2];
+}
+
+function jiraTitle(): string {
+  return jiraIssue() ? `[${jiraIssue()}] ` : '';
+}
+
 function main(): void {
   try {
-    const gitStatus = childProcess.execSync('git status').toString();
-    if (/nothing to commit, working tree clean/.exec(gitStatus)) {
-      throw new Error('nothing to commit, working tree clean');
-    }
+    /nothing to commit, working tree clean/.test(gitStatus()) &&
+      process.exit(0);
 
-    const gitBranch = childProcess.execSync('git branch').toString();
-    const jiraIssue = (gitBranchRegExp.exec(gitBranch) || [])[2];
-    const jiraTitle = jiraIssue ? `[${jiraIssue}] ` : '';
-    childProcess.execSync('git add --all');
-    const body = childProcess
-      .execSync('git diff --staged --shortstat')
-      .toString();
-
-    const title = `${jiraTitle}${titleBody}`;
-    childProcess.execSync(
-      `git commit --message "${title}" --message "${body}"`
-    );
-
-    childProcess.execSync('git push --force-with-lease');
+    gitAdd();
+    gitCommit(gitTitle(), gitDiff());
+    gitPush();
   } catch (e) {
     console.error(e);
   }
 }
 
+function gitPush(): Buffer {
+  const s = 'git push --force-with-lease';
+  return execSync(s);
+}
+
 main();
 
-export { main };
+export {
+  gitAdd,
+  gitBranch,
+  gitCommit,
+  gitDiff,
+  gitPush,
+  gitStatus,
+  gitTitle,
+  jiraIssue,
+  jiraTitle,
+  main,
+};

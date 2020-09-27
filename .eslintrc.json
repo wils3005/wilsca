@@ -23,11 +23,7 @@
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "plugin:import/typescript"
       ],
-      "files": ["**/*.ts", "**/*.tsx"],
-      "plugins": ["eslint-plugin-tsdoc"],
-      "rules": {
-        "tsdoc/syntax": "warn"
-      }
+      "files": ["**/*.ts", "**/*.tsx"]
     }
   ],
   "parser": "@typescript-eslint/parser",
@@ -36,18 +32,13 @@
   },
   "root": true,
   "rules": {
+    "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
     "import/exports-last": "error",
-    "import/group-exports": "error",
     "import/no-anonymous-default-export": "error",
     "import/no-default-export": "error",
+    "import/no-namespace": "error",
     "import/no-relative-parent-imports": "error",
-    "import/order": [
-      "error",
-      {
-        "groups": ["builtin", "external", "parent", "sibling", "index"],
-        "newlines-between": "always"
-      }
-    ]
+    "sort-imports": "error"
   },
   "settings": {
     "react": {

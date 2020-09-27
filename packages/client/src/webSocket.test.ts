@@ -1,5 +1,3 @@
-import { mock } from 'jest-mock-extended';
-
 import {
   getWebSocket,
   onError,
@@ -7,6 +5,7 @@ import {
   onOpen,
   setWebSocket,
 } from '../src/webSocket';
+import { mock } from 'jest-mock-extended';
 
 describe('webSocket', () => {
   describe('getWebSocket', () => {

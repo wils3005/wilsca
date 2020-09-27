@@ -12,7 +12,7 @@
     "prettier": "npx prettier --list-different .",
     "prettier-write": "npx prettier --write .",
     "start": "node ../../node_modules/ts-node-dev/bin/ts-node-dev --require dotenv/config --respawn --transpile-only src/index.ts",
-    "build": "npx webpack --verbose"
+    "build": "npx tsc"
   },
   "dependencies": {
     "@hapi/basic": "6.0.0",
@@ -21,6 +21,7 @@
     "@hapi/nes": "12.0.3",
     "@hapi/vision": "6.0.1",
     "@types/ws": "7.2.6",
+    "@wilsjs/zod": "../../packages/zod",
     "aws-sdk": "2.759.0",
     "bcrypt": "5.0.0",
     "dotenv": "8.2.0",
@@ -34,9 +35,7 @@
     "pino-pretty": "4.2.1",
     "schwifty": "5.4.0",
     "sqlite3": "5.0.0",
-    "tozod": "0.0.1",
     "uuid": "8.3.0",
-    "ws": "7.3.1",
-    "zod": "1.11.9"
+    "ws": "7.3.1"
   }
 }

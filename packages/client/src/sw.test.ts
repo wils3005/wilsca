@@ -1,5 +1,3 @@
-import { mock } from 'jest-mock-extended';
-
 import {
   addEventListeners,
   onContainerMessage,
@@ -8,6 +6,7 @@ import {
   onRegistrationUpdateFound,
   register,
 } from './sw';
+import { mock } from 'jest-mock-extended';
 
 describe('sw', () => {
   describe('addEventListeners', () => {
@@ -56,6 +55,7 @@ describe('sw', () => {
         expect(async () => {
           await register();
         }).not.toThrow();
+
         done();
       });
     });

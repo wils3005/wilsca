@@ -3,8 +3,10 @@ dependencies:
   '@wilsjs/phone-cam-client': 'link:packages/phone-cam-client'
   '@wilsjs/server': 'link:packages/server'
   '@wilsjs/tools': 'link:packages/tools'
+  '@wilsjs/zod': 'link:packages/zod'
 devDependencies:
   '@hapi/glue': 8.0.0
+  '@microsoft/tsdoc': 0.12.21
   '@popperjs/core': 2.5.1
   '@types/bcrypt': 3.0.0
   '@types/bootstrap': 4.5.0
@@ -39,6 +41,8 @@ devDependencies:
   clean-webpack-plugin: 3.0.0_webpack@4.44.2
   css-loader: 4.3.0_webpack@4.44.2
   css-minimizer-webpack-plugin: 1.1.4_webpack@4.44.2
+  dotenv: 8.2.0
+  dotenv-webpack: 3.0.0_webpack@4.44.2
   eslint: 7.9.0
   eslint-config-prettier: 6.11.0_eslint@7.9.0
   eslint-plugin-import: 2.22.0_eslint@7.9.0
@@ -63,6 +67,7 @@ devDependencies:
   mini-css-extract-plugin: 0.11.2_webpack@4.44.2
   node-ssh: 11.1.0
   npm-check: 5.9.2
+  peerjs: 1.3.1
   pnpm: 5.7.0
   prettier: 2.1.2
   react: 16.13.1
@@ -77,7 +82,6 @@ devDependencies:
   ts-node: 9.0.0_typescript@4.0.3
   ts-node-dev: 1.0.0-pre.58_typescript@4.0.3
   type-fest: 0.16.0
-  typedoc: 0.19.2_typescript@4.0.3
   typescript: 4.0.3
   webpack: 4.44.2_93ca2875a658e9d1552850624e6b91c7
   webpack-cli: 3.3.12_webpack@4.44.2
@@ -86,7 +90,6 @@ devDependencies:
   webpack-node-externals: 2.5.2
   workbox-webpack-plugin: 5.1.4_webpack@4.44.2
   worker-loader: 3.0.3_webpack@4.44.2
-  zod: 1.11.9
 lockfileVersion: 5.1
 packages:
   /@babel/code-frame/7.10.4:
@@ -3366,6 +3369,10 @@ packages:
     dev: true
     resolution:
       integrity: sha1-aaI6OtKcrwCX8G7aWbNh7i8GOfY=
+  /@types/node/10.17.35:
+    dev: true
+    resolution:
+      integrity: sha512-gXx7jAWpMddu0f7a+L+txMplp3FnHl53OhQIF9puXKq3hDGY/GjH+MF04oWnV/adPSCrbtHumDCFwzq2VhltWA==
   /@types/node/14.10.1:
     dev: true
     resolution:
@@ -4296,12 +4303,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-x57Zf380y48robyXkLzDZkdLS3k=
-  /at-least-node/1.0.0:
-    dev: true
-    engines:
-      node: '>= 4.0.0'
-    resolution:
-      integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==
   /atob-lite/2.0.0:
     dev: true
     resolution:
@@ -7018,6 +7019,27 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-QM8q3zDe58hqUqjraQOmzZ1LIH9SWQJTlEKCH4kJ2oQvLZk7RbQXvtDM2XEq3fwkV9CCvvH4LA0AV+ogFsBM2Q==
+  /dotenv-defaults/2.0.1:
+    dependencies:
+      dotenv: 8.2.0
+    dev: true
+    resolution:
+      integrity: sha512-ugFCyBF7ILuwpmznduHPQZBMucHHJ8T4OBManTEVjemxCm2+nqifSuW2lD2SNKdiKSH1E324kZSdJ8M04b4I/A==
+  /dotenv-webpack/3.0.0_webpack@4.44.2:
+    dependencies:
+      dotenv-defaults: 2.0.1
+      webpack: 4.44.2_93ca2875a658e9d1552850624e6b91c7
+    dev: true
+    peerDependencies:
+      webpack: ^1 || ^2 || ^3 || ^4 || ^5
+    resolution:
+      integrity: sha512-HsBTgVbh9E71IdC6QcQTnAuVt11niA5QMKblcBqhVBxP975XPGMqxf21pqgVBPyRKn2GqPh5kSHMgjxeR/HEAA==
+  /dotenv/8.2.0:
+    dev: true
+    engines:
+      node: '>=8'
+    resolution:
+      integrity: sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
   /duplexer/0.1.2:
     dev: true
     resolution:
@@ -8202,17 +8224,6 @@ packages:
       node: '>=6 <7 || >=8'
     resolution:
       integrity: sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==
-  /fs-extra/9.0.1:
-    dependencies:
-      at-least-node: 1.0.0
-      graceful-fs: 4.2.4
-      jsonfile: 6.0.1
-      universalify: 1.0.0
-    dev: true
-    engines:
-      node: '>=10'
-    resolution:
-      integrity: sha512-h2iAoN838FqAFJY2/qVpzFXy+EBxfVE220PalAqQLDVsFOHLJrZvut5puAbCdNv6WJk+B8ihI+k0c7JK5erwqQ==
   /fs-minipass/1.2.7:
     dependencies:
       minipass: 2.9.0
@@ -8785,10 +8796,6 @@ packages:
     dev: true
     resolution:
       integrity: sha512-s/SIX6yp/5S1p8aC/NRDC1fwEb+myGIfp8/TzZz0rtAv8fzsdX7vGl3Q1TrXCsczFq8DI3CBFBCySPClfBSdbg==
-  /highlight.js/10.2.0:
-    dev: true
-    resolution:
-      integrity: sha512-OryzPiqqNCfO/wtFo619W+nPYALM6u7iCQkum4bqRmmlcTikOkmlL06i009QelynBPAlNByTQU6cBB2cOBQtCw==
   /history/4.10.1:
     dependencies:
       '@babel/runtime': 7.11.2
@@ -10504,14 +10511,6 @@ packages:
       graceful-fs: 4.2.4
     resolution:
       integrity: sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss=
-  /jsonfile/6.0.1:
-    dependencies:
-      universalify: 1.0.0
-    dev: true
-    optionalDependencies:
-      graceful-fs: 4.2.4
-    resolution:
-      integrity: sha512-jR2b5v7d2vIOust+w3wtFKZIfpC2pnRmFAhAC/BuweZFQR8qZzxH1OyrQ10HmdVYiXWkYUqPVsz91cG7EL2FBg==
   /jsonparse/1.3.1:
     dev: true
     engines:
@@ -10900,10 +10899,6 @@ packages:
       node: '>=10'
     resolution:
       integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
-  /lunr/2.3.9:
-    dev: true
-    resolution:
-      integrity: sha512-zTU3DaZaF3Rt9rhN3uBMGQD3dD2/vFQqnvZCDv4dl5iOzq2IZQqTxu90r4E5J+nP70J3ilqVCrbho2eWaeW8Ow==
   /macos-release/2.4.1:
     dev: true
     engines:
@@ -10999,13 +10994,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-7Nyo8TFE5mDxtb1B8S80edmN+48=
-  /marked/1.1.1:
-    dev: true
-    engines:
-      node: '>= 8.16.2'
-    hasBin: true
-    resolution:
-      integrity: sha512-mJzT8D2yPxoPh7h0UXkB+dBj4FykPJ2OIfxAWeIHrvoHDkFxukV/29QxoFQoPM6RLEwhIFdJpmKBlqVM3s2ZIw==
   /md5.js/1.3.5:
     dependencies:
       hash-base: 3.1.0
@@ -12487,6 +12475,19 @@ packages:
       node: '>=0.12'
     resolution:
       integrity: sha512-4Ejy1OPxi9f2tt1rRV7Go7zmfDQ+ZectEQz3VGUQhgq62HtIRPDyG/JtnwIxs6x3uNMwo2V7q1fMvKjb+Tnpqg==
+  /peerjs-js-binarypack/1.0.1:
+    dev: true
+    resolution:
+      integrity: sha512-N6aeia3NhdpV7kiGxJV5xQiZZCVEEVjRz2T2C6UZQiBkHWHzUv/oWA4myQLcwBwO8LUoR1KWW5oStvwVesmfCg==
+  /peerjs/1.3.1:
+    dependencies:
+      '@types/node': 10.17.35
+      eventemitter3: 3.1.2
+      peerjs-js-binarypack: 1.0.1
+      webrtc-adapter: 7.7.0
+    dev: true
+    resolution:
+      integrity: sha512-V76SNqSyPNf4mZviGOkjOo3GpwJZ8DHXyaPE3tlzU5hFzwWqceMFs/4w/9mzNJtKUVU2yXBZCU54xl7JVChGXQ==
   /performance-now/2.1.0:
     dev: true
     resolution:
@@ -13639,14 +13640,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-QQWWCP/BVHV7cV2ZidGZ/783LjU=
-  /rechoir/0.6.2:
-    dependencies:
-      resolve: 1.17.0
-    dev: true
-    engines:
-      node: '>= 0.10'
-    resolution:
-      integrity: sha1-hSBLVNuoLVdC4oyWdW70OvUOM4Q=
   /redent/1.0.0:
     dependencies:
       indent-string: 2.1.0
@@ -14108,6 +14101,15 @@ packages:
       node: 6.* || >= 7.*
     resolution:
       integrity: sha512-nfMOlASu9OnRJo1mbEk2cz0D56a1MBNrJ7orjRZQG10XDyuvwksKbuXNp6qa+kbn839HwjwhBzhFmdsaEAfauA==
+  /rtcpeerconnection-shim/1.2.15:
+    dependencies:
+      sdp: 2.12.0
+    dev: true
+    engines:
+      node: '>=6.0.0'
+      npm: '>=3.10.0'
+    resolution:
+      integrity: sha512-C6DxhXt7bssQ1nHb154lqeL0SXz5Dx4RczXZu2Aa/L1NJFnEVDxFwCBo3fqtuljhHIGceg5JKBV4XJ0gW5JKyw==
   /run-async/0.1.0:
     dependencies:
       once: 1.4.0
@@ -14230,6 +14232,10 @@ packages:
       node: '>= 8.9.0'
     resolution:
       integrity: sha512-SHiNtMOUGWBQJwzISiVYKu82GiV4QYGePp3odlY1tuKO7gPtphAT5R/py0fA6xtbgLL/RvtJZnU9b8s0F1q0Xg==
+  /sdp/2.12.0:
+    dev: true
+    resolution:
+      integrity: sha512-jhXqQAQVM+8Xj5EjJGVweuEzgtGWb3tmEEpl3CLP3cStInSbVHSg0QWOGQzNq8pSID4JkpeV2mPqlMDLrm0/Vw==
   /select-hose/2.0.0:
     dev: true
     resolution:
@@ -14429,17 +14435,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-aP0CXrBJC09WegJ/C/IkgLX4QTM=
-  /shelljs/0.8.4:
-    dependencies:
-      glob: 7.1.6
-      interpret: 1.4.0
-      rechoir: 0.6.2
-    dev: true
-    engines:
-      node: '>=4'
-    hasBin: true
-    resolution:
-      integrity: sha512-7gk3UZ9kOfPLIAbslLzyWeGiEqx9e3rxwZM0KE6EL8GlGwjym9Mrlx5/p33bWTu9YG6vcS4MBxYZDHYr5lr8BQ==
   /shellwords/0.1.1:
     dev: true
     optional: true
@@ -15804,34 +15799,6 @@ packages:
     dev: true
     resolution:
       integrity: sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
-  /typedoc-default-themes/0.11.4:
-    dev: true
-    engines:
-      node: '>= 8'
-    resolution:
-      integrity: sha512-Y4Lf+qIb9NTydrexlazAM46SSLrmrQRqWiD52593g53SsmUFioAsMWt8m834J6qsp+7wHRjxCXSZeiiW5cMUdw==
-  /typedoc/0.19.2_typescript@4.0.3:
-    dependencies:
-      fs-extra: 9.0.1
-      handlebars: 4.7.6
-      highlight.js: 10.2.0
-      lodash: 4.17.20
-      lunr: 2.3.9
-      marked: 1.1.1
-      minimatch: 3.0.4
-      progress: 2.0.3
-      semver: 7.3.2
-      shelljs: 0.8.4
-      typedoc-default-themes: 0.11.4
-      typescript: 4.0.3
-    dev: true
-    engines:
-      node: '>= 10.0.0'
-    hasBin: true
-    peerDependencies:
-      typescript: 3.9.x || 4.0.x
-    resolution:
-      integrity: sha512-oDEg1BLEzi1qvgdQXc658EYgJ5qJLVSeZ0hQ57Eq4JXy6Vj2VX4RVo18qYxRWz75ifAaYuYNBUCnbhjd37TfOg==
   /typescript/4.0.3:
     dev: true
     engines:
@@ -15949,12 +15916,6 @@ packages:
       node: '>= 4.0.0'
     resolution:
       integrity: sha512-rBJeI5CXAlmy1pV+617WB9J63U6XcazHHF2f2dbJix4XzpUF0RS3Zbj0FGIOCAva5P/d/GBOYaACQ1w+0azUkg==
-  /universalify/1.0.0:
-    dev: true
-    engines:
-      node: '>= 10.0.0'
-    resolution:
-      integrity: sha512-rb6X1W158d7pRQBg5gkR8uPaSfiids68LTJQYOtEUhoJUWBdaQHsuT/EUduxXYxcrt4r5PJ4fuHW1MHT6p0qug==
   /unpipe/1.0.0:
     dev: true
     engines:
@@ -16430,6 +16391,16 @@ packages:
         optional: true
     resolution:
       integrity: sha512-6KJVGlCxYdISyurpQ0IPTklv+DULv05rs2hseIXer6D7KrUicRDLFb4IUM1S6LUAKypPM/nSiVSuv8jHu1m3/Q==
+  /webrtc-adapter/7.7.0:
+    dependencies:
+      rtcpeerconnection-shim: 1.2.15
+      sdp: 2.12.0
+    dev: true
+    engines:
+      node: '>=6.0.0'
+      npm: '>=3.10.0'
+    resolution:
+      integrity: sha512-7Bp9OBnx642oJRkom1tNAbeJjUadAq2rh5xLL9YXPw5hVyt2h4hHr5bcoPYDs1stp/mZHSPSQA34YISdnr0DBQ==
   /websocket-driver/0.6.5:
     dependencies:
       websocket-extensions: 0.1.4
@@ -16967,12 +16938,9 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-Ux4ygGWsu2c7isFWe8Yu1YluJmqVhxqK2cLXNQA5AcC3QfbGNpM7fu0Y8b/z16pXLnFxZYvWhd3fhBY9DLmC6Q==
-  /zod/1.11.9:
-    dev: true
-    resolution:
-      integrity: sha512-qZjs9DkvPYHOiOUdAtNcxOC0u5cv7tx9DCmlNZN0MxWeFvgqyr3XkXFqUlaSpmTiZ4A4YVkB2s1Zw2ENJ9/fSg==
 specifiers:
   '@hapi/glue': 8.0.0
+  '@microsoft/tsdoc': 0.12.21
   '@popperjs/core': 2.5.1
   '@types/bcrypt': 3.0.0
   '@types/bootstrap': 4.5.0
@@ -17006,11 +16974,14 @@ specifiers:
   '@wilsjs/phone-cam-client': 'file:packages/phone-cam-client'
   '@wilsjs/server': 'file:packages/server'
   '@wilsjs/tools': 'file:packages/tools'
+  '@wilsjs/zod': 'file:packages/zod'
   bootstrap: 4.5.2
   chartjs: 0.3.24
   clean-webpack-plugin: 3.0.0
   css-loader: 4.3.0
   css-minimizer-webpack-plugin: 1.1.4
+  dotenv: 8.2.0
+  dotenv-webpack: 3.0.0
   eslint: 7.9.0
   eslint-config-prettier: 6.11.0
   eslint-plugin-import: 2.22.0
@@ -17035,6 +17006,7 @@ specifiers:
   mini-css-extract-plugin: 0.11.2
   node-ssh: 11.1.0
   npm-check: 5.9.2
+  peerjs: 1.3.1
   pnpm: 5.7.0
   prettier: 2.1.2
   react: 16.13.1
@@ -17049,7 +17021,6 @@ specifiers:
   ts-node: 9.0.0
   ts-node-dev: 1.0.0-pre.58
   type-fest: 0.16.0
-  typedoc: 0.19.2
   typescript: 4.0.3
   webpack: 4.44.2
   webpack-cli: 3.3.12
@@ -17058,4 +17029,3 @@ specifiers:
   webpack-node-externals: 2.5.2
   workbox-webpack-plugin: 5.1.4
   worker-loader: 3.0.3
-  zod: 1.11.9

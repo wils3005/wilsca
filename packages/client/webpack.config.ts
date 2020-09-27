@@ -1,107 +1,76 @@
-import fs = require('fs');
-import path = require('path');
+import { Configuration, Entry } from 'webpack';
+import MiniCssExtractPlugin, { loader } from 'mini-css-extract-plugin';
+import { basename, extname, join } from 'path';
+import { readFileSync, readdirSync } from 'fs';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import ManifestPlugin from 'webpack-manifest-plugin';
 
-import * as cleanWebpackPlugin from 'clean-webpack-plugin';
-import { FaviconWebpackPlugionOptions } from 'favicons-webpack-plugin/src/options';
-import FaviconsWebpackPlugin = require('favicons-webpack-plugin');
-import HtmlWebpackPlugin = require('html-webpack-plugin');
-import ManifestPlugin = require('webpack-manifest-plugin');
-import MiniCssExtractPlugin = require('mini-css-extract-plugin');
-import webpack = require('webpack');
+const srcPath = join(__dirname, 'src');
 
-import seed = require('./src/manifest.json');
+const webpackConfiguration: Configuration = {
+  devtool: 'source-map',
+  entry: readdirSync(join(__dirname, 'src')).reduce(
+    (entry: Entry, s: string): Entry => {
+      if (/^[^.]+\.[jt]sx?$/.test(s)) {
+        const key = basename(s, extname(s));
+        entry[key] = join(srcPath, s);
+      }
 
-const srcPath = path.join(__dirname, 'src');
-
-const htmlWebpackPluginOptions: HtmlWebpackPlugin.Options = {
-  template: path.join(srcPath, 'index.html'),
-};
-
-const faviconWebpackPluginOptions: FaviconWebpackPlugionOptions = {
-  logo: path.join(srcPath, 'logo.jpg'),
-};
-
-const manifestPluginOptions: ManifestPlugin.Options = {
-  seed,
-};
-
-const miniCssExtractPluginOptions: MiniCssExtractPlugin.PluginOptions = {};
-
-const cleanWebpackPluginOptions: cleanWebpackPlugin.Options = {
-  verbose: true,
-};
-
-const rules: webpack.RuleSetRule[] = [
-  {
-    test: /\.(png|jpe?g|gif)$/i,
-    loader: 'file-loader',
+      return entry;
+    },
+    {}
+  ),
+  mode: 'development',
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [{ loader }, 'css-loader'],
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-inline-loader',
+      },
+      {
+        exclude: /node_modules/,
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+          configFile: join(__dirname, 'tsconfig.json'),
+        },
+      },
+      {
+        loader: 'file-loader',
+      },
+    ],
   },
-  {
-    test: /\.css$/,
-    use: [{ loader: MiniCssExtractPlugin.loader }, 'css-loader'],
-  },
-  {
-    test: /\.svg$/,
-    loader: 'svg-inline-loader',
-  },
-  {
-    exclude: /node_modules/,
-    test: /\.tsx?$/,
-    loader: 'ts-loader',
-    options: {
-      transpileOnly: true,
-      configFile: path.join(__dirname, 'tsconfig.build.json'),
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
     },
   },
-];
-
-////////////////////////////////////////////////////////////////////////////////
-const devtool = 'source-map';
-
-const entry = fs.readdirSync(path.join(__dirname, 'src')).reduce(fn, {});
-
-const optimization: webpack.Options.Optimization = {
-  splitChunks: {
-    chunks: 'all',
+  output: {
+    globalObject: 'this',
+    path: join(__dirname, 'build'),
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: join(srcPath, 'index.html'),
+    }),
+    new FaviconsWebpackPlugin({
+      logo: join(srcPath, 'logo.jpg'),
+    }),
+    new ManifestPlugin({
+      seed: readFileSync('./src/manifest.json'),
+    }),
+    new MiniCssExtractPlugin(),
+    new CleanWebpackPlugin({
+      verbose: true,
+    }),
+  ],
 };
-
-const output: webpack.Output = {
-  globalObject: 'this',
-  path: path.join(__dirname, 'build'),
-};
-
-const plugins: webpack.Plugin[] = [
-  new HtmlWebpackPlugin(htmlWebpackPluginOptions),
-  new FaviconsWebpackPlugin(faviconWebpackPluginOptions),
-  new ManifestPlugin(manifestPluginOptions),
-  new MiniCssExtractPlugin(miniCssExtractPluginOptions),
-  new cleanWebpackPlugin.CleanWebpackPlugin(cleanWebpackPluginOptions),
-];
-
-const resolve: webpack.Resolve = {
-  extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
-};
-
-////////////////////////////////////////////////////////////////////////////////
-const webpackConfiguration: webpack.Configuration = {
-  devtool,
-  entry,
-  mode: 'development',
-  module: { rules },
-  optimization,
-  output,
-  plugins,
-  resolve,
-};
-
-function fn(entry: webpack.Entry, s: string): webpack.Entry {
-  if (/^[^.]+\.[jt]sx?$/.test(s)) {
-    const key = path.basename(s, path.extname(s));
-    entry[key] = path.join(srcPath, s);
-  }
-
-  return entry;
-}
 
 export = webpackConfiguration;

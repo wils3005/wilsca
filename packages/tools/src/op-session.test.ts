@@ -1,9 +1,10 @@
-import * as opSession from './op-session';
-
 jest.mock('child_process');
 
-describe('opSession', () => {
-  it('is defined', () => {
-    expect(opSession).toBeDefined();
+describe('op-session', () => {
+  it("doesn't throw", async () => {
+    return new Promise((done) => {
+      expect(async () => await import('./op-session')).not.toThrow();
+      done();
+    });
   });
 });

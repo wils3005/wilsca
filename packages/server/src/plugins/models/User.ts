@@ -1,4 +1,4 @@
-import Objection = require('objection');
+import Objection from 'objection';
 
 class Model extends Objection.Model {
   id?: string;

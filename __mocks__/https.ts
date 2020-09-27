@@ -1,4 +1,4 @@
-import https = require('https');
+import https from 'https';
 
 Object.assign(https.Server.prototype, {
   listen: jest.fn(),

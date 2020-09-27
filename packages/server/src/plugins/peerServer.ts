@@ -1,10 +1,9 @@
-import events = require('events');
-
+import { EventEmitter } from 'events';
 import { ExpressPeerServer } from 'peer';
 import { Server } from '@hapi/hapi';
-import WebSocket = require('ws');
+import WebSocket from 'ws';
 
-declare type PeerWebSocket = WebSocket & events.EventEmitter;
+declare type PeerWebSocket = WebSocket & EventEmitter;
 
 declare interface PeerClient {
   getId(): string;

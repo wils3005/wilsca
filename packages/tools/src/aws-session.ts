@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 
-import childProcess = require('child_process');
-import fs = require('fs');
-import path = require('path');
-
-import * as z from 'zod';
-import ini = require('ini');
+import { json, string } from '@wilsjs/zod';
+import { parse, stringify } from 'ini';
+import { readFileSync, writeFileSync } from 'fs';
+import { execSync } from 'child_process';
+import { join } from 'path';
 
 interface GetSessionToken {
   Credentials: {
@@ -22,15 +21,14 @@ const {
   OP_AWS_TOKEN_CODE_ID,
 } = process.env;
 
-const awsArnMfa = z.string().parse(AWS_ARN_MFA);
-const awsCliProfile = z.string().parse(AWS_CLI_PROFILE);
-const home = z.string().parse(HOME);
-const opAwsTokenCodeId = z.string().parse(OP_AWS_TOKEN_CODE_ID);
+const awsArnMfa = string().parse(AWS_ARN_MFA);
+const awsCliProfile = string().parse(AWS_CLI_PROFILE);
+const home = string().parse(HOME);
+const opAwsTokenCodeId = string().parse(OP_AWS_TOKEN_CODE_ID);
 
 function main(): void {
   try {
-    const opSessionToken = fs
-      .readFileSync(path.join(home, '.op-session-token'))
+    const opSessionToken = readFileSync(join(home, '.op-session-token'))
       .toString()
       .trim();
 
@@ -39,7 +37,7 @@ function main(): void {
       --session ${opSessionToken}
     `;
 
-    const awsTokenCode = childProcess.execSync(command1).toString().trim();
+    const awsTokenCode = execSync(command1).toString().trim();
 
     const command2 = `
       aws sts get-session-token \
@@ -49,14 +47,12 @@ function main(): void {
       --token-code ${awsTokenCode}
     `;
 
-    const { Credentials } = JSON.parse(
-      childProcess.execSync(command2).toString().trim()
-    ) as GetSessionToken;
+    const { Credentials } = (json().parse(
+      JSON.parse(execSync(command2).toString().trim())
+    ) as unknown) as GetSessionToken;
 
-    const credentialsFile = path.join(home, '.aws', 'credentials');
-    const iniCredentials = ini.parse(
-      fs.readFileSync(credentialsFile).toString()
-    );
+    const credentialsFile = join(home, '.aws', 'credentials');
+    const iniCredentials = parse(readFileSync(credentialsFile).toString());
 
     Object.assign(iniCredentials, {
       default: {
@@ -66,7 +62,7 @@ function main(): void {
       },
     });
 
-    fs.writeFileSync(credentialsFile, ini.stringify(iniCredentials));
+    writeFileSync(credentialsFile, stringify(iniCredentials));
   } catch (e) {
     console.error(e);
   }

@@ -1,14 +1,13 @@
-import ReactDOM = require('react-dom');
-
 import { addEventListeners, register } from './sw';
 import { Element } from './app';
 import { log } from './log';
+import { render } from 'react-dom';
 
 const { document } = globalThis;
 
 function onLoad(): void {
   log();
-  ReactDOM.render(Element(), document.getElementById('root'));
+  render(Element(), document.getElementById('root'));
   addEventListeners();
   void register();
 }
