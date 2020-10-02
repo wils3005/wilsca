@@ -1,8 +1,0 @@
-{
-  "name": "@wilsjs/tools",
-  "scripts": {
-    "build": "npx tsc --project tsconfig.json",
-    "postbuild": "chmod +x build/*",
-    "test": "echo \"Error: run tests from root\" && exit 1"
-  }
-}

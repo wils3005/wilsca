@@ -1,10 +1,13 @@
-jest.mock('child_process');
+import { execSync } from 'child_process';
+import { mock } from 'jest-mock-extended';
 
-describe('commit', () => {
-  it("doesn't throw", async () => {
-    return new Promise((done) => {
-      expect(async () => await import('./commit')).not.toThrow();
-      done();
-    });
-  });
+jest.mock('child_process', () => {
+  return {
+    execSync: () => mock<ReturnType<typeof execSync>>(),
+  };
+});
+
+test('commit', () => {
+  const actual = async () => await import('./commit');
+  expect(actual).not.toThrow();
 });

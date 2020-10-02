@@ -1,4 +1,5 @@
 import { Server, ServerOptions } from '@hapi/hapi';
+
 import {
   cert,
   host,
@@ -27,6 +28,7 @@ const serverOptions: ServerOptions = {
 };
 
 const server = new Server(serverOptions);
+
 const plugins = [
   { plugin: basic, options: {} },
   { plugin: hapiPino, options: { instance: pino(loggerOptions) } },
@@ -44,21 +46,25 @@ function onUnhandledRejection(...args: unknown[]): void {
 }
 
 async function start(): Promise<void> {
-  process.on('unhandledRejection', onUnhandledRejection);
-  await server.register(plugins);
-  server.route({
-    method: 'GET',
-    path: '/{param*}',
-    handler: {
-      directory: {
-        path: '.',
-        redirectToSlash: true,
+  try {
+    process.on('unhandledRejection', onUnhandledRejection);
+    await server.register(plugins);
+    server.route({
+      method: 'GET',
+      path: '/{param*}',
+      handler: {
+        directory: {
+          path: '.',
+          redirectToSlash: true,
+        },
       },
-    },
-  });
+    });
 
-  await server.start();
-  server.logger.info(`Server running at: ${server.info.uri}`);
+    await server.start();
+    server.logger.info(`Server running at: ${server.info.uri}`);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 export { onUnhandledRejection, start };

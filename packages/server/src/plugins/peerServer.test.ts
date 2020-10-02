@@ -1,8 +1,4 @@
-describe('peerServer', () => {
-  it("doesn't throw", async () => {
-    return new Promise((done) => {
-      expect(async () => await import('./peerServer')).not.toThrow();
-      done();
-    });
-  });
+test('peerServer', () => {
+  const actual = async () => await import('./peerServer');
+  expect(actual).not.toThrow();
 });

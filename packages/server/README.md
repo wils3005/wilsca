@@ -35,10 +35,10 @@ name="wilsjs-core"
 description="todo"
 
 command="/usr/bin/node"
-command_args="--require dotenv/config server.js"
+comma...mockArgs="--require dotenv/config server.js"
 command_user="alpine"
 supervisor="supervise-daemon"
-supervise_daemon_args="--chdir '/home/alpine'"
+supervise_daem...mockArgs="--chdir '/home/alpine'"
 
 start_post() {
   (inotifywait --event modify /home/alpine/server.js && rc-service wilsjs-core restart) &

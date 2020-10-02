@@ -12,7 +12,7 @@ const srcPath = join(__dirname, 'src');
 const webpackConfiguration: Configuration = {
   devtool: 'source-map',
   entry: readdirSync(join(__dirname, 'src')).reduce(
-    (entry: Entry, s: string): Entry => {
+    (entry: Entry, s: string) => {
       if (/^[^.]+\.[jt]sx?$/.test(s)) {
         const key = basename(s, extname(s));
         entry[key] = join(srcPath, s);
@@ -68,9 +68,8 @@ const webpackConfiguration: Configuration = {
     }),
   ],
   resolve: {
-    // Add `.ts` and `.tsx` as a resolvable extension.
-    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    extensions: ['.ts', '.tsx'],
   },
 };
 
-export = webpackConfiguration;
+export default webpackConfiguration;

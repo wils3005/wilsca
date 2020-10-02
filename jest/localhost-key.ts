@@ -51,4 +51,4 @@ EjPwmy0tRlse+gDRkzcQURG5Rhs/kOz0bzBXCI/wdZTw6uHyDLXa/khjHstP3pmj
 xwPD+pOdNbTdr56ti8Q3+N90rcbw
 -----END PRIVATE KEY-----`);
 
-export = localhostKey;
+export default localhostKey;

@@ -1,11 +1,14 @@
-import { onLoad } from './window';
+jest.mock('./app');
+jest.mock('./log');
+jest.mock('./sw');
 
-describe('window', () => {
-  describe('onLoad', () => {
-    it("doesn't throw", () => {
-      expect(() => {
-        onLoad();
-      }).not.toThrow();
-    });
-  });
+test('window', () => {
+  const actual = async () => await import('./window');
+  expect(actual).not.toThrow();
+});
+
+test('onLoad', async () => {
+  const { onLoad } = await import('./window');
+  const actual = () => onLoad();
+  expect(actual).not.toThrow();
 });

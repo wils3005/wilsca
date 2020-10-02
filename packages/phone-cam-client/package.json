@@ -1,8 +1,0 @@
-{
-  "name": "@wilsjs/phone-cam-client",
-  "private": true,
-  "scripts": {
-    "start": "npx webpack-dev-server"
-  },
-  "dependencies": {}
-}

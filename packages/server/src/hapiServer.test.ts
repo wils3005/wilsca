@@ -1,23 +1,28 @@
-import { onUnhandledRejection, start } from './hapiServer';
 import { Server } from '@hapi/hapi';
+import { mock } from 'jest-mock-extended';
 
-describe('hapiServer', () => {
-  describe('onUnhandledRejection', () => {
-    Object.assign(process, { exit: jest.fn() });
+jest.mock('@hapi/hapi', () => {
+  return {
+    Server: function () {
+      return {
+        start: () => mock<ReturnType<typeof Server.prototype.start>>(),
+      };
+    },
+  };
+});
 
-    it("doesn't throw", () => {
-      expect(() => onUnhandledRejection()).not.toThrow();
-    });
+test('onUnhandledRejection', async () => {
+  const { onUnhandledRejection } = await import('./hapiServer');
+  Object.assign(process, {
+    exit: () => mock<ReturnType<typeof process.exit>>(),
   });
 
-  describe('start', () => {
-    it("doesn't throw", async () => {
-      Object.assign(Server.prototype, { start: jest.fn() });
+  const actual = () => onUnhandledRejection();
+  expect(actual).not.toThrow();
+});
 
-      return new Promise((done) => {
-        expect(async () => await start()).not.toThrow();
-        done();
-      });
-    });
-  });
+test('start', async () => {
+  const { start } = await import('./hapiServer');
+  const actual = async () => await start();
+  expect(actual).not.toThrow();
 });

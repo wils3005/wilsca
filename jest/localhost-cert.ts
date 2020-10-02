@@ -32,4 +32,4 @@ LVeqCF1rqoUF4aQIcIgxel5YpIiAmpI4qZslE6HbVVIdK1rBq6mnbu1PE/SnDJkX
 CDQOAUnoLhNyotxgIDJgoTRH1nCRxUo=
 -----END CERTIFICATE-----`);
 
-export = localhostCert;
+export default localhostCert;

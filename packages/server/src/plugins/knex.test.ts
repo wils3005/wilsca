@@ -1,8 +1,4 @@
-describe('knex', () => {
-  it("doesn't throw", async () => {
-    return new Promise((done) => {
-      expect(async () => await import('./knex')).not.toThrow();
-      done();
-    });
-  });
+test('knex', () => {
+  const actual = async () => await import('./knex');
+  expect(actual).not.toThrow();
 });

@@ -1,8 +1,4 @@
-describe('healthz', () => {
-  it("doesn't throw", async () => {
-    return new Promise((done) => {
-      expect(async () => await import('./healthz')).not.toThrow();
-      done();
-    });
-  });
+test('healthz', () => {
+  const actual = async () => await import('./healthz');
+  expect(actual).not.toThrow();
 });

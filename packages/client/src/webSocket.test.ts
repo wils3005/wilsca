@@ -1,50 +1,36 @@
-import {
-  getWebSocket,
-  onError,
-  onMessage,
-  onOpen,
-  setWebSocket,
-} from '../src/webSocket';
 import { mock } from 'jest-mock-extended';
 
-describe('webSocket', () => {
-  describe('getWebSocket', () => {
-    it("doesn't throw", () => {
-      expect(() => {
-        getWebSocket.bind(mock<WebSocket>())();
-      }).not.toThrow();
-    });
-  });
+test('webSocket', () => {
+  const actual = async () => await import('./webSocket');
+  expect(actual).not.toThrow();
+});
 
-  describe('onError', () => {
-    it("doesn't throw", () => {
-      expect(() => {
-        onError.bind(mock<WebSocket>())();
-      }).not.toThrow();
-    });
-  });
+test('getWebSocket', async () => {
+  const { getWebSocket } = await import('./webSocket');
+  const actual = () => getWebSocket();
+  expect(actual).not.toThrow();
+});
 
-  describe('onMessage', () => {
-    it("doesn't throw", () => {
-      expect(() => {
-        onMessage.bind(mock<WebSocket>())();
-      }).not.toThrow();
-    });
-  });
+test('onError', async () => {
+  const { onError } = await import('./webSocket');
+  const actual = () => onError.bind(mock<WebSocket>())();
+  expect(actual).not.toThrow();
+});
 
-  describe('onOpen', () => {
-    it("doesn't throw", () => {
-      expect(() => {
-        onOpen.bind(mock<WebSocket>())();
-      }).not.toThrow();
-    });
-  });
+test('onMessage', async () => {
+  const { onMessage } = await import('./webSocket');
+  const actual = () => onMessage.bind(mock<WebSocket>())();
+  expect(actual).not.toThrow();
+});
 
-  describe('setWebSocket', () => {
-    it("doesn't throw", () => {
-      expect(() => {
-        setWebSocket.bind(mock<WebSocket>())();
-      }).not.toThrow();
-    });
-  });
+test('onOpen', async () => {
+  const { onOpen } = await import('./webSocket');
+  const actual = () => onOpen.bind(mock<WebSocket>())();
+  expect(actual).not.toThrow();
+});
+
+test('setWebSocket', async () => {
+  const { setWebSocket } = await import('./webSocket');
+  const actual = () => setWebSocket();
+  expect(actual).not.toThrow();
 });

@@ -1,8 +1,4 @@
-describe('plugins', () => {
-  it("doesn't throw", async () => {
-    return new Promise((done) => {
-      expect(async () => await import('.')).not.toThrow();
-      done();
-    });
-  });
+test('index', () => {
+  const actual = async () => await import('.');
+  expect(actual).not.toThrow();
 });

@@ -27,4 +27,4 @@ async function seed(knex: Knex): Promise<void> {
   }
 }
 
-export = seed;
+export default seed;

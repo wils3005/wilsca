@@ -11,6 +11,7 @@
     "knex-seed": "npm run knex -- seed:run",
     "prettier": "npx prettier --list-different .",
     "prettier-write": "npx prettier --write .",
+    "repl": "npx ts-node --require dotenv/config --transpile-only ./repl.ts",
     "start": "node ../../node_modules/ts-node-dev/bin/ts-node-dev --require dotenv/config --respawn --transpile-only src/index.ts",
     "build": "npx tsc"
   },

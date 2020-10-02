@@ -1,0 +1,9 @@
+{
+  "name": "@wilsjs/repl",
+  "scripts": {
+    "build": "npx tsc"
+  },
+  "dependencies": {
+    "glob": "7.1.6"
+  }
+}

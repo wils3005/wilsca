@@ -33,6 +33,7 @@ declare interface PeerConfig {
 }
 
 const peerClients: Set<PeerClient> = new Set();
+
 const plugin = {
   name: 'peer-server',
   register,

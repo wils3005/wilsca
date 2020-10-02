@@ -1,17 +1,21 @@
-jest.mock('child_process');
+import { readFileSync, writeFileSync } from 'fs';
+import { execSync } from 'child_process';
+import { mock } from 'jest-mock-extended';
 
-jest.mock('fs', () => {
+jest.mock('child_process', () => {
   return {
-    readFileSync: jest.fn(() => Buffer.from('')),
-    writeFileSync: jest.fn(),
+    execSync: () => mock<ReturnType<typeof execSync>>(),
   };
 });
 
-describe('aws-session', () => {
-  it("doesn't throw", async () => {
-    return new Promise((done) => {
-      expect(async () => await import('./aws-session')).not.toThrow();
-      done();
-    });
-  });
+jest.mock('fs', () => {
+  return {
+    readFileSync: () => mock<ReturnType<typeof readFileSync>>(),
+    writeFileSync: () => mock<ReturnType<typeof writeFileSync>>(),
+  };
+});
+
+test('aws-session', () => {
+  const actual = async () => await import('./aws-session');
+  expect(actual).not.toThrow();
 });
