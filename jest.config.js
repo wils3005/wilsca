@@ -1,6 +1,5 @@
 const { join } = require('path');
 const { sync } = require('glob');
-const jestFiles = join(process.cwd(), 'jest');
 
 module.exports = {
   bail: true,
@@ -13,19 +12,20 @@ module.exports = {
   coverageReporters: ['text'],
   coverageThreshold: {
     global: {
-      branches: 62,
-      functions: 80,
-      lines: 85,
-      statements: 86,
+      branches: 68,
+      functions: 81,
+      lines: 87,
+      statements: 87,
     },
   },
   moduleNameMapper: {
-    '\\.(css)$': join(jestFiles, 'css.ts'),
-    'localhost-cert.pem': join(jestFiles, 'localhost-cert.ts'),
-    'localhost-key.pem': join(jestFiles, 'localhost-key.ts'),
+    '\\.(css)$': '<rootDir>/jest/css.ts',
+    'localhost-cert.pem': '<rootDir>/jest/localhost-cert.ts',
+    'localhost-key.pem': '<rootDir>/jest/localhost-key.ts',
   },
   preset: 'ts-jest',
-  setupFiles: sync(join(jestFiles, '*.ts')),
+  rootDir: process.cwd(),
+  setupFiles: sync(join(process.cwd(), 'jest', '*.ts')),
   testMatch: ['<rootDir>/packages/*/src/**/*.test.{js,ts}'],
   testURL: 'https://localhost/',
 };

@@ -2,18 +2,13 @@
   "name": "@wilsjs/server",
   "private": true,
   "scripts": {
+    "build": "npx tsc",
     "check": "npx npm-check --update-all",
-    "docker": "time docker build -t wilsjs-server .",
-    "eslint": "npx eslint .",
-    "eslint-fix": "npx eslint --fix .",
-    "knex": "node --require dotenv/config --require ts-node/register node_modules/knex/bin/cli.js --knexfile knexfile.ts",
+    "knex": "node --require dotenv/config --require ts-node/register node_modules/knex/bin/cli.js",
     "knex-migrate": "npm run knex -- migrate:latest",
     "knex-seed": "npm run knex -- seed:run",
-    "prettier": "npx prettier --list-different .",
-    "prettier-write": "npx prettier --write .",
     "repl": "npx ts-node --require dotenv/config --transpile-only ./repl.ts",
-    "start": "node ../../node_modules/ts-node-dev/bin/ts-node-dev --require dotenv/config --respawn --transpile-only src/index.ts",
-    "build": "npx tsc"
+    "start": "node ../../node_modules/ts-node-dev/bin/ts-node-dev --require dotenv/config --respawn --transpile-only src/index.ts"
   },
   "dependencies": {
     "@hapi/basic": "6.0.0",
