@@ -9,7 +9,9 @@ Object.assign(console, {
 });
 
 Object.assign(process.env, {
+  CERT: 'packages/server/localhost-cert.pem',
   HOST: 'localhost',
+  KEY: 'packages/server/localhost-key.pem',
   NODE_ENV: 'test',
   OP_LOGIN_ADDRESS: 'http://localhost',
   PINO_OPTIONS: '{}',
