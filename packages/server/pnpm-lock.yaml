@@ -1,23 +1,22 @@
 dependencies:
   '@hapi/basic': 6.0.0
   '@hapi/hapi': 20.0.1
-  '@hapi/inert': 6.0.2
-  '@hapi/nes': 12.0.3
+  '@hapi/inert': 6.0.3
+  '@hapi/nes': 12.0.4
   '@hapi/vision': 6.0.1
-  '@types/ws': 7.2.6
+  '@types/ws': 7.2.7
   '@wilsjs/zod': 'link:../zod'
-  aws-sdk: 2.759.0
+  aws-sdk: 2.766.0
   bcrypt: 5.0.0
   dotenv: 8.2.0
   hapi-pino: 8.3.0
   joi: 17.2.1
-  knex: 0.21.5_sqlite3@5.0.0
-  objection: 2.2.3_knex@0.21.5
+  knex: 0.21.6_sqlite3@5.0.0
+  objection: 2.2.3_knex@0.21.6
   peer: 0.5.3
   pino: 6.6.1
   pino-http: 5.3.0
   pino-pretty: 4.2.1
-  schwifty: 5.4.0_2f0c17183a43bca3f87023619fc0f55e
   sqlite3: 5.0.0
   uuid: 8.3.0
   ws: 7.3.1
@@ -30,11 +29,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-fMr4d7zLzsAXo28PRRQPXR1o2Wmu+6z+VY1UzDp0iFo13Twj8WePakwXBiqn3E1aAlTpSNzCXdnnQXFhst8h8Q==
-  /@hapi/address/2.1.4:
-    deprecated: This version has been deprecated and is no longer supported or maintained
-    dev: false
-    resolution:
-      integrity: sha512-QD1PhQk+s31P1ixsX0H0Suoupp3VMXzIVMSwobR3F3MSUO2YCV0B7xqLcUw/Bh8yuvd3LhpyqLQWTNcRmp6IdQ==
   /@hapi/address/4.1.0:
     dependencies:
       '@hapi/hoek': 9.1.0
@@ -118,11 +112,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-WSrlgpvEqgPWkI18kkGELEZfXr0bYLtr16iIN4Krh9sRnzBZN6nnWxHFxtsnP684wueEySBbXPDg/WfA9xJdBQ==
-  /@hapi/formula/1.2.0:
-    deprecated: This version has been deprecated and is no longer supported or maintained
-    dev: false
-    resolution:
-      integrity: sha512-UFbtbGPjstz0eWHb+ga/GM3Z9EzqKXFWIbSOFURU0A/Gku0Bky4bCk9/h//K2Xr3IrCfjFNhMm4jyZ5dbCewGA==
   /@hapi/formula/2.0.0:
     deprecated: This version has been deprecated and is no longer supported or maintained
     dev: false
@@ -161,26 +150,21 @@ packages:
     dev: false
     resolution:
       integrity: sha512-vJ/vzRQ13MtRzz6Qd4zRHWS3FaUc/5uivV2TIuExGTM9Qk+7Zzqj0e2G7EpE6KztO9SalTbiIkTh7qFKj/33cA==
-  /@hapi/hoek/8.5.1:
-    deprecated: This version has been deprecated and is no longer supported or maintained
-    dev: false
-    resolution:
-      integrity: sha512-yN7kbciD87WzLGc5539Tn0sApjyiGHAJgKvG9W8C7O+6c7qmoQMfVs0W4bX17eqz6C78QJqqFrtgdK5EWf6Qow==
   /@hapi/hoek/9.1.0:
     dev: false
     resolution:
       integrity: sha512-i9YbZPN3QgfighY/1X1Pu118VUz2Fmmhd6b2n0/O8YVgGGfw0FbUYoA97k7FkpGJ+pLCFEDLUmAPPV4D1kpeFw==
-  /@hapi/inert/6.0.2:
+  /@hapi/inert/6.0.3:
     dependencies:
       '@hapi/ammo': 5.0.1
       '@hapi/boom': 9.1.0
       '@hapi/bounce': 2.0.0
       '@hapi/hoek': 9.1.0
       '@hapi/validate': 1.1.2
-      lru-cache: 5.1.1
+      lru-cache: 6.0.0
     dev: false
     resolution:
-      integrity: sha512-cq0a8jstkLW1+oJaw4jp52PZBEkVbX9d0YDy5aOs3rOKYSjpzs2nQBahnCHEMchOrOSUffLpE+IDoivYHcx8uA==
+      integrity: sha512-Z6Pi0Wsn2pJex5CmBaq+Dky9q40LGzXLUIUFrYpDtReuMkmfy9UuUeYc4064jQ1Xe9uuw7kbwE6Fq6rqKAdjAg==
   /@hapi/iron/6.0.0:
     dependencies:
       '@hapi/b64': 5.0.0
@@ -191,28 +175,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-zvGvWDufiTGpTJPG1Y/McN8UqWBu0k/xs/7l++HVU535NLHXsHhy54cfEMdW7EjwKfbBfM9Xy25FmTiobb7Hvw==
-  /@hapi/joi/16.1.8:
-    dependencies:
-      '@hapi/address': 2.1.4
-      '@hapi/formula': 1.2.0
-      '@hapi/hoek': 8.5.1
-      '@hapi/pinpoint': 1.0.2
-      '@hapi/topo': 3.1.6
-    deprecated: 'joi is leaving the @hapi organization and moving back to ''joi'' (https://github.com/sideway/joi/issues/2411)'
-    dev: false
-    resolution:
-      integrity: sha512-wAsVvTPe+FwSrsAurNt5vkg3zo+TblvC5Bb1zMVK6SJzZqw9UrJnexxR+76cpePmtUZKHAPxcQ2Bf7oVHyahhg==
-  /@hapi/joi/17.1.1:
-    dependencies:
-      '@hapi/address': 4.1.0
-      '@hapi/formula': 2.0.0
-      '@hapi/hoek': 9.1.0
-      '@hapi/pinpoint': 2.0.0
-      '@hapi/topo': 5.0.0
-    deprecated: 'joi is leaving the @hapi organization and moving back to ''joi'' (https://github.com/sideway/joi/issues/2411)'
-    dev: false
-    resolution:
-      integrity: sha512-p4DKeZAoeZW4g3u7ZeRo+vCDuSDgSvtsB/NpfjXEHTUjSeINAi/RrVOWiVQ1isaoLzMvFEhe8n5065mQq1AdQg==
   /@hapi/mimos/5.0.0:
     dependencies:
       '@hapi/hoek': 9.1.0
@@ -220,7 +182,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-EVS6wJYeE73InTlPWt+2e3Izn319iIvffDreci3qDNT+t3lA5ylJ0/SoTaID8e0TPNUkHUSsgJZXEmLHvoYzrA==
-  /@hapi/nes/12.0.3:
+  /@hapi/nes/12.0.4:
     dependencies:
       '@hapi/boom': 9.1.0
       '@hapi/bounce': 2.0.0
@@ -228,14 +190,14 @@ packages:
       '@hapi/cryptiles': 5.1.0
       '@hapi/hoek': 9.1.0
       '@hapi/iron': 6.0.0
-      '@hapi/joi': 17.1.1
-      '@hapi/teamwork': 4.0.0
-      ws: 6.2.1
+      '@hapi/teamwork': 5.1.0
+      '@hapi/validate': 1.1.2
+      ws: 7.3.1
     dev: false
     engines:
       node: '>=12.0.0'
     resolution:
-      integrity: sha512-EcUy4cKzjT7TnK9tdxf8EK51YiW1QOoCYWyqThW37IpTesnhHv+F8VFl749pOt63FXw7mDvy7MJhWPUpDL0lZA==
+      integrity: sha512-gM+XMVbfdyjN5r+k13kSfMIaoe/qy24RSzWNDbdWiuDDWk4hYxNy+gLwmVmQ4njj5X3Wpbl/URxULyRuvHU+VA==
   /@hapi/nigel/4.0.2:
     dependencies:
       '@hapi/hoek': 9.1.0
@@ -255,11 +217,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-mpikYRJjtrbJgdDHG/H9ySqYqwJ+QU/D7FXsYciS9P7NYBXE2ayKDAy3H0ou6CohOCaxPuTV4SZ0D936+VomHA==
-  /@hapi/pinpoint/1.0.2:
-    deprecated: This version has been deprecated and is no longer supported or maintained
-    dev: false
-    resolution:
-      integrity: sha512-dtXC/WkZBfC5vxscazuiJ6iq4j9oNx1SHknmIr8hofarpKUZKmlUVYVIhNVzIEgK5Wrc4GMHL5lZtt1uS2flmQ==
   /@hapi/pinpoint/2.0.0:
     dev: false
     resolution:
@@ -310,24 +267,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-CekDizZkDGERJ01C0+TzHlKtqdXZxzSWTOaH6THBrbOHnsr3GY+yiMZC+AfNCypfE17RaIakGIAbpL2Tk1z2+A==
-  /@hapi/teamwork/4.0.0:
-    deprecated: This version has been deprecated and is no longer supported or maintained
-    dev: false
-    resolution:
-      integrity: sha512-V6xYOrr5aFv/IJqNPneaYCu8vuGTKisamqHVRS3JJnbZr18TrpXdsJOYk9pjPhFti+M2YETPebQLUr820N5NoQ==
   /@hapi/teamwork/5.1.0:
     dev: false
     engines:
       node: '>=12.0.0'
     resolution:
       integrity: sha512-llqoQTrAJDTXxG3c4Kz/uzhBS1TsmSBa/XG5SPcVXgmffHE1nFtyLIK0hNJHCB3EuBKT84adzd1hZNY9GJLWtg==
-  /@hapi/topo/3.1.6:
-    dependencies:
-      '@hapi/hoek': 8.5.1
-    deprecated: This version has been deprecated and is no longer supported or maintained
-    dev: false
-    resolution:
-      integrity: sha512-tAag0jEcjwH+P2quUfipd7liWCNX2F8NvYjQp2wtInsZxnMlypdw0FtAOLxtvvkO+GSRRbmNi8m/5y42PQJYCQ==
   /@hapi/topo/5.0.0:
     dependencies:
       '@hapi/hoek': 9.1.0
@@ -412,6 +357,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-oTQgnd0hblfLsJ6BvJzzSL+Inogp3lq9fGgqRkMB/ziKMgEUaFl801OncOzUmalfzt14N0oPHMK47ipl+wbTIw==
+  /@types/node/14.11.2:
+    dev: false
+    resolution:
+      integrity: sha512-jiE3QIxJ8JLNcb1Ps6rDbysDhN4xa8DJJvuC9prr6w+1tIh+QAbYyNF3tyiZNLDBIuBCf4KEcV2UvQm/V60xfA==
   /@types/node/14.6.0:
     dev: false
     resolution:
@@ -437,6 +386,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-Q07IrQUSNpr+cXU4E4LtkSIBPie5GLZyyMC1QtQYRLWz701+XcoVygGUZgvLqElq1nU4ICldMYPnexlBsg3dqQ==
+  /@types/ws/7.2.7:
+    dependencies:
+      '@types/node': 14.11.2
+    dev: false
+    resolution:
+      integrity: sha512-UUFC/xxqFLP17hTva8/lVT0SybLUrfSD9c+iapKb0fEiC8uoDbA+xuZ3pAN603eW+bY8ebSMLm9jXdIPnD0ZgA==
   /abbrev/1.1.1:
     dev: false
     resolution:
@@ -509,7 +464,7 @@ packages:
     dev: false
     resolution:
       integrity: sha512-5hYdAkZlcG8tOLujVDTgCT+uPX0VnpAH28gWsLfzpXYm7wP6mp5Q/gYyR7YQ0cKVJcXJnl3j2kpBan13PtQf6w==
-...mockArgs/5.0.1:
+  /args/5.0.1:
     dependencies:
       camelcase: 5.0.0
       chalk: 2.4.2
@@ -580,10 +535,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-WWZ/QfrdTyDMvCu5a41Pf3jsA2c=
-  /async-limiter/1.0.1:
-    dev: false
-    resolution:
-      integrity: sha512-csOlWGAcRFJaI6m+F2WKdnMKr4HhdhFVBk0H/QbJFMCr+uO2kwohwXQPxw/9OCxp05r5ghVBFSyioixx3gfkNQ==
   /asynckit/0.4.0:
     dev: false
     optional: true
@@ -602,7 +553,7 @@ packages:
       node: '>=8.0.0'
     resolution:
       integrity: sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==
-  /aws-sdk/2.759.0:
+  /aws-sdk/2.766.0:
     dependencies:
       buffer: 4.9.2
       events: 1.1.1
@@ -617,7 +568,7 @@ packages:
     engines:
       node: '>= 0.8.0'
     resolution:
-      integrity: sha512-XTmt6b8NfluqmixO18Bu9ZttZMW9rwEDVO+XITsIQ5dZvLectwrjlbEn2refudJI1Y2pxLguw+tABvXi1wtbbQ==
+      integrity: sha512-msEEF7veBrxU1TlhLL33du4oJdwJ6uAWogf9+S0v437AX2z6K5IFr5J78JBysBudRHO0L6aC8bat6OS3oPEQvQ==
   /aws-sign2/0.7.0:
     dev: false
     optional: true
@@ -1853,7 +1804,7 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
-  /knex/0.21.5_sqlite3@5.0.0:
+  /knex/0.21.6_sqlite3@5.0.0:
     dependencies:
       colorette: 1.2.1
       commander: 5.1.0
@@ -1893,7 +1844,7 @@ packages:
       sqlite3:
         optional: true
     resolution:
-      integrity: sha512-cQj7F2D/fu03eTr6ZzYCYKdB9w7fPYlvTiU/f2OeXay52Pq5PwD+NAkcf40WDnppt/4/4KukROwlMOaE7WArcA==
+      integrity: sha512-gFB2q4MamYCEqzCPNgK7DMcyyAxoHhhSDnPsNDJo50Gor5ibI2n5bNRW768IG5S06k6nE3Gik5/kcoTmbsYbZw==
   /leven/2.1.0:
     dev: false
     engines:
@@ -1927,12 +1878,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
-  /lru-cache/5.1.1:
+  /lru-cache/6.0.0:
     dependencies:
-      yallist: 3.1.1
+      yallist: 4.0.0
     dev: false
+    engines:
+      node: '>=10'
     resolution:
-      integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==
+      integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==
   /make-iterator/1.0.1:
     dependencies:
       kind-of: 6.0.3
@@ -2284,11 +2237,11 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-h6EKxMFpS9Lhy/U1kaZhQftd10c=
-  /objection/2.2.3_knex@0.21.5:
+  /objection/2.2.3_knex@0.21.6:
     dependencies:
       ajv: 6.12.4
       db-errors: 0.2.3
-      knex: 0.21.5_sqlite3@5.0.0
+      knex: 0.21.6_sqlite3@5.0.0
     dev: false
     engines:
       node: '>=8.0.0'
@@ -2423,7 +2376,7 @@ packages:
       express: 4.17.1
       uuid: 3.4.0
       ws: 7.3.1
-    ...mockArgs: 15.4.1
+      yargs: 15.4.1
     dev: false
     engines:
       node: '>=10'
@@ -2450,7 +2403,7 @@ packages:
   /pino-pretty/4.2.0:
     dependencies:
       '@hapi/bourne': 2.0.0
-   ...mockArgs: 5.0.1
+      args: 5.0.1
       chalk: 4.1.0
       dateformat: 3.0.3
       fast-safe-stringify: 2.0.7
@@ -2467,7 +2420,7 @@ packages:
   /pino-pretty/4.2.1:
     dependencies:
       '@hapi/bourne': 2.0.0
-   ...mockArgs: 5.0.1
+      args: 5.0.1
       chalk: 4.1.0
       dateformat: 3.0.3
       fast-safe-stringify: 2.0.7
@@ -2515,7 +2468,7 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
-  /process-nexti...mockArgs/2.0.1:
+  /process-nextick-args/2.0.1:
     dev: false
     resolution:
       integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
@@ -2609,7 +2562,7 @@ packages:
       core-util-is: 1.0.2
       inherits: 2.0.4
       isarray: 1.0.0
-      process-nexti...mockArgs: 2.0.1
+      process-nextick-args: 2.0.1
       safe-buffer: 5.1.2
       string_decoder: 1.1.1
       util-deprecate: 1.0.2
@@ -2753,23 +2706,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
-  /schwifty/5.4.0_2f0c17183a43bca3f87023619fc0f55e:
-    dependencies:
-      '@hapi/hapi': 20.0.1
-      '@hapi/hoek': 8.5.1
-      '@hapi/joi': 16.1.8
-      knex: 0.21.5_sqlite3@5.0.0
-      objection: 2.2.3_knex@0.21.5
-      toys: 2.3.1
-    dev: false
-    engines:
-      node: '>=8.x.x'
-    peerDependencies:
-      '@hapi/hapi': '>=17 <21'
-      knex: '>=0.16'
-      objection: '>=1 <3'
-    resolution:
-      integrity: sha512-bJiikZvafQQu/4yqD2HNNGft3oZz+HCCgi1G7F9mmU1ib1bjc8JnSX7GwZpUc8JXuMO8YXIrpuSiy8ShnmU2nw==
   /semver/5.3.0:
     dev: false
     hasBin: true
@@ -3134,12 +3070,6 @@ packages:
     optional: true
     resolution:
       integrity: sha512-nlLsUzgm1kfLXSXfRZMc1KLAugd4hqJHDTvc2hDIwS3mZAfMEuMbc03SujMF+GEcpaX/qboeycw6iO8JwVv2+g==
-  /toys/2.3.1:
-    dependencies:
-      '@hapi/hoek': 8.5.1
-    dev: false
-    resolution:
-      integrity: sha512-EMafQNzl4pzD/MO11B+lyCiPGu51J3r+TXC0i7eYycx4hL9/1tLZXxrEKN91x57RM7jk5mGK1z8A866fAopCEQ==
   /tunnel-agent/0.6.0:
     dependencies:
       safe-buffer: 5.2.1
@@ -3303,12 +3233,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
-  /ws/6.2.1:
-    dependencies:
-      async-limiter: 1.0.1
-    dev: false
-    resolution:
-      integrity: sha512-GIyAXC2cB7LjvpgMt9EKS2ldqr0MTrORaleiOno6TweZ6r3TKtoFQWay/2PceJ3RuBasOHzXNn5Lrw1X0bEjqA==
   /ws/7.3.1:
     dev: false
     engines:
@@ -3344,7 +3268,11 @@ packages:
     dev: false
     resolution:
       integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==
- ...mockArgs-parser/18.1.3:
+  /yallist/4.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
+  /yargs-parser/18.1.3:
     dependencies:
       camelcase: 5.3.1
       decamelize: 1.2.0
@@ -3353,7 +3281,7 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-o50j0JeToy/4K6OZcaQmW6lyXXKhq7csREXcDwk2omFPJEwUNOVtJKvmDr9EI1fAJZUyZcRF7kxGBWmRXudrCQ==
- ...mockArgs/15.4.1:
+  /yargs/15.4.1:
     dependencies:
       cliui: 6.0.0
       decamelize: 1.2.0
@@ -3365,7 +3293,7 @@ packages:
       string-width: 4.2.0
       which-module: 2.0.0
       y18n: 4.0.0
-    ...mockArgs-parser: 18.1.3
+      yargs-parser: 18.1.3
     dev: false
     engines:
       node: '>=8'
@@ -3374,23 +3302,22 @@ packages:
 specifiers:
   '@hapi/basic': 6.0.0
   '@hapi/hapi': 20.0.1
-  '@hapi/inert': 6.0.2
-  '@hapi/nes': 12.0.3
+  '@hapi/inert': 6.0.3
+  '@hapi/nes': 12.0.4
   '@hapi/vision': 6.0.1
-  '@types/ws': 7.2.6
+  '@types/ws': 7.2.7
   '@wilsjs/zod': ../../packages/zod
-  aws-sdk: 2.759.0
+  aws-sdk: 2.766.0
   bcrypt: 5.0.0
   dotenv: 8.2.0
   hapi-pino: 8.3.0
   joi: 17.2.1
-  knex: 0.21.5
+  knex: 0.21.6
   objection: 2.2.3
   peer: 0.5.3
   pino: 6.6.1
   pino-http: 5.3.0
   pino-pretty: 4.2.1
-  schwifty: 5.4.0
   sqlite3: 5.0.0
   uuid: 8.3.0
   ws: 7.3.1
