@@ -1,0 +1,12 @@
+{
+  "name": "@wilsjs/tools",
+  "private": true,
+  "scripts": {
+    "build": "npx tsc --build tsconfig.build.json",
+    "check": "npx npm-check --update-all",
+    "postbuild": "chmod +x dist/*.js"
+  },
+  "dependencies": {
+    "ini": "1.3.5"
+  }
+}

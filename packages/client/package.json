@@ -1,14 +1,10 @@
 {
   "name": "@wilsjs/client",
   "private": true,
-  "main": "build/index.js",
+  "main": "./dist/index.js",
   "scripts": {
-    "build": "npx webpack --mode production",
-    "eslint": "npx eslint .",
-    "eslint-fix": "npx eslint --fix .",
-    "prettier": "npx prettier --list-different .",
-    "prettier-write": "npx prettier --write .",
-    "start": "npx webpack-dev-server",
-    "test": "npx jest"
+    "build": "npx ts-node ../../node_modules/webpack/bin/webpack.js --mode production",
+    "check": "npx npm-check --update-all",
+    "start": "npx webpack-dev-server"
   }
 }

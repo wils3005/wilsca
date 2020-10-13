@@ -1,10 +1,10 @@
-import { join } from 'path';
-import { start } from 'repl';
-import { sync } from 'glob';
+import { join } from "path";
+import { start } from "repl";
+import { sync } from "glob";
 
-const prompt = 'ts-node > ';
+const prompt = "ts-node > ";
 const { context } = start(prompt);
-const fileNames = sync(join(process.cwd(), 'src', '**', '*.ts'));
+const fileNames = sync(join(process.cwd(), "src", "**", "*.ts"));
 
 async function addModuleToContext(
   moduleName: string,
@@ -19,10 +19,10 @@ async function addModuleToContext(
 
 function addModulesToContext(fileName: string): void {
   const moduleName = String(
-    fileName.replace('.ts', '').split('/').filter(isValidModuleName).pop()
+    fileName.replace(".ts", "").split("/").filter(isValidModuleName).pop()
   );
 
-  const modulePath = fileName.replace(process.cwd(), '.');
+  const modulePath = fileName.replace(process.cwd(), ".");
   void addModuleToContext(moduleName, modulePath);
 }
 

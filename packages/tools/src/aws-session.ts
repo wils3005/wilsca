@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import { json, string } from '@wilsjs/zod';
-import { parse, stringify } from 'ini';
-import { readFileSync, writeFileSync } from 'fs';
-import { execSync } from 'child_process';
-import { join } from 'path';
+import { parse, stringify } from "ini";
+import { readFileSync, writeFileSync } from "fs";
+import { execSync } from "child_process";
+import { join } from "path";
+import { string } from "zod";
 
 interface GetSessionToken {
   Credentials: {
@@ -28,7 +28,7 @@ const opAwsTokenCodeId = string().parse(OP_AWS_TOKEN_CODE_ID);
 
 function main(): void {
   try {
-    const opSessionToken = readFileSync(join(home, '.op-session-token'))
+    const opSessionToken = readFileSync(join(home, ".op-session-token"))
       .toString()
       .trim();
 
@@ -47,11 +47,11 @@ function main(): void {
       --token-code ${awsTokenCode}
     `;
 
-    const { Credentials } = (json().parse(
-      JSON.parse(execSync(command2).toString().trim())
+    const { Credentials } = (JSON.parse(
+      execSync(command2).toString().trim()
     ) as unknown) as GetSessionToken;
 
-    const credentialsFile = join(home, '.aws', 'credentials');
+    const credentialsFile = join(home, ".aws", "credentials");
     const iniCredentials = parse(readFileSync(credentialsFile).toString());
 
     Object.assign(iniCredentials, {

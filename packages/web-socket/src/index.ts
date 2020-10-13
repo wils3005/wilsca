@@ -1,4 +1,4 @@
-import { log } from './log';
+import { log } from "@wilsjs/console-logger";
 
 const { host } = location;
 
@@ -11,7 +11,7 @@ function getWebSocket(): WebSocket {
 }
 
 function onError(this: WebSocket): void {
-  log(new Error('todo'));
+  log(new Error("todo"));
   webSocketErrors += 1;
   setWebSocket();
 }
@@ -28,9 +28,9 @@ function setWebSocket(): void {
   if (webSocketErrors >= 10) return;
 
   webSocket = new WebSocket(`wss://${host}/w`);
-  webSocket.addEventListener('error', onError);
-  webSocket.addEventListener('open', onOpen);
-  webSocket.addEventListener('message', onMessage);
+  webSocket.addEventListener("error", onError);
+  webSocket.addEventListener("open", onOpen);
+  webSocket.addEventListener("message", onMessage);
 }
 
 export { getWebSocket, onError, onMessage, onOpen, setWebSocket };

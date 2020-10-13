@@ -1,7 +1,7 @@
 .nyc_output/
 .storybook/
 .vscode/
-build/
+dist/
 coverage/
 node_modules/
 stories/

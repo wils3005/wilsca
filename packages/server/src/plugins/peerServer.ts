@@ -1,10 +1,7 @@
-import { EventEmitter } from 'events';
-import { ExpressPeerServer } from 'peer';
-import { Server } from '@hapi/hapi';
-import WebSocket from 'ws';
-
-declare type PeerWebSocket = WebSocket & EventEmitter;
-
+import { Plugin, Server } from "@hapi/hapi";
+import { EventEmitter } from "events";
+import { ExpressPeerServer } from "peer";
+import pino from "pino";
 declare interface PeerClient {
   getId(): string;
   getToken(): string;
@@ -32,35 +29,78 @@ declare interface PeerConfig {
   readonly generateClientId?: () => string;
 }
 
+declare interface PeerMessage {
+  readonly type: PeerMessageType;
+  readonly src: string;
+  readonly dst: string;
+  readonly payload?: unknown;
+}
+
+declare enum PeerMessageType {
+  OPEN = "OPEN",
+  LEAVE = "LEAVE",
+  CANDIDATE = "CANDIDATE",
+  OFFER = "OFFER",
+  ANSWER = "ANSWER",
+  EXPIRE = "EXPIRE",
+  HEARTBEAT = "HEARTBEAT",
+  ID_TAKEN = "ID-TAKEN",
+  ERROR = "ERROR",
+}
+
+declare type PeerWebSocket = WebSocket & EventEmitter;
+
 const peerClients: Set<PeerClient> = new Set();
 
-const plugin = {
-  name: 'peer-server',
+const plugin: Plugin<PeerConfig> = {
+  name: "peer-server",
   register,
 };
 
+let logger: pino.Logger;
+
+function onConnection(client: PeerClient): void {
+  peerClients.add(client);
+  logger?.info("PeerServer connection", { client });
+}
+
+function onDisconnect(client: PeerClient): void {
+  peerClients.delete(client);
+  logger?.info("PeerServer disconnect", { client });
+}
+
+function onError(error: Error): void {
+  logger?.error("PeerServer error", error);
+}
+
+function onMessage(client: PeerClient, message: PeerMessage): void {
+  logger?.info("PeerServer message", { client, message });
+}
+
 function register(server: Server, options?: PeerConfig): void {
+  logger = server.logger;
   const { path, proxied } = options || {};
-  const { logger } = server;
 
   ExpressPeerServer(server.listener, {
     path,
     proxied,
   })
-    .on('error', (error) => {
-      logger.error('PeerServer error', error);
-    })
-    .on('connection', (client) => {
-      peerClients.add(client);
-      logger.info('PeerServer connection', { client });
-    })
-    .on('disconnect', (client) => {
-      peerClients.delete(client);
-      logger.info('PeerServer disconnect', { client });
-    })
-    .on('message', (client, message) => {
-      logger.info('PeerServer message', { client, message });
-    });
+    .on("error", onError)
+    .on("connection", onConnection)
+    .on("disconnect", onDisconnect)
+    .on("message", onMessage);
 }
 
-export { plugin, register };
+export default plugin;
+export {
+  PeerClient,
+  PeerConfig,
+  PeerMessage,
+  PeerMessageType,
+  PeerWebSocket,
+  onError,
+  onConnection,
+  onDisconnect,
+  onMessage,
+  register,
+};

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { execSync } from 'child_process';
-import { string } from '@wilsjs/zod';
+import { execSync } from "child_process";
+import { string } from "zod";
 
 const { VPN_SERVICE_NAME, VPN_SHARED_SECRET } = process.env;
 const vpnServiceName = string().parse(VPN_SERVICE_NAME);

@@ -1,4 +1,3 @@
-test('User', () => {
-  const actual = async () => await import('./User');
-  expect(actual).not.toThrow();
+test("User", () => {
+  expect(async () => await import("./User")).not.toThrow();
 });

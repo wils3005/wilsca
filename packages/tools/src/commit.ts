@@ -1,23 +1,23 @@
 #!/usr/bin/env node
 
-import { execSync } from 'child_process';
+import { execSync } from "child_process";
 
-const jiraBranchRegExp = /\* (bugfix|feature)\/(?<jira_issue>\w+-\d+)/;
+const jiraBranchRegExp = /(bugfix|feature)\/(?<jira_issue>\w+-\d+)/;
 const { argv } = process;
 const titleBody = argv[2] || new Date().toUTCString();
 
 function gitAdd(): Buffer {
-  const s = 'git add --all';
+  const s = "git add --all";
   return execSync(s);
 }
 
 function gitBranch(): string {
-  const s = 'git branch --show-current';
+  const s = "git branch --show-current";
   return execSync(s).toString().trim();
 }
 
 function gitStatus(): string {
-  const s = 'git status';
+  const s = "git status";
   return execSync(s).toString();
 }
 
@@ -27,7 +27,7 @@ function gitCommit(title: string, body: string): Buffer {
 }
 
 function gitDiff(): string {
-  const s = 'git diff --staged --shortstat';
+  const s = "git diff --staged --shortstat";
   return execSync(s).toString();
 }
 
@@ -36,11 +36,11 @@ function gitTitle(): string {
 }
 
 function jiraIssue(): string {
-  return (jiraBranchRegExp.exec(gitBranch()) || [])[2];
+  return (jiraBranchRegExp.exec(gitBranch()) || [])[2] || "";
 }
 
 function jiraTitle(): string {
-  return jiraIssue() ? `[${jiraIssue()}] ` : '';
+  return jiraIssue() ? `[${jiraIssue()}] ` : "";
 }
 
 function main(): void {
@@ -57,7 +57,7 @@ function main(): void {
 }
 
 function gitPush(): Buffer {
-  const s = 'git push --force-with-lease';
+  const s = "git push --force-with-lease";
   return execSync(s);
 }
 

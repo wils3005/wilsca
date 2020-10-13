@@ -1,15 +1,15 @@
-import { Plugin, Server } from '@hapi/hapi';
-
-import { Model as User } from './User';
+import { Plugin, Server } from "@hapi/hapi";
+import { Model as User } from "./User";
 
 const models = { User };
 const plugin: Plugin<unknown> = {
-  name: 'User',
+  name: "User",
   register,
 };
 
 function register(server: Server): void {
-  server.expose('models', models);
+  server.expose("models", models);
 }
 
-export { plugin, register };
+export default plugin;
+export { register };

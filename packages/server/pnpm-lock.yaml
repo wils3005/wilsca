@@ -5,21 +5,20 @@ dependencies:
   '@hapi/nes': 12.0.4
   '@hapi/vision': 6.0.1
   '@types/ws': 7.2.7
-  '@wilsjs/zod': 'link:../zod'
-  aws-sdk: 2.766.0
+  aws-sdk: 2.771.0
   bcrypt: 5.0.0
-  dotenv: 8.2.0
   hapi-pino: 8.3.0
   joi: 17.2.1
   knex: 0.21.6_sqlite3@5.0.0
   objection: 2.2.3_knex@0.21.6
   peer: 0.5.3
-  pino: 6.6.1
+  pino: 6.7.0
   pino-http: 5.3.0
-  pino-pretty: 4.2.1
+  pino-pretty: 4.3.0
   sqlite3: 5.0.0
-  uuid: 8.3.0
+  uuid: 8.3.1
   ws: 7.3.1
+  zod: 1.11.9
 lockfileVersion: 5.1
 packages:
   /@hapi/accept/5.0.1:
@@ -316,10 +315,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-W98JrE0j2K78swW4ukqMleo8R7h/pFETjM2DQ90MF6XK2i4LO4W3gQ71Lt4w3bfm2EvVSyWHplECvB5sK22yFQ==
-  /@types/color-name/1.1.1:
-    dev: false
-    resolution:
-      integrity: sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
   /@types/connect/3.4.33:
     dependencies:
       '@types/node': 14.6.0
@@ -418,6 +413,16 @@ packages:
     dev: false
     resolution:
       integrity: sha512-eienB2c9qVQs2KWexhkrdMLVDoIQCz5KSeLxwg9Lzk4DOfBtIK9PQwwufcsn1jjGuf9WZmqPMbGxOzfcuphJCQ==
+  /ajv/6.12.5:
+    dependencies:
+      fast-deep-equal: 3.1.3
+      fast-json-stable-stringify: 2.1.0
+      json-schema-traverse: 0.4.1
+      uri-js: 4.4.0
+    dev: false
+    optional: true
+    resolution:
+      integrity: sha512-lRF8RORchjpKG50/WFf8xmg7sgCLFiYNNnqdKflk63whMQcWR5ngGjiSXkL9bjxy6B2npOK2HSMN49jEBMSkag==
   /ansi-regex/2.1.1:
     dev: false
     engines:
@@ -444,15 +449,14 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==
-  /ansi-styles/4.2.1:
+  /ansi-styles/4.3.0:
     dependencies:
-      '@types/color-name': 1.1.1
       color-convert: 2.0.1
     dev: false
     engines:
       node: '>=8'
     resolution:
-      integrity: sha512-9VGjrMsG1vePxcSweQsN20KY/c4zN0h9fLjqAbwbPfahM3t+NL+M9HC8xeXG2I8pX5NoamTGNuomEUFI7fcUjA==
+      integrity: sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==
   /aproba/1.2.0:
     dev: false
     resolution:
@@ -553,7 +557,7 @@ packages:
       node: '>=8.0.0'
     resolution:
       integrity: sha512-kNOjDqAh7px0XWNI+4QbzoiR/nTkHAWNud2uvnJquD1/x5a7EQZMJT0AczqK0Qn67oY/TTQ1LbUKajZpp3I9tQ==
-  /aws-sdk/2.766.0:
+  /aws-sdk/2.771.0:
     dependencies:
       buffer: 4.9.2
       events: 1.1.1
@@ -568,7 +572,7 @@ packages:
     engines:
       node: '>= 0.8.0'
     resolution:
-      integrity: sha512-msEEF7veBrxU1TlhLL33du4oJdwJ6uAWogf9+S0v437AX2z6K5IFr5J78JBysBudRHO0L6aC8bat6OS3oPEQvQ==
+      integrity: sha512-fqNGusCwkdemx3yFqvQbU1+xq/PB2wGq7EQIrrTZx/zxfXUp+7+PnrHzXtViCRghN0tylLghBfWYD4VcVcqi7g==
   /aws-sign2/0.7.0:
     dev: false
     optional: true
@@ -727,7 +731,7 @@ packages:
       integrity: sha512-Mti+f9lpJNcwF4tWV8/OrTTtF1gZi+f8FqlyAdouralcFWFQWF2+NgCHShjkCb+IFBLq9buZwE1xckQU4peSuQ==
   /chalk/4.1.0:
     dependencies:
-      ansi-styles: 4.2.1
+      ansi-styles: 4.3.0
       supports-color: 7.2.0
     dev: false
     engines:
@@ -980,12 +984,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha1-+hN8S9aY7fVc1c0CrFWfkaTEups=
-  /dotenv/8.2.0:
-    dev: false
-    engines:
-      node: '>=8'
-    resolution:
-      integrity: sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
   /ecc-jsbn/0.1.2:
     dependencies:
       jsbn: 0.1.1
@@ -1158,6 +1156,12 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-zxpkULI9W9MNTK2sJ3BpPQrTEXFNESd2X6O1tXMFpK/XM0G5c5Rll2EVYZH2TqI3xRGK/VaJ+eEOt7pnENJpeA==
+  /fast-redact/3.0.0:
+    dev: false
+    engines:
+      node: '>=6'
+    resolution:
+      integrity: sha512-a/S/Hp6aoIjx7EmugtzLqXmcNsyFszqbt6qQ99BdG61QjBZF6shNis0BYR6TsZOQ1twYc0FN2Xdhwwbv6+KD0w==
   /fast-safe-stringify/2.0.7:
     dev: false
     resolution:
@@ -1399,7 +1403,7 @@ packages:
       integrity: sha1-qUwiJOvKwEeCoNkDVSHyRzW37JI=
   /har-validator/5.1.5:
     dependencies:
-      ajv: 6.12.4
+      ajv: 6.12.5
       har-schema: 2.0.0
     deprecated: this library is no longer supported
     dev: false
@@ -2417,7 +2421,7 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-CBFLgxMj/cJOANqZs+Xcjdgi1v40TJP3xMTkSN2xuOvX+03uAAHXf9SEU+1DHu/1kw44H2c31VYCImx0QewQ6w==
-  /pino-pretty/4.2.1:
+  /pino-pretty/4.3.0:
     dependencies:
       '@hapi/bourne': 2.0.0
       args: 5.0.1
@@ -2433,7 +2437,7 @@ packages:
     dev: false
     hasBin: true
     resolution:
-      integrity: sha512-WyO/n6c6T2gj0ioYGFUFbrvyUoERK37Lu0liLxMIJnp1YaaG+XZBU2TAQB0yVJNb+7T+oDh9t8HGMzk00jy+tw==
+      integrity: sha512-uEc9SUCCGVEs0goZvyznKXBHtI1PNjGgqHviJHxOCEFEWZN6Z/IQKv5pO9gSdm/b+WfX+/dfheWhtZUyScqjlQ==
   /pino-std-serializers/2.5.0:
     dev: false
     resolution:
@@ -2462,6 +2466,18 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-DOgm7rn6ctBkBYemHXSLj7+j3o3U1q1FWBXbHcprur8mA93QcJSycEkEqhqKiFB9Mx/3Qld2FGr6+9yfQza0kA==
+  /pino/6.7.0:
+    dependencies:
+      fast-redact: 3.0.0
+      fast-safe-stringify: 2.0.7
+      flatstr: 1.0.12
+      pino-std-serializers: 2.5.0
+      quick-format-unescaped: 4.0.1
+      sonic-boom: 1.3.0
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-vPXJ4P9rWCwzlTJt+f0Ni4THc3DWyt8iDDCO4edQ8narTu6hnpzdXu8FqeSJCGndl1W6lfbYQUQihUO54y66Lw==
   /posix-character-classes/0.1.1:
     dev: false
     engines:
@@ -3172,11 +3188,11 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-DPSke0pXhTZgoF/d+WSt2QaKMCFSfx7QegxEWT+JOuHF5aWrKEn0G+ztjuJg/gG8/ItK+rbPCD/yNv8yyih6Cg==
-  /uuid/8.3.0:
+  /uuid/8.3.1:
     dev: false
     hasBin: true
     resolution:
-      integrity: sha512-fX6Z5o4m6XsXBdli9g7DtWgAx+osMsRRZFKma1mIUsLCz6vRvv+pz5VNbyu9UEDzpMWulZfvpgb/cmDXVulYFQ==
+      integrity: sha512-FOmRr+FmWEIG8uhZv6C2bTgEVXsHk08kE7mPlrBbEe+c3r9pjceVPgupIfNIhc4yx55H69OXANrUaSuu9eInKg==
   /v8flags/3.2.0:
     dependencies:
       homedir-polyfill: 1.0.3
@@ -3221,7 +3237,7 @@ packages:
       integrity: sha512-QGkOQc8XL6Bt5PwnsExKBPuMKBxnGxWWW3fU55Xt4feHozMUhdUMaBCk290qpm/wG5u/RSKzwdAC4i51YigihA==
   /wrap-ansi/6.2.0:
     dependencies:
-      ansi-styles: 4.2.1
+      ansi-styles: 4.3.0
       string-width: 4.2.0
       strip-ansi: 6.0.0
     dev: false
@@ -3299,6 +3315,10 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-aePbxDmcYW++PaqBsJ+HYUFwCdv4LVvdnhBy78E57PIor8/OVvhMrADFFEDh8DHDFRv/O9i3lPhsENjO7QX0+A==
+  /zod/1.11.9:
+    dev: false
+    resolution:
+      integrity: sha512-qZjs9DkvPYHOiOUdAtNcxOC0u5cv7tx9DCmlNZN0MxWeFvgqyr3XkXFqUlaSpmTiZ4A4YVkB2s1Zw2ENJ9/fSg==
 specifiers:
   '@hapi/basic': 6.0.0
   '@hapi/hapi': 20.0.1
@@ -3306,18 +3326,17 @@ specifiers:
   '@hapi/nes': 12.0.4
   '@hapi/vision': 6.0.1
   '@types/ws': 7.2.7
-  '@wilsjs/zod': ../../packages/zod
-  aws-sdk: 2.766.0
+  aws-sdk: 2.771.0
   bcrypt: 5.0.0
-  dotenv: 8.2.0
   hapi-pino: 8.3.0
   joi: 17.2.1
   knex: 0.21.6
   objection: 2.2.3
   peer: 0.5.3
-  pino: 6.6.1
+  pino: 6.7.0
   pino-http: 5.3.0
-  pino-pretty: 4.2.1
+  pino-pretty: 4.3.0
   sqlite3: 5.0.0
-  uuid: 8.3.0
+  uuid: 8.3.1
   ws: 7.3.1
+  zod: 1.11.9
