@@ -1,14 +1,17 @@
 import * as z from "zod";
 import { Server, ServerOptions, ServerRegisterPluginObject } from "@hapi/hapi";
-import { healthz, knex, models, peerServer } from "./plugins";
 import pino, { LoggerOptions } from "pino";
 import { readFileSync, statSync } from "fs";
 import basic from "@hapi/basic";
 import hapiPino from "hapi-pino";
+import healthz from "./healthz";
 import inert from "@hapi/inert";
 import { join } from "path";
 import json from "./json";
+import knex from "./knex";
+import models from "./models";
 import nes from "@hapi/nes";
+import peerServer from "./peerServer";
 
 const hostType = z
   .string()
