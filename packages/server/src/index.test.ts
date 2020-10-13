@@ -1,40 +1,35 @@
-import { Server } from "@hapi/hapi";
-import { mock } from "jest-mock-extended";
+import { doesNotThrow } from "assert";
+import sinon from "sinon";
+import { test } from "mocha";
 
-jest.mock("@hapi/hapi", () => {
-  return {
-    Server: function () {
-      return {
-        start: () => mock<ReturnType<typeof Server.prototype.start>>(),
-      };
-    },
-  };
+// beforeEach(() => {
+//   Object.assign(globalThis, {
+//     constructor: { name: "" },
+//     document: {
+//       getElementById: sinon.fake(),
+//     },
+//     location: { pathname: "/" },
+//   });
+// });
+
+beforeEach(() => {
+  // TODO
+});
+
+afterEach(() => {
+  sinon.restore();
 });
 
 test("server", () => {
-  expect(async () => await import(".")).not.toThrow();
+  doesNotThrow(async () => await import("."));
 });
 
-test("server.getter", async () => {
-  const { getter } = await import(".");
-  expect(() => getter()).not.toThrow();
-});
-
-test("server.json", async () => {
-  const { json } = await import(".");
-  expect(() => json()).not.toThrow();
+test("server.main", async () => {
+  const main = (await import(".")).default;
+  doesNotThrow(() => main());
 });
 
 test("server.onUnhandledRejection", async () => {
-  Object.assign(process, {
-    exit: () => mock<ReturnType<typeof process.exit>>(),
-  });
-
   const { onUnhandledRejection } = await import(".");
-  expect(() => onUnhandledRejection()).not.toThrow();
-});
-
-test("main", async () => {
-  const { main } = await import(".");
-  expect(async () => await main()).not.toThrow();
+  doesNotThrow(() => onUnhandledRejection());
 });

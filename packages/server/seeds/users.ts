@@ -5,7 +5,7 @@ const { PASSWORD, USERNAME } = process.env;
 const username = string().parse(USERNAME);
 const password = string().parse(PASSWORD);
 
-async function seed(knex: Knex): Promise<void> {
+async function main(knex: Knex): Promise<void> {
   try {
     await knex("users").del();
     await knex("users").insert({
@@ -27,4 +27,4 @@ async function seed(knex: Knex): Promise<void> {
   }
 }
 
-export default seed;
+export default main;

@@ -7,19 +7,8 @@ import basic from "@hapi/basic";
 import hapiPino from "hapi-pino";
 import inert from "@hapi/inert";
 import { join } from "path";
+import json from "./json";
 import nes from "@hapi/nes";
-
-type JsonValue =
-  | { [index: string]: JsonValue }
-  | JsonValue[]
-  | boolean
-  | null
-  | number
-  | string;
-
-type JsonObject = { [index: string]: JsonValue } | JsonValue[];
-
-const jsonValue: z.ZodSchema<JsonValue> = z.lazy(getter);
 
 const hostType = z
   .string()
@@ -71,26 +60,6 @@ const plugins: ServerRegisterPluginObject<Record<PropertyKey, unknown>>[] = [
   { plugin: peerServer, options: { path: "/peer", proxied } },
 ];
 
-function getter(): z.ZodTypeAny {
-  return z.union([
-    z.record(jsonValue),
-    z.array(jsonValue),
-    z.boolean(),
-    z.null(),
-    z.number(),
-    z.string(),
-  ]);
-}
-
-function json(): z.ZodSchema<JsonObject> {
-  return z.lazy(() => z.union([z.record(jsonValue), z.array(jsonValue)]));
-}
-
-function onUnhandledRejection(...args: unknown[]): void {
-  console.error(...args);
-  process.exit(1);
-}
-
 async function main(): Promise<void> {
   try {
     process.on("unhandledRejection", onUnhandledRejection);
@@ -113,6 +82,12 @@ async function main(): Promise<void> {
   }
 }
 
+function onUnhandledRejection(...args: unknown[]): void {
+  console.error(...args);
+  process.exit(1);
+}
+
 void main();
 
-export { getter, json, onUnhandledRejection, main };
+export default main;
+export { json, onUnhandledRejection };

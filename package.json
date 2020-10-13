@@ -5,7 +5,7 @@
     "build": "time (npx lerna run build)",
     "check": "time (npx lerna run check)",
     "eslint": "time (npx eslint --format compact --fix --report-unused-disable-directives .)",
-    "mocha": "time (nyc mocha -r ts-node/register/transpile-only 'packages/server/src/index.test.ts')",
+    "mocha": "time (nyc mocha -r ts-node/register/transpile-only 'packages/*/test/**/*.ts')",
     "lerna-install": "time (npx lerna exec 'npx pnpm install' --concurrency=1 && npx pnpm install)",
     "test": "time (npm run eslint && npm run jest)"
   },
@@ -78,6 +78,7 @@
     "ts-mock-imports": "1.3.0",
     "ts-mockito": "2.6.1",
     "ts-node": "9.0.0",
+    "ts-node-dev": "1.0.0-pre.63",
     "typescript": "4.0.3",
     "webpack": "4.44.2",
     "webpack-cli": "4.0.0",

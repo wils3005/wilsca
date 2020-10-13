@@ -8,7 +8,7 @@
     "knex-migrate": "npm run knex -- migrate:latest",
     "knex-seed": "npm run knex -- seed:run",
     "repl": "ts-node --require dotenv/config --transpile-only ./repl.ts",
-    "start": "node ../../node_modules/ts-node-dev/bin/ts-node-dev --require dotenv/config --respawn --transpile-only ./src/index.ts"
+    "start": "node ../../node_modules/ts-node-dev/lib/bin.js --require dotenv/config --respawn --transpile-only ./src/index.ts"
   },
   "dependencies": {
     "@hapi/basic": "6.0.0",
