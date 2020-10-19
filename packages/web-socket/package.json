@@ -1,8 +1,0 @@
-{
-  "name": "@wilsjs/web-socket",
-  "private": true,
-  "main": "./dist/index.js",
-  "scripts": {
-    "build": "npx tsc --build ./tsconfig.build.json"
-  }
-}

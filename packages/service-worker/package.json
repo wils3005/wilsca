@@ -1,8 +1,0 @@
-{
-  "name": "@wilsjs/service-worker",
-  "private": true,
-  "main": "./dist/index.js",
-  "scripts": {
-    "build": "npx tsc --build ./tsconfig.build.json"
-  }
-}

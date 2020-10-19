@@ -1,4 +1,4 @@
-import { log } from "@wilsjs/console-logger";
+import { log } from "./consoleLogger";
 
 const { host } = location;
 

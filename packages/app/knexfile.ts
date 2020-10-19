@@ -1,4 +1,4 @@
-const { join } = require("path");
+import { join } from "path";
 
 const development = {
   client: "sqlite3",

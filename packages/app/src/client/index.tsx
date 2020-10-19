@@ -1,4 +1,4 @@
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 import {
   Button,
@@ -13,10 +13,10 @@ import {
   Row,
 } from "react-bootstrap";
 
-import { addEventListeners, register } from "@wilsjs/service-worker";
+import { addEventListeners, register } from "./serviceWorker";
 import React from "react";
 import ReactDOM from "react-dom";
-import { log } from "@wilsjs/console-logger";
+import { log } from "./consoleLogger";
 
 const {
   constructor: { name },

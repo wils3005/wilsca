@@ -12,6 +12,8 @@ import knex from "./knex";
 import models from "./models";
 import nes from "@hapi/nes";
 import peerServer from "./peerServer";
+import root from "./root";
+import { start } from "repl";
 
 const hostType = z
   .string()
@@ -19,11 +21,21 @@ const hostType = z
     (s) => (/^((?:[0-9]{1,3}\.){3}[0-9]{1,3}|localhost)$/.exec(s) || [])[0]
   );
 
-const { CERT, HOST, KEY, PINO_OPTIONS, PORT, PROXIED, PUBLIC_PATH } = z
+const {
+  CERT,
+  HOST,
+  KEY,
+  NODE_ENV,
+  PINO_OPTIONS,
+  PORT,
+  PROXIED,
+  PUBLIC_PATH,
+} = z
   .object({
     CERT: z.string(),
     HOST: hostType,
     KEY: z.string(),
+    NODE_ENV: z.string(),
     PINO_OPTIONS: z.string(),
     PORT: z.string().refine((s) => Number(s) > 0 && Number(s) < 65535),
     PROXIED: z.string(),
@@ -61,36 +73,26 @@ const plugins: ServerRegisterPluginObject<Record<PropertyKey, unknown>>[] = [
   { plugin: models, options: {} },
   { plugin: nes, options: {} },
   { plugin: peerServer, options: { path: "/peer", proxied } },
+  { plugin: root, options: {} },
 ];
 
 async function main(): Promise<void> {
-  try {
-    process.on("unhandledRejection", onUnhandledRejection);
-    await server.register(plugins);
-    server.route({
-      method: "GET",
-      path: "/{param*}",
-      handler: {
-        directory: {
-          path: ".",
-          redirectToSlash: true,
-        },
-      },
-    });
-
-    await server.start();
-    server.logger.info(`Server running at: ${server.info.uri}`);
-  } catch (e) {
-    console.error(e);
+  if (NODE_ENV == "development") {
+    const { context } = start("repl > ");
+    Object.assign(context, { server });
   }
-}
 
-function onUnhandledRejection(...args: unknown[]): void {
-  console.error(...args);
-  process.exit(1);
+  await server.register(plugins);
+  await server.start();
+
+  const {
+    logger,
+    info: { uri },
+  } = server;
+
+  logger.info(`Server running at: ${uri}`);
 }
 
 void main();
 
 export default main;
-export { json, onUnhandledRejection };

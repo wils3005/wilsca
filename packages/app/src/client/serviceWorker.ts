@@ -1,5 +1,5 @@
-import "@wilsjs/web-socket";
-import { log } from "@wilsjs/console-logger";
+import "./webSocket";
+import { log } from "./consoleLogger";
 
 const { name } = globalThis.constructor;
 const scriptUrl = "./sw.js";

@@ -1,8 +1,0 @@
-{
-  "name": "@wilsjs/console-logger",
-  "private": true,
-  "main": "./dist/index.js",
-  "scripts": {
-    "build": "tsc --build ./tsconfig.build.json"
-  }
-}
