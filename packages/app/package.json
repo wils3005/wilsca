@@ -3,11 +3,14 @@
   "private": true,
   "scripts": {
     "build": "npm run ts-node -- ./node_modules/webpack/bin/webpack.js",
-    "check": "npm-check --update-all",
+    "check": "npm-check --update",
+    "eslint": "eslint --format compact --fix --report-unused-disable-directives .",
     "knex": "npm run ts-node -- ./node_modules/knex/bin/cli.js",
-    "migrate": "npm run knex -- migrate:latest",
-    "seed": "npm run knex -- seed:run",
+    "knex:migrate": "npm run knex -- migrate:latest",
+    "knex:seed": "npm run knex -- seed:run",
+    "mocha": "nyc mocha --require ts-node/register/transpile-only 'test/**/*.test.ts'",
     "start": "ts-node-dev --require dotenv/config --respawn --transpile-only ./src/index.ts",
+    "test": "time (npm run eslint && npm run mocha)",
     "ts-node": "ts-node --require dotenv/config --transpile-only"
   },
   "dependencies": {
