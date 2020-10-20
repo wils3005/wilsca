@@ -21,15 +21,10 @@ afterEach(() => {
 });
 
 test("server", () => {
-  doesNotThrow(async () => await import("../src"));
+  doesNotThrow(async () => await import("../src/server"));
 });
 
 test("server.main", async () => {
-  const main = (await import("../src")).default;
+  const main = (await import("../src/server")).default;
   doesNotThrow(() => main());
-});
-
-test("server.onUnhandledRejection", async () => {
-  const { onUnhandledRejection } = await import("../src");
-  doesNotThrow(() => onUnhandledRejection());
 });

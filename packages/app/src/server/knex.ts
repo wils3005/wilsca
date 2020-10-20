@@ -2,14 +2,17 @@ import Knex, { Config } from "knex";
 import { Plugin, Server } from "@hapi/hapi";
 import { Model } from "objection";
 import { join } from "path";
-import { string } from "zod";
+import * as z from "zod";
 
-const { NODE_ENV } = process.env;
+const { NODE_ENV } = z
+  .object({ NODE_ENV: z.string() })
+  .nonstrict()
+  .parse(process.env);
 
 const knexConfig: Config = {
   client: "sqlite3",
   connection: {
-    filename: join(process.cwd(), `${string().parse(NODE_ENV)}.sqlite3`),
+    filename: join(process.cwd(), `${NODE_ENV}.sqlite3`),
   },
   useNullAsDefault: true,
 };
