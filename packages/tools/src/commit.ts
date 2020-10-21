@@ -12,7 +12,7 @@ function gitAdd(): Buffer {
 }
 
 function gitBranch(): string {
-  const s = "git branch --show-current";
+  const s = "git rev-parse --abbrev-ref HEAD";
   return execSync(s).toString().trim();
 }
 

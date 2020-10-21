@@ -2,8 +2,8 @@
   "name": "@wilsjs/tools",
   "private": true,
   "scripts": {
-    "build": "tsc --build tsconfig.build.json",
-    "check": "npm-check --update-all",
+    "build": "time (tsc --build ./src/tsconfig.json)",
+    "check": "npm-check --update",
     "postbuild": "chmod +x dist/*.js"
   },
   "devDependencies": {

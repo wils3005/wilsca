@@ -1,14 +1,15 @@
-import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import { Configuration } from "webpack";
 import FaviconsWebpackPlugin from "favicons-webpack-plugin";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import ManifestPlugin from "webpack-manifest-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { join } from "path";
 import { readFileSync } from "fs";
 import webpackNodeExternals from "webpack-node-externals";
 
 const srcPath = join(__dirname, "src");
 const clientPath = join(srcPath, "client");
+const serverPath = join(srcPath, "server");
 
 const defaults: Configuration = {
   mode: "production",
@@ -34,22 +35,23 @@ const manifest = new ManifestPlugin({
   seed: readFileSync(join(clientPath, "manifest.json")),
 });
 
-const clean = new CleanWebpackPlugin({
-  verbose: true,
-});
+const miniCssExtract = new MiniCssExtractPlugin();
 
 const clientConfig: Configuration = {
   ...defaults,
-  devtool: "inline-source-map",
   entry: join(clientPath, "index.tsx"),
   module: {
     rules: [
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
       {
         exclude: /node_modules/,
         test: /\.tsx?$/,
         loader: "ts-loader",
         options: {
-          configFile: join(__dirname, "tsconfig.build.json"),
+          configFile: join(clientPath, "tsconfig.json"),
         },
       },
       {
@@ -59,23 +61,17 @@ const clientConfig: Configuration = {
     ],
   },
   output: {
-    filename: "client.js",
     globalObject: "this",
-    path: join(__dirname, "dist"),
+    path: join(__dirname, "dist", "public"),
   },
-  plugins: [html, favicons, manifest, clean],
+  plugins: [html, favicons, manifest, miniCssExtract],
   target: "web",
 };
 
 const serverConfig: Configuration = {
   ...defaults,
-  devtool: "source-map",
-  entry: join(srcPath, "index.ts"),
-  externals: [
-    webpackNodeExternals({
-      additionalModuleDirs: [join(__dirname, "..", "..", "node_modules")],
-    }),
-  ],
+  entry: join(serverPath, "index.ts"),
+  externals: [webpackNodeExternals()],
   module: {
     rules: [
       {
@@ -83,17 +79,15 @@ const serverConfig: Configuration = {
         test: /\.tsx?$/,
         loader: "ts-loader",
         options: {
-          configFile: join(__dirname, "tsconfig.build.json"),
+          configFile: join(serverPath, "tsconfig.json"),
         },
       },
     ],
   },
   output: {
-    filename: "server.js",
     globalObject: "this",
     path: join(__dirname, "dist"),
   },
-  plugins: [html, favicons, manifest, clean],
   target: "node",
 };
 
