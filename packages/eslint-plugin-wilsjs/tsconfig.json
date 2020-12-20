@@ -1,6 +1,6 @@
 {
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
-  "exclude": ["**/build/", "**/coverage/", "**/dist/", "**/node_modules/"],
+  "exclude": ["**/dist/", "**/coverage/", "**/node_modules/"],
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
@@ -9,8 +9,7 @@
     "downlevelIteration": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "jsx": "react",
-    "lib": ["DOM", "ESNext", "WebWorker"],
+    "lib": ["ESNext"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noEmit": true,

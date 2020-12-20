@@ -1,8 +1,9 @@
 .nyc_output/
 .storybook/
 .vscode/
-dist/
+build/
 coverage/
+dist/
 node_modules/
 stories/
 tmp/
