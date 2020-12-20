@@ -1,12 +1,13 @@
 {
-  "name": "@wilsjs/eslint-plugin-wilsjs",
+  "name": "@wilsjs/eslint-config",
+  "main": "dist/index.js",
   "private": true,
   "scripts": {
     "build": "time (tsc --build ./src/tsconfig.json)",
     "check": "npm-check --update",
     "eslint": "eslint --format compact --fix --report-unused-disable-directives ."
   },
-  "devDependencies": {
+  "peerDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.10.0",
     "@typescript-eslint/parser": "^4.10.0",
     "eslint": "^7.16.0",
