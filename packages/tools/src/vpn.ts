@@ -1,28 +1,23 @@
 #!/usr/bin/env node
 
 import { execSync } from "child_process";
-import { string } from "zod";
+import { object, string } from "zod";
 
-const { VPN_SERVICE_NAME, VPN_SHARED_SECRET } = process.env;
-const vpnServiceName = string().parse(VPN_SERVICE_NAME);
-const vpnSharedSecret = string().parse(VPN_SHARED_SECRET);
+const { VPN_SERVICE_NAME, VPN_SHARED_SECRET } = object({
+  VPN_SERVICE_NAME: string(),
+  VPN_SHARED_SECRET: string(),
+}).parse(process.env);
 
-function isConnected(): boolean {
-  const s = `scutil --nc status "${vpnServiceName}"`;
-  return /^Connected/.test(execSync(s).toString());
+if (
+  /^Connected/.test(
+    execSync(`scutil --nc status "${VPN_SERVICE_NAME}"`).toString()
+  )
+) {
+  process.exit();
 }
 
-function main(): void {
-  try {
-    if (isConnected()) return;
+execSync(
+  `scutil --nc start "${VPN_SERVICE_NAME}" --secret "${VPN_SHARED_SECRET}"`
+);
 
-    const s = `scutil --nc start "${vpnServiceName}" --secret "${vpnSharedSecret}"`;
-    execSync(s);
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-main();
-
-export { isConnected, main };
+export {};

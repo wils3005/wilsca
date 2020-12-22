@@ -1,21 +1,3 @@
 {
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"],
-  "exclude": ["**/dist/", "**/coverage/", "**/node_modules/"],
-  "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
-    "checkJs": true,
-    "downlevelIteration": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "lib": ["ESNext"],
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "noEmit": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "target": "ES5"
-  }
+  "extends": "../../tsconfig.json"
 }

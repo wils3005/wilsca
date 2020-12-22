@@ -3,27 +3,19 @@
 import { createWriteStream } from "fs";
 import { join } from "path";
 import { spawn } from "child_process";
-import { string } from "zod";
+import { object, string } from "zod";
 
-const { HOME, OP_LOGIN_ADDRESS, OP_EMAIL_ADDRESS, OP_SECRET_KEY } = process.env;
-const home = string().parse(HOME);
-const opLoginAddress = string().parse(OP_LOGIN_ADDRESS);
-const opEmailAddress = string().parse(OP_EMAIL_ADDRESS);
-const opSecretKey = string().parse(OP_SECRET_KEY);
-const writeStream = createWriteStream(join(home, ".op-session-token"));
+const { HOME, OP_LOGIN_ADDRESS, OP_EMAIL_ADDRESS, OP_SECRET_KEY } = object({
+  HOME: string(),
+  OP_LOGIN_ADDRESS: string(),
+  OP_EMAIL_ADDRESS: string(),
+  OP_SECRET_KEY: string(),
+}).parse(process.env);
 
-function main(): void {
-  try {
-    spawn(
-      "op",
-      ["signin", opLoginAddress, opEmailAddress, opSecretKey, "--raw"],
-      { stdio: ["inherit", "pipe", "inherit"] }
-    ).stdout.pipe(writeStream);
-  } catch (e) {
-    console.error(e);
-  }
-}
+spawn(
+  "op",
+  ["signin", OP_LOGIN_ADDRESS, OP_EMAIL_ADDRESS, OP_SECRET_KEY, "--raw"],
+  { stdio: ["inherit", "pipe", "inherit"] }
+).stdout.pipe(createWriteStream(join(HOME, ".op-session-token")));
 
-main();
-
-export { main };
+export {};
