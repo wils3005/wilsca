@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*.ts"],
+  "compilerOptions": {
+    "declaration": true,
+    "emitDecoratorMetadata": true,
+    "incremental": true,
+    "noEmit": false,
+    "outDir": "dist/",
+    "removeComments": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "target": "ES5"
+  }
+}

@@ -2,7 +2,7 @@
   "name": "@wilsjs/tools",
   "private": true,
   "scripts": {
-    "build": "tsc --build ./src/tsconfig.json",
+    "build": "tsc --build tsconfig.build.json",
     "check": "npm-check --update",
     "postbuild": "chmod +x dist/*.js"
   },
