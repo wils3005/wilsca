@@ -1,8 +1,13 @@
-const { lorem } = require("faker");
+import { Element } from "./element";
+import faker from "faker";
 
-function head() {
-  return `
-    <head>
+const { lorem } = faker;
+
+class Head extends Element {
+  static tagName = "head";
+
+  static innerHTML(): string {
+    return `
       <meta charset="utf-8" />
       <meta name="viewport" content="initial-scale=1, width=device-width" />
       <title>${lorem.sentence()}</title>
@@ -11,8 +16,8 @@ function head() {
       <link rel="manifest" href="manifest.json" />
       <script async src="main.js" type="module"></script>
       <script async src="serviceWorker.js"></script>
-    </head>
-  `;
+    `;
+  }
 }
 
-module.exports = { head };
+export { Head };
