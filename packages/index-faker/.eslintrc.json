@@ -10,14 +10,10 @@
     "plugin:prettier/recommended"
   ],
   "ignorePatterns": [
-    ".nyc_output/",
-    ".storybook/",
     ".vscode/",
     "build/",
     "coverage/",
-    "dist/",
     "node_modules/",
-    "stories/",
     "tmp/"
   ],
   "overrides": [
