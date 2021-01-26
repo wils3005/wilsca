@@ -2,7 +2,7 @@
   "name": "@wilsjs/trivial-turquoise-turkey",
   "private": true,
   "scripts": {
-    "index": "node ./scripts/index.js"
+    "index": "node ./scripts/index.js > index.html && prettier --write index.html"
   },
   "devDependencies": {
     "faker": "5.2.0"
