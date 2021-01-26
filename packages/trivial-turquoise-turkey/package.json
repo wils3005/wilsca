@@ -1,0 +1,10 @@
+{
+  "name": "@wilsjs/trivial-turquoise-turkey",
+  "private": true,
+  "scripts": {
+    "index": "node ./scripts/index.js"
+  },
+  "devDependencies": {
+    "faker": "5.2.0"
+  }
+}
