@@ -1,4 +1,72 @@
+/* body *******************************************************************/
 body {
   display: flex;
   flex-direction: column;
+}
+
+body > header {
+  /* TODO */
+}
+
+body > header > nav {
+  /* TODO */
+}
+
+/* main *******************************************************************/
+body > main {
+  /* TODO */
+}
+
+body > main > header {
+  /* TODO */
+}
+
+body > main > header > nav {
+  /* TODO */
+}
+
+/* section ****************************************************************/
+body > main > section {
+  /* TODO */
+}
+
+body > main > section > header {
+  /* TODO */
+}
+
+/* article ****************************************************************/
+body > main > section > article {
+  /* TODO */
+}
+
+body > main > section > article > header {
+  /* TODO */
+}
+
+body > main > section > article > footer {
+  /* TODO */
+}
+
+body > main > section > footer {
+  /* TODO */
+}
+
+body > main > footer {
+  /* TODO */
+}
+
+body > main > footer > nav {
+  /* TODO */
+}
+
+body > footer {
+  /* TODO */
+}
+
+body > footer > nav {
+  /* TODO */
+}
+
+blockquote {
+  font-family: monospace;
 }
