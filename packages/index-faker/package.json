@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "build": "rimraf build/ && tsc --build tsconfig.build.json",
-    "postbuild": "chmod +x $PWD/build/index-faker.js && ln -fs $PWD/build/index-faker.js /usr/local/bin/.",
+    "postbuild": "chmod +x $PWD/build/index-faker.js && ln -fs $PWD/build/index-faker.js /usr/local/bin/",
     "check": "npm-check --update",
     "eslint": "eslint --format compact --fix --report-unused-disable-directives .",
     "index": "node build/index.js > index.html && prettier --write index.html"

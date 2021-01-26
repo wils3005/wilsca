@@ -3,7 +3,7 @@ const {
   location: { pathname },
 } = globalThis;
 
-const scriptUrl = "./serviceWorker.js";
+const scriptUrl = "./sw.js";
 
 function addEventListeners() {
   if (name != "ServiceWorkerGlobalScope") return;

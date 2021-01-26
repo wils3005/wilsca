@@ -1,4 +1,4 @@
-import "./serviceWorker.js";
+import "./sw.js";
 import { log } from "./consoleLogger.js";
 
 function onWindowLoad() {
