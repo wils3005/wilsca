@@ -5,7 +5,7 @@ abstract class Element {
     return "";
   }
 
-  ["constructor"]!: typeof Element;
+  readonly ["constructor"]!: typeof Element;
   readonly tagName: string;
   readonly innerHTML: string;
 

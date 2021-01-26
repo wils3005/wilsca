@@ -1,16 +1,17 @@
 {
-  "name": "@wilsjs/trivial-turquoise-turkey",
+  "name": "@wilsjs/index-faker",
   "private": true,
   "scripts": {
     "build": "rimraf build/ && tsc --build tsconfig.build.json",
+    "postbuild": "chmod +x $PWD/build/index-faker.js && ln -fs $PWD/build/index-faker.js /usr/local/bin/.",
     "check": "npm-check --update",
     "eslint": "eslint --format compact --fix --report-unused-disable-directives .",
-    "index": "node build/index.js > index.html && prettier --write index.html",
-    "server": "http-server"
+    "index": "node build/index.js > index.html && prettier --write index.html"
   },
   "devDependencies": {
     "@types/faker": "5.1.5",
     "@types/node": "14.14.22",
+    "@types/prettier": "2.1.6",
     "@typescript-eslint/eslint-plugin": "4.14.1",
     "@typescript-eslint/parser": "4.14.1",
     "eslint": "7.18.0",
@@ -18,9 +19,7 @@
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-prettier": "3.3.1",
     "faker": "5.2.0",
-    "http-server": "0.12.3",
     "npm-check": "5.9.2",
-    "rimraf": "3.0.2",
-    "ts-node": "9.1.1"
+    "rimraf": "3.0.2"
   }
 }
