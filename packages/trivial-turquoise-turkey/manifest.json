@@ -1,0 +1,13 @@
+{
+  "background_color": "#fff",
+  "categories": "TODO: categories",
+  "description": "TODO: description",
+  "dir": "TODO: dir",
+  "iarc_rating_id": "TODO: iarc_rating_id",
+  "name": "TODO: name",
+  "orientation": "any",
+  "screenshots": "TODO: screenshots",
+  "serviceworker": "TODO: serviceworker",
+  "short_name": "TODO: short_name",
+  "theme_color": "#000"
+}
