@@ -43,6 +43,10 @@ body > main > section > article > header {
   /* TODO */
 }
 
+body > main > section > article > blockquote {
+  font-family: monospace;
+}
+
 body > main > section > article > footer {
   /* TODO */
 }
@@ -65,8 +69,4 @@ body > footer {
 
 body > footer > nav {
   /* TODO */
-}
-
-blockquote {
-  font-family: monospace;
 }
