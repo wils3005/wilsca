@@ -1,21 +1,23 @@
 abstract class Element {
   static tagName = "";
 
-  static innerHTML(): string {
-    return "";
+  static innerHTML(): string[] {
+    return [];
   }
 
   readonly ["constructor"]!: typeof Element;
   readonly tagName: string;
-  readonly innerHTML: string;
+  readonly innerHTML: string[];
 
-  constructor(innerHTML?: string) {
+  constructor(...innerHTML: string[]) {
     this.tagName = this.constructor.tagName;
-    this.innerHTML = innerHTML || this.constructor.innerHTML();
+
+    this.innerHTML =
+      innerHTML.length > 0 ? innerHTML : this.constructor.innerHTML();
   }
 
   toString(): string {
-    return `<${this.tagName}>${this.innerHTML}</${this.tagName}>`;
+    return `<${this.tagName}>${this.innerHTML.join("")}</${this.tagName}>`;
   }
 }
 

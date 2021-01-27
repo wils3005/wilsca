@@ -22,7 +22,25 @@ body > main > header {
 }
 
 body > main > header > nav {
-  /* TODO */
+  border-bottom: 1px solid black;
+}
+
+body > main > header > nav > ol {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+body > main > header > nav > ol > li {
+  display: inline-block;
+}
+
+body > main > header > nav > ol > li a::after {
+  display: inline-block;
+  color: #000;
+  content: ">";
+  font-size: 80%;
+  font-weight: bold;
+  padding: 0 3px;
 }
 
 /* section ****************************************************************/

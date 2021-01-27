@@ -1,11 +1,11 @@
 import { Element } from "./element";
 
-class Footer extends Element {
-  static tagName = "footer";
-
-  static innerHTML(): string {
-    return "";
-  }
+function footer(...innerHTML: string[]): string {
+  return new Footer(...innerHTML).toString();
 }
 
-export { Footer };
+class Footer extends Element {
+  static tagName = "footer";
+}
+
+export { Footer, footer };

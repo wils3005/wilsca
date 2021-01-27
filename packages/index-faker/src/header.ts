@@ -1,11 +1,10 @@
 import { Element } from "./element";
 
+function header(...innerHTML: string[]): string {
+  return new Header(...innerHTML).toString();
+}
 class Header extends Element {
   static tagName = "header";
-
-  static innerHTML(): string {
-    return "";
-  }
 }
 
-export { Header };
+export { Header, header };

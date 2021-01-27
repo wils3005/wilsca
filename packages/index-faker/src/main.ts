@@ -1,28 +1,27 @@
 import { Element } from "./element";
-import { Footer } from "./footer";
-import { Header } from "./header";
-import { Section } from "./section";
 import faker from "faker";
+import { footer } from "./footer";
+import { h2 } from "./h2";
+import { header } from "./header";
+import { section } from "./section";
 
 const { lorem } = faker;
+
+function main(...innerHTML: string[]): string {
+  return new Main(...innerHTML).toString();
+}
 
 class Main extends Element {
   static tagName = "main";
 
-  static innerHTML(): string {
-    const header = new Header(
-      `<h2>MAIN HEADER - ${lorem.sentence()}</h2>`
-    ).toString();
-
-    const footer = new Footer(`MAIN FOOTER - ${lorem.sentence()}`).toString();
-
-    return `
-      ${header}
-      ${new Section().toString()}
-      ${new Section().toString()}
-      ${footer}
-    `;
+  static innerHTML(): string[] {
+    return [
+      header(h2(`MAIN HEADER - ${lorem.sentence()}`)),
+      section(),
+      section(),
+      footer(`MAIN FOOTER - ${lorem.sentence()}`),
+    ];
   }
 }
 
-export { Main };
+export { Main, main };

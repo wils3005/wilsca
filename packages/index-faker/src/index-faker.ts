@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
-import { HTML } from "./html";
 import { format } from "prettier";
+import { html } from "./html";
 
-console.log(
-  format(`<!DOCTYPE html>${new HTML().toString()}`, { parser: "html" })
-);
+console.log(format(html(), { parser: "html" }));
 
 export {};

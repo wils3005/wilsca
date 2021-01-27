@@ -1,16 +1,14 @@
-import { Body } from "./body";
-import { Element } from "./element";
-import { Head } from "./head";
+import { JSDOM } from "jsdom";
+import { body } from "./body";
+import { head } from "./head";
 
-class HTML extends Element {
-  static tagName = "html";
+function html(): string {
+  // return new HTML(...innerHTML).toString();
+  const jsdom = new JSDOM("<!DOCTYPE html>");
 
-  static innerHTML(): string {
-    return `
-      ${new Head().toString()}
-      ${new Body().toString()}
-    `;
-  }
+  jsdom.window.document.querySelector("head")?.appendChild(head());
+
+  return jsdom.serialize();
 }
 
-export { HTML };
+export { html };

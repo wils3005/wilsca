@@ -1,39 +1,35 @@
 import { Element } from "./element";
-import { Footer } from "./footer";
-import { Header } from "./header";
+import { a } from "./a";
+import { address } from "./address";
+import { aside } from "./aside";
+import { blockquote } from "./blockquote";
 import faker from "faker";
+import { footer } from "./footer";
+import { h4 } from "./h4";
+import { header } from "./header";
+import { p } from "./p";
 
 const { internet, lorem, phone } = faker;
-const email = internet.email();
-const phoneNumber = phone.phoneNumber();
-const tel = phoneNumber.replaceAll(/[^\d]/g, "");
+
+function article(...innerHTML: string[]): string {
+  return new Article(...innerHTML).toString();
+}
 
 class Article extends Element {
   static tagName = "article";
 
-  static innerHTML(): string {
-    const header = new Header(
-      `<h4>ARTICLE HEADER - ${lorem.sentence()}</h4>`
-    ).toString();
-
-    const footer = new Footer(`
-      <p>ARTICLE FOOTER - ${lorem.sentence()}</p>
-      <address>
-        <a href="mailto:${email}">${email}</a><br />
-        <a href="tel:+${tel}}">${phoneNumber}</a>
-      </address>
-    `).toString();
-
-    return `
-        ${header}
-        <p>PARAGRAPH - ${lorem.paragraphs(10)}</p>
-        <p>PARAGRAPH - ${lorem.paragraphs(10)}</p>
-        <aside>
-          <blockquote>ASIDE: ${lorem.paragraph()}</blockquote>
-        </aside>
-        ${footer}
-      `;
+  static innerHTML(): string[] {
+    return [
+      header(h4(`ARTICLE HEADER - ${lorem.sentence()}`)),
+      p(`PARAGRAPH - ${lorem.paragraphs(10)}`),
+      p(`PARAGRAPH - ${lorem.paragraphs(10)}`),
+      aside(blockquote(`ASIDE: ${lorem.paragraph()}`)),
+      footer(
+        p(`ARTICLE FOOTER - ${lorem.sentence()}`),
+        address(a(internet.email()), "<br />", a(phone.phoneNumber()))
+      ),
+    ];
   }
 }
 
-export { Article };
+export { Article, article };
