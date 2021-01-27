@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { execSync } from "child_process";
 import { object, string } from "zod";
+import { execSync } from "child_process";
 
 const { VPN_SERVICE_NAME, VPN_SHARED_SECRET } = object({
   VPN_SERVICE_NAME: string(),

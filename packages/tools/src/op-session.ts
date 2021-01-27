@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
+import { object, string } from "zod";
 import { createWriteStream } from "fs";
 import { join } from "path";
 import { spawn } from "child_process";
-import { object, string } from "zod";
 
 const { HOME, OP_LOGIN_ADDRESS, OP_EMAIL_ADDRESS, OP_SECRET_KEY } = object({
   HOME: string(),

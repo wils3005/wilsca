@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
+import { object, string } from "zod";
 import { parse, stringify } from "ini";
 import { readFileSync, writeFileSync } from "fs";
 import { execSync } from "child_process";
 import { join } from "path";
-import { object, string } from "zod";
 
 interface GetSessionToken {
   Credentials: {
