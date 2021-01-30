@@ -1,7 +1,7 @@
-import "./sw.js";
-import { log } from "./log.js";
+import "./game";
+import { log } from "./log";
 
-function onWindowLoad() {
+function onWindowLoad(): void {
   log();
 }
 

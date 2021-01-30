@@ -1,15 +1,13 @@
 {
-  "name": "@wilsjs/index-faker",
+  "name": "@wilsjs/phaser",
   "private": true,
   "scripts": {
     "build": "rimraf build/ && tsc --build tsconfig.build.json",
-    "postbuild": "chmod +x $PWD/build/index-faker.js && ln -fs $PWD/build/index-faker.js /usr/local/bin/",
     "check": "npm-check --update",
-    "eslint": "eslint --format compact --fix --report-unused-disable-directives .",
-    "index": "node build/index.js > index.html && prettier --write index.html"
+    "eslint": "eslint --format compact --fix --report-unused-disable-directives ."
   },
   "devDependencies": {
-    "@types/faker": "5.1.5",
+    "@types/faker": "5.1.6",
     "@types/jsdom": "^16.2.6",
     "@types/node": "14.14.22",
     "@types/prettier": "2.1.6",
@@ -22,6 +20,7 @@
     "faker": "5.2.0",
     "jsdom": "^16.4.0",
     "npm-check": "5.9.2",
+    "phaser": "^3.52.0",
     "pnpm": "^5.16.0",
     "prettier": "2.2.1",
     "rimraf": "3.0.2",
