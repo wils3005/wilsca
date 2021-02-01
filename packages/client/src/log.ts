@@ -6,7 +6,7 @@ const {
 function log(error?: Error): void {
   const { stack } = new Error();
   const a = stack?.split("\n") || [];
-  const s = a[1];
+  const s = a[2];
 
   const message = {
     globalThis: name,
@@ -17,4 +17,4 @@ function log(error?: Error): void {
   error ? console.error({ ...message, error }) : console.info(message);
 }
 
-export { log };
+export default log;

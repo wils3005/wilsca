@@ -35,7 +35,7 @@
   "rules": {
     "import/exports-last": "error",
     "import/no-anonymous-default-export": "error",
-    "import/no-relative-parent-imports": "error",
+    "import/no-relative-parent-imports": "warn",
     "sort-imports": "error"
   }
 }
