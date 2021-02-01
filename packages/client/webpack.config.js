@@ -1,4 +1,5 @@
 // import { Configuration } from "webpack";
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
@@ -7,13 +8,16 @@ const { join } = require("path");
 const srcPath = join(__dirname, "src");
 
 const config = {
+  devServer: {
+    writeToDisk: true,
+  },
   devtool: "source-map",
   entry: join(srcPath, "main.ts"),
   mode: "development",
   module: {
     rules: [
       {
-        test: /\.css$/i,
+        test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
       {
@@ -28,19 +32,22 @@ const config = {
         test: /\.svg$/,
         loader: "svg-inline-loader",
       },
-      { test: /\.(?:ico|gif|png|jpg|jpeg)$/i, type: "asset/resource" },
     ],
   },
   output: {
     globalObject: "this",
     path: join(__dirname, "dist"),
-    publicPath: "/",
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "src/index.html",
+      template: join(srcPath, "index.html"),
       title: "@wilsjs/client",
     }),
+    new FaviconsWebpackPlugin({
+      logo: join(srcPath, "favicon.ico"),
+      prefix: "assets/",
+    }),
+    new MiniCssExtractPlugin(),
     new WebpackManifestPlugin(),
   ],
   resolve: {

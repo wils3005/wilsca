@@ -1,3 +1,4 @@
+import "./main.css";
 import "./peer";
 import game from "./game";
 import log from "./log";
