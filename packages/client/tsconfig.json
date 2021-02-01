@@ -1,29 +1,21 @@
 {
-  "include": ["**/*.js", "**/*.ts"],
+  "include": ["**/*.js", "**/*.mjs", "**/*.ts"],
   "exclude": ["dist/", "node_modules/"],
   "compilerOptions": {
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "checkJs": true,
-    "declaration": true,
-    "diagnostics": true,
     "downlevelIteration": true,
-    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
-    "incremental": true,
     "lib": ["DOM", "ESNext", "WebWorker"],
-    "listEmittedFiles": true,
-    "listFiles": true,
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "noEmit": true,
-    "removeComments": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "sourceMap": true,
-    "strict": true,
-    "target": "ESNext"
+    "strict": true
   }
 }

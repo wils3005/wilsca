@@ -1,9 +1,18 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["./src/**/*.js", "./src/**/*.ts"],
+  "include": ["./src/**/*.js", "./src/**/*.mjs", "./src/**/*.ts"],
   "exclude": ["./src/**/*.test.js", "./src/**/*.test.ts"],
   "compilerOptions": {
+    "declaration": true,
+    "diagnostics": true,
+    "emitDecoratorMetadata": true,
+    "incremental": true,
+    "listEmittedFiles": true,
+    "listFiles": true,
     "noEmit": false,
-    "outDir": "./dist/"
+    "outDir": "./dist/",
+    "removeComments": true,
+    "sourceMap": true,
+    "target": "ES5"
   }
 }
