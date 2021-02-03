@@ -1,14 +1,17 @@
-// import { Configuration } from "webpack";
-const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
+require("dotenv/config");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
+const { object, string } = require("zod");
 const { join } = require("path");
 
+const { env } = process;
+const { PORT = "8080" } = object({ PORT: string() }).parse(env);
 const srcPath = join(__dirname, "src");
 
-const config = {
+module.exports = {
   devServer: {
+    port: PORT,
     writeToDisk: true,
   },
   devtool: "source-map",
@@ -40,12 +43,9 @@ const config = {
   },
   plugins: [
     new HtmlWebpackPlugin({
+      favicon: join(srcPath, "favicon.ico"),
       template: join(srcPath, "index.html"),
       title: "@wilsjs/client",
-    }),
-    new FaviconsWebpackPlugin({
-      logo: join(srcPath, "favicon.ico"),
-      prefix: "assets/",
     }),
     new MiniCssExtractPlugin(),
     new WebpackManifestPlugin(),
@@ -54,5 +54,3 @@ const config = {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
 };
-
-module.exports = config;

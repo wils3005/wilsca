@@ -5,10 +5,7 @@
     "prebuild": "rimraf dist/",
     "build": "webpack --mode production",
     "eslint": "eslint --format compact --fix --report-unused-disable-directives .",
-    "start": "webpack serve",
-    "ts-node": "ts-node --transpile-only",
-    "prewatch": "rimraf dist/",
-    "watch": "webpack --mode development --watch"
+    "start": "webpack serve"
   },
   "devDependencies": {
     "@types/html-webpack-plugin": "3.2.4",
@@ -21,12 +18,13 @@
     "@typescript-eslint/eslint-plugin": "4.14.1",
     "@typescript-eslint/parser": "4.14.1",
     "css-loader": "5.0.1",
+    "dotenv": "8.2.0",
     "eslint": "7.18.0",
     "eslint-config-prettier": "7.2.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-prettier": "3.3.1",
-    "favicons-webpack-plugin": "4.2.0",
     "html-webpack-plugin": "4.5.1",
+    "jsdoc": "3.6.6",
     "mini-css-extract-plugin": "1.3.5",
     "peerjs": "^1.3.1",
     "phaser": "^3.52.0",

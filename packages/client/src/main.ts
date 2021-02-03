@@ -1,6 +1,7 @@
 import "./main.css";
 import "./peer";
-import game from "./game";
+import { game } from "./emoji-match";
+// import game from "./game";
 import log from "./log";
 
 function onLoad(): void {
