@@ -1,7 +1,6 @@
 import "./main.css";
 import "./peer";
-import { game } from "./emoji-match";
-// import game from "./game";
+import "./emoji-match";
 import log from "./log";
 
 function onLoad(): void {
@@ -10,9 +9,6 @@ function onLoad(): void {
 
 function onResize(): void {
   log();
-  const y = globalThis.innerHeight * 0.875;
-  const x = y / 2;
-  game.scale.resize(x, y);
 }
 
 globalThis.addEventListener("load", onLoad);

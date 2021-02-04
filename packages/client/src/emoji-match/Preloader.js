@@ -1,6 +1,19 @@
-import Phaser from "phaser";
+import "./background.png";
+import "./countdown.m4a";
+import "./countdown.mp3";
+import "./countdown.ogg";
+import "./emojis.json";
+import "./emojis.png";
+import "./logo.png";
+import "./match.m4a";
+import "./match.mp3";
+import "./match.ogg";
+import "./music.m4a";
+import "./music.mp3";
+import "./music.ogg";
+import { Scene } from "phaser";
 
-class Preloader extends Phaser.Scene {
+export default class Preloader extends Scene {
   constructor() {
     super("Preloader");
 
@@ -8,7 +21,7 @@ class Preloader extends Phaser.Scene {
   }
 
   preload() {
-    this.loadText = this.add.text(400, 360, "Loading ...", {
+    this.loadText = this.add.text(300, 360, "Loading ...", {
       fontFamily: "Arial",
       fontSize: 64,
       color: "#e3f2ed",
@@ -18,12 +31,14 @@ class Preloader extends Phaser.Scene {
     this.loadText.setStroke("#203c5b", 6);
     this.loadText.setShadow(2, 2, "#2d2d2d", 4, true, false);
 
-    this.load.setPath("assets/games/emoji-match/");
+    // this.load.setPath("assets/games/emoji-match/");
+    this.load.setPath("/");
     this.load.image(["background", "logo"]);
     this.load.atlas("emojis", "emojis.png", "emojis.json");
 
     //  Audio ...
-    this.load.setPath("assets/games/emoji-match/sounds/");
+    // this.load.setPath("assets/games/emoji-match/sounds/");
+    this.load.setPath("/");
 
     this.load.audio("music", ["music.ogg", "music.m4a", "music.mp3"]);
     this.load.audio("countdown", [
@@ -46,5 +61,3 @@ class Preloader extends Phaser.Scene {
     }
   }
 }
-
-export default Preloader;

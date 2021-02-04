@@ -1,17 +1,14 @@
-import * as z from "zod";
-import Phaser from "phaser";
+import { Scene } from "phaser";
 
-class MainMenu extends Phaser.Scene {
-  music: unknown;
-
+export default class MainMenu extends Scene {
   constructor() {
     super("MainMenu");
 
     this.music;
   }
 
-  create(): void {
-    const background = this.add.image(400, 300, "background");
+  create() {
+    let background = this.add.image(300, 300, "background");
 
     this.tweens.add({
       targets: background,
@@ -37,11 +34,11 @@ class MainMenu extends Phaser.Scene {
     this.add.text(
       20,
       20,
-      `High Score: ${String(this.registry.get("highscore"))}`,
-      z.instanceof(Phaser.GameObjects.TextStyle).parse(fontStyle)
+      "High Score: " + this.registry.get("highscore"),
+      fontStyle
     );
 
-    const logo = this.add.image(400, -200, "logo");
+    let logo = this.add.image(300, -200, "logo");
 
     if (!this.music) {
       this.music = this.sound.play("music", { loop: true });
@@ -59,5 +56,3 @@ class MainMenu extends Phaser.Scene {
     });
   }
 }
-
-export default MainMenu;

@@ -1,6 +1,6 @@
-import Phaser from "phaser";
+import { Scene, Utils } from "phaser";
 
-export default class MainGame extends Phaser.Scene {
+export default class MainGame extends Scene {
   constructor() {
     super("MainGame");
 
@@ -24,10 +24,9 @@ export default class MainGame extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(400, 300, "background");
+    this.add.image(300, 300, "background");
 
     this.circle1 = this.add.circle(0, 0, 42).setStrokeStyle(3, 0xf8960e);
-    console.log({ "this.circle1": this.circle1.constructor.name });
     this.circle2 = this.add.circle(0, 0, 42).setStrokeStyle(3, 0x00ff00);
 
     this.circle1.setVisible(false);
@@ -44,11 +43,10 @@ export default class MainGame extends Phaser.Scene {
         height: 4,
         cellWidth: 90,
         cellHeight: 90,
-        x: 280,
+        x: 180,
         y: 200,
       },
     });
-    console.log({ "this.emojis": this.emojis.constructor.name });
 
     const fontStyle = {
       fontFamily: "Arial",
@@ -66,14 +64,10 @@ export default class MainGame extends Phaser.Scene {
     };
 
     this.timerText = this.add.text(20, 20, "30:00", fontStyle);
-    console.log({ "this.timerText": this.timerText.constructor.name });
-    this.scoreText = this.add.text(530, 20, "Found: 0", fontStyle);
-    console.log({ "this.scoreText": this.scoreText.constructor.name });
+    this.scoreText = this.add.text(330, 20, "Found: 0", fontStyle);
+
     let children = this.emojis.getChildren();
-    console.log({
-      children: children.constructor.name,
-      "children[0]": children[0].constructor.name,
-    });
+
     children.forEach((child) => {
       child.setInteractive();
     });
@@ -82,7 +76,6 @@ export default class MainGame extends Phaser.Scene {
     this.input.once("pointerdown", this.start, this);
 
     this.highscore = this.registry.get("highscore");
-    console.log({ "this.highscore": this.highscore.constructor.name });
 
     this.arrangeGrid();
   }
@@ -169,22 +162,22 @@ export default class MainGame extends Phaser.Scene {
     //  We need to make sure there is only one pair in the grid
     //  Let's create an array with all possible frames in it:
 
-    let frames = Phaser.Utils.Array.NumberArray(1, 40);
-    let selected = Phaser.Utils.Array.NumberArray(0, 15);
+    let frames = Utils.Array.NumberArray(1, 40);
+    let selected = Utils.Array.NumberArray(0, 15);
     let children = this.emojis.getChildren();
 
     //  Now we pick 16 random values, removing each one from the array so we can't pick it again
     //  and set those into the sprites
 
     for (let i = 0; i < 16; i++) {
-      let frame = Phaser.Utils.Array.RemoveRandomElement(frames);
+      let frame = Utils.Array.RemoveRandomElement(frames);
 
       children[i].setFrame("smile" + frame);
     }
 
     //  Finally, pick two random children and make them a pair:
-    let index1 = Phaser.Utils.Array.RemoveRandomElement(selected);
-    let index2 = Phaser.Utils.Array.RemoveRandomElement(selected);
+    let index1 = Utils.Array.RemoveRandomElement(selected);
+    let index2 = Utils.Array.RemoveRandomElement(selected);
 
     this.child1 = children[index1];
     this.child2 = children[index2];
@@ -218,7 +211,7 @@ export default class MainGame extends Phaser.Scene {
         let seconds = remaining.substring(0, pos);
         let ms = remaining.substr(pos + 1, 2);
 
-        seconds = Phaser.Utils.String.Pad(seconds, 2, "0", 1);
+        seconds = Utils.String.Pad(seconds, 2, "0", 1);
 
         this.timerText.setText(seconds + ":" + ms);
       }

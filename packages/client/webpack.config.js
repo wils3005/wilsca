@@ -6,7 +6,7 @@ const { object, string } = require("zod");
 const { join } = require("path");
 
 const { env } = process;
-const { PORT = "8080" } = object({ PORT: string() }).parse(env);
+const { PORT } = object({ PORT: string() }).parse(env);
 const srcPath = join(__dirname, "src");
 
 module.exports = {
@@ -19,6 +19,10 @@ module.exports = {
   mode: "development",
   module: {
     rules: [
+      {
+        test: /\.(gif|jpe?g|json|m4a|mp3|ogg|png|)$/i,
+        type: "asset/resource",
+      },
       {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
@@ -38,6 +42,7 @@ module.exports = {
     ],
   },
   output: {
+    assetModuleFilename: "[name][ext]",
     globalObject: "this",
     path: join(__dirname, "dist"),
   },

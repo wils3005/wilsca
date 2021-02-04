@@ -1,15 +1,12 @@
-import Phaser from "phaser";
+import { Scene } from "phaser";
 
-class Boot extends Phaser.Scene {
+export default class Boot extends Scene {
   constructor() {
     super("Boot");
   }
 
-  create(): void {
+  create() {
     this.registry.set("highscore", 0);
-
     this.scene.start("Preloader");
   }
 }
-
-export default Boot;
