@@ -13,6 +13,7 @@
     "knex:seed": "npm run knex -- seed:run"
   },
   "dependencies": {
+    "@colyseus/monitor": "^0.14.0",
     "colyseus": "^0.14.7",
     "express-pino-logger": "^6.0.0",
     "knex": "^0.21.17",

@@ -16,7 +16,8 @@
     "coverage/",
     "dist/",
     "node_modules/",
-    "tmp/"
+    "tmp/",
+    "*.d.ts"
   ],
   "overrides": [
     {
@@ -38,5 +39,16 @@
     "import/no-anonymous-default-export": "error",
     "import/no-relative-parent-imports": "warn",
     "sort-imports": "error"
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "project": "./tsconfig.json",
+        "alwaysTryTypes": true
+      }
+    }
   }
 }

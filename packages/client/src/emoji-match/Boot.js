@@ -1,6 +1,4 @@
-import { Scene } from "phaser";
-
-export default class Boot extends Scene {
+export default class Boot extends window.Phaser.Scene {
   constructor() {
     super("Boot");
   }

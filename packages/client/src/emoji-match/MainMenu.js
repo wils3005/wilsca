@@ -1,6 +1,4 @@
-import { Scene } from "phaser";
-
-export default class MainMenu extends Scene {
+export default class MainMenu extends window.Phaser.Scene {
   constructor() {
     super("MainMenu");
 

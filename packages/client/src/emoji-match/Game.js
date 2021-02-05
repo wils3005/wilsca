@@ -1,6 +1,4 @@
-import { Scene, Utils } from "phaser";
-
-export default class MainGame extends Scene {
+export default class MainGame extends window.Phaser.Scene {
   constructor() {
     super("MainGame");
 
@@ -162,22 +160,22 @@ export default class MainGame extends Scene {
     //  We need to make sure there is only one pair in the grid
     //  Let's create an array with all possible frames in it:
 
-    let frames = Utils.Array.NumberArray(1, 40);
-    let selected = Utils.Array.NumberArray(0, 15);
+    let frames = window.Phaser.Utils.Array.NumberArray(1, 40);
+    let selected = window.Phaser.Utils.Array.NumberArray(0, 15);
     let children = this.emojis.getChildren();
 
     //  Now we pick 16 random values, removing each one from the array so we can't pick it again
     //  and set those into the sprites
 
     for (let i = 0; i < 16; i++) {
-      let frame = Utils.Array.RemoveRandomElement(frames);
+      let frame = window.Phaser.Utils.Array.RemoveRandomElement(frames);
 
       children[i].setFrame("smile" + frame);
     }
 
     //  Finally, pick two random children and make them a pair:
-    let index1 = Utils.Array.RemoveRandomElement(selected);
-    let index2 = Utils.Array.RemoveRandomElement(selected);
+    let index1 = window.Phaser.Utils.Array.RemoveRandomElement(selected);
+    let index2 = window.Phaser.Utils.Array.RemoveRandomElement(selected);
 
     this.child1 = children[index1];
     this.child2 = children[index2];
@@ -211,7 +209,7 @@ export default class MainGame extends Scene {
         let seconds = remaining.substring(0, pos);
         let ms = remaining.substr(pos + 1, 2);
 
-        seconds = Utils.String.Pad(seconds, 2, "0", 1);
+        seconds = window.Phaser.Utils.String.Pad(seconds, 2, "0", 1);
 
         this.timerText.setText(seconds + ":" + ms);
       }

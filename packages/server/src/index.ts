@@ -1,10 +1,12 @@
+import { Client, LobbyRoom, RelayRoom, Room, Server } from "colyseus";
+import { IncomingMessage, createServer } from "http";
 import express, { NextFunction, Request, Response } from "express";
 import { object, string } from "zod";
 import { EventEmitter } from "events";
 import { ExpressPeerServer } from "peer";
 import WebSocketLib from "ws";
 import expressPinoLogger from "express-pino-logger";
-import http from "http";
+import { monitor } from "@colyseus/monitor";
 import pino from "pino";
 
 type MyWebSocket = WebSocketLib & EventEmitter;
@@ -41,11 +43,45 @@ interface PeerMessage {
 const { env } = process;
 const { PORT } = object({ PORT: string() }).parse(env);
 const app = express();
-const server = http.createServer(app);
+const server = createServer(app);
+
+const gameServer = new Server({ express: app, server });
+
 const peerPath = "/peer";
-const peerServer = ExpressPeerServer(server, { path: peerPath });
+// const peerServer = ExpressPeerServer(server, { path: peerPath });
 const peerClients: Set<PeerClient> = new Set();
 const logger = pino();
+
+class MyRoom extends Room {
+  // this room supports only 4 clients connected
+  maxClients = 4;
+
+  onCreate(options: unknown): void {
+    logger.info("ChatRoom created!", options);
+
+    this.onMessage("message", (client, message) => {
+      logger.info(
+        "ChatRoom received message from",
+        client.sessionId,
+        ":",
+        message
+      );
+      this.broadcast("messages", `(${client.sessionId}) ${String(message)}`);
+    });
+  }
+
+  onJoin(client: Client): void {
+    this.broadcast("messages", `${client.sessionId} joined.`);
+  }
+
+  onLeave(client: Client): void {
+    this.broadcast("messages", `${client.sessionId} left.`);
+  }
+
+  onDispose(): void {
+    logger.info("Dispose ChatRoom");
+  }
+}
 
 function onConnection(client: PeerClient): void {
   peerClients.add(client);
@@ -65,22 +101,33 @@ function onMessage(client: PeerClient, message: PeerMessage): void {
   logger.info("PeerServer message", { client, message });
 }
 
-function getUsers(req: Request, res: Response, next: NextFunction): void {
-  next();
-}
+// function getUsers(req: Request, res: Response, next: NextFunction): void {
+//   next();
+// }
 
 app.use(express.json());
-app.use(expressPinoLogger({ logger }));
-app.use(peerPath, peerServer);
 
-app.get("/users", getUsers);
+app.use(
+  express.static(
+    "/Users/jackwilson/github.com/wils3005/wilsjs/packages/client/dist"
+  )
+);
+// app.use(expressPinoLogger({ logger }));
+// app.use(peerPath, peerServer);
 
-app.get("/clients", (_req, res, next) => {
-  res.send([]);
-  next();
-});
+// app.get("/users", getUsers);
 
-app.get("/healthz", (_req, res) => res.end());
-server.listen(PORT);
+// app.get("/clients", (_req, res, next) => {
+//   res.send([]);
+//   next();
+// });
 
-export { onConnection, onDisconnect, onError, onMessage };
+// app.get("/healthz", (_req, res) => res.end());
+// app.use("/colyseus", monitor());
+
+gameServer.define("myroom", MyRoom);
+
+gameServer.onShutdown(() => logger.info("game server is going down."));
+void gameServer.listen(Number(PORT));
+
+export { MyRoom, onConnection, onDisconnect, onError, onMessage };
