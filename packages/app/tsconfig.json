@@ -1,14 +1,8 @@
 {
-  "include": ["**/*.js", "**/*.ts"],
-  "exclude": ["dist/", "node_modules/"],
+  "exclude": ["dist", "node_modules"],
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "downlevelIteration": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
     "strict": true
   }
 }

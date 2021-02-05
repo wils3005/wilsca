@@ -16,8 +16,9 @@
     "coverage/",
     "dist/",
     "node_modules/",
+    "public/",
     "tmp/",
-    "*.d.ts"
+    "types/"
   ],
   "overrides": [
     {

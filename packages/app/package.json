@@ -1,5 +1,5 @@
 {
-  "name": "@wilsjs/server",
+  "name": "@wilsjs/app",
   "private": true,
   "scripts": {
     "prebuild": "rm -rf dist public/js",
