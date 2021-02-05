@@ -1,4 +1,3 @@
-import { Client, Room, Server } from "colyseus";
 import { object, string } from "zod";
 import { EventEmitter } from "events";
 import { ExpressPeerServer } from "peer";
@@ -7,7 +6,6 @@ import { createServer } from "http";
 import express from "express";
 import expressPinoLogger from "express-pino-logger";
 import { join } from "path";
-import { monitor } from "@colyseus/monitor";
 import pino from "pino";
 
 type MyWebSocket = WebSocketLib & EventEmitter;
@@ -46,43 +44,10 @@ const { PORT } = object({ PORT: string() }).parse(env);
 const app = express();
 const server = createServer(app);
 
-const gameServer = new Server({ express: app, server });
-
 const peerPath = "/peer";
 const peerServer = ExpressPeerServer(server, { path: peerPath });
 const peerClients: Set<PeerClient> = new Set();
 const logger = pino();
-
-class MyRoom extends Room {
-  // this room supports only 4 clients connected
-  maxClients = 4;
-
-  onCreate(options: unknown): void {
-    logger.info("ChatRoom created!", options);
-
-    this.onMessage("message", (client, message) => {
-      logger.info(
-        "ChatRoom received message from",
-        client.sessionId,
-        ":",
-        message
-      );
-      this.broadcast("messages", `(${client.sessionId}) ${String(message)}`);
-    });
-  }
-
-  onJoin(client: Client): void {
-    this.broadcast("messages", `${client.sessionId} joined.`);
-  }
-
-  onLeave(client: Client): void {
-    this.broadcast("messages", `${client.sessionId} left.`);
-  }
-
-  onDispose(): void {
-    logger.info("Dispose ChatRoom");
-  }
-}
 
 function onConnection(client: PeerClient): void {
   peerClients.add(client);
@@ -109,11 +74,7 @@ app.use(expressPinoLogger({ logger }));
 app.use(peerPath, peerServer);
 
 app.get("/healthz", (_req, res) => res.end());
-app.use("/colyseus", monitor());
 
-gameServer.define("myroom", MyRoom);
+app.listen(PORT);
 
-gameServer.onShutdown(() => logger.info("game server is going down."));
-void gameServer.listen(Number(PORT));
-
-export { MyRoom, onConnection, onDisconnect, onError, onMessage };
+export { onConnection, onDisconnect, onError, onMessage };

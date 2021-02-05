@@ -1,4 +1,5 @@
 const peer = new Peer();
+console.log({ peer });
 
 function onCall(mediaConnection: Peer.MediaConnection): void {
   console.log({ mediaConnection });
@@ -19,7 +20,7 @@ function onStream(mediaStream: MediaStream) {
   element.srcObject = mediaStream;
 }
 
-globalThis.navigator.mediaDevices
+navigator.mediaDevices
   .getUserMedia({ video: true, audio: true })
   .then(onStream)
   .catch((error: Error) => console.error({ error }));

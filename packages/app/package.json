@@ -14,8 +14,7 @@
     "knex:seed": "npm run knex -- seed:run"
   },
   "dependencies": {
-    "@colyseus/monitor": "^0.14.0",
-    "colyseus": "^0.14.7",
+    "express": "^4.17.1",
     "express-pino-logger": "^6.0.0",
     "knex": "^0.21.17",
     "objection": "^2.2.14",
@@ -39,7 +38,6 @@
     "eslint-import-resolver-typescript": "^2.3.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-prettier": "3.3.1",
-    "express": "^4.17.1",
     "pnpm": "^5.16.0",
     "prettier": "2.2.1",
     "ts-node": "^9.1.1",
