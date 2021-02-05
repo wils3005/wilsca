@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*.js", "src/**/*.ts"],
+  "include": ["src/**/*.js", "src/**/*.ts", "types/**/*.d.ts"],
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
@@ -11,9 +11,9 @@
     "incremental": true,
     "lib": ["DOM", "ESNext"],
     "listEmittedFiles": true,
-    "listFiles": true,
     "module": "ESNext",
     "moduleResolution": "node",
+    "noEmit": false,
     "outDir": "dist/",
     "removeComments": true,
     "skipLibCheck": true,

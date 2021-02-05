@@ -1,12 +1,13 @@
-.nyc_output/
-.storybook/
-.vscode/
-build/
-coverage/
-dist/
-node_modules/
-stories/
-tmp/
+**/.nyc_output/
+**/.storybook/
+**/.vscode/
+**/build/
+**/coverage/
+**/dist/
+**/node_modules/
+**/public/js/
+**/stories/
+**/tmp/
 
 .DS_Store
 .env*

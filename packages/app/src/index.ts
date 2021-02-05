@@ -1,11 +1,12 @@
-import { Client, LobbyRoom, RelayRoom, Room, Server } from "colyseus";
-import { IncomingMessage, createServer } from "http";
-import express, { NextFunction, Request, Response } from "express";
+import { Client, Room, Server } from "colyseus";
 import { object, string } from "zod";
 import { EventEmitter } from "events";
 import { ExpressPeerServer } from "peer";
 import WebSocketLib from "ws";
+import { createServer } from "http";
+import express from "express";
 import expressPinoLogger from "express-pino-logger";
+import { join } from "path";
 import { monitor } from "@colyseus/monitor";
 import pino from "pino";
 
@@ -48,7 +49,7 @@ const server = createServer(app);
 const gameServer = new Server({ express: app, server });
 
 const peerPath = "/peer";
-// const peerServer = ExpressPeerServer(server, { path: peerPath });
+const peerServer = ExpressPeerServer(server, { path: peerPath });
 const peerClients: Set<PeerClient> = new Set();
 const logger = pino();
 
@@ -101,29 +102,14 @@ function onMessage(client: PeerClient, message: PeerMessage): void {
   logger.info("PeerServer message", { client, message });
 }
 
-// function getUsers(req: Request, res: Response, next: NextFunction): void {
-//   next();
-// }
-
 app.use(express.json());
 
-app.use(
-  express.static(
-    "/Users/jackwilson/github.com/wils3005/wilsjs/packages/client/dist"
-  )
-);
-// app.use(expressPinoLogger({ logger }));
-// app.use(peerPath, peerServer);
+app.use(express.static(join(process.cwd(), "public")));
+app.use(expressPinoLogger({ logger }));
+app.use(peerPath, peerServer);
 
-// app.get("/users", getUsers);
-
-// app.get("/clients", (_req, res, next) => {
-//   res.send([]);
-//   next();
-// });
-
-// app.get("/healthz", (_req, res) => res.end());
-// app.use("/colyseus", monitor());
+app.get("/healthz", (_req, res) => res.end());
+app.use("/colyseus", monitor());
 
 gameServer.define("myroom", MyRoom);
 
