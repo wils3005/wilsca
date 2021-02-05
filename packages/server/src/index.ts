@@ -1,8 +1,8 @@
+import express, { NextFunction, Request, Response } from "express";
 import { object, string } from "zod";
 import { EventEmitter } from "events";
 import { ExpressPeerServer } from "peer";
 import WebSocketLib from "ws";
-import express from "express";
 import expressPinoLogger from "express-pino-logger";
 import http from "http";
 import pino from "pino";
@@ -65,9 +65,15 @@ function onMessage(client: PeerClient, message: PeerMessage): void {
   logger.info("PeerServer message", { client, message });
 }
 
+function getUsers(req: Request, res: Response, next: NextFunction): void {
+  next();
+}
+
 app.use(express.json());
 app.use(expressPinoLogger({ logger }));
 app.use(peerPath, peerServer);
+
+app.get("/users", getUsers);
 
 app.get("/clients", (_req, res, next) => {
   res.send([]);
