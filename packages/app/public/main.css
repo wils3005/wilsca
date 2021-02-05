@@ -1,0 +1,78 @@
+body {
+  align-content: center;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  width: 100vw;
+}
+
+section#phaser {
+  display: flex;
+  height: 100vh;
+  width: 100vh;
+}
+
+@media (orientation: landscape) {
+  body > main {
+    display: flex;
+    flex-direction: row-reverse;
+    align-content: center;
+  }
+
+  section#peer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  section#peer > video {
+    height: 25vh;
+    max-width: calc(100vw - 100vh);
+  }
+
+  section#peer > div {
+    height: 25vh;
+    max-width: calc(100vw - 100vh);
+    border-color: yellow;
+    border-style: solid;
+    border-width: thick;
+  }
+
+  section#peer > div > p {
+    color: yellow;
+    font-size: xx-large;
+    font-weight: thick;
+  }
+}
+
+@media (orientation: portrait) {
+  body > main {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+  }
+
+  section#peer {
+    display: flex;
+  }
+
+  section#peer > video {
+    max-height: calc(100vh - 100vw);
+    width: 25vw;
+  }
+
+  section#peer > div {
+    height: 18.75vw;
+    width: 25vw;
+    border-color: yellow;
+    border-style: solid;
+    border-width: thin;
+  }
+
+  section#peer > div > p {
+    color: yellow;
+    font-size: xx-large;
+    font-weight: thick;
+  }
+}
