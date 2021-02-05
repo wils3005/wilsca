@@ -1,43 +1,10 @@
 import { object, string } from "zod";
-import { EventEmitter } from "events";
 import { ExpressPeerServer } from "peer";
-import WebSocketLib from "ws";
 import { createServer } from "http";
 import express from "express";
 import expressPinoLogger from "express-pino-logger";
 import { join } from "path";
 import pino from "pino";
-
-type MyWebSocket = WebSocketLib & EventEmitter;
-
-interface PeerClient {
-  getId(): string;
-  getToken(): string;
-  getSocket(): MyWebSocket | null;
-  setSocket(socket: MyWebSocket | null): void;
-  getLastPing(): number;
-  setLastPing(lastPing: number): void;
-  send(data: unknown): void;
-}
-
-enum PeerMessageType {
-  OPEN = "OPEN",
-  LEAVE = "LEAVE",
-  CANDIDATE = "CANDIDATE",
-  OFFER = "OFFER",
-  ANSWER = "ANSWER",
-  EXPIRE = "EXPIRE",
-  HEARTBEAT = "HEARTBEAT",
-  ID_TAKEN = "ID-TAKEN",
-  ERROR = "ERROR",
-}
-
-interface PeerMessage {
-  readonly type: PeerMessageType;
-  readonly src: string;
-  readonly dst: string;
-  readonly payload?: unknown;
-}
 
 const { env } = process;
 const { PORT } = object({ PORT: string() }).parse(env);
