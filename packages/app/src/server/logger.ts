@@ -1,7 +1,13 @@
 import Pino from "pino";
 
 function main(): Pino.Logger {
-  const logger = Pino();
+  const loggerOptions: Pino.LoggerOptions = {
+    redact: {
+      paths: ["client.socket"],
+    },
+  };
+
+  const logger = Pino(loggerOptions);
   return logger;
 }
 

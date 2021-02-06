@@ -17,17 +17,17 @@ function main(): Peer.CustomExpress {
 }
 
 function onConnection(this: Peer.CustomExpress, client: Peer.IClient): void {
-  Root.logger.info("peerServer.onConnection", { client });
+  Root.logger.info({ module: "peer-server", function: "onConnection", client });
   Root.peerClients.add(client);
 }
 
 function onDisconnect(this: Peer.CustomExpress, client: Peer.IClient): void {
-  Root.logger.info("peerServer.onDisconnect", { client });
+  Root.logger.info({ module: "peer-server", function: "onDisconnect", client });
   Root.peerClients.delete(client);
 }
 
 function onError(this: Peer.CustomExpress, error: Error): void {
-  Root.logger.error("peerServer.onError", { error });
+  Root.logger.error({ module: "peer-server", function: "onError", error });
 }
 
 function onMessage(
@@ -35,11 +35,14 @@ function onMessage(
   client: Peer.IClient,
   message: Peer.IMessage
 ): void {
-  Root.logger.info(
-    `peerServer.onMessage, ${client.constructor.name}, ${message.type}, ${
-      message.src
-    }, ${message.dst}, ${String(message.payload)}`
-  );
+  Root.logger.info({
+    module: "peer-server",
+    function: "onMessage",
+    client,
+    message,
+  });
+
+  client.send(`Test message: ${Math.random()}`);
 }
 
 export default main;

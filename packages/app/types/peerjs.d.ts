@@ -132,6 +132,7 @@ declare class Peer {
    * true if this peer and all of its connections can no longer be used.
    */
   destroyed: boolean;
+  socket: WebSocket;
 }
 
 declare namespace Peer {
