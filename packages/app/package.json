@@ -6,7 +6,7 @@
     "build": "tsc --build tsconfig.build.json",
     "postbuild": "cp -r dist/client public/js",
     "lint": "eslint --format compact --fix --report-unused-disable-directives .",
-    "start": "ts-node-dev --require dotenv/config --respawn --transpile-only src/server.ts",
+    "start": "ts-node-dev --require dotenv/config --respawn --transpile-only src/index.ts",
     "ts-node": "ts-node --require dotenv/config --transpile-only",
     "knex": "npm run ts-node -- ./node_modules/knex/bin/cli.js",
     "knex:make": "npm run knex -- migrate:make",

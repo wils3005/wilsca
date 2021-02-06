@@ -1,15 +1,23 @@
 import { CustomExpress, IClient, IMessage } from "types/peer";
 import { ExpressPeerServer } from "peer";
-import logger from "src/logger";
-import server from "src/server";
-
-const peerServer: CustomExpress = ExpressPeerServer(server, {
-  allow_discovery: true,
-  key: "baz",
-  path: "/bar",
-});
+import { Server } from "net";
+import logger from "./logger";
 
 const peerClients: Set<IClient> = new Set();
+
+function main(server: Server): CustomExpress {
+  const peerServer: CustomExpress = ExpressPeerServer(server, {
+    allow_discovery: true,
+    key: "baz",
+    path: "/bar",
+  });
+
+  peerServer.on("connection", onConnection);
+  peerServer.on("disconnect", onDisconnect);
+  peerServer.on("error", onError);
+  peerServer.on("message", onMessage);
+  return peerServer;
+}
 
 function onConnection(this: CustomExpress, client: IClient): void {
   logger.info("peerServer.onConnection", { client });
@@ -33,9 +41,5 @@ function onMessage(
   logger.info("peerServer.onMessage", { client, message });
 }
 
-peerServer.on("connection", onConnection);
-peerServer.on("disconnect", onDisconnect);
-peerServer.on("error", onError);
-peerServer.on("message", onMessage);
-
-export default peerServer;
+export default main;
+export { onConnection, onDisconnect, onError, onMessage };

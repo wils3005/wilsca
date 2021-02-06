@@ -1,5 +1,5 @@
-import pino, { Logger } from "pino";
+import Pino from "pino";
 
-const logger: Logger = pino();
+const logger: Pino.Logger = Pino();
 
 export default logger;

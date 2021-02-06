@@ -1,5 +1,5 @@
+import Knex from "./knex";
 import { Model } from "objection";
-import knex from "./knex";
 
 class User extends Model {
   id: number;
@@ -16,6 +16,6 @@ class User extends Model {
   }
 }
 
-User.knex(knex);
+User.knex(Knex);
 
 export default User;
