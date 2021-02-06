@@ -1,6 +1,6 @@
-import { Model } from "objection";
+import * as Objection from "objection";
 
-class User extends Model {
+class User extends Objection.Model {
   id: number;
   username: string;
   password: string;

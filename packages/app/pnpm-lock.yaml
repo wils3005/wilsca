@@ -13,6 +13,7 @@ devDependencies:
   '@types/express-pino-logger': 4.0.2
   '@types/node': 14.14.22
   '@types/pino': 6.3.5
+  '@types/ws': 7.4.0
   '@typescript-eslint/eslint-plugin': 4.14.1_5aaa83948f53bc6d11a4ce27d9931983
   '@typescript-eslint/parser': 4.14.1_eslint@7.18.0+typescript@4.1.3
   dotenv: 8.2.0
@@ -186,7 +187,6 @@ packages:
   /@types/ws/7.4.0:
     dependencies:
       '@types/node': 14.14.22
-    dev: false
     resolution:
       integrity: sha512-Y29uQ3Uy+58bZrFLhX36hcI3Np37nqWE7ky5tjiDoy1GDZnIwVxS0CgF+s+1bXMzjKBFy+fqaRfb708iNzdinw==
   /@typescript-eslint/eslint-plugin/4.14.1_5aaa83948f53bc6d11a4ce27d9931983:
@@ -4350,6 +4350,7 @@ specifiers:
   '@types/express-pino-logger': ^4.0.2
   '@types/node': 14.14.22
   '@types/pino': ^6.3.5
+  '@types/ws': ^7.4.0
   '@typescript-eslint/eslint-plugin': 4.14.1
   '@typescript-eslint/parser': 4.14.1
   dotenv: ^8.2.0

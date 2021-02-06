@@ -9,7 +9,7 @@
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "lib": ["DOM", "ESNext"],
-    "listEmittedFiles": true,
+    "listEmittedFiles": false,
     "module": "ESNext",
     "moduleResolution": "node",
     "noEmit": false,

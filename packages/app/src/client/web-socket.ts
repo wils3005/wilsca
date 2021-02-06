@@ -1,6 +1,7 @@
 function main(): WebSocket {
   const url = location.href.replace(/http/, "ws");
   const webSocket = new WebSocket(url);
+  Object.assign(window, { webSocket });
   return webSocket;
 }
 
@@ -13,7 +14,7 @@ function onError(this: WebSocket, event: Event): void {
 }
 
 function onMessage(this: WebSocket, messageEvent: MessageEvent): void {
-  console.info("WebSocket.onMessage", { messageEvent });
+  console.info(`WebSocket.onMessage: ${String(messageEvent.data)}`);
 }
 
 function onOpen(this: WebSocket, event: Event): void {

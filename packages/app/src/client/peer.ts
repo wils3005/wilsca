@@ -3,9 +3,9 @@ import * as MediaConnection from "./media-connection.js";
 function main(): Peer {
   const peer = new Peer({
     host: "localhost",
-    key: "baz",
-    path: "/foo/bar",
-    port: 8080,
+    key: "mykey",
+    path: "/p",
+    port: 3478,
   });
 
   peer.on("call", onCall);

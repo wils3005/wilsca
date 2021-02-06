@@ -1,17 +1,12 @@
 import * as Peer from "peer";
-import Logger from "./logger";
-import Net from "net";
+import * as Root from ".";
 
-// TODO
-const logger = Logger();
-
-const peerClients: Set<Peer.IClient> = new Set();
-
-function main(server: Net.Server): Peer.CustomExpress {
-  const peerServer: Peer.CustomExpress = Peer.ExpressPeerServer(server, {
+function main(): Peer.CustomExpress {
+  const peerServer = Peer.PeerServer({
     allow_discovery: true,
-    key: "baz",
-    path: "/bar",
+    key: "mykey",
+    path: "/p",
+    port: 3478,
   });
 
   peerServer.on("connection", onConnection);
@@ -22,17 +17,17 @@ function main(server: Net.Server): Peer.CustomExpress {
 }
 
 function onConnection(this: Peer.CustomExpress, client: Peer.IClient): void {
-  logger.info("peerServer.onConnection", { client });
-  peerClients.add(client);
+  Root.logger.info("peerServer.onConnection", { client });
+  Root.peerClients.add(client);
 }
 
 function onDisconnect(this: Peer.CustomExpress, client: Peer.IClient): void {
-  logger.info("peerServer.onDisconnect", { client });
-  peerClients.delete(client);
+  Root.logger.info("peerServer.onDisconnect", { client });
+  Root.peerClients.delete(client);
 }
 
 function onError(this: Peer.CustomExpress, error: Error): void {
-  logger.error("peerServer.onError", { error });
+  Root.logger.error("peerServer.onError", { error });
 }
 
 function onMessage(
@@ -40,7 +35,11 @@ function onMessage(
   client: Peer.IClient,
   message: Peer.IMessage
 ): void {
-  logger.info("peerServer.onMessage", { client, message });
+  Root.logger.info(
+    `peerServer.onMessage, ${client.constructor.name}, ${message.type}, ${
+      message.src
+    }, ${message.dst}, ${String(message.payload)}`
+  );
 }
 
 export default main;
