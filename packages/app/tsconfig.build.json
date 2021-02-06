@@ -8,7 +8,6 @@
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "incremental": true,
     "lib": ["DOM", "ESNext"],
     "listEmittedFiles": true,
     "module": "ESNext",
@@ -18,7 +17,6 @@
     "removeComments": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "target": "ESNext",
-    "tsBuildInfoFile": ".tsbuildinfo"
+    "target": "ESNext"
   }
 }

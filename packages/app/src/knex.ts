@@ -16,4 +16,4 @@ const knexConfig: Config = {
 
 const knex: Knex<Record<string, unknown>, unknown[]> = Knex(knexConfig);
 
-export { knex };
+export default knex;

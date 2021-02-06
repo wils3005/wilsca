@@ -20,7 +20,6 @@
     "objection": "^2.2.14",
     "peer": "^0.6.1",
     "pino": "^6.11.0",
-    "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.1",
     "ws": "^7.4.2",
     "zod": "^3.0.0-alpha.4"
