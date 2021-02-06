@@ -9,39 +9,59 @@ const peer = new Peer({
 // http://localhost:8080/[path]/[key]/peers
 // http://localhost:8080/peerjs/myapp/asdf/peers
 
+// CALL
+// navigator.mediaDevices.getUserMedia({video: true, audio: true}, (stream) => {
+//   const call = peer.call('another-peers-id', stream);
+//   call.on('stream', (remoteStream) => {
+//     // Show stream in some <video> element.
+//   });
+// }, (err) => {
+//   console.error('Failed to get local stream', err);
+// });
+
+// ANSWER
+// peer.on('call', (call) => {
+//   navigator.mediaDevices.getUserMedia({video: true, audio: true}, (stream) => {
+//     call.answer(stream); // Answer the call with an A/V stream.
+//     call.on('stream', (remoteStream) => {
+//       // Show stream in some <video> element.
+//     });
+//   }, (err) => {
+//     console.error('Failed to get local stream', err);
+//   });
+// });
 function onCall(mediaConnection: Peer.MediaConnection): void {
-  console.log({ mediaConnection });
-
-  const { mediaDevices } = navigator;
-
-  void mediaDevices.getUserMedia({ video: true, audio: true });
+  console.log("peer.onCall", { mediaConnection });
+  // const { mediaDevices } = navigator;
+  // void mediaDevices.getUserMedia({ video: true, audio: true });
 }
 
 function onConnection(dataConnection: Peer.DataConnection): void {
-  // TODO
+  console.log("peer.onConnection", { dataConnection });
 }
 
-function onStream(mediaStream: MediaStream) {
-  console.log({ mediaStream });
-
-  const element = document.querySelector("video#player1");
-  if (!(element instanceof HTMLVideoElement)) {
-    throw "oh no";
-  }
-
-  element.srcObject = mediaStream;
+function onClose(): void {
+  console.log("peer.onClose");
 }
 
-navigator.mediaDevices
-  .getUserMedia({ video: true, audio: true })
-  .then(onStream)
-  .catch((error: Error) => console.error({ error }));
+function onOpen(id: string): void {
+  console.info("peer.onOpen", { id });
+}
 
-peer.on("open", (id: string) => console.log(id));
-peer.on("connection", onConnection);
-peer.on("close", () => console.log("peer connection closed"));
+function onDisconnected(): void {
+  console.log("peer.onDisconnected");
+}
+
+function onError(error: Error): void {
+  console.error("peer.onError", { error });
+}
+
 peer.on("call", onCall);
-peer.on("disconnected", () => console.log("peer connection disconnected"));
-peer.on("error", () => console.error("peer connection error"));
+peer.on("close", onClose);
+peer.on("connection", onConnection);
+peer.on("open", onOpen);
+peer.on("disconnected", onDisconnected);
+peer.on("error", onError);
 
-export {};
+export default peer;
+export { onCall, onClose, onConnection, onDisconnected, onError, onOpen };

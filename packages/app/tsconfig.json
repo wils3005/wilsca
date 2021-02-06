@@ -1,6 +1,7 @@
 {
   "exclude": ["dist", "node_modules"],
   "compilerOptions": {
+    "baseUrl": "./",
     "esModuleInterop": true,
     "noEmit": true,
     "strict": true

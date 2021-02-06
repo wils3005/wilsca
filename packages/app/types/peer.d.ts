@@ -1,9 +1,7 @@
-/// <reference types="express" />
-/// <reference types="express-serve-static-core" />
-
-declare class EventEmitter {}
-declare class Server {}
-declare class WebSocketLib {}
+import express from "express";
+import { EventEmitter } from "events";
+import { Server } from "net";
+import WebSocketLib from "ws";
 
 declare type MyWebSocket = WebSocketLib & EventEmitter;
 
@@ -57,7 +55,7 @@ declare interface IMessage {
   readonly payload?: any;
 }
 
-declare interface CustomExpress extends Express.Express {
+declare interface CustomExpress extends express.Express {
   on(event: string, callback: (...args: any[]) => void): this;
   on(event: "connection", callback: (client: IClient) => void): this;
   on(event: "disconnect", callback: (client: IClient) => void): this;
@@ -77,3 +75,13 @@ declare function PeerServer(
   options?: Optional<IConfig>,
   callback?: (server: Server) => void
 ): CustomExpress;
+
+export {
+  CustomExpress,
+  IClient,
+  IConfig,
+  IMessage,
+  MessageType,
+  MyWebSocket,
+  Optional,
+};
