@@ -1,3 +1,7 @@
+import * as MediaConnection from "./media-connection.js";
+
+const { mediaDevices } = navigator;
+
 const peer = new Peer({
   host: "localhost",
   key: "baz",
@@ -19,21 +23,21 @@ const peer = new Peer({
 //   console.error('Failed to get local stream', err);
 // });
 
-// ANSWER
-// peer.on('call', (call) => {
-//   navigator.mediaDevices.getUserMedia({video: true, audio: true}, (stream) => {
-//     call.answer(stream); // Answer the call with an A/V stream.
-//     call.on('stream', (remoteStream) => {
-//       // Show stream in some <video> element.
-//     });
-//   }, (err) => {
-//     console.error('Failed to get local stream', err);
-//   });
-// });
 function onCall(mediaConnection: Peer.MediaConnection): void {
-  console.log("peer.onCall", { mediaConnection });
-  // const { mediaDevices } = navigator;
-  // void mediaDevices.getUserMedia({ video: true, audio: true });
+  console.log("peer.onCall");
+
+  function onStream(mediaStream: MediaStream): void {
+    console.log("peer.onCall.onStream");
+    mediaConnection.answer(mediaStream);
+    mediaConnection.on("stream", MediaConnection.onStream);
+    mediaConnection.on("close", MediaConnection.onClose);
+    mediaConnection.on("error", MediaConnection.onError);
+  }
+
+  mediaDevices
+    .getUserMedia({ video: true, audio: true })
+    .then(onStream)
+    .catch(console.error);
 }
 
 function onConnection(dataConnection: Peer.DataConnection): void {

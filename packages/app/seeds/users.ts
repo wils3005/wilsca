@@ -17,7 +17,7 @@ async function seed(knex: Knex): Promise<void> {
       password: PASSWORD,
     });
 
-    for (let i = 1; i < 100000; i++) {
+    for (let i = 1; i < 1000; i++) {
       const username = Math.random().toString();
       const password = Math.random().toString();
 

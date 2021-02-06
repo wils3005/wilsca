@@ -1,5 +1,7 @@
+const { mediaDevices } = navigator;
+
 function onStream(mediaStream: MediaStream): void {
-  console.log("mediaStream.onStream", { mediaStream });
+  console.log("MediaDevices.onStream");
   const element = document.querySelector("video#player1");
 
   if (!(element instanceof HTMLVideoElement)) {
@@ -9,7 +11,7 @@ function onStream(mediaStream: MediaStream): void {
   element.srcObject = mediaStream;
 }
 
-navigator.mediaDevices
+mediaDevices
   .getUserMedia({ video: true, audio: true })
   .then(onStream)
   .catch(console.error);
