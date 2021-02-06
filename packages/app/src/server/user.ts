@@ -1,4 +1,3 @@
-import Knex from "./knex";
 import { Model } from "objection";
 
 class User extends Model {
@@ -15,7 +14,5 @@ class User extends Model {
     this.password = "";
   }
 }
-
-User.knex(Knex);
 
 export default User;

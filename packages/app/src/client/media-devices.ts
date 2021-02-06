@@ -1,4 +1,11 @@
-const { mediaDevices } = navigator;
+function main(): void {
+  const { mediaDevices } = navigator;
+
+  mediaDevices
+    .getUserMedia({ video: true, audio: true })
+    .then(onStream)
+    .catch(console.error);
+}
 
 function onStream(mediaStream: MediaStream): void {
   console.log("MediaDevices.onStream");
@@ -11,9 +18,5 @@ function onStream(mediaStream: MediaStream): void {
   element.srcObject = mediaStream;
 }
 
-mediaDevices
-  .getUserMedia({ video: true, audio: true })
-  .then(onStream)
-  .catch(console.error);
-
+export default main;
 export { onStream };

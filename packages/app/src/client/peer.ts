@@ -1,13 +1,21 @@
 import * as MediaConnection from "./media-connection.js";
 
-const { mediaDevices } = navigator;
+function main(): Peer {
+  const peer = new Peer({
+    host: "localhost",
+    key: "baz",
+    path: "/foo/bar",
+    port: 8080,
+  });
 
-const peer = new Peer({
-  host: "localhost",
-  key: "baz",
-  path: "/foo/bar",
-  port: 8080,
-});
+  peer.on("call", onCall);
+  peer.on("close", onClose);
+  peer.on("connection", onConnection);
+  peer.on("open", onOpen);
+  peer.on("disconnected", onDisconnected);
+  peer.on("error", onError);
+  return peer;
+}
 
 // http://localhost:8080/[path]/[key]/id
 // http://localhost:8080/[path]/[key]/peers
@@ -24,28 +32,28 @@ const peer = new Peer({
 // });
 
 function onCall(mediaConnection: Peer.MediaConnection): void {
-  console.log("peer.onCall");
+  console.info("peer.onCall");
 
   function onStream(mediaStream: MediaStream): void {
-    console.log("peer.onCall.onStream");
+    console.info("peer.onCall.onStream");
     mediaConnection.answer(mediaStream);
     mediaConnection.on("stream", MediaConnection.onStream);
     mediaConnection.on("close", MediaConnection.onClose);
     mediaConnection.on("error", MediaConnection.onError);
   }
 
-  mediaDevices
+  navigator.mediaDevices
     .getUserMedia({ video: true, audio: true })
     .then(onStream)
     .catch(console.error);
 }
 
 function onConnection(dataConnection: Peer.DataConnection): void {
-  console.log("peer.onConnection", { dataConnection });
+  console.info("peer.onConnection", { dataConnection });
 }
 
 function onClose(): void {
-  console.log("peer.onClose");
+  console.info("peer.onClose");
 }
 
 function onOpen(id: string): void {
@@ -53,19 +61,12 @@ function onOpen(id: string): void {
 }
 
 function onDisconnected(): void {
-  console.log("peer.onDisconnected");
+  console.info("peer.onDisconnected");
 }
 
 function onError(error: Error): void {
   console.error("peer.onError", { error });
 }
 
-peer.on("call", onCall);
-peer.on("close", onClose);
-peer.on("connection", onConnection);
-peer.on("open", onOpen);
-peer.on("disconnected", onDisconnected);
-peer.on("error", onError);
-
-export default peer;
+export default main;
 export { onCall, onClose, onConnection, onDisconnected, onError, onOpen };
