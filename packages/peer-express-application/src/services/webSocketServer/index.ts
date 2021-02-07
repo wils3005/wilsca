@@ -1,4 +1,4 @@
-import { Config, IAuthParams, IRealm, IWebSocketServer } from "interfaces";
+import { Config, IAuthParams, IRealm } from "interfaces";
 import { Errors, MessageType } from "enums";
 import Client from "models/client";
 import Events from "events";
@@ -12,9 +12,7 @@ type CustomConfig = Pick<Config, "path" | "key" | "concurrent_limit">;
 
 const WS_PATH = "peerjs";
 
-export class WebSocketServer
-  extends Events.EventEmitter
-  implements IWebSocketServer {
+class WebSocketServer extends Events.EventEmitter {
   public readonly path: string;
   private readonly realm: IRealm;
   private readonly config: CustomConfig;
@@ -147,3 +145,5 @@ export class WebSocketServer
     socket.close();
   }
 }
+
+export default WebSocketServer;

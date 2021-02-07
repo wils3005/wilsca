@@ -1,5 +1,5 @@
 import { Config, IRealm } from "interfaces";
-import { AuthMiddleware } from "api/auth";
+import AuthMiddleware from "api/auth";
 import CallsApi from "api/v1/calls";
 import MessageHandler from "message-handler";
 import PublicApi from "api/v1/public";

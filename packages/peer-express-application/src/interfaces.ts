@@ -1,6 +1,4 @@
 import Client from "models/client";
-import Events from "events";
-import Express from "express";
 import MessageQueue from "models/message-queue";
 import { MessageType } from "enums";
 
@@ -51,15 +49,4 @@ interface IRealm {
   setClient(client: Client, id: string): void;
 }
 
-interface IWebSocketServer extends Events.EventEmitter {
-  readonly path: string;
-}
-
-export {
-  ClientMessage,
-  Config,
-  Handler,
-  IAuthParams,
-  IRealm,
-  IWebSocketServer,
-};
+export { ClientMessage, Config, Handler, IAuthParams, IRealm };

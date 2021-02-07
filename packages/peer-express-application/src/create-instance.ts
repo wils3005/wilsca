@@ -1,4 +1,4 @@
-import { ClientMessage, Config, IRealm, IWebSocketServer } from "interfaces";
+import { ClientMessage, Config, IRealm } from "interfaces";
 import { Api } from "api";
 import { CheckBrokenConnections } from "services/checkBrokenConnections";
 import Client from "models/client";
@@ -8,7 +8,7 @@ import { MessagesExpire } from "services/messagesExpire";
 import Path from "path";
 import { Realm } from "models/realm";
 import WS from "ws";
-import { WebSocketServer } from "services/webSocketServer";
+import WebSocketServer from "services/webSocketServer";
 
 function main({
   app,
@@ -45,7 +45,7 @@ function main({
     path: Path.posix.join(app.path(), options.path, "/"),
   };
 
-  const wss: IWebSocketServer = new WebSocketServer({
+  const wss = new WebSocketServer({
     server,
     realm,
     config: customConfig,
