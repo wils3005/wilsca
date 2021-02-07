@@ -1,28 +1,28 @@
-import { IMessage } from "./message";
+import { ClientMessage } from "./message";
 
-export interface IMessageQueue {
+export interface ClientMessageQueue {
   getLastReadAt(): number;
 
-  addMessage(message: IMessage): void;
+  addMessage(message: ClientMessage): void;
 
-  readMessage(): IMessage | undefined;
+  readMessage(): ClientMessage | undefined;
 
-  getMessages(): IMessage[];
+  getMessages(): ClientMessage[];
 }
 
-export class MessageQueue implements IMessageQueue {
+export class MessageQueue implements ClientMessageQueue {
   private lastReadAt: number = new Date().getTime();
-  private readonly messages: IMessage[] = [];
+  private readonly messages: ClientMessage[] = [];
 
   public getLastReadAt(): number {
     return this.lastReadAt;
   }
 
-  public addMessage(message: IMessage): void {
+  public addMessage(message: ClientMessage): void {
     this.messages.push(message);
   }
 
-  public readMessage(): IMessage | undefined {
+  public readMessage(): ClientMessage | undefined {
     if (this.messages.length > 0) {
       this.lastReadAt = new Date().getTime();
       return this.messages.shift();
@@ -31,7 +31,7 @@ export class MessageQueue implements IMessageQueue {
     return undefined;
   }
 
-  public getMessages(): IMessage[] {
+  public getMessages(): ClientMessage[] {
     return this.messages;
   }
 }

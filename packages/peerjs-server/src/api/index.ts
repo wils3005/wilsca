@@ -3,7 +3,7 @@ import cors from "cors";
 import express from "express";
 import publicContent from "../../app.json";
 import { IConfig } from "../config";
-import { IMessageHandler } from "../messageHandler";
+import { ClientMessageHandler } from "../messageHandler";
 import { IRealm } from "../models/realm";
 import { AuthMiddleware } from "./middleware/auth";
 import CallsApi from "./v1/calls";
@@ -16,7 +16,7 @@ export const Api = ({
 }: {
   config: IConfig;
   realm: IRealm;
-  messageHandler: IMessageHandler;
+  messageHandler: ClientMessageHandler;
 }): express.Router => {
   const authMiddleware = new AuthMiddleware(config, realm);
 

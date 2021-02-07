@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/// <reference types="node" />
 import { Server } from "net";
 import { EventEmitter } from "events";
 import WS from "ws";
@@ -50,20 +48,20 @@ declare enum MessageType {
   ERROR = "ERROR",
 }
 
-declare interface IMessage {
+declare interface ClientMessage {
   readonly type: MessageType;
   readonly src: string;
   readonly dst: string;
   readonly payload?: any;
 }
 
-declare interface CustomExpress extends Express.Express {
+declare interface ExpressApplication extends Express.Express {
   on(event: string, callback: (...args: any[]) => void): this;
   on(event: "connection", callback: (client: IClient) => void): this;
   on(event: "disconnect", callback: (client: IClient) => void): this;
   on(
     event: "message",
-    callback: (client: IClient, message: IMessage) => void
+    callback: (client: IClient, message: ClientMessage) => void
   ): this;
   on(event: "error", callback: (error: Error) => void): this;
 }
@@ -71,10 +69,10 @@ declare interface CustomExpress extends Express.Express {
 declare function ExpressPeerServer(
   server: Server,
   options?: IConfig
-): CustomExpress;
+): ExpressApplication;
 declare function PeerServer(
   options?: Optional<IConfig>,
   callback?: (server: Server) => void
-): CustomExpress;
+): ExpressApplication;
 
 export { ExpressPeerServer, PeerServer };

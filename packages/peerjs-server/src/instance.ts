@@ -1,11 +1,14 @@
 import express from "express";
 import path from "path";
 import { IClient } from "./models/client";
-import { IMessage } from "./models/message";
+import { ClientMessage } from "./models/message";
 import { Realm } from "./models/realm";
 import { IRealm } from "./models/realm";
 import { CheckBrokenConnections } from "./services/checkBrokenConnections";
-import { IMessagesExpire, MessagesExpire } from "./services/messagesExpire";
+import {
+  ClientMessagesExpire,
+  MessagesExpire,
+} from "./services/messagesExpire";
 import { IWebSocketServer, WebSocketServer } from "./services/webSocketServer";
 import { MessageHandler } from "./messageHandler";
 import { Api } from "./api";
@@ -26,7 +29,7 @@ export const createInstance = ({
   const messageHandler = new MessageHandler(realm);
 
   const api = Api({ config, realm, messageHandler });
-  const messagesExpire: IMessagesExpire = new MessagesExpire({
+  const messagesExpire: ClientMessagesExpire = new MessagesExpire({
     realm,
     config,
     messageHandler,
@@ -57,7 +60,7 @@ export const createInstance = ({
     const messageQueue = realm.getMessageQueueById(client.getId());
 
     if (messageQueue) {
-      let message: IMessage | undefined;
+      let message: ClientMessage | undefined;
 
       while ((message = messageQueue.readMessage())) {
         messageHandler.handle(client, message);
@@ -68,7 +71,7 @@ export const createInstance = ({
     app.emit("connection", client);
   });
 
-  wss.on("message", (client: IClient, message: IMessage) => {
+  wss.on("message", (client: IClient, message: ClientMessage) => {
     app.emit("message", client, message);
     messageHandler.handle(client, message);
   });

@@ -1,7 +1,7 @@
 import uuidv4 from "uuid/v4";
 import { IClient } from "./client";
-import { IMessage } from "./message";
-import { IMessageQueue, MessageQueue } from "./messageQueue";
+import { ClientMessage } from "./message";
+import { ClientMessageQueue, MessageQueue } from "./messageQueue";
 
 export interface IRealm {
   getClientsIds(): string[];
@@ -14,9 +14,9 @@ export interface IRealm {
 
   removeClientById(id: string): boolean;
 
-  getMessageQueueById(id: string): IMessageQueue | undefined;
+  getMessageQueueById(id: string): ClientMessageQueue | undefined;
 
-  addMessageToQueue(id: string, message: IMessage): void;
+  addMessageToQueue(id: string, message: ClientMessage): void;
 
   clearMessageQueue(id: string): void;
 
@@ -25,7 +25,7 @@ export interface IRealm {
 
 export class Realm implements IRealm {
   private readonly clients: Map<string, IClient> = new Map();
-  private readonly messageQueues: Map<string, IMessageQueue> = new Map();
+  private readonly messageQueues: Map<string, ClientMessageQueue> = new Map();
 
   public getClientsIds(): string[] {
     return [...this.clients.keys()];
@@ -53,11 +53,11 @@ export class Realm implements IRealm {
     return true;
   }
 
-  public getMessageQueueById(id: string): IMessageQueue | undefined {
+  public getMessageQueueById(id: string): ClientMessageQueue | undefined {
     return this.messageQueues.get(id);
   }
 
-  public addMessageToQueue(id: string, message: IMessage): void {
+  public addMessageToQueue(id: string, message: ClientMessage): void {
     if (!this.getMessageQueueById(id)) {
       this.messageQueues.set(id, new MessageQueue());
     }

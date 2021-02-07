@@ -1,19 +1,19 @@
 import { IConfig } from "../../config";
 import { MessageType } from "../../enums";
-import { IMessageHandler } from "../../messageHandler";
+import { ClientMessageHandler } from "../../messageHandler";
 import { IRealm } from "../../models/realm";
 
-export interface IMessagesExpire {
+export interface ClientMessagesExpire {
   startMessagesExpiration(): void;
   stopMessagesExpiration(): void;
 }
 
 type CustomConfig = Pick<IConfig, "cleanup_out_msgs" | "expire_timeout">;
 
-export class MessagesExpire implements IMessagesExpire {
+export class MessagesExpire implements ClientMessagesExpire {
   private readonly realm: IRealm;
   private readonly config: CustomConfig;
-  private readonly messageHandler: IMessageHandler;
+  private readonly messageHandler: ClientMessageHandler;
 
   private timeoutId: NodeJS.Timeout | null = null;
 
@@ -24,7 +24,7 @@ export class MessagesExpire implements IMessagesExpire {
   }: {
     realm: IRealm;
     config: CustomConfig;
-    messageHandler: IMessageHandler;
+    messageHandler: ClientMessageHandler;
   }) {
     this.realm = realm;
     this.config = config;

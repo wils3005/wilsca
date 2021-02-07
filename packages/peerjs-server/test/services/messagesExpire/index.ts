@@ -1,14 +1,14 @@
 import { expect } from "chai";
 import { Client } from "../../../src/models/client";
 import { Realm } from "../../../src/models/realm";
-import { IMessage } from "../../../src/models/message";
+import { ClientMessage } from "../../../src/models/message";
 import { MessagesExpire } from "../../../src/services/messagesExpire";
 import { MessageHandler } from "../../../src/messageHandler";
 import { MessageType } from "../../../src/enums";
 import { wait } from "../../utils";
 
 describe("MessagesExpire", () => {
-  const createTestMessage = (dst: string): IMessage => {
+  const createTestMessage = (dst: string): ClientMessage => {
     return {
       type: MessageType.OPEN,
       src: "src",

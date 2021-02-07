@@ -1,6 +1,6 @@
 import express from "express";
-import { IMessageHandler } from "../../../messageHandler";
-import { IMessage } from "../../../models/message";
+import { ClientMessageHandler } from "../../../messageHandler";
+import { ClientMessage } from "../../../models/message";
 import { IRealm } from "../../../models/realm";
 
 export default ({
@@ -8,7 +8,7 @@ export default ({
   messageHandler,
 }: {
   realm: IRealm;
-  messageHandler: IMessageHandler;
+  messageHandler: ClientMessageHandler;
 }): express.Router => {
   const app = express.Router();
 
@@ -29,7 +29,7 @@ export default ({
 
     const { type, dst, payload } = req.body;
 
-    const message: IMessage = {
+    const message: ClientMessage = {
       type,
       src: id,
       dst,

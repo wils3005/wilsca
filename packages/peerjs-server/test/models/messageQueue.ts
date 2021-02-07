@@ -1,11 +1,11 @@
 import { expect } from "chai";
 import { MessageQueue } from "../../src/models/messageQueue";
 import { MessageType } from "../../src/enums";
-import { IMessage } from "../../src/models/message";
+import { ClientMessage } from "../../src/models/message";
 import { wait } from "../utils";
 
 describe("MessageQueue", () => {
-  const createTestMessage = (): IMessage => {
+  const createTestMessage = (): ClientMessage => {
     return {
       type: MessageType.OPEN,
       src: "src",
