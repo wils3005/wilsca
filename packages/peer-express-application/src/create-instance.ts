@@ -1,20 +1,16 @@
-import Client from "./models/client";
-import { ClientMessage } from "./models/message";
+import { ClientMessage, Config, IRealm, IWebSocketServer } from "interfaces";
+import { Api } from "api";
+import { CheckBrokenConnections } from "services/checkBrokenConnections";
+import Client from "models/client";
 import Express from "express";
+import MessageHandler from "message-handler";
+import { MessagesExpire } from "services/messagesExpire";
 import Path from "path";
-import { Realm } from "./models/realm";
-import { IRealm } from "./models/realm";
-import { CheckBrokenConnections } from "./services/checkBrokenConnections";
-import {
-  ClientMessagesExpire,
-  MessagesExpire,
-} from "./services/messagesExpire";
-import { IWebSocketServer, WebSocketServer } from "./services/webSocketServer";
-import { MessageHandler } from "./messageHandler";
-import { Api } from "./api";
+import { Realm } from "models/realm";
 import WS from "ws";
+import { WebSocketServer } from "services/webSocketServer";
 
-export const createInstance = ({
+function main({
   app,
   server,
   options,
@@ -22,13 +18,13 @@ export const createInstance = ({
   app: Express.Application;
   server: WS.Server;
   options: Config;
-}): void => {
+}): void {
   const config = options;
   const realm: IRealm = new Realm();
   const messageHandler = new MessageHandler(realm);
 
   const api = Api({ config, realm, messageHandler });
-  const messagesExpire: ClientMessagesExpire = new MessagesExpire({
+  const messagesExpire = new MessagesExpire({
     realm,
     config,
     messageHandler,
@@ -85,4 +81,6 @@ export const createInstance = ({
 
   messagesExpire.startMessagesExpiration();
   checkBrokenConnections.start();
-};
+}
+
+export default main;

@@ -1,22 +1,8 @@
 {
+  "extends": "./tsconfig.json",
   "include": ["src/**/*.ts"],
   "compilerOptions": {
-    "allowJs": false,
-    "allowSyntheticDefaultImports": true,
-    "declaration": true,
-    "emitDecoratorMetadata": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "lib": ["ESNext"],
-    "listEmittedFiles": false,
-    "listFiles": false,
-    "module": "ESNext",
-    "moduleResolution": "node",
     "noEmit": false,
-    "outDir": "dist/",
-    "removeComments": true,
-    "skipLibCheck": true,
-    "sourceMap": true,
-    "target": "ESNext"
+    "outDir": "dist/"
   }
 }

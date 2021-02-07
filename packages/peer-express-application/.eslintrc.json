@@ -13,10 +13,7 @@
         "plugin:@typescript-eslint/recommended-requiring-type-checking"
       ],
       "files": ["**/*.ts", "**/*.tsx"],
-      "rules": {
-        "@typescript-eslint/camelcase": "warn",
-        "@typescript-eslint/interface-name-prefix": "warn"
-      }
+      "rules": {}
     }
   ],
   "parser": "@typescript-eslint/parser",

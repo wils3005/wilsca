@@ -1,21 +1,37 @@
-import express from "express";
-import { ClientMessageHandler } from "../../messageHandler";
-import { ClientMessage } from "../../models/message";
-import { IRealm } from "../../models/realm";
+import * as Zod from "zod";
+import { ClientMessage, IRealm } from "../../interfaces";
+import Express from "express";
+import MessageHandler from "../../message-handler";
 
-export default ({
+const schema = Zod.object({
+  type: Zod.enum([
+    "ANSWER",
+    "CANDIDATE",
+    "ERROR",
+    "EXPIRE",
+    "HEARTBEAT",
+    "ID-TAKEN",
+    "LEAVE",
+    "OFFER",
+    "OPEN",
+  ]),
+  dst: Zod.string(),
+  payload: Zod.unknown(),
+}).strict();
+
+function main({
   realm,
   messageHandler,
 }: {
   realm: IRealm;
-  messageHandler: ClientMessageHandler;
-}): express.Router => {
-  const app = express.Router();
+  messageHandler: MessageHandler;
+}): Express.Router {
+  const app = Express.Router();
 
   const handle = (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
   ): unknown => {
     const { id } = req.params;
 
@@ -27,14 +43,8 @@ export default ({
       throw new Error(`client not found:${id}`);
     }
 
-    const { type, dst, payload } = req.body;
-
-    const message: ClientMessage = {
-      type,
-      src: id,
-      dst,
-      payload,
-    };
+    const foo = schema.parse(req.body);
+    const message: ClientMessage = { src: id, ...foo };
 
     messageHandler.handle(client, message);
 
@@ -47,4 +57,6 @@ export default ({
   app.post("/leave", handle);
 
   return app;
-};
+}
+
+export default main;

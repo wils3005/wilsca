@@ -1,26 +1,20 @@
-import EventEmitter from "events";
+import { Config, IAuthParams, IRealm, IWebSocketServer } from "interfaces";
+import { Errors, MessageType } from "enums";
+import Client from "models/client";
+import Events from "events";
 import { IncomingMessage } from "http";
-import url from "url";
+import JSONSchema from "json-schema";
+import { MyWebSocket } from "services/webSocketServer/webSocket";
 import WS from "ws";
-import Client from "../../models/client";
-import { IRealm } from "../../models/realm";
-import { MyWebSocket } from "./webSocket";
-
-export interface IWebSocketServer extends EventEmitter {
-  readonly path: string;
-}
-
-interface IAuthParams {
-  id?: string;
-  token?: string;
-  key?: string;
-}
+import url from "url";
 
 type CustomConfig = Pick<Config, "path" | "key" | "concurrent_limit">;
 
 const WS_PATH = "peerjs";
 
-export class WebSocketServer extends EventEmitter implements IWebSocketServer {
+export class WebSocketServer
+  extends Events.EventEmitter
+  implements IWebSocketServer {
   public readonly path: string;
   private readonly realm: IRealm;
   private readonly config: CustomConfig;
@@ -130,9 +124,8 @@ export class WebSocketServer extends EventEmitter implements IWebSocketServer {
     // Handle messages from peers.
     socket.on("message", (data: WS.Data) => {
       try {
-        const message = JSON.parse(data as string);
-
-        message.src = client.getId();
+        const message = JSONSchema(data);
+        Object.assign(message, { src: client.getId() });
 
         this.emit("message", client, message);
       } catch (e) {

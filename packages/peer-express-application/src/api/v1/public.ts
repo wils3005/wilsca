@@ -1,23 +1,23 @@
-import express from "express";
-import { IRealm } from "../../models/realm";
+import { Config, IRealm } from "interfaces";
+import Express from "express";
 
-export default ({
+function main({
   config,
   realm,
 }: {
   config: Config;
   realm: IRealm;
-}): express.Router => {
-  const app = express.Router();
+}): Express.Router {
+  const app = Express.Router();
 
   // Retrieve guaranteed random ID.
-  app.get("/id", (_, res: express.Response) => {
+  app.get("/id", (_, res: Express.Response) => {
     res.contentType("html");
     res.send(realm.generateClientId(config.generateClientId));
   });
 
   // Get a list of all peers for a key, enabled by the `allowDiscovery` flag.
-  app.get("/peers", (_, res: express.Response) => {
+  app.get("/peers", (_, res: Express.Response) => {
     if (config.allow_discovery) {
       const clientsIds = realm.getClientsIds();
 
@@ -28,4 +28,6 @@ export default ({
   });
 
   return app;
-};
+}
+
+export default main;

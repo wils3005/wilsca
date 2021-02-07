@@ -1,31 +1,11 @@
-import uuidv4 from "uuid/v4";
-import Client from "./client";
-import { ClientMessage } from "./message";
-import { ClientMessageQueue, MessageQueue } from "./messageQueue";
-
-export interface IRealm {
-  getClientsIds(): string[];
-
-  getClientById(clientId: string): Client | undefined;
-
-  getClientsIdsWithQueue(): string[];
-
-  setClient(client: Client, id: string): void;
-
-  removeClientById(id: string): boolean;
-
-  getMessageQueueById(id: string): ClientMessageQueue | undefined;
-
-  addMessageToQueue(id: string, message: ClientMessage): void;
-
-  clearMessageQueue(id: string): void;
-
-  generateClientId(generateClientId?: () => string): string;
-}
+import * as UUID from "uuid";
+import { ClientMessage, IRealm } from "interfaces";
+import Client from "models/client";
+import MessageQueue from "models/message-queue";
 
 export class Realm implements IRealm {
-  private readonly clients: Map<string, Client> = new Map();
-  private readonly messageQueues: Map<string, ClientMessageQueue> = new Map();
+  private readonly clients = new Map<string, Client>();
+  private readonly messageQueues = new Map<string, MessageQueue>();
 
   public getClientsIds(): string[] {
     return [...this.clients.keys()];
@@ -53,7 +33,7 @@ export class Realm implements IRealm {
     return true;
   }
 
-  public getMessageQueueById(id: string): ClientMessageQueue | undefined {
+  public getMessageQueueById(id: string): MessageQueue | undefined {
     return this.messageQueues.get(id);
   }
 
@@ -70,7 +50,7 @@ export class Realm implements IRealm {
   }
 
   public generateClientId(generateClientId?: () => string): string {
-    const generateId = generateClientId ? generateClientId : uuidv4;
+    const generateId = generateClientId ? generateClientId : UUID.v4;
 
     let clientId = generateId();
 

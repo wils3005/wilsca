@@ -1,12 +1,12 @@
-import Client from "../../../models/client";
-import { ClientMessage } from "../../../models/message";
-import { IRealm } from "../../../models/realm";
+import { ClientMessage, IRealm } from "interfaces";
+import Client from "models/client";
+import { MessageType } from "enums";
 
-export const TransmissionHandler = ({
+function main({
   realm,
 }: {
   realm: IRealm;
-}): ((client: Client | undefined, message: ClientMessage) => boolean) => {
+}): (client: Client | undefined, message: ClientMessage) => boolean {
   const handle = (
     client: Client | undefined,
     message: ClientMessage
@@ -64,4 +64,6 @@ export const TransmissionHandler = ({
   };
 
   return handle;
-};
+}
+
+export default main;

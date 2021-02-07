@@ -1,16 +1,6 @@
-import { ClientMessage } from "./message";
+import { ClientMessage } from "../interfaces";
 
-export interface ClientMessageQueue {
-  getLastReadAt(): number;
-
-  addMessage(message: ClientMessage): void;
-
-  readMessage(): ClientMessage | undefined;
-
-  getMessages(): ClientMessage[];
-}
-
-export class MessageQueue implements ClientMessageQueue {
+class MessageQueue {
   private lastReadAt: number = new Date().getTime();
   private readonly messages: ClientMessage[] = [];
 
@@ -35,3 +25,5 @@ export class MessageQueue implements ClientMessageQueue {
     return this.messages;
   }
 }
+
+export default MessageQueue;

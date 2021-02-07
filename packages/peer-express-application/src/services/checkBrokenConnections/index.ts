@@ -1,5 +1,5 @@
-import Client from "../../models/client";
-import { IRealm } from "../../models/realm";
+import { Config, IRealm } from "interfaces";
+import Client from "models/client";
 
 const DEFAULT_CHECK_INTERVAL = 300;
 

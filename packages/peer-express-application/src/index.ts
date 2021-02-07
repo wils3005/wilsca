@@ -1,32 +1,7 @@
-// import Events from "events";
+import { Config } from "interfaces";
+import CreateInstance from "create-instance";
 import Express from "express";
 import WS from "ws";
-import { createInstance } from "./instance";
-
-//
-// type MyWebSocket = WS & Events.EventEmitter;
-
-// type Optional<T> = {
-//   [P in keyof T]?: T[P] | undefined;
-// };
-
-// interface ClientMessage {
-//   readonly type: MessageType;
-//   readonly src: string;
-//   readonly dst: string;
-//   readonly payload?: unknown;
-// }
-
-// interface ExpressApplication extends Express.Express {
-//   on(event: string, callback: (...args: any[]) => void): this;
-//   on(event: "connection", callback: (client: Client) => void): this;
-//   on(event: "disconnect", callback: (client: Client) => void): this;
-//   on(
-//     event: "message",
-//     callback: (client: Client, message: ClientMessage) => void
-//   ): this;
-//   on(event: "error", callback: (error: Error) => void): this;
-// }
 
 function PeerExpressApplication(
   server: WS.Server,
@@ -62,7 +37,7 @@ function PeerExpressApplication(
       );
     }
 
-    createInstance({ app, server, options: newOptions });
+    CreateInstance({ app, server, options: newOptions });
   });
 
   return app;

@@ -1,17 +1,17 @@
-import express from "express";
-import { IRealm } from "../../models/realm";
-import { IMiddleware } from "./middleware";
+import { Config, IRealm } from "../interfaces";
+import { Errors } from "../enums";
+import Express from "express";
 
-export class AuthMiddleware implements IMiddleware {
+class AuthMiddleware {
   constructor(
     private readonly config: Config,
     private readonly realm: IRealm
   ) {}
 
   public handle = (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
+    req: Express.Request,
+    res: Express.Response,
+    next: Express.NextFunction
   ): unknown => {
     const { id, token, key } = req.params;
 
@@ -36,3 +36,5 @@ export class AuthMiddleware implements IMiddleware {
     next();
   };
 }
+
+export default AuthMiddleware;

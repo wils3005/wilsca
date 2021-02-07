@@ -1,8 +1,23 @@
 {
+  "include": ["**/*.ts"],
   "exclude": ["dist", "node_modules"],
   "compilerOptions": {
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "src/",
+    "declaration": true,
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "lib": ["ESNext"],
+    "listEmittedFiles": false,
+    "listFiles": false,
+    "module": "ESNext",
+    "moduleResolution": "node",
     "noEmit": true,
-    "strict": true
+    "removeComments": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "target": "ESNext"
   }
 }

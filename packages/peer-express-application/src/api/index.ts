@@ -1,11 +1,11 @@
+import { Config, IRealm } from "interfaces";
+import { AuthMiddleware } from "api/auth";
+import CallsApi from "api/v1/calls";
+import MessageHandler from "message-handler";
+import PublicApi from "api/v1/public";
 import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
-import { ClientMessageHandler } from "../messageHandler";
-import { IRealm } from "../models/realm";
-import { AuthMiddleware } from "./middleware/auth";
-import CallsApi from "./v1/calls";
-import PublicApi from "./v1/public";
 
 export const Api = ({
   config,
@@ -14,7 +14,7 @@ export const Api = ({
 }: {
   config: Config;
   realm: IRealm;
-  messageHandler: ClientMessageHandler;
+  messageHandler: MessageHandler;
 }): express.Router => {
   const authMiddleware = new AuthMiddleware(config, realm);
 

@@ -1,18 +1,18 @@
-import Client from "../models/client";
-import { ClientMessage } from "../models/message";
-import { IRealm } from "../models/realm";
-import { Handler } from "./handler";
-import { HeartbeatHandler, TransmissionHandler } from "./handlers";
-import { HandlersRegistry, IHandlersRegistry } from "./handlersRegistry";
+import { ClientMessage, Handler, IRealm } from "interfaces";
 
-export interface ClientMessageHandler {
-  handle(client: Client | undefined, message: ClientMessage): boolean;
-}
+import {
+  HeartbeatHandler,
+  TransmissionHandler,
+} from "message-handler/handlers";
 
-export class MessageHandler implements ClientMessageHandler {
+import Client from "models/client";
+import HandlersRegistry from "message-handler/handlers-registry";
+import { MessageType } from "enums";
+
+class MessageHandler {
   constructor(
     realm: IRealm,
-    private readonly handlersRegistry: IHandlersRegistry = new HandlersRegistry()
+    private readonly handlersRegistry = new HandlersRegistry()
   ) {
     const transmissionHandler: Handler = TransmissionHandler({ realm });
     const heartbeatHandler: Handler = HeartbeatHandler;
@@ -64,3 +64,5 @@ export class MessageHandler implements ClientMessageHandler {
     return this.handlersRegistry.handle(client, message);
   }
 }
+
+export default MessageHandler;
