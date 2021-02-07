@@ -3,17 +3,16 @@
     "lib": ["esnext"],
     "target": "es2016",
     "module": "commonjs",
-    "strict": true,
     "esModuleInterop": true,
     "downlevelIteration": true,
     "moduleResolution": "node",
-    "noImplicitAny": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "outDir": "dist/",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": false,
-    "outDir": "dist"
+    "strict": true
   },
   "include": ["./src/**/*"],
   "exclude": ["test", "bin"]
