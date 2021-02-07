@@ -1,5 +1,5 @@
 import { MessageType } from "../enums";
-import { IClient } from "../models/client";
+import { Client } from "../models/client";
 import { ClientMessage } from "../models/message";
 import { IRealm } from "../models/realm";
 import { Handler } from "./handler";
@@ -7,7 +7,7 @@ import { HeartbeatHandler, TransmissionHandler } from "./handlers";
 import { IHandlersRegistry, HandlersRegistry } from "./handlersRegistry";
 
 export interface ClientMessageHandler {
-  handle(client: IClient | undefined, message: ClientMessage): boolean;
+  handle(client: Client | undefined, message: ClientMessage): boolean;
 }
 
 export class MessageHandler implements ClientMessageHandler {
@@ -19,7 +19,7 @@ export class MessageHandler implements ClientMessageHandler {
     const heartbeatHandler: Handler = HeartbeatHandler;
 
     const handleTransmission: Handler = (
-      client: IClient | undefined,
+      client: Client | undefined,
       { type, src, dst, payload }: ClientMessage
     ): boolean => {
       return transmissionHandler(client, {
@@ -31,7 +31,7 @@ export class MessageHandler implements ClientMessageHandler {
     };
 
     const handleHeartbeat = (
-      client: IClient | undefined,
+      client: Client | undefined,
       message: ClientMessage
     ): boolean => heartbeatHandler(client, message);
 
@@ -61,7 +61,7 @@ export class MessageHandler implements ClientMessageHandler {
     );
   }
 
-  public handle(client: IClient | undefined, message: ClientMessage): boolean {
+  public handle(client: Client | undefined, message: ClientMessage): boolean {
     return this.handlersRegistry.handle(client, message);
   }
 }

@@ -26,7 +26,7 @@ declare interface IConfig {
   readonly generateClientId?: () => string;
 }
 
-declare interface IClient {
+declare interface Client {
   getId(): string;
   getToken(): string;
   getSocket(): MyWebSocket | null;
@@ -57,11 +57,11 @@ declare interface ClientMessage {
 
 declare interface ExpressApplication extends Express.Express {
   on(event: string, callback: (...args: any[]) => void): this;
-  on(event: "connection", callback: (client: IClient) => void): this;
-  on(event: "disconnect", callback: (client: IClient) => void): this;
+  on(event: "connection", callback: (client: Client) => void): this;
+  on(event: "disconnect", callback: (client: Client) => void): this;
   on(
     event: "message",
-    callback: (client: IClient, message: ClientMessage) => void
+    callback: (client: Client, message: ClientMessage) => void
   ): this;
   on(event: "error", callback: (error: Error) => void): this;
 }

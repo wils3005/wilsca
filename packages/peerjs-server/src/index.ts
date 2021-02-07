@@ -12,7 +12,7 @@ type Optional<T> = {
 function ExpressPeerServer(
   server: WS.Server,
   options?: IConfig
-): express.Express {
+): Peer.ExpressApplication {
   const app = express();
 
   const newOptions: IConfig = {
@@ -43,7 +43,7 @@ function ExpressPeerServer(
 function PeerServer(
   options: Optional<IConfig> = {},
   callback?: (server: HTTP.Server) => void
-): express.Express {
+): Peer.ExpressApplication {
   const app = express();
 
   let newOptions: IConfig = {

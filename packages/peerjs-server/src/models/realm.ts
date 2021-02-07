@@ -1,16 +1,16 @@
 import uuidv4 from "uuid/v4";
-import { IClient } from "./client";
+import { Client } from "./client";
 import { ClientMessage } from "./message";
 import { ClientMessageQueue, MessageQueue } from "./messageQueue";
 
 export interface IRealm {
   getClientsIds(): string[];
 
-  getClientById(clientId: string): IClient | undefined;
+  getClientById(clientId: string): Client | undefined;
 
   getClientsIdsWithQueue(): string[];
 
-  setClient(client: IClient, id: string): void;
+  setClient(client: Client, id: string): void;
 
   removeClientById(id: string): boolean;
 
@@ -24,14 +24,14 @@ export interface IRealm {
 }
 
 export class Realm implements IRealm {
-  private readonly clients: Map<string, IClient> = new Map();
+  private readonly clients: Map<string, Client> = new Map();
   private readonly messageQueues: Map<string, ClientMessageQueue> = new Map();
 
   public getClientsIds(): string[] {
     return [...this.clients.keys()];
   }
 
-  public getClientById(clientId: string): IClient | undefined {
+  public getClientById(clientId: string): Client | undefined {
     return this.clients.get(clientId);
   }
 
@@ -39,7 +39,7 @@ export class Realm implements IRealm {
     return [...this.messageQueues.keys()];
   }
 
-  public setClient(client: IClient, id: string): void {
+  public setClient(client: Client, id: string): void {
     this.clients.set(id, client);
   }
 

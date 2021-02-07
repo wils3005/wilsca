@@ -1,6 +1,6 @@
 import { MyWebSocket } from "../services/webSocketServer/webSocket";
 
-export interface IClient {
+export interface Client {
   getId(): string;
 
   getToken(): string;
@@ -16,7 +16,7 @@ export interface IClient {
   send<T>(data: T): void;
 }
 
-export class Client implements IClient {
+export class Client implements Client {
   private readonly id: string;
   private readonly token: string;
   private socket: MyWebSocket | null = null;

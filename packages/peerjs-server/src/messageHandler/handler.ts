@@ -1,7 +1,7 @@
-import { IClient } from "../models/client";
+import { Client } from "../models/client";
 import { ClientMessage } from "../models/message";
 
 export type Handler = (
-  client: IClient | undefined,
+  client: Client | undefined,
   message: ClientMessage
 ) => boolean;

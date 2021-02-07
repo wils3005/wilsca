@@ -1,11 +1,11 @@
 import { MessageType } from "../enums";
-import { IClient } from "../models/client";
+import { Client } from "../models/client";
 import { ClientMessage } from "../models/message";
 import { Handler } from "./handler";
 
 export interface IHandlersRegistry {
   registerHandler(messageType: MessageType, handler: Handler): void;
-  handle(client: IClient | undefined, message: ClientMessage): boolean;
+  handle(client: Client | undefined, message: ClientMessage): boolean;
 }
 
 export class HandlersRegistry implements IHandlersRegistry {
@@ -17,7 +17,7 @@ export class HandlersRegistry implements IHandlersRegistry {
     this.handlers.set(messageType, handler);
   }
 
-  public handle(client: IClient | undefined, message: ClientMessage): boolean {
+  public handle(client: Client | undefined, message: ClientMessage): boolean {
     const { type } = message;
 
     const handler = this.handlers.get(type);

@@ -4,7 +4,7 @@ import url from "url";
 import WS from "ws";
 import { IConfig } from "../../config";
 import { Errors, MessageType } from "../../enums";
-import { Client, IClient } from "../../models/client";
+import { Client, Client } from "../../models/client";
 import { IRealm } from "../../models/realm";
 import { MyWebSocket } from "./webSocket";
 
@@ -111,14 +111,14 @@ export class WebSocketServer extends EventEmitter implements IWebSocketServer {
       return this._sendErrorAndClose(socket, Errors.CONNECTION_LIMIT_EXCEED);
     }
 
-    const newClient: IClient = new Client({ id, token });
+    const newClient: Client = new Client({ id, token });
     this.realm.setClient(newClient, id);
     socket.send(JSON.stringify({ type: MessageType.OPEN }));
 
     this._configureWS(socket, newClient);
   }
 
-  private _configureWS(socket: MyWebSocket, client: IClient): void {
+  private _configureWS(socket: MyWebSocket, client: Client): void {
     client.setSocket(socket);
 
     // Cleanup after a socket closes.

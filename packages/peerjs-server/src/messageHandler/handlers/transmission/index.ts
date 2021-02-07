@@ -1,5 +1,5 @@
 import { MessageType } from "../../../enums";
-import { IClient } from "../../../models/client";
+import { Client } from "../../../models/client";
 import { ClientMessage } from "../../../models/message";
 import { IRealm } from "../../../models/realm";
 
@@ -7,9 +7,9 @@ export const TransmissionHandler = ({
   realm,
 }: {
   realm: IRealm;
-}): ((client: IClient | undefined, message: ClientMessage) => boolean) => {
+}): ((client: Client | undefined, message: ClientMessage) => boolean) => {
   const handle = (
-    client: IClient | undefined,
+    client: Client | undefined,
     message: ClientMessage
   ): boolean => {
     const type = message.type;

@@ -1,6 +1,6 @@
 import express from "express";
 import path from "path";
-import { IClient } from "./models/client";
+import { Client } from "./models/client";
 import { ClientMessage } from "./models/message";
 import { Realm } from "./models/realm";
 import { IRealm } from "./models/realm";
@@ -56,7 +56,7 @@ export const createInstance = ({
     config: customConfig,
   });
 
-  wss.on("connection", (client: IClient) => {
+  wss.on("connection", (client: Client) => {
     const messageQueue = realm.getMessageQueueById(client.getId());
 
     if (messageQueue) {
@@ -71,12 +71,12 @@ export const createInstance = ({
     app.emit("connection", client);
   });
 
-  wss.on("message", (client: IClient, message: ClientMessage) => {
+  wss.on("message", (client: Client, message: ClientMessage) => {
     app.emit("message", client, message);
     messageHandler.handle(client, message);
   });
 
-  wss.on("close", (client: IClient) => {
+  wss.on("close", (client: Client) => {
     app.emit("disconnect", client);
   });
 
