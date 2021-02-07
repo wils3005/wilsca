@@ -1,9 +1,10 @@
 import * as Peer from "peer";
 import * as Zod from "zod";
-import AppModule from "./app";
-import KnexModule from "./knex";
-import LoggerModule from "./logger";
-import PeerServerModule from "./peer-server";
+import ExpressWrapper from "./express-wrapper";
+import HTTPServerWrapper from "./http-server-wrapper";
+import KnexWrapper from "./knex-wrapper";
+import PeerWrapper from "./peer-wrapper";
+import PinoWrapper from "./pino-wrapper";
 import User from "./user";
 
 const { NODE_ENV, PORT } = Zod.object({
@@ -11,13 +12,24 @@ const { NODE_ENV, PORT } = Zod.object({
   PORT: Zod.string(),
 }).parse(process.env);
 
-const peerClients: Set<Peer.IClient> = new Set();
-const knex = KnexModule(NODE_ENV);
-const logger = LoggerModule();
-const app = AppModule(logger);
-const server = app.listen(PORT);
-const peerServer = PeerServerModule();
+const peerClients: Set<Peer.Client> = new Set();
+const knex = KnexWrapper(NODE_ENV);
+const logger = PinoWrapper();
+const rootApplication = ExpressWrapper(logger);
+const server = HTTPServerWrapper(rootApplication, PORT);
 
+const peerApplication = PeerWrapper(server);
+
+rootApplication.use("/p", peerApplication);
 User.knex(knex);
 
-export { NODE_ENV, PORT, app, knex, logger, peerClients, peerServer, server };
+export {
+  NODE_ENV,
+  PORT,
+  knex,
+  logger,
+  peerApplication,
+  peerClients,
+  rootApplication,
+  server,
+};

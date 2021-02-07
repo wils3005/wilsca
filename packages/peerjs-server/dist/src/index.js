@@ -20,6 +20,7 @@ const https_1 = __importDefault(require("https"));
 const config_1 = __importDefault(require("./config"));
 const instance_1 = require("./instance");
 const http_1 = __importDefault(require("http"));
+const ws_1 = __importDefault(require("ws"));
 function ExpressPeerServer(server, options) {
     const app = express_1.default();
     const newOptions = Object.assign(Object.assign({}, config_1.default), options);
@@ -49,7 +50,8 @@ function PeerServer(options = {}, callback) {
     else {
         server = http_1.default.createServer(app);
     }
-    const peerjs = ExpressPeerServer(server, newOptions);
+    const wsServer = new ws_1.default.Server({ path: "/peerjs", server });
+    const peerjs = ExpressPeerServer(wsServer, newOptions);
     app.use(peerjs);
     server.listen(port, host, () => callback === null || callback === void 0 ? void 0 : callback(server));
     return peerjs;

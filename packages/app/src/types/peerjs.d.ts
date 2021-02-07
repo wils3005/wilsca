@@ -39,7 +39,7 @@ declare class Peer {
   /**
    * Set listeners for peer events.
    * @param event Event name
-   * @param cb Callback Function
+   * @param cb Callback (...args: unknown[]) => unknown
    */
   on(event: string, cb: () => void): void;
   /**
@@ -51,7 +51,7 @@ declare class Peer {
   /**
    * Emitted when a new data connection is established from a remote peer.
    * @param event Event name
-   * @param cb Callback Function
+   * @param cb Callback (...args: unknown[]) => unknown
    */
   on(
     event: "connection",
@@ -60,34 +60,34 @@ declare class Peer {
   /**
    * Emitted when a remote peer attempts to call you.
    * @param event Event name
-   * @param cb Callback Function
+   * @param cb Callback (...args: unknown[]) => unknown
    */
   on(event: "call", cb: (mediaConnection: Peer.MediaConnection) => void): void;
   /**
-   * Emitted when the peer is destroyed and can no longer accept or create any new connections.
+   * Emitted when the peer is destroyed and can no longer accept or create unknown new connections.
    * @param event Event name
-   * @param cb Callback Function
+   * @param cb Callback (...args: unknown[]) => unknown
    */
   on(event: "close", cb: () => void): void;
   /**
    * Emitted when the peer is disconnected from the signalling server
    * @param event Event name
-   * @param cb Callback Function
+   * @param cb Callback (...args: unknown[]) => unknown
    */
   on(event: "disconnected", cb: () => void): void;
   /**
    * Errors on the peer are almost always fatal and will destroy the peer.
    * @param event Event name
-   * @param cb Callback Function
+   * @param cb Callback (...args: unknown[]) => unknown
    */
-  on(event: "error", cb: (err: any) => void): void;
+  on(event: "error", cb: (err: unknown) => void): void;
   /**
    * Remove event listeners.(EventEmitter3)
    * @param {String} event The event we want to remove.
-   * @param {Function} fn The listener that we need to find.
+   * @param {(...args: unknown[]) => unknown} fn The listener that we need to find.
    * @param {Boolean} once Only remove once listeners.
    */
-  off(event: string, fn: Function, once?: boolean): void;
+  off(event: string, fn: (...args: unknown[]) => unknown, once?: boolean): void;
   /**
    * Close the connection to the server, leaving all existing data and media connections intact.
    */
@@ -123,7 +123,7 @@ declare class Peer {
   /**
    * A hash of all connections associated with this peer, keyed by the remote peer's ID.
    */
-  connections: any;
+  connections: unknown;
   /**
    * false if there is an active connection to the PeerServer.
    */
@@ -148,32 +148,36 @@ declare namespace Peer {
 
   interface PeerConnectOption {
     label?: string;
-    metadata?: any;
+    metadata?: unknown;
     serialization?: string;
     reliable?: boolean;
   }
 
   interface CallOption {
-    metadata?: any;
-    sdpTransform?: Function;
+    metadata?: unknown;
+    sdpTransform?: (...args: unknown[]) => unknown;
   }
 
   interface AnswerOption {
-    sdpTransform?: Function;
+    sdpTransform?: (...args: unknown[]) => unknown;
   }
 
   interface DataConnection {
-    send(data: any): void;
+    send(data: unknown): void;
     close(): void;
     on(event: string, cb: () => void): void;
-    on(event: "data", cb: (data: any) => void): void;
+    on(event: "data", cb: (data: unknown) => void): void;
     on(event: "open", cb: () => void): void;
     on(event: "close", cb: () => void): void;
-    on(event: "error", cb: (err: any) => void): void;
-    off(event: string, fn: Function, once?: boolean): void;
+    on(event: "error", cb: (err: unknown) => void): void;
+    off(
+      event: string,
+      fn: (...args: unknown[]) => unknown,
+      once?: boolean
+    ): void;
     dataChannel: RTCDataChannel;
     label: string;
-    metadata: any;
+    metadata: unknown;
     open: boolean;
     peerConnection: RTCPeerConnection;
     peer: string;
@@ -181,8 +185,8 @@ declare namespace Peer {
     serialization: string;
     type: string;
     bufferSize: number;
-    stringify: (data: any) => string;
-    parse: (data: string) => any;
+    stringify: (data: unknown) => string;
+    parse: (data: string) => unknown;
   }
 
   interface MediaConnection {
@@ -191,10 +195,14 @@ declare namespace Peer {
     on(event: string, cb: () => void): void;
     on(event: "stream", cb: (stream: MediaStream) => void): void;
     on(event: "close", cb: () => void): void;
-    on(event: "error", cb: (err: any) => void): void;
-    off(event: string, fn: Function, once?: boolean): void;
+    on(event: "error", cb: (err: unknown) => void): void;
+    off(
+      event: string,
+      fn: (...args: unknown[]) => unknown,
+      once?: boolean
+    ): void;
     open: boolean;
-    metadata: any;
+    metadata: unknown;
     peerConnection: RTCPeerConnection;
     peer: string;
     type: string;

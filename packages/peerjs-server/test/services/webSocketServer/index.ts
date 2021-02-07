@@ -6,11 +6,11 @@ import { Errors, MessageType } from "../../../src/enums";
 import { wait } from "../../utils";
 import HTTP from "http";
 
-type Destroyable<T> = T & { destroy?: () => Promise<void>; };
+type Destroyable<T> = T & { destroy?: () => Promise<void> };
 
 const checkOpen = async (c: WebSocket): Promise<boolean> => {
   return new Promise((resolve) => {
-    c.onmessage = (event: object & { data?: string; }): void => {
+    c.onmessage = (event: object & { data?: string }): void => {
       c.onmessage = null;
       const message = JSON.parse(event.data as string);
       resolve(message.type === MessageType.OPEN);
@@ -20,7 +20,7 @@ const checkOpen = async (c: WebSocket): Promise<boolean> => {
 
 const checkSequence = async (
   c: WebSocket,
-  msgs: { type: MessageType; error?: Errors; }[]
+  msgs: { type: MessageType; error?: Errors }[]
 ): Promise<boolean> => {
   return new Promise((resolve) => {
     const restMessages = [...msgs];
@@ -30,7 +30,7 @@ const checkSequence = async (
       resolve(success);
     };
 
-    c.onmessage = (event: object & { data?: string; }): void => {
+    c.onmessage = (event: object & { data?: string }): void => {
       const [mes] = restMessages;
 
       if (!mes) {
@@ -63,7 +63,7 @@ const createTestServer = ({
   url,
 }: {
   realm: Realm;
-  config: { path: string; key: string; concurrent_limit: number; };
+  config: { path: string; key: string; concurrent_limit: number };
   url: string;
 }): Destroyable<WebSocketServer> => {
   const server = (new Server(url) as unknown) as HTTP.Server;
@@ -103,7 +103,7 @@ const createTestServer = ({
         ]?.forEach((s: () => void) => s());
       };
 
-      socket.onmessage = (event: object & { data?: string; }): void => {
+      socket.onmessage = (event: object & { data?: string }): void => {
         const userId = socket.url
           .split("?")[1]
           ?.split("&")

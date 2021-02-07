@@ -7,7 +7,6 @@ import { Errors, MessageType } from "../../enums";
 import { Client, IClient } from "../../models/client";
 import { IRealm } from "../../models/realm";
 import { MyWebSocket } from "./webSocket";
-import HTTP from "http";
 
 export interface IWebSocketServer extends EventEmitter {
   readonly path: string;
@@ -34,7 +33,7 @@ export class WebSocketServer extends EventEmitter implements IWebSocketServer {
     realm,
     config,
   }: {
-    server: HTTP.Server;
+    server: WS.Server;
     realm: IRealm;
     config: CustomConfig;
   }) {
@@ -48,7 +47,8 @@ export class WebSocketServer extends EventEmitter implements IWebSocketServer {
     const path = this.config.path;
     this.path = `${path}${path.endsWith("/") ? "" : "/"}${WS_PATH}`;
 
-    this.socketServer = new WS.Server({ path: this.path, server });
+    // this.socketServer = new WS.Server({ path: this.path, server });
+    this.socketServer = server;
 
     this.socketServer.on("connection", (socket: MyWebSocket, req) =>
       this._onSocketConnection(socket, req)

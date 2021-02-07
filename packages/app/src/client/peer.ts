@@ -64,7 +64,7 @@ function onDisconnected(): void {
   console.info("peer.onDisconnected");
 }
 
-function onError(error: Error): void {
+function onError(error: unknown): void {
   console.error("peer.onError", { error });
 }
 

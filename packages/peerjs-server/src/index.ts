@@ -3,13 +3,14 @@ import https from "https";
 import defaultConfig, { IConfig } from "./config";
 import { createInstance } from "./instance";
 import HTTP from "http";
+import WS from "ws";
 
 type Optional<T> = {
   [P in keyof T]?: T[P] | undefined;
 };
 
 function ExpressPeerServer(
-  server: HTTP.Server,
+  server: WS.Server,
   options?: IConfig
 ): express.Express {
   const app = express();
@@ -64,7 +65,8 @@ function PeerServer(
     server = HTTP.createServer(app);
   }
 
-  const peerjs = ExpressPeerServer(server, newOptions);
+  const wsServer = new WS.Server({ path: "/peerjs", server });
+  const peerjs = ExpressPeerServer(wsServer, newOptions);
   app.use(peerjs);
 
   server.listen(port, host, () => callback?.(server));

@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.WebSocketServer = void 0;
 const events_1 = __importDefault(require("events"));
 const url_1 = __importDefault(require("url"));
-const ws_1 = __importDefault(require("ws"));
 const enums_1 = require("../../enums");
 const client_1 = require("../../models/client");
 const WS_PATH = "peerjs";
@@ -18,7 +17,8 @@ class WebSocketServer extends events_1.default {
         this.config = config;
         const path = this.config.path;
         this.path = `${path}${path.endsWith("/") ? "" : "/"}${WS_PATH}`;
-        this.socketServer = new ws_1.default.Server({ path: this.path, server });
+        // this.socketServer = new WS.Server({ path: this.path, server });
+        this.socketServer = server;
         this.socketServer.on("connection", (socket, req) => this._onSocketConnection(socket, req));
         this.socketServer.on("error", (error) => this._onSocketError(error));
     }

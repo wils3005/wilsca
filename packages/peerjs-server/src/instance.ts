@@ -9,8 +9,8 @@ import { IMessagesExpire, MessagesExpire } from "./services/messagesExpire";
 import { IWebSocketServer, WebSocketServer } from "./services/webSocketServer";
 import { MessageHandler } from "./messageHandler";
 import { Api } from "./api";
-import HTTP from "http";
 import { IConfig } from "./config";
+import WS from "ws";
 
 export const createInstance = ({
   app,
@@ -18,7 +18,7 @@ export const createInstance = ({
   options,
 }: {
   app: express.Application;
-  server: HTTP.Server;
+  server: WS.Server;
   options: IConfig;
 }): void => {
   const config = options;

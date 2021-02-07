@@ -2,7 +2,7 @@ function onClose(): void {
   console.log("MediaConnection.onClose");
 }
 
-function onError(error: Error): void {
+function onError(error: unknown): void {
   console.error("MediaConnection.onError", { error });
 }
 
