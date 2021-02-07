@@ -9,7 +9,11 @@ import { AuthMiddleware } from "./middleware/auth";
 import CallsApi from "./v1/calls";
 import PublicApi from "./v1/public";
 
-export const Api = ({ config, realm, messageHandler }: {
+export const Api = ({
+  config,
+  realm,
+  messageHandler,
+}: {
   config: IConfig;
   realm: IRealm;
   messageHandler: IMessageHandler;
@@ -27,7 +31,12 @@ export const Api = ({ config, realm, messageHandler }: {
   });
 
   app.use("/:key", PublicApi({ config, realm }));
-  app.use("/:key/:id/:token", authMiddleware.handle, jsonParser, CallsApi({ realm, messageHandler }));
+  app.use(
+    "/:key/:id/:token",
+    authMiddleware.handle,
+    jsonParser,
+    CallsApi({ realm, messageHandler })
+  );
 
   return app;
 };

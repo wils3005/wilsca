@@ -1,5 +1,4 @@
 import express from "express";
-import { Server } from "net";
 import path from "path";
 import { IClient } from "./models/client";
 import { IMessage } from "./models/message";
@@ -10,11 +9,16 @@ import { IMessagesExpire, MessagesExpire } from "./services/messagesExpire";
 import { IWebSocketServer, WebSocketServer } from "./services/webSocketServer";
 import { MessageHandler } from "./messageHandler";
 import { Api } from "./api";
+import HTTP from "http";
 import { IConfig } from "./config";
 
-export const createInstance = ({ app, server, options }: {
+export const createInstance = ({
+  app,
+  server,
+  options,
+}: {
   app: express.Application;
-  server: Server;
+  server: HTTP.Server;
   options: IConfig;
 }): void => {
   const config = options;
@@ -22,24 +26,31 @@ export const createInstance = ({ app, server, options }: {
   const messageHandler = new MessageHandler(realm);
 
   const api = Api({ config, realm, messageHandler });
-  const messagesExpire: IMessagesExpire = new MessagesExpire({ realm, config, messageHandler });
+  const messagesExpire: IMessagesExpire = new MessagesExpire({
+    realm,
+    config,
+    messageHandler,
+  });
   const checkBrokenConnections = new CheckBrokenConnections({
     realm,
     config,
-    onClose: client => {
+    onClose: (client): void => {
       app.emit("disconnect", client);
-    }
+    },
   });
 
   app.use(options.path, api);
 
   //use mountpath for WS server
-  const customConfig = { ...config, path: path.posix.join(app.path(), options.path, '/') };
+  const customConfig = {
+    ...config,
+    path: path.posix.join(app.path(), options.path, "/"),
+  };
 
   const wss: IWebSocketServer = new WebSocketServer({
     server,
     realm,
-    config: customConfig
+    config: customConfig,
   });
 
   wss.on("connection", (client: IClient) => {

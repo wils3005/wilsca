@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.MessagesExpire = void 0;
 const enums_1 = require("../../enums");
 class MessagesExpire {
-    constructor({ realm, config, messageHandler }) {
+    constructor({ realm, config, messageHandler, }) {
         this.timeoutId = null;
         this.realm = realm;
         this.config = config;
@@ -45,7 +45,7 @@ class MessagesExpire {
                     this.messageHandler.handle(undefined, {
                         type: enums_1.MessageType.EXPIRE,
                         src: message.dst,
-                        dst: message.src
+                        dst: message.src,
                     });
                     seen[seenKey] = true;
                 }

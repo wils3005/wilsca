@@ -5,10 +5,16 @@ import { IRealm } from "../../../models/realm";
 import { IMiddleware } from "../middleware";
 
 export class AuthMiddleware implements IMiddleware {
+  constructor(
+    private readonly config: IConfig,
+    private readonly realm: IRealm
+  ) {}
 
-  constructor(private readonly config: IConfig, private readonly realm: IRealm) { }
-
-  public handle = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  public handle = (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): unknown => {
     const { id, token, key } = req.params;
 
     if (key !== this.config.key) {
@@ -31,5 +37,4 @@ export class AuthMiddleware implements IMiddleware {
 
     next();
   };
-
 }

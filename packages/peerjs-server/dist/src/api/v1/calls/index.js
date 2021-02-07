@@ -4,7 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-exports.default = ({ realm, messageHandler }) => {
+exports.default = ({ realm, messageHandler, }) => {
     const app = express_1.default.Router();
     const handle = (req, res, next) => {
         const { id } = req.params;
@@ -19,7 +19,7 @@ exports.default = ({ realm, messageHandler }) => {
             type,
             src: id,
             dst,
-            payload
+            payload,
         };
         messageHandler.handle(client, message);
         res.sendStatus(200);

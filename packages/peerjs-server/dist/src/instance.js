@@ -11,26 +11,30 @@ const messagesExpire_1 = require("./services/messagesExpire");
 const webSocketServer_1 = require("./services/webSocketServer");
 const messageHandler_1 = require("./messageHandler");
 const api_1 = require("./api");
-const createInstance = ({ app, server, options }) => {
+const createInstance = ({ app, server, options, }) => {
     const config = options;
     const realm = new realm_1.Realm();
     const messageHandler = new messageHandler_1.MessageHandler(realm);
     const api = api_1.Api({ config, realm, messageHandler });
-    const messagesExpire = new messagesExpire_1.MessagesExpire({ realm, config, messageHandler });
+    const messagesExpire = new messagesExpire_1.MessagesExpire({
+        realm,
+        config,
+        messageHandler,
+    });
     const checkBrokenConnections = new checkBrokenConnections_1.CheckBrokenConnections({
         realm,
         config,
-        onClose: client => {
+        onClose: (client) => {
             app.emit("disconnect", client);
-        }
+        },
     });
     app.use(options.path, api);
     //use mountpath for WS server
-    const customConfig = Object.assign(Object.assign({}, config), { path: path_1.default.posix.join(app.path(), options.path, '/') });
+    const customConfig = Object.assign(Object.assign({}, config), { path: path_1.default.posix.join(app.path(), options.path, "/") });
     const wss = new webSocketServer_1.WebSocketServer({
         server,
         realm,
-        config: customConfig
+        config: customConfig,
     });
     wss.on("connection", (client) => {
         const messageQueue = realm.getMessageQueueById(client.getId());

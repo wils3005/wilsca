@@ -1,33 +1,34 @@
-import { expect } from 'chai';
-import http from 'http';
-import expectedJson from '../app.json';
-import { spawn } from 'child_process';
-import path from 'path';
+import { expect } from "chai";
+import http from "http";
+import expectedJson from "../app.json";
+import { spawn } from "child_process";
+import path from "path";
 
-const PORT = '9000';
+const PORT = "9000";
 
-async function makeRequest() {
+async function makeRequest(): Promise<object> {
   return new Promise<object>((resolve, reject) => {
-    http.get(`http://localhost:${PORT}/`, resp => {
-      let data = '';
+    http
+      .get(`http://localhost:${PORT}/`, (resp) => {
+        let data = "";
 
-      resp.on('data', chunk => {
-        data += chunk;
+        resp.on("data", (chunk) => {
+          data += chunk;
+        });
+
+        resp.on("end", () => {
+          resolve(JSON.parse(data));
+        });
+      })
+      .on("error", (err) => {
+        console.log("Error: " + err.message);
+        reject(err);
       });
-
-      resp.on('end', () => {
-        resolve(JSON.parse(data));
-      });
-
-    }).on("error", err => {
-      console.log("Error: " + err.message);
-      reject(err);
-    });
   });
 }
 
-describe('Check bin/peerjs', () => {
-  it('should return content of app.json file', async () => {
+describe("Check bin/peerjs", () => {
+  it("should return content of app.json file", async () => {
     let resolver: () => void;
     let rejecter: (err: Error) => void;
     const promise = new Promise<void>((resolve, reject) => {
@@ -35,10 +36,14 @@ describe('Check bin/peerjs', () => {
       rejecter = reject;
     });
 
-    const ls = spawn('node', [path.join(__dirname, '../', 'bin/peerjs'), '--port', PORT]);
+    const ls = spawn("node", [
+      path.join(__dirname, "../", "bin/peerjs"),
+      "--port",
+      PORT,
+    ]);
 
-    ls.stdout.on('data', async (data: string) => {
-      if (!data.includes('Started')) return;
+    ls.stdout.on("data", async (data: string) => {
+      if (!data.includes("Started")) return;
 
       try {
         const resp = await makeRequest();
@@ -47,7 +52,7 @@ describe('Check bin/peerjs', () => {
       } catch (error) {
         rejecter(error);
       } finally {
-        ls.kill('SIGINT');
+        ls.kill("SIGINT");
       }
     });
 

@@ -1,10 +1,10 @@
-import { expect } from 'chai';
-import { HandlersRegistry } from '../../src/messageHandler/handlersRegistry';
-import { Handler } from '../../src/messageHandler/handler';
-import { MessageType } from '../../src/enums';
+import { expect } from "chai";
+import { HandlersRegistry } from "../../src/messageHandler/handlersRegistry";
+import { Handler } from "../../src/messageHandler/handler";
+import { MessageType } from "../../src/enums";
 
-describe('HandlersRegistry', () => {
-  it('should execute handler for message type', () => {
+describe("HandlersRegistry", () => {
+  it("should execute handler for message type", () => {
     const handlersRegistry = new HandlersRegistry();
 
     let handled = false;
@@ -16,7 +16,11 @@ describe('HandlersRegistry', () => {
 
     handlersRegistry.registerHandler(MessageType.OPEN, handler);
 
-    handlersRegistry.handle(undefined, { type: MessageType.OPEN, src: 'src', dst: 'dst' });
+    handlersRegistry.handle(undefined, {
+      type: MessageType.OPEN,
+      src: "src",
+      dst: "dst",
+    });
 
     expect(handled).to.be.true;
   });

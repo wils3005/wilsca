@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.TransmissionHandler = void 0;
 const enums_1 = require("../../../enums");
-const TransmissionHandler = ({ realm }) => {
+const TransmissionHandler = ({ realm, }) => {
     const handle = (client, message) => {
         const type = message.type;
         const srcId = message.src;
@@ -34,7 +34,7 @@ const TransmissionHandler = ({ realm }) => {
                 handle(client, {
                     type: enums_1.MessageType.LEAVE,
                     src: dstId,
-                    dst: srcId
+                    dst: srcId,
                 });
             }
         }

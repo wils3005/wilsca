@@ -1,49 +1,49 @@
-import { expect } from 'chai';
-import { Realm } from '../../src/models/realm';
-import { Client } from '../../src/models/client';
+import { expect } from "chai";
+import { Realm } from "../../src/models/realm";
+import { Client } from "../../src/models/client";
 
-describe('Realm', () => {
-  describe('#generateClientId', () => {
-    it('should generate a 36-character UUID, or return function value', () => {
+describe("Realm", () => {
+  describe("#generateClientId", () => {
+    it("should generate a 36-character UUID, or return function value", () => {
       const realm = new Realm();
       expect(realm.generateClientId().length).to.eq(36);
-      expect(realm.generateClientId(() => 'abcd')).to.eq('abcd');
+      expect(realm.generateClientId(() => "abcd")).to.eq("abcd");
     });
   });
 
-  describe('#setClient', () => {
-    it('should add client to realm', () => {
+  describe("#setClient", () => {
+    it("should add client to realm", () => {
       const realm = new Realm();
-      const client = new Client({ id: 'id', token: '' });
+      const client = new Client({ id: "id", token: "" });
 
-      realm.setClient(client, 'id');
-      expect(realm.getClientsIds()).to.deep.eq(['id']);
+      realm.setClient(client, "id");
+      expect(realm.getClientsIds()).to.deep.eq(["id"]);
     });
   });
 
-  describe('#removeClientById', () => {
-    it('should remove client from realm', () => {
+  describe("#removeClientById", () => {
+    it("should remove client from realm", () => {
       const realm = new Realm();
-      const client = new Client({ id: 'id', token: '' });
+      const client = new Client({ id: "id", token: "" });
 
-      realm.setClient(client, 'id');
-      realm.removeClientById('id');
+      realm.setClient(client, "id");
+      realm.removeClientById("id");
 
-      expect(realm.getClientById('id')).to.be.undefined;
+      expect(realm.getClientById("id")).to.be.undefined;
     });
   });
 
-  describe('#getClientsIds', () => {
-    it('should reflects on add/remove childs', () => {
+  describe("#getClientsIds", () => {
+    it("should reflects on add/remove childs", () => {
       const realm = new Realm();
-      const client = new Client({ id: 'id', token: '' });
+      const client = new Client({ id: "id", token: "" });
 
-      realm.setClient(client, 'id');
-      expect(realm.getClientsIds()).to.deep.eq(['id']);
+      realm.setClient(client, "id");
+      expect(realm.getClientsIds()).to.deep.eq(["id"]);
 
-      expect(realm.getClientById('id')).to.eq(client);
+      expect(realm.getClientById("id")).to.eq(client);
 
-      realm.removeClientById('id');
+      realm.removeClientById("id");
       expect(realm.getClientsIds()).to.deep.eq([]);
     });
   });

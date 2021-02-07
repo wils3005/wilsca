@@ -8,7 +8,7 @@ export interface IMessagesExpire {
   stopMessagesExpiration(): void;
 }
 
-type CustomConfig = Pick<IConfig, 'cleanup_out_msgs' | 'expire_timeout'>;
+type CustomConfig = Pick<IConfig, "cleanup_out_msgs" | "expire_timeout">;
 
 export class MessagesExpire implements IMessagesExpire {
   private readonly realm: IRealm;
@@ -17,7 +17,11 @@ export class MessagesExpire implements IMessagesExpire {
 
   private timeoutId: NodeJS.Timeout | null = null;
 
-  constructor({ realm, config, messageHandler }: {
+  constructor({
+    realm,
+    config,
+    messageHandler,
+  }: {
     realm: IRealm;
     config: CustomConfig;
     messageHandler: IMessageHandler;
@@ -75,7 +79,7 @@ export class MessagesExpire implements IMessagesExpire {
           this.messageHandler.handle(undefined, {
             type: MessageType.EXPIRE,
             src: message.dst,
-            dst: message.src
+            dst: message.src,
           });
 
           seen[seenKey] = true;

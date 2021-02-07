@@ -2,13 +2,13 @@
 /// <reference types="node" />
 import { Server } from "net";
 import { EventEmitter } from "events";
-import WebSocketLib from "ws";
+import WS from "ws";
 import Express from "express";
 
-declare type MyWebSocket = WebSocketLib & EventEmitter;
+declare type MyWebSocket = WS & EventEmitter;
 
 declare type Optional<T> = {
-  [P in keyof T]?: (T[P] | undefined);
+  [P in keyof T]?: T[P] | undefined;
 };
 
 declare interface IConfig {
@@ -47,7 +47,7 @@ declare enum MessageType {
   EXPIRE = "EXPIRE",
   HEARTBEAT = "HEARTBEAT",
   ID_TAKEN = "ID-TAKEN",
-  ERROR = "ERROR"
+  ERROR = "ERROR",
 }
 
 declare interface IMessage {
@@ -59,13 +59,22 @@ declare interface IMessage {
 
 declare interface CustomExpress extends Express.Express {
   on(event: string, callback: (...args: any[]) => void): this;
-  on(event: 'connection', callback: (client: IClient) => void): this;
-  on(event: 'disconnect', callback: (client: IClient) => void): this;
-  on(event: 'message', callback: (client: IClient, message: IMessage) => void): this;
-  on(event: 'error', callback: (error: Error) => void): this;
+  on(event: "connection", callback: (client: IClient) => void): this;
+  on(event: "disconnect", callback: (client: IClient) => void): this;
+  on(
+    event: "message",
+    callback: (client: IClient, message: IMessage) => void
+  ): this;
+  on(event: "error", callback: (error: Error) => void): this;
 }
 
-declare function ExpressPeerServer(server: Server, options?: IConfig): CustomExpress;
-declare function PeerServer(options?: Optional<IConfig>, callback?: (server: Server) => void): CustomExpress;
+declare function ExpressPeerServer(
+  server: Server,
+  options?: IConfig
+): CustomExpress;
+declare function PeerServer(
+  options?: Optional<IConfig>,
+  callback?: (server: Server) => void
+): CustomExpress;
 
 export { ExpressPeerServer, PeerServer };

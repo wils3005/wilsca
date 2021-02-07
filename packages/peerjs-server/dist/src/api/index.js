@@ -11,7 +11,7 @@ const app_json_1 = __importDefault(require("../../app.json"));
 const auth_1 = require("./middleware/auth");
 const calls_1 = __importDefault(require("./v1/calls"));
 const public_1 = __importDefault(require("./v1/public"));
-const Api = ({ config, realm, messageHandler }) => {
+const Api = ({ config, realm, messageHandler, }) => {
     const authMiddleware = new auth_1.AuthMiddleware(config, realm);
     const app = express_1.default.Router();
     const jsonParser = body_parser_1.default.json();

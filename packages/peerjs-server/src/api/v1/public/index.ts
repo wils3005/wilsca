@@ -2,8 +2,12 @@ import express from "express";
 import { IConfig } from "../../../config";
 import { IRealm } from "../../../models/realm";
 
-export default ({ config, realm }: {
-  config: IConfig; realm: IRealm;
+export default ({
+  config,
+  realm,
+}: {
+  config: IConfig;
+  realm: IRealm;
 }): express.Router => {
   const app = express.Router();
 

@@ -16,10 +16,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PeerServer = exports.ExpressPeerServer = void 0;
 const express_1 = __importDefault(require("express"));
-const http_1 = __importDefault(require("http"));
 const https_1 = __importDefault(require("https"));
 const config_1 = __importDefault(require("./config"));
 const instance_1 = require("./instance");
+const http_1 = __importDefault(require("http"));
 function ExpressPeerServer(server, options) {
     const app = express_1.default();
     const newOptions = Object.assign(Object.assign({}, config_1.default), options);
@@ -28,8 +28,7 @@ function ExpressPeerServer(server, options) {
     }
     app.on("mount", () => {
         if (!server) {
-            throw new Error("Server is not passed to constructor - " +
-                "can't start PeerServer");
+            throw new Error("Server is not passed to constructor - " + "can't start PeerServer");
         }
         instance_1.createInstance({ app, server, options: newOptions });
     });
