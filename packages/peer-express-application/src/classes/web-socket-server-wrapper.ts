@@ -1,13 +1,13 @@
 import * as Zod from "zod";
-import Client from "client";
+import Client from "classes/client";
 import Config from "schemas/config";
-import Errors from "errors";
+import Errors from "enums/errors";
 import Events from "events";
 import HTTP from "http";
 import JSONObject from "schemas/json-object";
-import MessageType from "message-type";
+import MessageType from "enums/message-type";
 import { MyWebSocket } from "types";
-import Realm from "realm";
+import Realm from "classes/realm";
 import URL from "url";
 import WS from "ws";
 

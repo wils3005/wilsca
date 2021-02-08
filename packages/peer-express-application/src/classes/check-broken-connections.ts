@@ -1,9 +1,9 @@
-import Client from "client";
-import Realm from "realm";
+import Client from "classes/client";
+import Realm from "classes/realm";
 
 const DEFAULT_CHECK_INTERVAL = 300;
 
-export class CheckBrokenConnections {
+class CheckBrokenConnections {
   public readonly checkInterval: number;
   private timeoutId: NodeJS.Timeout | null = null;
   private readonly realm: Realm;
@@ -63,3 +63,5 @@ export class CheckBrokenConnections {
     }
   }
 }
+
+export default CheckBrokenConnections;

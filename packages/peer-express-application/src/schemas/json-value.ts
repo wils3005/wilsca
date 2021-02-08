@@ -1,17 +1,17 @@
 import * as Zod from "zod";
 
-type JSSONValue =
-  | { [index: string]: JSSONValue }
-  | JSSONValue[]
+type JSONValue =
+  | { [index: string]: JSONValue }
+  | JSONValue[]
   | boolean
   | null
   | number
   | string;
 
-const JSSONValue: Zod.ZodSchema<JSSONValue> = Zod.lazy(() => {
+const JSONValue: Zod.ZodSchema<JSONValue> = Zod.lazy(() => {
   return Zod.union([
-    Zod.record(JSSONValue),
-    Zod.array(JSSONValue),
+    Zod.record(JSONValue),
+    Zod.array(JSONValue),
     Zod.boolean(),
     Zod.null(),
     Zod.number(),
@@ -19,4 +19,4 @@ const JSSONValue: Zod.ZodSchema<JSSONValue> = Zod.lazy(() => {
   ]);
 });
 
-export default JSSONValue;
+export default JSONValue;

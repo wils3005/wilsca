@@ -1,8 +1,8 @@
-import MessageHandler from "message-handler";
-import MessageType from "message-type";
-import Realm from "realm";
+import MessageHandler from "classes/message-handler";
+import MessageType from "enums/message-type";
+import Realm from "classes/realm";
 
-export class MessagesExpire {
+class MessagesExpire {
   private readonly realm: Realm;
   private readonly messageHandler: MessageHandler;
   private readonly cleanupOutMessages: number;
@@ -53,11 +53,9 @@ export class MessagesExpire {
 
     for (const destinationClientId of destinationClientsIds) {
       const messageQueue = this.realm.getMessageQueueById(destinationClientId);
-
       if (!messageQueue) continue;
 
       const lastReadDiff = now - messageQueue.getLastReadAt();
-
       if (lastReadDiff < maxDiff) continue;
 
       const messages = messageQueue.getMessages();
@@ -80,3 +78,5 @@ export class MessagesExpire {
     }
   }
 }
+
+export default MessagesExpire;

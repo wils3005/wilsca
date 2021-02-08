@@ -1,5 +1,5 @@
 import * as Zod from "zod";
-import MessageType from "message-type";
+import MessageType from "enums/message-type";
 
 const ClientMessage = Zod.object({
   dst: Zod.string(),

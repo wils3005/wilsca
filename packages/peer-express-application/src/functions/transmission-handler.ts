@@ -1,7 +1,7 @@
-import Client from "client";
+import Client from "classes/client";
 import ClientMessage from "schemas/client-message";
-import MessageType from "message-type";
-import Realm from "realm";
+import MessageType from "enums/message-type";
+import Realm from "classes/realm";
 
 function main({
   realm,

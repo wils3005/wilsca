@@ -1,6 +1,6 @@
-import Errors from "errors";
+import Errors from "enums/errors";
 import Express from "express";
-import Realm from "realm";
+import Realm from "classes/realm";
 
 class AuthMiddleware {
   constructor(private readonly realm: Realm, private readonly key: string) {
