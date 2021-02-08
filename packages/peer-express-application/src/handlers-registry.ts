@@ -1,5 +1,5 @@
 import Client from "client";
-import ClientMessage from "client-message";
+import ClientMessage from "schemas/client-message";
 import { Handler } from "types";
 import MessageType from "message-type";
 

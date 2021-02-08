@@ -1,7 +1,7 @@
 import API from "api";
 import { CheckBrokenConnections } from "check-broken-connections";
 import Client from "client";
-import ClientMessage from "client-message";
+import ClientMessage from "schemas/client-message";
 import Config from "schemas/config";
 import Express from "express";
 import MessageHandler from "message-handler";
@@ -61,19 +61,23 @@ function main(
       realm.clearMessageQueue(client.getId());
     }
 
+    // TODO
     app.emit("connection", client);
   });
 
   wss.on("message", (client: Client, message: ClientMessage) => {
+    // TODO
     app.emit("message", client, message);
     messageHandler.handle(client, message);
   });
 
   wss.on("close", (client: Client) => {
+    // TODO
     app.emit("disconnect", client);
   });
 
   wss.on("error", (error: Error) => {
+    // TODO
     app.emit("error", error);
   });
 

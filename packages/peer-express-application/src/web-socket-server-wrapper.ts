@@ -4,7 +4,7 @@ import Config from "schemas/config";
 import Errors from "errors";
 import Events from "events";
 import HTTP from "http";
-import JSONObject from "json-object";
+import JSONObject from "schemas/json-object";
 import MessageType from "message-type";
 import { MyWebSocket } from "types";
 import Realm from "realm";

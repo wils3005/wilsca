@@ -1,5 +1,5 @@
 import Client from "client";
-import ClientMessage from "client-message";
+import ClientMessage from "schemas/client-message";
 import EventEmitter from "events";
 import Express from "express";
 import WS from "ws";
