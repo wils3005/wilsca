@@ -1,5 +1,6 @@
 import Client from "models/client";
 import ClientMessage from "schemas/client-message";
+import Express from "express";
 
 interface Config {
   host: string;
@@ -29,4 +30,15 @@ interface IAuthParams {
   key?: string;
 }
 
-export { Config, Handler, IAuthParams };
+interface PeerExpressApplication extends Express.Express {
+  on(event: string, callback: (...args: Express.Express[]) => void): this;
+  on(event: "connection", callback: (client: Client) => void): this;
+  on(event: "disconnect", callback: (client: Client) => void): this;
+  on(
+    event: "message",
+    callback: (client: Client, message: ClientMessage) => void
+  ): this;
+  on(event: "error", callback: (error: Error) => void): this;
+}
+
+export { Config, Handler, IAuthParams, PeerExpressApplication };

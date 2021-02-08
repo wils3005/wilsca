@@ -3,10 +3,7 @@ import CreateInstance from "create-instance";
 import Express from "express";
 import WS from "ws";
 
-function PeerExpressApplication(
-  server: WS.Server,
-  options?: Config
-): Express.Express {
+function main(server: WS.Server, options?: Config): Express.Express {
   const app = Express();
 
   const newOptions: Config = {
@@ -43,4 +40,4 @@ function PeerExpressApplication(
   return app;
 }
 
-export default PeerExpressApplication;
+export default main;

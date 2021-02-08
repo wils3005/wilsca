@@ -3,7 +3,7 @@ dependencies:
   express-pino-logger: 6.0.0
   knex: 0.21.17_sqlite3@5.0.1
   objection: 2.2.14_knex@0.21.17
-  peer: link:../peerjs-server
+  peer-express-application: link:../peer-express-application
   pino: 6.11.0
   sqlite3: 5.0.1
   ws: 7.4.3
@@ -4332,7 +4332,7 @@ specifiers:
   express-pino-logger: ^6.0.0
   knex: ^0.21.17
   objection: ^2.2.14
-  peer: ../peerjs-server
+  peer-express-application: ../peer-express-application
   pino: ^6.11.0
   pino-pretty: ^4.5.0
   pnpm: ^5.16.0
