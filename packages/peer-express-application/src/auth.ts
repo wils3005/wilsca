@@ -1,10 +1,12 @@
-import { Config } from "types";
 import Errors from "errors";
 import Express from "express";
 import Realm from "realm";
 
 class AuthMiddleware {
-  constructor(private readonly config: Config, private readonly realm: Realm) {}
+  constructor(private readonly realm: Realm, private readonly key: string) {
+    this.realm = realm;
+    this.key = key;
+  }
 
   public handle = (
     req: Express.Request,
@@ -13,7 +15,7 @@ class AuthMiddleware {
   ): unknown => {
     const { id, token, key } = req.params;
 
-    if (key !== this.config.key) {
+    if (key !== this.key) {
       return res.status(401).send(Errors.INVALID_KEY);
     }
 

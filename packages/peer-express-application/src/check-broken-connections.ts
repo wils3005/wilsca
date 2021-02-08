@@ -1,33 +1,20 @@
 import Client from "client";
-import { Config } from "types";
 import Realm from "realm";
 
 const DEFAULT_CHECK_INTERVAL = 300;
-
-type CustomConfig = Pick<Config, "alive_timeout">;
 
 export class CheckBrokenConnections {
   public readonly checkInterval: number;
   private timeoutId: NodeJS.Timeout | null = null;
   private readonly realm: Realm;
-  private readonly config: CustomConfig;
+  private readonly aliveTimeout: number;
   private readonly onClose?: (client: Client) => void;
 
-  constructor({
-    realm,
-    config,
-    checkInterval = DEFAULT_CHECK_INTERVAL,
-    onClose,
-  }: {
-    realm: Realm;
-    config: CustomConfig;
-    checkInterval?: number;
-    onClose?: (client: Client) => void;
-  }) {
+  constructor(realm: Realm, onClose: (client: Client) => void) {
     this.realm = realm;
-    this.config = config;
+    this.aliveTimeout = 60000;
     this.onClose = onClose;
-    this.checkInterval = checkInterval;
+    this.checkInterval = DEFAULT_CHECK_INTERVAL;
   }
 
   public start(): void {
@@ -55,16 +42,13 @@ export class CheckBrokenConnections {
     const clientsIds = this.realm.getClientsIds();
 
     const now = new Date().getTime();
-    const { alive_timeout: aliveTimeout } = this.config;
 
     for (const clientId of clientsIds) {
       const client = this.realm.getClientById(clientId);
-
       if (!client) continue;
 
       const timeSinceLastPing = now - client.getLastPing();
-
-      if (timeSinceLastPing < aliveTimeout) continue;
+      if (timeSinceLastPing < this.aliveTimeout) continue;
 
       try {
         client.getSocket()?.close();

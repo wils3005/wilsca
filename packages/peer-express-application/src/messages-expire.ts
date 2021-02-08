@@ -1,26 +1,23 @@
-import { Config } from "types";
 import MessageHandler from "message-handler";
 import MessageType from "message-type";
 import Realm from "realm";
 
 export class MessagesExpire {
   private readonly realm: Realm;
-  private readonly config: Config;
   private readonly messageHandler: MessageHandler;
-
+  private readonly cleanupOutMessages: number;
+  private readonly expireTimeout: number;
   private timeoutId: NodeJS.Timeout | null = null;
 
-  constructor({
-    realm,
-    config,
-    messageHandler,
-  }: {
-    realm: Realm;
-    config: Config;
-    messageHandler: MessageHandler;
-  }) {
+  constructor(
+    realm: Realm,
+    cleanupOutMessages: number,
+    expireTimeout: number,
+    messageHandler: MessageHandler
+  ) {
     this.realm = realm;
-    this.config = config;
+    this.cleanupOutMessages = cleanupOutMessages;
+    this.expireTimeout = expireTimeout;
     this.messageHandler = messageHandler;
   }
 
@@ -36,7 +33,7 @@ export class MessagesExpire {
       this.timeoutId = null;
 
       this.startMessagesExpiration();
-    }, this.config.cleanup_out_msgs);
+    }, this.cleanupOutMessages);
   }
 
   public stopMessagesExpiration(): void {
@@ -50,7 +47,7 @@ export class MessagesExpire {
     const destinationClientsIds = this.realm.getClientsIdsWithQueue();
 
     const now = new Date().getTime();
-    const maxDiff = this.config.expire_timeout;
+    const maxDiff = this.expireTimeout;
 
     const seen: Record<string, boolean> = {};
 

@@ -1,4 +1,4 @@
-import { Config } from "types";
+import Config from "schemas/config";
 import CreateInstance from "create-instance";
 import Express from "express";
 import WS from "ws";
@@ -6,19 +6,19 @@ import WS from "ws";
 function main(server: WS.Server, options?: Config): Express.Express {
   const app = Express();
 
-  const newOptions: Config = {
+  const newOptions = Config.parse({
     host: "::",
     port: 9000,
-    expire_timeout: 5000,
-    alive_timeout: 60000,
+    expireTimeout: 5000,
+    aliveTimeout: 60000,
     key: "peerjs",
     path: "/",
-    concurrent_limit: 5000,
-    allow_discovery: false,
+    concurrentLimit: 5000,
+    allowDiscovery: false,
     proxied: false,
-    cleanup_out_msgs: 1000,
+    cleanupOutMessages: 1000,
     ...options,
-  };
+  });
 
   if (newOptions.proxied) {
     app.set(
@@ -34,7 +34,7 @@ function main(server: WS.Server, options?: Config): Express.Express {
       );
     }
 
-    CreateInstance({ app, server, options: newOptions });
+    CreateInstance(app, server, newOptions);
   });
 
   return app;

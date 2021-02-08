@@ -2,43 +2,38 @@ import API from "api";
 import { CheckBrokenConnections } from "check-broken-connections";
 import Client from "client";
 import ClientMessage from "client-message";
-import { Config } from "types";
+import Config from "schemas/config";
 import Express from "express";
 import MessageHandler from "message-handler";
 import { MessagesExpire } from "messages-expire";
 import Path from "path";
 import Realm from "realm";
 import WS from "ws";
-import WebSocketServer from "web-socket-server";
+import WebSocketServerWrapper from "web-socket-server-wrapper";
 
-function main({
-  app,
-  server,
-  options,
-}: {
-  app: Express.Application;
-  server: WS.Server;
-  options: Config;
-}): void {
-  const config = options;
+function main(
+  app: Express.Application,
+  server: WS.Server,
+  options: Config
+): void {
+  const config = Config.parse(options);
   const realm: Realm = new Realm();
   const messageHandler = new MessageHandler(realm);
-
-  const api = API({ config, realm, messageHandler });
-
-  const messagesExpire = new MessagesExpire({
+  const api = API(realm, config, messageHandler);
+  const { cleanupOutMessages, expireTimeout } = config;
+  const messagesExpire = new MessagesExpire(
     realm,
-    config,
-    messageHandler,
-  });
+    cleanupOutMessages,
+    expireTimeout,
+    messageHandler
+  );
 
-  const checkBrokenConnections = new CheckBrokenConnections({
+  const checkBrokenConnections = new CheckBrokenConnections(
     realm,
-    config,
-    onClose: (client): void => {
+    (client): void => {
       app.emit("disconnect", client);
-    },
-  });
+    }
+  );
 
   app.use(options.path, api);
 
@@ -48,7 +43,7 @@ function main({
     path: Path.posix.join(app.path(), options.path, "/"),
   };
 
-  const wss = new WebSocketServer({
+  const wss = new WebSocketServerWrapper({
     server,
     realm,
     config: customConfig,
