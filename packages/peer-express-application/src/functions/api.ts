@@ -23,7 +23,7 @@ function main(
     "/:key/:id/:token",
     authMiddleware.handle,
     jsonParser,
-    CallsApi({ realm, messageHandler })
+    CallsApi(realm, messageHandler)
   );
 
   return app;
