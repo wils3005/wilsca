@@ -1,14 +1,14 @@
-import AuthMiddleware from "api/auth";
-import CallsApi from "api/calls";
-import { Config } from "interfaces";
+import AuthMiddleware from "auth";
+import CallsApi from "calls";
+import { Config } from "types";
 import MessageHandler from "message-handler";
-import PublicApi from "api/public";
-import Realm from "models/realm";
+import PublicApi from "public";
+import Realm from "realm";
 import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
 
-export const Api = ({
+function main({
   config,
   realm,
   messageHandler,
@@ -16,7 +16,7 @@ export const Api = ({
   config: Config;
   realm: Realm;
   messageHandler: MessageHandler;
-}): express.Router => {
+}): express.Router {
   const authMiddleware = new AuthMiddleware(config, realm);
 
   const app = express.Router();
@@ -34,4 +34,6 @@ export const Api = ({
   );
 
   return app;
-};
+}
+
+export default main;

@@ -1,6 +1,6 @@
-import { Config } from "interfaces";
+import { Config } from "types";
 import Express from "express";
-import Realm from "models/realm";
+import Realm from "realm";
 
 function main({
   config,

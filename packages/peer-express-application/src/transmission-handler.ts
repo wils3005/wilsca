@@ -1,7 +1,7 @@
-import Client from "models/client";
-import ClientMessage from "schemas/client-message";
-import MessageType from "schemas/message-type";
-import Realm from "models/realm";
+import Client from "client";
+import ClientMessage from "client-message";
+import MessageType from "message-type";
+import Realm from "realm";
 
 function main({
   realm,
@@ -41,7 +41,7 @@ function main({
         }
 
         handle(client, {
-          type: MessageType.enum.LEAVE,
+          type: MessageType.LEAVE,
           src: dstId,
           dst: srcId,
         });
@@ -49,11 +49,11 @@ function main({
     } else {
       // Wait for this client to connect/reconnect (XHR) for important
       // messages.
-      const ignoredTypes = [MessageType.enum.LEAVE, MessageType.enum.EXPIRE];
+      const ignoredTypes = [MessageType.LEAVE, MessageType.EXPIRE];
 
       if (!ignoredTypes.includes(type) && dstId) {
         realm.addMessageToQueue(dstId, message);
-      } else if (type === MessageType.enum.LEAVE && !dstId) {
+      } else if (type === MessageType.LEAVE && !dstId) {
         realm.removeClientById(srcId);
       } else {
         // Unavailable destination specified with message LEAVE or EXPIRE

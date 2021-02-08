@@ -1,7 +1,7 @@
-import Client from "models/client";
-import ClientMessage from "schemas/client-message";
-import { Handler } from "interfaces";
-import MessageType from "schemas/message-type";
+import Client from "client";
+import ClientMessage from "client-message";
+import { Handler } from "types";
+import MessageType from "message-type";
 
 class HandlersRegistry {
   private readonly handlers = new Map<MessageType, Handler>();

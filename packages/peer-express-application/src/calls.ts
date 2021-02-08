@@ -1,7 +1,7 @@
-import ClientMessage from "schemas/client-message";
+import ClientMessage from "client-message";
 import Express from "express";
 import MessageHandler from "message-handler";
-import Realm from "models/realm";
+import Realm from "realm";
 
 function main({
   realm,

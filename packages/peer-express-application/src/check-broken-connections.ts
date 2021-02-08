@@ -1,6 +1,6 @@
-import Client from "models/client";
-import { Config } from "interfaces";
-import Realm from "models/realm";
+import Client from "client";
+import { Config } from "types";
+import Realm from "realm";
 
 const DEFAULT_CHECK_INTERVAL = 300;
 

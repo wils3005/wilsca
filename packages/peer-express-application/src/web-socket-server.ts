@@ -1,12 +1,11 @@
-import { Config, IAuthParams } from "interfaces";
-import Client from "models/client";
-import { Errors } from "enums";
+import { Config, IAuthParams, MyWebSocket } from "types";
+import Client from "client";
+import Errors from "errors";
 import Events from "events";
 import { IncomingMessage } from "http";
-import JSONObject from "schemas/json-object";
-import MessageType from "schemas/message-type";
-import { MyWebSocket } from "services/web-socket";
-import Realm from "models/realm";
+import JSONObject from "json-object";
+import MessageType from "message-type";
+import Realm from "realm";
 import WS from "ws";
 import url from "url";
 
@@ -68,7 +67,7 @@ class WebSocketServer extends Events.EventEmitter {
         // ID-taken, invalid token
         socket.send(
           JSON.stringify({
-            type: MessageType.enum.ID_TAKEN,
+            type: MessageType.ID_TAKEN,
             payload: { msg: "ID is taken" },
           })
         );
@@ -105,7 +104,7 @@ class WebSocketServer extends Events.EventEmitter {
 
     const newClient: Client = new Client({ id, token });
     this.realm.setClient(newClient, id);
-    socket.send(JSON.stringify({ type: MessageType.enum.OPEN }));
+    socket.send(JSON.stringify({ type: MessageType.OPEN }));
 
     this._configureWS(socket, newClient);
   }
@@ -139,7 +138,7 @@ class WebSocketServer extends Events.EventEmitter {
   private _sendErrorAndClose(socket: MyWebSocket, msg: Errors): void {
     socket.send(
       JSON.stringify({
-        type: MessageType.enum.ERROR,
+        type: MessageType.ERROR,
         payload: { msg },
       })
     );

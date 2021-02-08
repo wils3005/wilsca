@@ -1,6 +1,8 @@
-import Client from "models/client";
-import ClientMessage from "schemas/client-message";
+import Client from "client";
+import ClientMessage from "client-message";
+import EventEmitter from "events";
 import Express from "express";
+import WS from "ws";
 
 interface Config {
   host: string;
@@ -41,4 +43,6 @@ interface PeerExpressApplication extends Express.Express {
   on(event: "error", callback: (error: Error) => void): this;
 }
 
-export { Config, Handler, IAuthParams, PeerExpressApplication };
+type MyWebSocket = WS & EventEmitter;
+
+export { Config, Handler, IAuthParams, MyWebSocket, PeerExpressApplication };

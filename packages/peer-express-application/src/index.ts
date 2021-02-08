@@ -1,4 +1,4 @@
-import { Config } from "interfaces";
+import { Config } from "types";
 import CreateInstance from "create-instance";
 import Express from "express";
 import WS from "ws";

@@ -1,7 +1,7 @@
-import { Config } from "interfaces";
+import { Config } from "types";
 import MessageHandler from "message-handler";
-import MessageType from "schemas/message-type";
-import Realm from "models/realm";
+import MessageType from "message-type";
+import Realm from "realm";
 
 export class MessagesExpire {
   private readonly realm: Realm;
@@ -70,7 +70,7 @@ export class MessagesExpire {
 
         if (!seen[seenKey]) {
           this.messageHandler.handle(undefined, {
-            type: MessageType.enum.EXPIRE,
+            type: MessageType.EXPIRE,
             src: message.dst,
             dst: message.src,
           });

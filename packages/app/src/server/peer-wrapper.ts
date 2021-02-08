@@ -5,7 +5,7 @@ import Express from "express";
 import PeerExpressApplication from "peer-express-application";
 import WS from "ws";
 
-function main(server: WS.Server): Express.Express {
+function main(server: WS.Server): unknown {
   const peer = PeerExpressApplication(server, {
     allow_discovery: true,
     path: "/",

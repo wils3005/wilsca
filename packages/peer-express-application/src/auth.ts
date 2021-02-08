@@ -1,7 +1,7 @@
-import { Config } from "interfaces";
-import { Errors } from "enums";
+import { Config } from "types";
+import Errors from "errors";
 import Express from "express";
-import Realm from "models/realm";
+import Realm from "realm";
 
 class AuthMiddleware {
   constructor(private readonly config: Config, private readonly realm: Realm) {}

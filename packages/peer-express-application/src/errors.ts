@@ -5,4 +5,4 @@ enum Errors {
   CONNECTION_LIMIT_EXCEED = "Server has reached its concurrent user limit",
 }
 
-export { Errors };
+export default Errors;

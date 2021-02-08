@@ -1,4 +1,4 @@
-import Client from "models/client";
+import Client from "client";
 
 function main(client: Client | undefined): boolean {
   if (client) {
