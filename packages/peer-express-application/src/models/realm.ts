@@ -1,9 +1,9 @@
 import * as UUID from "uuid";
-import { ClientMessage, IRealm } from "interfaces";
 import Client from "models/client";
+import ClientMessage from "schemas/client-message";
 import MessageQueue from "models/message-queue";
 
-export class Realm implements IRealm {
+class Realm {
   private readonly clients = new Map<string, Client>();
   private readonly messageQueues = new Map<string, MessageQueue>();
 
@@ -61,3 +61,5 @@ export class Realm implements IRealm {
     return clientId;
   }
 }
+
+export default Realm;

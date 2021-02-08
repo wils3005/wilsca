@@ -1,10 +1,12 @@
-import { Config, IAuthParams, IRealm } from "interfaces";
-import { Errors, MessageType } from "enums";
+import { Config, IAuthParams } from "interfaces";
 import Client from "models/client";
+import { Errors } from "enums";
 import Events from "events";
 import { IncomingMessage } from "http";
-import JSONSchema from "json-schema";
-import { MyWebSocket } from "services/webSocketServer/webSocket";
+import JSONObject from "schemas/json-object";
+import MessageType from "schemas/message-type";
+import { MyWebSocket } from "services/web-socket";
+import Realm from "models/realm";
 import WS from "ws";
 import url from "url";
 
@@ -14,7 +16,7 @@ const WS_PATH = "peerjs";
 
 class WebSocketServer extends Events.EventEmitter {
   public readonly path: string;
-  private readonly realm: IRealm;
+  private readonly realm: Realm;
   private readonly config: CustomConfig;
   public readonly socketServer: WS.Server;
 
@@ -24,7 +26,7 @@ class WebSocketServer extends Events.EventEmitter {
     config,
   }: {
     server: WS.Server;
-    realm: IRealm;
+    realm: Realm;
     config: CustomConfig;
   }) {
     super();
@@ -66,7 +68,7 @@ class WebSocketServer extends Events.EventEmitter {
         // ID-taken, invalid token
         socket.send(
           JSON.stringify({
-            type: MessageType.ID_TAKEN,
+            type: MessageType.enum.ID_TAKEN,
             payload: { msg: "ID is taken" },
           })
         );
@@ -103,7 +105,7 @@ class WebSocketServer extends Events.EventEmitter {
 
     const newClient: Client = new Client({ id, token });
     this.realm.setClient(newClient, id);
-    socket.send(JSON.stringify({ type: MessageType.OPEN }));
+    socket.send(JSON.stringify({ type: MessageType.enum.OPEN }));
 
     this._configureWS(socket, newClient);
   }
@@ -122,7 +124,7 @@ class WebSocketServer extends Events.EventEmitter {
     // Handle messages from peers.
     socket.on("message", (data: WS.Data) => {
       try {
-        const message = JSONSchema(data);
+        const message = JSONObject.parse(JSON.parse(String(data)));
         Object.assign(message, { src: client.getId() });
 
         this.emit("message", client, message);
@@ -137,7 +139,7 @@ class WebSocketServer extends Events.EventEmitter {
   private _sendErrorAndClose(socket: MyWebSocket, msg: Errors): void {
     socket.send(
       JSON.stringify({
-        type: MessageType.ERROR,
+        type: MessageType.enum.ERROR,
         payload: { msg },
       })
     );

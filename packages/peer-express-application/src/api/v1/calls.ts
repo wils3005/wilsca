@@ -1,29 +1,13 @@
-import * as Zod from "zod";
-import { ClientMessage, IRealm } from "../../interfaces";
+import ClientMessage from "schemas/client-message";
 import Express from "express";
-import MessageHandler from "../../message-handler";
-
-const schema = Zod.object({
-  type: Zod.enum([
-    "ANSWER",
-    "CANDIDATE",
-    "ERROR",
-    "EXPIRE",
-    "HEARTBEAT",
-    "ID-TAKEN",
-    "LEAVE",
-    "OFFER",
-    "OPEN",
-  ]),
-  dst: Zod.string(),
-  payload: Zod.unknown(),
-}).strict();
+import MessageHandler from "message-handler";
+import Realm from "models/realm";
 
 function main({
   realm,
   messageHandler,
 }: {
-  realm: IRealm;
+  realm: Realm;
   messageHandler: MessageHandler;
 }): Express.Router {
   const app = Express.Router();
@@ -43,11 +27,10 @@ function main({
       throw new Error(`client not found:${id}`);
     }
 
-    const foo = schema.parse(req.body);
-    const message: ClientMessage = { src: id, ...foo };
+    const message = ClientMessage.parse(req.body);
+    message.src = id;
 
     messageHandler.handle(client, message);
-
     res.sendStatus(200);
   };
 

@@ -1,12 +1,10 @@
-import { Config, IRealm } from "../interfaces";
-import { Errors } from "../enums";
+import { Config } from "interfaces";
+import { Errors } from "enums";
 import Express from "express";
+import Realm from "models/realm";
 
 class AuthMiddleware {
-  constructor(
-    private readonly config: Config,
-    private readonly realm: IRealm
-  ) {}
+  constructor(private readonly config: Config, private readonly realm: Realm) {}
 
   public handle = (
     req: Express.Request,

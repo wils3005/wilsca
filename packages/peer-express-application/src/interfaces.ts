@@ -1,13 +1,5 @@
 import Client from "models/client";
-import MessageQueue from "models/message-queue";
-import { MessageType } from "enums";
-
-interface ClientMessage {
-  type: MessageType;
-  src: string;
-  dst: string;
-  payload?: unknown;
-}
+import ClientMessage from "schemas/client-message";
 
 interface Config {
   host: string;
@@ -37,16 +29,4 @@ interface IAuthParams {
   key?: string;
 }
 
-interface IRealm {
-  addMessageToQueue(id: string, message: ClientMessage): void;
-  clearMessageQueue(id: string): void;
-  generateClientId(generateClientId?: () => string): string;
-  getClientById(clientId: string): Client | undefined;
-  getClientsIds(): string[];
-  getClientsIdsWithQueue(): string[];
-  getMessageQueueById(id: string): MessageQueue | undefined;
-  removeClientById(id: string): boolean;
-  setClient(client: Client, id: string): void;
-}
-
-export { ClientMessage, Config, Handler, IAuthParams, IRealm };
+export { Config, Handler, IAuthParams };

@@ -1,14 +1,15 @@
-import { ClientMessage, Config, IRealm } from "interfaces";
 import { Api } from "api";
-import { CheckBrokenConnections } from "services/checkBrokenConnections";
+import { CheckBrokenConnections } from "services/check-broken-connections";
 import Client from "models/client";
+import ClientMessage from "schemas/client-message";
+import { Config } from "interfaces";
 import Express from "express";
 import MessageHandler from "message-handler";
-import { MessagesExpire } from "services/messagesExpire";
+import { MessagesExpire } from "services/messages-expire";
 import Path from "path";
-import { Realm } from "models/realm";
+import Realm from "models/realm";
 import WS from "ws";
-import WebSocketServer from "services/webSocketServer";
+import WebSocketServer from "services/web-socket-server";
 
 function main({
   app,
@@ -20,7 +21,7 @@ function main({
   options: Config;
 }): void {
   const config = options;
-  const realm: IRealm = new Realm();
+  const realm: Realm = new Realm();
   const messageHandler = new MessageHandler(realm);
 
   const api = Api({ config, realm, messageHandler });

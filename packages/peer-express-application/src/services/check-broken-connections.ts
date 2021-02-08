@@ -1,5 +1,6 @@
-import { Config, IRealm } from "interfaces";
 import Client from "models/client";
+import { Config } from "interfaces";
+import Realm from "models/realm";
 
 const DEFAULT_CHECK_INTERVAL = 300;
 
@@ -8,7 +9,7 @@ type CustomConfig = Pick<Config, "alive_timeout">;
 export class CheckBrokenConnections {
   public readonly checkInterval: number;
   private timeoutId: NodeJS.Timeout | null = null;
-  private readonly realm: IRealm;
+  private readonly realm: Realm;
   private readonly config: CustomConfig;
   private readonly onClose?: (client: Client) => void;
 
@@ -18,7 +19,7 @@ export class CheckBrokenConnections {
     checkInterval = DEFAULT_CHECK_INTERVAL,
     onClose,
   }: {
-    realm: IRealm;
+    realm: Realm;
     config: CustomConfig;
     checkInterval?: number;
     onClose?: (client: Client) => void;

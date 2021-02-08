@@ -1,4 +1,4 @@
-import { ClientMessage } from "../interfaces";
+import ClientMessage from "schemas/client-message";
 
 class MessageQueue {
   private lastReadAt: number = new Date().getTime();

@@ -1,17 +1,18 @@
-import { ClientMessage, Handler, IRealm } from "interfaces";
-
 import {
   HeartbeatHandler,
   TransmissionHandler,
 } from "message-handler/handlers";
 
 import Client from "models/client";
+import ClientMessage from "schemas/client-message";
+import { Handler } from "interfaces";
 import HandlersRegistry from "message-handler/handlers-registry";
-import { MessageType } from "enums";
+import MessageType from "schemas/message-type";
+import Realm from "models/realm";
 
 class MessageHandler {
   constructor(
-    realm: IRealm,
+    realm: Realm,
     private readonly handlersRegistry = new HandlersRegistry()
   ) {
     const transmissionHandler: Handler = TransmissionHandler({ realm });
@@ -35,27 +36,27 @@ class MessageHandler {
     ): boolean => heartbeatHandler(client, message);
 
     this.handlersRegistry.registerHandler(
-      MessageType.HEARTBEAT,
+      MessageType.enum.HEARTBEAT,
       handleHeartbeat
     );
     this.handlersRegistry.registerHandler(
-      MessageType.OFFER,
+      MessageType.enum.OFFER,
       handleTransmission
     );
     this.handlersRegistry.registerHandler(
-      MessageType.ANSWER,
+      MessageType.enum.ANSWER,
       handleTransmission
     );
     this.handlersRegistry.registerHandler(
-      MessageType.CANDIDATE,
+      MessageType.enum.CANDIDATE,
       handleTransmission
     );
     this.handlersRegistry.registerHandler(
-      MessageType.LEAVE,
+      MessageType.enum.LEAVE,
       handleTransmission
     );
     this.handlersRegistry.registerHandler(
-      MessageType.EXPIRE,
+      MessageType.enum.EXPIRE,
       handleTransmission
     );
   }

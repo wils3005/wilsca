@@ -1,9 +1,10 @@
-import { Config, IRealm } from "../../interfaces";
-import MessageHandler from "../../message-handler";
-import { MessageType } from "../../enums";
+import { Config } from "interfaces";
+import MessageHandler from "message-handler";
+import MessageType from "schemas/message-type";
+import Realm from "models/realm";
 
 export class MessagesExpire {
-  private readonly realm: IRealm;
+  private readonly realm: Realm;
   private readonly config: Config;
   private readonly messageHandler: MessageHandler;
 
@@ -14,7 +15,7 @@ export class MessagesExpire {
     config,
     messageHandler,
   }: {
-    realm: IRealm;
+    realm: Realm;
     config: Config;
     messageHandler: MessageHandler;
   }) {
@@ -69,7 +70,7 @@ export class MessagesExpire {
 
         if (!seen[seenKey]) {
           this.messageHandler.handle(undefined, {
-            type: MessageType.EXPIRE,
+            type: MessageType.enum.EXPIRE,
             src: message.dst,
             dst: message.src,
           });
