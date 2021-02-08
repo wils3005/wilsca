@@ -1,14 +1,11 @@
-import {
-  HeartbeatHandler,
-  TransmissionHandler,
-} from "message-handler/handlers";
-
 import Client from "models/client";
 import ClientMessage from "schemas/client-message";
 import { Handler } from "interfaces";
 import HandlersRegistry from "message-handler/handlers-registry";
+import HeartbeatHandler from "message-handler/heartbeat-handler";
 import MessageType from "schemas/message-type";
 import Realm from "models/realm";
+import TransmissionHandler from "message-handler/transmission-handler";
 
 class MessageHandler {
   constructor(

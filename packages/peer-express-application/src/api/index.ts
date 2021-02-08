@@ -1,8 +1,8 @@
 import AuthMiddleware from "api/auth";
-import CallsApi from "api/v1/calls";
+import CallsApi from "api/calls";
 import { Config } from "interfaces";
 import MessageHandler from "message-handler";
-import PublicApi from "api/v1/public";
+import PublicApi from "api/public";
 import Realm from "models/realm";
 import bodyParser from "body-parser";
 import cors from "cors";
