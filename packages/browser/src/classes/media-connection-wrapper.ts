@@ -1,23 +1,27 @@
-import * as Zod from "zod";
 import Peer from "peerjs";
+import VideoElement from "./video-element";
 
 class MediaConnectionWrapper {
   mediaConnection: Peer.MediaConnection;
+  videoElement: VideoElement;
 
-  constructor(mediaConnection: Peer.MediaConnection) {
+  constructor(
+    mediaConnection: Peer.MediaConnection,
+    videoElement?: VideoElement
+  ) {
     console.debug("MediaConnectionWrapper.constructor");
     this.mediaConnection = mediaConnection;
+    this.videoElement = videoElement ?? new VideoElement();
 
-    mediaConnection.on("stream", (...args) => this.onStream(...args));
     mediaConnection.on("close", (...args) => this.onClose(...args));
+    mediaConnection.on("stream", (...args) => this.onStream(...args));
     mediaConnection.on("error", (...args) => this.onError(...args));
   }
 
-  getElement(): HTMLVideoElement {
-    return Zod.instanceof(HTMLVideoElement).parse(
-      document.querySelector("video#player2")
-    );
+  answer(localStream: MediaStream): void {
+    this.mediaConnection.answer(localStream);
   }
+
   onClose(): void {
     console.debug("MediaConnectionWrapper.onClose");
   }
@@ -27,8 +31,8 @@ class MediaConnectionWrapper {
   }
 
   onStream(mediaStream: MediaStream): void {
-    console.debug("MediaConnectionWrapper.onStream");
-    this.getElement().srcObject = mediaStream;
+    console.debug("MediaConnectionWrapper.onStream", { mediaStream });
+    this.videoElement.setMediaStream(mediaStream);
   }
 }
 

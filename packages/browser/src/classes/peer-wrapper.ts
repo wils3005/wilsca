@@ -1,16 +1,27 @@
 import MediaConnectionWrapper from "./media-connection-wrapper";
+import MediaDevicesWrapper from "./media-devices-wrapper";
 import Peer from "peerjs";
+import VideoSection from "./video-section";
 
 class PeerWrapper {
+  mediaDevicesWrapper: MediaDevicesWrapper;
   peer: Peer;
+  videoSection: VideoSection;
 
-  constructor() {
-    this.peer = new Peer({
+  static defaultPeer(): Peer {
+    return new Peer({
       host: "localhost",
       key: "mykey",
       path: "/p",
       port: 8080,
     });
+  }
+
+  constructor() {
+    console.debug("PeerWrapper.constructor");
+    this.mediaDevicesWrapper = new MediaDevicesWrapper();
+    this.peer = PeerWrapper.defaultPeer();
+    this.videoSection = new VideoSection();
 
     this.peer.on("call", (...args) => this.onCall(...args));
     this.peer.on("close", (...args) => this.onClose(...args));
@@ -20,108 +31,48 @@ class PeerWrapper {
     this.peer.on("error", (...args) => this.onError(...args));
   }
 
+  // sending call
+  call(id: string): void {
+    console.debug("PeerWrapper.call", { id });
+
+    this.mediaDevicesWrapper.asdf(
+      (mediaStream) =>
+        new MediaConnectionWrapper(this.peer.call(id, mediaStream))
+    );
+  }
+
+  // receiving call
   onCall(mediaConnection: Peer.MediaConnection): void {
-    console.info("peer.onCall");
-    const mediaConnectionWrapper = new MediaConnectionWrapper(mediaConnection);
+    console.debug("PeerWrapper.onCall", { mediaConnection });
 
-    function onStream(mediaStream: MediaStream): void {
-      console.info("peer.onCall.onStream");
-      mediaConnectionWrapper.mediaConnection.answer(mediaStream);
-    }
-
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then(onStream)
-      .catch(console.error);
+    this.mediaDevicesWrapper.asdf((mediaStream) =>
+      new MediaConnectionWrapper(mediaConnection).answer(mediaStream)
+    );
   }
 
   onConnection(dataConnection: Peer.DataConnection): void {
-    console.info("peer.onConnection", { dataConnection });
+    console.debug("PeerWrapper.onConnection", { dataConnection });
   }
 
   onClose(): void {
-    console.info("peer.onClose");
+    console.debug("PeerWrapper.onClose");
   }
 
   onOpen(id: string): void {
-    console.info("peer.onOpen", { id });
+    console.debug("PeerWrapper.onOpen", { id });
   }
 
   onDisconnected(): void {
-    console.info("peer.onDisconnected");
+    console.debug("PeerWrapper.onDisconnected");
   }
 
   onError(error: unknown): void {
-    console.error("peer.onError", { error });
+    console.error("PeerWrapper.onError", { error });
   }
 }
-
-// function main(): Peer {
-//   const peer = new Peer({
-//     host: "localhost",
-//     key: "mykey",
-//     path: "/p",
-//     port: 8080,
-//   });
-
-//   peer.on("call", onCall);
-//   peer.on("close", onClose);
-//   peer.on("connection", onConnection);
-//   peer.on("open", onOpen);
-//   peer.on("disconnected", onDisconnected);
-//   peer.on("error", onError);
-//   return peer;
-// }
 
 // http://localhost:8080/[path]/[key]/id
 // http://localhost:8080/[path]/[key]/peers
 // http://localhost:8080/peerjs/myapp/asdf/peers
-
-// CALL
-// navigator.mediaDevices.getUserMedia({video: true, audio: true}, (stream) => {
-//   const call = peer.call('another-peers-id', stream);
-//   call.on('stream', (remoteStream) => {
-//     // Show stream in some <video> element.
-//   });
-// }, (err) => {
-//   console.error('Failed to get local stream', err);
-// });
-
-// function onCall(mediaConnection: Peer.MediaConnection): void {
-//   console.info("peer.onCall");
-
-//   function onStream(mediaStream: MediaStream): void {
-//     console.info("peer.onCall.onStream");
-//     mediaConnection.answer(mediaStream);
-//     mediaConnection.on("stream", MediaConnection.onStream);
-//     mediaConnection.on("close", MediaConnection.onClose);
-//     mediaConnection.on("error", MediaConnection.onError);
-//   }
-
-//   navigator.mediaDevices
-//     .getUserMedia({ video: true, audio: true })
-//     .then(onStream)
-//     .catch(console.error);
-// }
-
-// function onConnection(dataConnection: Peer.DataConnection): void {
-//   console.info("peer.onConnection", { dataConnection });
-// }
-
-// function onClose(): void {
-//   console.info("peer.onClose");
-// }
-
-// function onOpen(id: string): void {
-//   console.info("peer.onOpen", { id });
-// }
-
-// function onDisconnected(): void {
-//   console.info("peer.onDisconnected");
-// }
-
-// function onError(error: unknown): void {
-//   console.error("peer.onError", { error });
-// }
 
 export default PeerWrapper;

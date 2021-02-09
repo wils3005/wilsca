@@ -1,28 +1,34 @@
-import * as Zod from "zod";
+import VideoElement from "./video-element";
 
 class MediaDevicesWrapper {
   mediaDevices: MediaDevices;
+  videoElement: VideoElement;
 
   constructor() {
     console.debug("MediaDevicesWrapper.constructor");
     this.mediaDevices = navigator.mediaDevices;
+    this.videoElement = new VideoElement();
+    this.mediaDevices.ondevicechange = (...args) => {
+      this.onDeviceChange(...args);
+    };
 
+    this.asdf((...args) => this.videoElement.setMediaStream(...args));
+  }
+
+  asdf(mediaStreamHandler: (mediaStream: MediaStream) => void): void {
+    console.debug("MediaDevicesWrapper.asdf");
     this.mediaDevices
       .getUserMedia({ video: true, audio: true })
-      .then((mediaStream) => this.onStream(mediaStream))
-      .catch(console.error);
+      .then(mediaStreamHandler)
+      .catch((...args) => this.onError(...args));
   }
 
-  onStream(mediaStream: MediaStream): void {
-    console.debug("MediaDevicesWrapper.onStream");
-    this.getElement().srcObject = mediaStream;
+  onDeviceChange(event: Event): void {
+    console.debug("MediaDevicesWrapper.onDeviceChange", { event });
   }
 
-  getElement(): HTMLVideoElement {
-    console.debug("MediaDevicesWrapper.getElement");
-    return Zod.instanceof(HTMLVideoElement).parse(
-      document.querySelector("video#player1")
-    );
+  onError(...args: unknown[]): void {
+    console.error("MediaDevicesWrapper.onError", ...args);
   }
 }
 
