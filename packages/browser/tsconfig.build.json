@@ -2,6 +2,7 @@
   "extends": "./tsconfig.json",
   "include": ["src/**/*.ts"],
   "compilerOptions": {
-    "noEmit": false
+    "noEmit": false,
+    "outDir": "public/js"
   }
 }

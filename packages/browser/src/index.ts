@@ -1,8 +1,8 @@
 // import "./emoji-match/index.js";
-import MediaDevices from "./media-devices";
-import Peer from "./peer";
+import MediaDevicesWrapper from "./classes/media-devices-wrapper";
+import PeerWrapper from "./classes/peer-wrapper";
 
-MediaDevices();
-const peer = Peer();
-Object.assign(window, { peer });
+new MediaDevicesWrapper();
+new PeerWrapper();
+
 export {};

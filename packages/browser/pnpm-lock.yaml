@@ -8,6 +8,7 @@ devDependencies:
   eslint-plugin-import: 2.22.1_eslint@7.19.0
   eslint-plugin-prettier: 3.3.1_ea5601adac11a59dc1e2379624986c36
   npm-check: 5.9.2
+  peerjs: 1.3.1
   phaser: 3.52.0_webpack@5.21.2
   pnpm: 5.17.1
   prettier: 2.2.1
@@ -188,6 +189,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
+  /@types/node/10.17.51:
+    dev: true
+    resolution:
+      integrity: sha512-KANw+MkL626tq90l++hGelbl67irOJzGhUJk6a1Bt8QHOeh9tztJx+L0AqttraWKinmZn7Qi5lJZJzx45Gq0dg==
   /@types/node/14.14.25:
     dev: true
     resolution:
@@ -1888,6 +1893,10 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
+  /eventemitter3/3.1.2:
+    dev: true
+    resolution:
+      integrity: sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
   /eventemitter3/4.0.7:
     dev: true
     resolution:
@@ -4128,6 +4137,19 @@ packages:
     dev: true
     resolution:
       integrity: sha1-1NwqUGxM4hl+tIHr/NWzbAFAsQ8=
+  /peerjs-js-binarypack/1.0.1:
+    dev: true
+    resolution:
+      integrity: sha512-N6aeia3NhdpV7kiGxJV5xQiZZCVEEVjRz2T2C6UZQiBkHWHzUv/oWA4myQLcwBwO8LUoR1KWW5oStvwVesmfCg==
+  /peerjs/1.3.1:
+    dependencies:
+      '@types/node': 10.17.51
+      eventemitter3: 3.1.2
+      peerjs-js-binarypack: 1.0.1
+      webrtc-adapter: 7.7.0
+    dev: true
+    resolution:
+      integrity: sha512-V76SNqSyPNf4mZviGOkjOo3GpwJZ8DHXyaPE3tlzU5hFzwWqceMFs/4w/9mzNJtKUVU2yXBZCU54xl7JVChGXQ==
   /phaser/3.52.0_webpack@5.21.2:
     dependencies:
       eventemitter3: 4.0.7
@@ -4656,6 +4678,15 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
+  /rtcpeerconnection-shim/1.2.15:
+    dependencies:
+      sdp: 2.12.0
+    dev: true
+    engines:
+      node: '>=6.0.0'
+      npm: '>=3.10.0'
+    resolution:
+      integrity: sha512-C6DxhXt7bssQ1nHb154lqeL0SXz5Dx4RczXZu2Aa/L1NJFnEVDxFwCBo3fqtuljhHIGceg5JKBV4XJ0gW5JKyw==
   /run-async/0.1.0:
     dependencies:
       once: 1.4.0
@@ -4708,6 +4739,10 @@ packages:
       node: '>= 10.13.0'
     resolution:
       integrity: sha512-6D82/xSzO094ajanoOSbe4YvXWMfn2A//8Y1+MUqFAJul5Bs+yn36xbK9OtNDcRVSBJ9jjeoXftM6CfztsjOAA==
+  /sdp/2.12.0:
+    dev: true
+    resolution:
+      integrity: sha512-jhXqQAQVM+8Xj5EjJGVweuEzgtGWb3tmEEpl3CLP3cStInSbVHSg0QWOGQzNq8pSID4JkpeV2mPqlMDLrm0/Vw==
   /select-hose/2.0.0:
     dev: true
     resolution:
@@ -5794,6 +5829,16 @@ packages:
         optional: true
     resolution:
       integrity: sha512-xHflCenx+AM4uWKX71SWHhxml5aMXdy2tu/vdi4lClm7PADKxlyDAFFN1rEFzNV0MAoPpHtBeJnl/+K6F4QBPg==
+  /webrtc-adapter/7.7.0:
+    dependencies:
+      rtcpeerconnection-shim: 1.2.15
+      sdp: 2.12.0
+    dev: true
+    engines:
+      node: '>=6.0.0'
+      npm: '>=3.10.0'
+    resolution:
+      integrity: sha512-7Bp9OBnx642oJRkom1tNAbeJjUadAq2rh5xLL9YXPw5hVyt2h4hHr5bcoPYDs1stp/mZHSPSQA34YISdnr0DBQ==
   /websocket-driver/0.7.4:
     dependencies:
       http-parser-js: 0.5.3
@@ -5957,6 +6002,7 @@ specifiers:
   eslint-plugin-import: 2.22.1
   eslint-plugin-prettier: 3.3.1
   npm-check: ^5.9.2
+  peerjs: ^1.3.1
   phaser: ^3.52.0
   pnpm: ^5.16.0
   prettier: 2.2.1
