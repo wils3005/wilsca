@@ -16,15 +16,7 @@ class WebSocketServerWrapper extends Events.EventEmitter {
   private readonly config: Config;
   public readonly socketServer: WS.Server;
 
-  constructor({
-    server,
-    realm,
-    config,
-  }: {
-    server: WS.Server;
-    realm: Realm;
-    config: Config;
-  }) {
+  constructor(server: WS.Server, realm: Realm, config: Config) {
     super();
     this.setMaxListeners(0);
     this.realm = realm;

@@ -69,11 +69,7 @@ function main(server: WS.Server, options?: Config): Express.Express {
       path: Path.posix.join(app.path(), options.path, "/"),
     };
 
-    const wss = new WebSocketServerWrapper({
-      server,
-      realm,
-      config: customConfig,
-    });
+    const wss = new WebSocketServerWrapper(server, realm, customConfig);
 
     // TODO
     wss.on("connection", (client: Client) => {
