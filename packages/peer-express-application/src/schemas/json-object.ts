@@ -1,5 +1,5 @@
 import * as Zod from "zod";
-import JSONValue from "schemas/json-value";
+import JSONValue from "../schemas/json-value";
 
 type JSONObject = { [index: string]: JSONValue } | JSONValue[];
 

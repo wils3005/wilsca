@@ -1,7 +1,6 @@
-import { Model } from "objection";
-import { knex } from "./knex";
+import * as Objection from "objection";
 
-class User extends Model {
+class User extends Objection.Model {
   id: number;
   username: string;
   password: string;
@@ -16,6 +15,4 @@ class User extends Model {
   }
 }
 
-User.knex(knex);
-
-export { User };
+export default User;

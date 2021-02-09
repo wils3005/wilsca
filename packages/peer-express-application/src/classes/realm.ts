@@ -1,7 +1,7 @@
 import * as UUID from "uuid";
-import Client from "classes/client";
-import ClientMessage from "schemas/client-message";
-import MessageQueue from "classes/message-queue";
+import Client from "./client";
+import ClientMessage from "../schemas/client-message";
+import MessageQueue from "./message-queue";
 
 class Realm {
   private readonly clients = new Map<string, Client>();

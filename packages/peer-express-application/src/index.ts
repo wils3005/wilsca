@@ -1,15 +1,15 @@
-import API from "functions/api";
-import CheckBrokenConnections from "classes/check-broken-connections";
-import Client from "classes/client";
-import ClientMessage from "schemas/client-message";
-import Config from "schemas/config";
+import API from "./functions/api";
+import CheckBrokenConnections from "./classes/check-broken-connections";
+import Client from "./classes/client";
+import ClientMessage from "./schemas/client-message";
+import Config from "./schemas/config";
 import Express from "express";
-import MessageHandler from "classes/message-handler";
-import MessagesExpire from "classes/messages-expire";
+import MessageHandler from "./classes/message-handler";
+import MessagesExpire from "./classes/messages-expire";
 import Path from "path";
-import Realm from "classes/realm";
+import Realm from "./classes/realm";
 import WS from "ws";
-import WebSocketServerWrapper from "classes/web-socket-server-wrapper";
+import WebSocketServerWrapper from "./classes/web-socket-server-wrapper";
 
 function main(server: WS.Server, options?: Config): Express.Express {
   const app = Express();
@@ -42,11 +42,17 @@ function main(server: WS.Server, options?: Config): Express.Express {
       );
     }
 
-    const config = Config.parse(options);
     const realm: Realm = new Realm();
     const messageHandler = new MessageHandler(realm);
-    const api = API(realm, config, messageHandler);
-    const { cleanupOutMessages, expireTimeout } = config;
+    const api = API(
+      realm,
+      newOptions.allowDiscovery,
+      newOptions.generateClientId,
+      newOptions.key,
+      messageHandler
+    );
+
+    const { cleanupOutMessages, expireTimeout } = newOptions;
     const messagesExpire = new MessagesExpire(
       realm,
       cleanupOutMessages,
@@ -61,18 +67,19 @@ function main(server: WS.Server, options?: Config): Express.Express {
       }
     );
 
-    app.use(options.path, api);
+    app.use(newOptions.path, api);
 
     //use mountpath for WS server
     const customConfig = {
       ...newOptions,
-      path: Path.posix.join(app.path(), options.path, "/"),
+      path: Path.posix.join(app.path(), newOptions.path, "/"),
     };
 
     const wss = new WebSocketServerWrapper(server, realm, customConfig);
 
     // TODO
     wss.on("connection", (client: Client) => {
+      console.log("**********");
       const messageQueue = realm.getMessageQueueById(client.getId());
 
       if (messageQueue) {

@@ -16,6 +16,8 @@
     "coverage/",
     "dist/",
     "node_modules/",
+    "public/",
+    "src/types/phaser/",
     "tmp/"
   ],
   "overrides": [
@@ -34,9 +36,20 @@
   },
   "root": true,
   "rules": {
-    "import/exports-last": "error",
-    "import/no-anonymous-default-export": "error",
+    "import/exports-last": "warn",
+    "import/no-anonymous-default-export": "warn",
     "import/no-relative-parent-imports": "warn",
-    "sort-imports": "error"
+    "sort-imports": "warn"
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "project": "./tsconfig.json",
+        "alwaysTryTypes": true
+      }
+    }
   }
 }

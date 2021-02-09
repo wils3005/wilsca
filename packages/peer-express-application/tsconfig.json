@@ -4,20 +4,20 @@
   "compilerOptions": {
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "src/",
     "declaration": true,
+    "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "lib": ["ESNext"],
     "listEmittedFiles": false,
     "listFiles": false,
-    "module": "ESNext",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "noEmit": true,
     "removeComments": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "target": "ESNext"
+    "target": "ES5"
   }
 }

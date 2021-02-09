@@ -1,4 +1,4 @@
-import { MyWebSocket } from "types";
+import { MyWebSocket } from "../types";
 
 class Client {
   private readonly id: string;

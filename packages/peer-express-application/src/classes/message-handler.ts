@@ -1,11 +1,11 @@
-import Client from "classes/client";
-import ClientMessage from "schemas/client-message";
-import { Handler } from "types";
-import HandlersRegistry from "classes/handlers-registry";
-import HeartbeatHandler from "functions/heartbeat-handler";
-import MessageType from "enums/message-type";
-import Realm from "classes/realm";
-import TransmissionHandler from "functions/transmission-handler";
+import Client from "./client";
+import ClientMessage from "../schemas/client-message";
+import { Handler } from "../types";
+import HandlersRegistry from "./handlers-registry";
+import HeartbeatHandler from "../functions/heartbeat-handler";
+import MessageType from "../enums/message-type";
+import Realm from "./realm";
+import TransmissionHandler from "../functions/transmission-handler";
 
 class MessageHandler {
   constructor(

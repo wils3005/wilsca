@@ -1,13 +1,13 @@
 import * as Zod from "zod";
-import Client from "classes/client";
-import Config from "schemas/config";
-import Errors from "enums/errors";
+import Client from "./client";
+import Config from "../schemas/config";
+import Errors from "../enums/errors";
 import Events from "events";
 import HTTP from "http";
-import JSONObject from "schemas/json-object";
-import MessageType from "enums/message-type";
-import { MyWebSocket } from "types";
-import Realm from "classes/realm";
+import JSONObject from "../schemas/json-object";
+import MessageType from "../enums/message-type";
+import { MyWebSocket } from "../types";
+import Realm from "./realm";
 import URL from "url";
 import WS from "ws";
 
@@ -23,8 +23,16 @@ class WebSocketServerWrapper extends Events.EventEmitter {
     // key, concurrentLimit, path
     this.config = Config.parse(config);
     this.socketServer = server;
-    this.socketServer.on("connection", this._onSocketConnection.bind(this));
-    this.socketServer.on("error", this._onSocketError.bind(this));
+    this.socketServer.on(
+      "connection",
+      (socket: WS, request: HTTP.IncomingMessage) => {
+        console.log("****************************************");
+        console.log("****************************************");
+        this._onSocketConnection(socket, request);
+      }
+    );
+
+    this.socketServer.on("error", (error: Error) => this._onSocketError(error));
   }
 
   private _onSocketConnection(
@@ -32,6 +40,8 @@ class WebSocketServerWrapper extends Events.EventEmitter {
     req: HTTP.IncomingMessage
   ): void {
     try {
+      console.log("web-socket-server-wrapper _onSocketConnection");
+
       const { id, token, key } = Zod.object({
         id: Zod.string(),
         token: Zod.string(),

@@ -1,6 +1,6 @@
-import MessageHandler from "classes/message-handler";
-import MessageType from "enums/message-type";
-import Realm from "classes/realm";
+import MessageHandler from "./message-handler";
+import MessageType from "../enums/message-type";
+import Realm from "./realm";
 
 class MessagesExpire {
   private readonly realm: Realm;

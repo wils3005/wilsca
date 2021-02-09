@@ -1,5 +1,5 @@
 import Express from "express";
-import Realm from "classes/realm";
+import Realm from "../classes/realm";
 
 function main(
   realm: Realm,

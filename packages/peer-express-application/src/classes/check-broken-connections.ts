@@ -1,5 +1,5 @@
-import Client from "classes/client";
-import Realm from "classes/realm";
+import Client from "./client";
+import Realm from "./realm";
 
 const DEFAULT_CHECK_INTERVAL = 300;
 
