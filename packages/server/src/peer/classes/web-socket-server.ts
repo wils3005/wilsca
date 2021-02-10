@@ -1,19 +1,20 @@
-import { Client, IClient } from "./client";
-import Errors from "./errors";
+import * as Zod from "zod";
+import Client from "./client";
+import Config from "../schemas/config";
+import Errors from "../enums/errors";
 import EventEmitter from "events";
 import HTTP from "http";
-import { IConfig } from "./config";
-import IMessage from "./message";
-import { IRealm } from "./realm";
-import JSONObject from "./json-object";
-import MessageType from "./message-type";
-import MyWebSocket from "./my-web-socket";
+import Message from "../schemas/message";
+import MessageType from "../enums/message-type";
+import MyWebSocket from "../schemas/my-web-socket";
+import Realm from "./realm";
+import URL from "url";
 import WS from "ws";
-import url from "url";
 
-interface IWebSocketServer extends EventEmitter {
-  readonly path: string;
-}
+const { HOST, PORT } = Zod.object({
+  HOST: Zod.string(),
+  PORT: Zod.string(),
+}).parse(process.env);
 
 interface IAuthParams {
   id?: string;
@@ -23,10 +24,10 @@ interface IAuthParams {
 
 const WS_PATH = "peerjs";
 
-class WebSocketServer extends EventEmitter implements IWebSocketServer {
+class WebSocketServer extends EventEmitter {
   public readonly path: string;
-  private readonly realm: IRealm;
-  private readonly config: IConfig;
+  private readonly realm: Realm;
+  private readonly config: Config;
   public readonly socketServer: WS.Server;
 
   constructor({
@@ -35,8 +36,8 @@ class WebSocketServer extends EventEmitter implements IWebSocketServer {
     config,
   }: {
     server: HTTP.Server;
-    realm: IRealm;
-    config: IConfig;
+    realm: Realm;
+    config: Config;
   }) {
     super();
 
@@ -60,7 +61,9 @@ class WebSocketServer extends EventEmitter implements IWebSocketServer {
     socket: MyWebSocket,
     req: HTTP.IncomingMessage
   ): void {
-    const { query = {} } = url.parse(req.url ?? "", true);
+    const query = Object.fromEntries(
+      new URL.URL(`http://${HOST}:${PORT}${String(req.url)}`).searchParams
+    );
 
     const { id, token, key }: IAuthParams = query;
 
@@ -114,14 +117,14 @@ class WebSocketServer extends EventEmitter implements IWebSocketServer {
       return this._sendErrorAndClose(socket, Errors.CONNECTION_LIMIT_EXCEED);
     }
 
-    const newClient: IClient = new Client({ id, token });
+    const newClient: Client = new Client({ id, token });
     this.realm.setClient(newClient, id);
     socket.send(JSON.stringify({ type: MessageType.OPEN }));
 
     this._configureWS(socket, newClient);
   }
 
-  private _configureWS(socket: MyWebSocket, client: IClient): void {
+  private _configureWS(socket: MyWebSocket, client: Client): void {
     client.setSocket(socket);
 
     // Cleanup after a socket closes.
@@ -136,10 +139,7 @@ class WebSocketServer extends EventEmitter implements IWebSocketServer {
     socket.on("message", (data: WS.Data) => {
       try {
         const s = String(data);
-        // process.stderr.write(
-        //   `${"#".repeat(80)}\n${typeof JSON.parse(s)}\n${"#".repeat(80)}`
-        // );
-        const message = IMessage.parse(JSON.parse(s));
+        const message = Message.parse(JSON.parse(s));
 
         message.src = client.getId();
 
@@ -164,4 +164,4 @@ class WebSocketServer extends EventEmitter implements IWebSocketServer {
   }
 }
 
-export { IWebSocketServer, WebSocketServer };
+export default WebSocketServer;

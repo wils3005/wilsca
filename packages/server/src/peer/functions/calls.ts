@@ -1,14 +1,14 @@
 import Express from "express";
-import IMessage from "./message";
-import { IMessageHandler } from "./message-handler";
-import { IRealm } from "./realm";
+import Message from "../schemas/message";
+import MessageHandler from "../classes/message-handler";
+import Realm from "../classes/realm";
 
 function main({
   realm,
   messageHandler,
 }: {
-  realm: IRealm;
-  messageHandler: IMessageHandler;
+  realm: Realm;
+  messageHandler: MessageHandler;
 }): Express.Router {
   const app = Express.Router();
 
@@ -27,9 +27,9 @@ function main({
       throw new Error(`client not found:${id}`);
     }
 
-    const { type, dst, payload } = IMessage.parse(req.body);
+    const { type, dst, payload } = Message.parse(req.body);
 
-    const message: IMessage = {
+    const message: Message = {
       type,
       src: id,
       dst,

@@ -1,17 +1,25 @@
-import defaultConfig, { IConfig } from "./config";
+import Config from "./schemas/config";
+import CreateInstance from "./functions/create-instance";
 import Express from "express";
 import HTTP from "http";
-import HTTPS from "https";
-import Optional from "./optional";
-import { createInstance } from "./instance";
 
-function ExpressPeerServer(
-  server: HTTP.Server,
-  options?: IConfig
-): Express.Express {
+const defaultConfig: Config = {
+  host: "::",
+  port: 9000,
+  expire_timeout: 5000,
+  alive_timeout: 60000,
+  key: "peerjs",
+  path: "/",
+  concurrent_limit: 5000,
+  allow_discovery: false,
+  proxied: false,
+  cleanup_out_msgs: 1000,
+};
+
+function main(server: HTTP.Server, options?: Config): Express.Express {
   const app = Express();
 
-  const newOptions: IConfig = {
+  const newOptions: Config = {
     ...defaultConfig,
     ...options,
   };
@@ -30,43 +38,10 @@ function ExpressPeerServer(
       );
     }
 
-    createInstance({ app, server, options: newOptions });
+    CreateInstance({ app, server, options: newOptions });
   });
 
   return app;
 }
 
-function PeerServer(
-  options: Optional<IConfig> = {},
-  callback?: (server: HTTP.Server) => void
-): Express.Express {
-  const app = Express();
-
-  let newOptions: IConfig = {
-    ...defaultConfig,
-    ...options,
-  };
-
-  const port = newOptions.port;
-  const host = newOptions.host;
-
-  let server: HTTP.Server;
-
-  const { ssl, ...restOptions } = newOptions;
-  if (ssl && Object.keys(ssl).length) {
-    server = HTTPS.createServer(ssl, app);
-
-    newOptions = restOptions;
-  } else {
-    server = HTTP.createServer(app);
-  }
-
-  const peerjs = ExpressPeerServer(server, newOptions);
-  app.use(peerjs);
-
-  server.listen(port, host, () => callback?.(server));
-
-  return peerjs;
-}
-
-export { ExpressPeerServer, PeerServer };
+export default main;

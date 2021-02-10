@@ -1,6 +1,6 @@
 import * as Zod from "zod";
 
-const IConfig = Zod.object({
+const Config = Zod.object({
   host: Zod.string(),
   port: Zod.number(),
   expire_timeout: Zod.number(),
@@ -15,9 +15,9 @@ const IConfig = Zod.object({
   generateClientId: Zod.function(Zod.tuple([]), Zod.string()).optional(),
 });
 
-type IConfig = Zod.infer<typeof IConfig>;
+type Config = Zod.infer<typeof Config>;
 
-// export interface IConfig {
+// export interface Config {
 //   readonly host: string;
 //   readonly port: number;
 //   readonly expire_timeout: number;
@@ -35,18 +35,4 @@ type IConfig = Zod.infer<typeof IConfig>;
 //   readonly generateClientId?: () => string;
 // }
 
-const defaultConfig: IConfig = {
-  host: "::",
-  port: 9000,
-  expire_timeout: 5000,
-  alive_timeout: 60000,
-  key: "peerjs",
-  path: "/",
-  concurrent_limit: 5000,
-  allow_discovery: false,
-  proxied: false,
-  cleanup_out_msgs: 1000,
-};
-
-export default defaultConfig;
-export { IConfig };
+export default Config;

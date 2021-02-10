@@ -1,19 +1,14 @@
-import { IConfig } from "./config";
-import { IMessageHandler } from "./message-handler";
-import { IRealm } from "./realm";
-import MessageType from "./message-type";
+import Config from "../schemas/config";
+import MessageHandler from "./message-handler";
+import MessageType from "../enums/message-type";
+import Realm from "./realm";
 
-interface IMessagesExpire {
-  startMessagesExpiration(): void;
-  stopMessagesExpiration(): void;
-}
+type CustomConfig = Pick<Config, "cleanup_out_msgs" | "expire_timeout">;
 
-type CustomConfig = Pick<IConfig, "cleanup_out_msgs" | "expire_timeout">;
-
-class MessagesExpire implements IMessagesExpire {
-  private readonly realm: IRealm;
+class MessagesExpire {
+  private readonly realm: Realm;
   private readonly config: CustomConfig;
-  private readonly messageHandler: IMessageHandler;
+  private readonly messageHandler: MessageHandler;
 
   private timeoutId: NodeJS.Timeout | null = null;
 
@@ -22,9 +17,9 @@ class MessagesExpire implements IMessagesExpire {
     config,
     messageHandler,
   }: {
-    realm: IRealm;
+    realm: Realm;
     config: CustomConfig;
-    messageHandler: IMessageHandler;
+    messageHandler: MessageHandler;
   }) {
     this.realm = realm;
     this.config = config;
@@ -73,7 +68,7 @@ class MessagesExpire implements IMessagesExpire {
       const messages = messageQueue.getMessages();
 
       for (const message of messages) {
-        const seenKey = `${String(message.src)}_${message.dst}`;
+        const seenKey = `${String(message.src)}_${String(message.dst)}`;
 
         if (!seen[seenKey]) {
           this.messageHandler.handle(undefined, {
@@ -91,4 +86,4 @@ class MessagesExpire implements IMessagesExpire {
   }
 }
 
-export { IMessagesExpire, MessagesExpire };
+export default MessagesExpire;

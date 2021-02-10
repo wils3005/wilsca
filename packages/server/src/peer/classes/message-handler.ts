@@ -1,26 +1,23 @@
-import { HandlersRegistry, IHandlersRegistry } from "./handlersRegistry";
-import { HeartbeatHandler, TransmissionHandler } from "./handlers";
-import { Handler } from "./handler";
-import { IClient } from "./client";
-import IMessage from "./message";
-import { IRealm } from "./realm";
-import MessageType from "./message-type";
+import Client from "./client";
+import Handler from "../interfaces/handler";
+import HandlersRegistry from "./handlersRegistry";
+import HeartbeatHandler from "../functions/heartbeat-handler";
+import Message from "../schemas/message";
+import MessageType from "../enums/message-type";
+import Realm from "./realm";
+import TransmissionHandler from "../transmission-handler";
 
-export interface IMessageHandler {
-  handle(client: IClient | undefined, message: IMessage): boolean;
-}
-
-export class MessageHandler implements IMessageHandler {
+class MessageHandler {
   constructor(
-    realm: IRealm,
-    private readonly handlersRegistry: IHandlersRegistry = new HandlersRegistry()
+    realm: Realm,
+    private readonly handlersRegistry = new HandlersRegistry()
   ) {
     const transmissionHandler: Handler = TransmissionHandler({ realm });
     const heartbeatHandler: Handler = HeartbeatHandler;
 
     const handleTransmission: Handler = (
-      client: IClient | undefined,
-      { type, src, dst, payload }: IMessage
+      client: Client | undefined,
+      { type, src, dst, payload }: Message
     ): boolean => {
       return transmissionHandler(client, {
         type,
@@ -30,7 +27,7 @@ export class MessageHandler implements IMessageHandler {
       });
     };
 
-    const handleHeartbeat = (client: IClient | undefined, message: IMessage) =>
+    const handleHeartbeat = (client: Client | undefined, message: Message) =>
       heartbeatHandler(client, message);
 
     this.handlersRegistry.registerHandler(
@@ -59,7 +56,9 @@ export class MessageHandler implements IMessageHandler {
     );
   }
 
-  public handle(client: IClient | undefined, message: IMessage): boolean {
+  public handle(client: Client | undefined, message: Message): boolean {
     return this.handlersRegistry.handle(client, message);
   }
 }
+
+export default MessageHandler;

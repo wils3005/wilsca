@@ -1,31 +1,31 @@
-import { IMessagesExpire, MessagesExpire } from "./messages-expire";
-import { IRealm, Realm } from "./realm";
-import { IWebSocketServer, WebSocketServer } from "./web-socket-server";
-import { Api } from "./api";
-import { CheckBrokenConnections } from "./check-broken-connections";
+import API from "./api";
+import CheckBrokenConnections from "../classes/check-broken-connections";
+import Client from "../classes/client";
+import Config from "../schemas/config";
 import Express from "express";
 import HTTP from "http";
-import { IClient } from "./client";
-import { IConfig } from "./config";
-import IMessage from "./message";
-import { MessageHandler } from "./message-handler";
+import Message from "../schemas/message";
+import MessageHandler from "../classes/message-handler";
+import MessagesExpire from "../classes/messages-expire";
 import Path from "path";
+import Realm from "../classes/realm";
+import WebSocketServer from "../classes/web-socket-server";
 
-export const createInstance = ({
+function main({
   app,
   server,
   options,
 }: {
   app: Express.Application;
   server: HTTP.Server;
-  options: IConfig;
-}): void => {
+  options: Config;
+}): void {
   const config = options;
-  const realm: IRealm = new Realm();
+  const realm: Realm = new Realm();
   const messageHandler = new MessageHandler(realm);
 
-  const api = Api({ config, realm, messageHandler });
-  const messagesExpire: IMessagesExpire = new MessagesExpire({
+  const api = API({ config, realm, messageHandler });
+  const messagesExpire: MessagesExpire = new MessagesExpire({
     realm,
     config,
     messageHandler,
@@ -46,17 +46,17 @@ export const createInstance = ({
     path: Path.posix.join(app.path(), options.path, "/"),
   };
 
-  const wss: IWebSocketServer = new WebSocketServer({
+  const wss = new WebSocketServer({
     server,
     realm,
     config: customConfig,
   });
 
-  wss.on("connection", (client: IClient) => {
+  wss.on("connection", (client: Client) => {
     const messageQueue = realm.getMessageQueueById(client.getId());
 
     if (messageQueue) {
-      let message: IMessage | undefined;
+      let message: Message | undefined;
 
       while ((message = messageQueue.readMessage())) {
         messageHandler.handle(client, message);
@@ -67,12 +67,12 @@ export const createInstance = ({
     app.emit("connection", client);
   });
 
-  wss.on("message", (client: IClient, message: IMessage) => {
+  wss.on("message", (client: Client, message: Message) => {
     app.emit("message", client, message);
     messageHandler.handle(client, message);
   });
 
-  wss.on("close", (client: IClient) => {
+  wss.on("close", (client: Client) => {
     app.emit("disconnect", client);
   });
 
@@ -82,4 +82,6 @@ export const createInstance = ({
 
   messagesExpire.startMessagesExpiration();
   checkBrokenConnections.start();
-};
+}
+
+export default main;

@@ -1,17 +1,17 @@
-import { IClient } from "./client";
-import IMessage from "./message";
-import { IRealm } from "./realm";
-import MessageType from "./message-type";
+import Client from "./classes/client";
+import Message from "./schemas/message";
+import MessageType from "./enums/message-type";
+import Realm from "./classes/realm";
 
-export const TransmissionHandler = ({
+function main({
   realm,
 }: {
-  realm: IRealm;
-}): ((client: IClient | undefined, message: IMessage) => boolean) => {
-  const handle = (client: IClient | undefined, message: IMessage) => {
-    const { type, src, dst } = IMessage.parse(message);
+  realm: Realm;
+}): (client: Client | undefined, message: Message) => boolean {
+  const handle = (client: Client | undefined, message: Message) => {
+    const { type, src, dst } = Message.parse(message);
 
-    const destinationClient = realm.getClientById(dst);
+    const destinationClient = realm.getClientById(String(dst));
 
     // User is connected!
     if (destinationClient) {
@@ -37,7 +37,7 @@ export const TransmissionHandler = ({
 
         handle(
           client,
-          IMessage.parse({
+          Message.parse({
             type: MessageType.LEAVE,
             src: dst,
             dst: src,
@@ -63,4 +63,6 @@ export const TransmissionHandler = ({
   };
 
   return handle;
-};
+}
+
+export default main;

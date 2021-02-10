@@ -1,13 +1,13 @@
+import Config from "../schemas/config";
 import Express from "express";
-import { IConfig } from "./config";
-import { IRealm } from "./realm";
+import Realm from "../classes/realm";
 
 function main({
   config,
   realm,
 }: {
-  config: IConfig;
-  realm: IRealm;
+  config: Config;
+  realm: Realm;
 }): Express.Router {
   const app = Express.Router();
 

@@ -1,37 +1,17 @@
 import * as UUID from "uuid";
-import { IMessageQueue, MessageQueue } from "./message-queue";
-import { IClient } from "./client";
-import IMessage from "./message";
+import Client from "./client";
+import Message from "../schemas/message";
+import MessageQueue from "./message-queue";
 
-export interface IRealm {
-  getClientsIds(): string[];
-
-  getClientById(clientId: string): IClient | undefined;
-
-  getClientsIdsWithQueue(): string[];
-
-  setClient(client: IClient, id: string): void;
-
-  removeClientById(id: string): boolean;
-
-  getMessageQueueById(id: string): IMessageQueue | undefined;
-
-  addMessageToQueue(id: string, message: IMessage): void;
-
-  clearMessageQueue(id: string): void;
-
-  generateClientId(generateClientId?: () => string): string;
-}
-
-export class Realm implements IRealm {
-  private readonly clients = new Map<string, IClient>();
-  private readonly messageQueues = new Map<string, IMessageQueue>();
+class Realm {
+  private readonly clients = new Map<string, Client>();
+  private readonly messageQueues = new Map<string, MessageQueue>();
 
   public getClientsIds(): string[] {
     return [...this.clients.keys()];
   }
 
-  public getClientById(clientId: string): IClient | undefined {
+  public getClientById(clientId: string): Client | undefined {
     return this.clients.get(clientId);
   }
 
@@ -39,7 +19,7 @@ export class Realm implements IRealm {
     return [...this.messageQueues.keys()];
   }
 
-  public setClient(client: IClient, id: string): void {
+  public setClient(client: Client, id: string): void {
     this.clients.set(id, client);
   }
 
@@ -53,11 +33,11 @@ export class Realm implements IRealm {
     return true;
   }
 
-  public getMessageQueueById(id: string): IMessageQueue | undefined {
+  public getMessageQueueById(id: string): MessageQueue | undefined {
     return this.messageQueues.get(id);
   }
 
-  public addMessageToQueue(id: string, message: IMessage): void {
+  public addMessageToQueue(id: string, message: Message): void {
     if (!this.getMessageQueueById(id)) {
       this.messageQueues.set(id, new MessageQueue());
     }
@@ -81,3 +61,5 @@ export class Realm implements IRealm {
     return clientId;
   }
 }
+
+export default Realm;

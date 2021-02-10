@@ -1,17 +1,17 @@
-import { IClient } from "./client";
-import { IConfig } from "./config";
-import { IRealm } from "./realm";
+import Client from "./client";
+import Config from "../schemas/config";
+import Realm from "./realm";
 
 const DEFAULT_CHECK_INTERVAL = 300;
 
-type CustomConfig = Pick<IConfig, "alive_timeout">;
+type CustomConfig = Pick<Config, "alive_timeout">;
 
-export class CheckBrokenConnections {
+class CheckBrokenConnections {
   public readonly checkInterval: number;
   private timeoutId: NodeJS.Timeout | null = null;
-  private readonly realm: IRealm;
+  private readonly realm: Realm;
   private readonly config: CustomConfig;
-  private readonly onClose?: (client: IClient) => void;
+  private readonly onClose?: (client: Client) => void;
 
   constructor({
     realm,
@@ -19,10 +19,10 @@ export class CheckBrokenConnections {
     checkInterval = DEFAULT_CHECK_INTERVAL,
     onClose,
   }: {
-    realm: IRealm;
+    realm: Realm;
     config: CustomConfig;
     checkInterval?: number;
-    onClose?: (client: IClient) => void;
+    onClose?: (client: Client) => void;
   }) {
     this.realm = realm;
     this.config = config;
@@ -79,3 +79,5 @@ export class CheckBrokenConnections {
     }
   }
 }
+
+export default CheckBrokenConnections;

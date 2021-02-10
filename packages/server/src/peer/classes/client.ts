@@ -1,22 +1,6 @@
-import MyWebSocket from "./my-web-socket";
+import MyWebSocket from "../schemas/my-web-socket";
 
-export interface IClient {
-  getId(): string;
-
-  getToken(): string;
-
-  getSocket(): MyWebSocket | null;
-
-  setSocket(socket: MyWebSocket | null): void;
-
-  getLastPing(): number;
-
-  setLastPing(lastPing: number): void;
-
-  send<T>(data: T): void;
-}
-
-export class Client implements IClient {
+class Client {
   private readonly id: string;
   private readonly token: string;
   private socket: MyWebSocket | null = null;
@@ -55,3 +39,5 @@ export class Client implements IClient {
     this.socket?.send(JSON.stringify(data));
   }
 }
+
+export default Client;
