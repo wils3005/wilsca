@@ -1,0 +1,40 @@
+import { AuthMiddleware } from "./auth-middleware";
+import CallsApi from "./calls";
+import { IConfig } from "./config";
+import { IMessageHandler } from "./message-handler";
+import { IRealm } from "./realm";
+import PublicApi from "./public";
+import bodyParser from "body-parser";
+import cors from "cors";
+import express from "express";
+import publicContent from "./app.json";
+
+export const Api = ({
+  config,
+  realm,
+  messageHandler,
+}: {
+  config: IConfig;
+  realm: IRealm;
+  messageHandler: IMessageHandler;
+}): express.Router => {
+  const authMiddleware = new AuthMiddleware(config, realm);
+
+  const app = express.Router();
+
+  app.use(cors());
+
+  app.get("/", (_, res) => {
+    res.send(publicContent);
+  });
+
+  app.use("/:key", PublicApi({ config, realm }));
+  app.use(
+    "/:key/:id/:token",
+    authMiddleware.handle,
+    bodyParser.json(),
+    CallsApi({ realm, messageHandler })
+  );
+
+  return app;
+};

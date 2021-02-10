@@ -1,18 +1,15 @@
-import * as Zod from "zod";
+// import * as Zod from "zod";
 import Path from "path";
+import Webpack from "webpack";
 
 // const HtmlWebpackPlugin = require("html-webpack-plugin");
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 
-const { env } = process;
-const { PORT } = Zod.object({ PORT: Zod.string() }).parse(env);
+// const { env } = process;
+// const { PORT } = Zod.object({ PORT: Zod.string() }).parse(env);
 
-const config = {
-  devServer: {
-    port: PORT,
-    writeToDisk: true,
-  },
+const config: Webpack.Configuration = {
   devtool: "source-map",
   entry: Path.join(__dirname, "src", "index.ts"),
   mode: "development",

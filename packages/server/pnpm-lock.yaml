@@ -3,9 +3,9 @@ dependencies:
   express-pino-logger: 6.0.0
   knex: 0.21.17_sqlite3@5.0.1
   objection: 2.2.14_knex@0.21.17
-  peer-express-application: link:../peer-express-application
   pino: 6.11.0
   sqlite3: 5.0.1
+  uuid: 8.3.2
   ws: 7.4.3
   zod: 3.0.0-alpha.4
 devDependencies:
@@ -13,6 +13,7 @@ devDependencies:
   '@types/express-pino-logger': 4.0.2
   '@types/node': 14.14.22
   '@types/pino': 6.3.5
+  '@types/uuid': 8.3.0
   '@types/ws': 7.4.0
   '@typescript-eslint/eslint-plugin': 4.14.1_5aaa83948f53bc6d11a4ce27d9931983
   '@typescript-eslint/parser': 4.14.1_eslint@7.18.0+typescript@4.1.3
@@ -23,7 +24,7 @@ devDependencies:
   eslint-plugin-import: 2.22.1_eslint@7.18.0
   eslint-plugin-prettier: 3.3.1_23a112576b8ab4365b1ec4ba623342d0
   pino-pretty: 4.5.0
-  pnpm: 5.16.0
+  pnpm: 5.17.1
   prettier: 2.2.1
   ts-node: 9.1.1_typescript@4.1.3
   ts-node-dev: 1.1.1_typescript@4.1.3
@@ -194,6 +195,10 @@ packages:
     dev: true
     resolution:
       integrity: sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==
+  /@types/uuid/8.3.0:
+    dev: true
+    resolution:
+      integrity: sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
   /@types/ws/7.4.0:
     dependencies:
       '@types/node': 14.14.22
@@ -3192,13 +3197,13 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-9tXREJ4Z1j7fQo4L1X4Sd3YVM0s=
-  /pnpm/5.16.0:
+  /pnpm/5.17.1:
     dev: true
     engines:
       node: '>=10.16'
     hasBin: true
     resolution:
-      integrity: sha512-f7bNVvYGK24eiZ5gYX4wKOSohg6kIybEhrprHqUtFsP3TfttGSLqid1OTzLvVzwVp58QBj9ifOVwRQ+RiSmE0A==
+      integrity: sha512-jSQZCzWyf3tZSANyWnA/errzlnomqrZQO11yvURLxkLDyJvzi5D1equahjJXyT/ubd7S2iJb8dlkHvqR5ORb3w==
   /posix-character-classes/0.1.1:
     dev: false
     engines:
@@ -4209,6 +4214,11 @@ packages:
     optional: true
     resolution:
       integrity: sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==
+  /uuid/8.3.2:
+    dev: false
+    hasBin: true
+    resolution:
+      integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
   /v8-compile-cache/2.2.0:
     dev: true
     resolution:
@@ -4319,6 +4329,7 @@ specifiers:
   '@types/express-pino-logger': ^4.0.2
   '@types/node': 14.14.22
   '@types/pino': ^6.3.5
+  '@types/uuid': ^8.3.0
   '@types/ws': ^7.4.0
   '@typescript-eslint/eslint-plugin': 4.14.1
   '@typescript-eslint/parser': 4.14.1
@@ -4332,14 +4343,14 @@ specifiers:
   express-pino-logger: ^6.0.0
   knex: ^0.21.17
   objection: ^2.2.14
-  peer-express-application: ../peer-express-application
   pino: ^6.11.0
   pino-pretty: ^4.5.0
-  pnpm: ^5.16.0
+  pnpm: ^5.17.1
   prettier: 2.2.1
   sqlite3: ^5.0.1
   ts-node: ^9.1.1
   ts-node-dev: ^1.1.1
   typescript: 4.1.3
+  uuid: ^8.3.2
   ws: ^7.4.3
   zod: ^3.0.0-alpha.4

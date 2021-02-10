@@ -11,9 +11,9 @@ class PeerWrapper {
   static defaultPeer(): Peer {
     return new Peer({
       host: "localhost",
-      key: "mykey",
+      key: "peerjs",
       path: "/p",
-      port: 8080,
+      port: 8081,
     });
   }
 
