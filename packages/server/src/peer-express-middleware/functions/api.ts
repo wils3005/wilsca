@@ -1,12 +1,11 @@
 import AuthMiddleware from "../classes/auth-middleware";
 import CORS from "cors";
-import CallsApi from "./calls";
+import Calls from "./calls";
 import Config from "../schemas/config";
 import Express from "express";
 import MessageHandler from "../classes/message-handler";
-import PublicApi from "./public";
+import Public from "./public";
 import Realm from "../classes/realm";
-import publicContent from "../app.json";
 
 function main({
   config,
@@ -23,16 +22,12 @@ function main({
 
   app.use(CORS());
 
-  app.get("/", (_, res) => {
-    res.send(publicContent);
-  });
-
-  app.use("/:key", PublicApi({ config, realm }));
+  app.use("/:key", Public({ config, realm }));
   app.use(
     "/:key/:id/:token",
     authMiddleware.handle,
     Express.json(),
-    CallsApi({ realm, messageHandler })
+    Calls({ realm, messageHandler })
   );
 
   return app;

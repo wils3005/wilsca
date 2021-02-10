@@ -1,7 +1,7 @@
 import * as Zod from "zod";
-import ExpressPeerServer from "./peer";
 import ExpressWrapper from "./express-wrapper";
 import KnexWrapper from "./knex-wrapper";
+import PeerExpressMiddleware from "./peer-express-middleware";
 import PinoWrapper from "./pino-wrapper";
 import User from "./user";
 
@@ -14,8 +14,7 @@ const knex = KnexWrapper(NODE_ENV);
 const logger = PinoWrapper();
 const rootApplication = ExpressWrapper(logger);
 const httpServer = rootApplication.listen(PORT);
-
-const peerServer = ExpressPeerServer(httpServer);
+const peerServer = PeerExpressMiddleware(httpServer);
 
 rootApplication.use("/p", peerServer);
 User.knex(knex);
