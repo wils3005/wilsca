@@ -1,5 +1,5 @@
 import Express from "express";
-import Message from "./schemas/message";
+import Message from "./message";
 import MessageHandler from "./message-handler";
 import Realm from "./realm";
 

@@ -17,11 +17,7 @@ export abstract class BaseConnection extends EventEmitter {
     return this._open;
   }
 
-  constructor(
-    readonly peer: string,
-    public provider: Peer,
-    readonly options: any
-  ) {
+  constructor(readonly peer: string, provider: Peer, readonly options: any) {
     super();
 
     this.metadata = options.metadata;

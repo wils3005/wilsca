@@ -1,4 +1,4 @@
-import Client from "./client";
+import Client from "../web-socket-wrapper";
 
 class HeartbeatHandler {
   handle(client: Client | undefined): boolean {

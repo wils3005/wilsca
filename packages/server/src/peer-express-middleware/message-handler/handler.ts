@@ -1,5 +1,5 @@
-import Client from "../classes/client";
-import Message from "../schemas/message";
+import Client from "../web-socket-wrapper";
+import Message from "../message";
 
 interface Handler {
   (client: Client | undefined, message: Message): boolean;

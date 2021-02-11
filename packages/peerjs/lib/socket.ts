@@ -12,7 +12,7 @@ export class Socket extends EventEmitter {
   private _messagesQueue: Array<object> = [];
   private _socket?: WebSocket;
   private _wsPingTimer?: any;
-  private readonly _baseUrl: string;
+  _baseUrl: string;
 
   constructor(
     secure: any,
@@ -20,7 +20,7 @@ export class Socket extends EventEmitter {
     port: number,
     path: string,
     key: string,
-    private readonly pingInterval: number = 5000,
+    pingInterval: number = 5000
   ) {
     super();
 

@@ -1,4 +1,4 @@
-import Config from "./schemas/config";
+import Config from "./config";
 import Express from "express";
 import Realm from "./realm";
 
@@ -20,7 +20,7 @@ class Public {
 
     // Get a list of all peers for a key, enabled by the `allowDiscovery` flag.
     this.app.get("/peers", (_, res: Express.Response) => {
-      if (config.allow_discovery) {
+      if (config.allowDiscovery) {
         const clientsIds = realm.getClientsIds();
 
         return res.send(clientsIds);

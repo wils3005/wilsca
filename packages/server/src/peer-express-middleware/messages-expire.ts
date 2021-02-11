@@ -1,15 +1,15 @@
-import Config from "./schemas/config";
+import Config from "./config";
 import MessageHandler from "./message-handler";
-import MessageType from "./enums/message-type";
+import MessageType from "./message-handler/message-type";
 import Realm from "./realm";
 
-type CustomConfig = Pick<Config, "cleanup_out_msgs" | "expire_timeout">;
+type CustomConfig = Pick<Config, "cleanupOutMessages" | "expireTimeout">;
 
 class MessagesExpire {
-  private readonly realm: Realm;
-  private readonly messageHandler: MessageHandler;
-  private readonly config: CustomConfig;
-  private timeoutId: NodeJS.Timeout | null = null;
+  realm: Realm;
+  messageHandler: MessageHandler;
+  config: CustomConfig;
+  timeoutId: NodeJS.Timeout | null = null;
 
   constructor(
     realm: Realm,
@@ -21,7 +21,7 @@ class MessagesExpire {
     this.config = config;
   }
 
-  public startMessagesExpiration(): void {
+  startMessagesExpiration(): void {
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
     }
@@ -33,21 +33,21 @@ class MessagesExpire {
       this.timeoutId = null;
 
       this.startMessagesExpiration();
-    }, this.config.cleanup_out_msgs);
+    }, this.config.cleanupOutMessages);
   }
 
-  public stopMessagesExpiration(): void {
+  stopMessagesExpiration(): void {
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
       this.timeoutId = null;
     }
   }
 
-  private pruneOutstanding(): void {
+  pruneOutstanding(): void {
     const destinationClientsIds = this.realm.getClientsIdsWithQueue();
 
     const now = new Date().getTime();
-    const maxDiff = this.config.expire_timeout;
+    const maxDiff = this.config.expireTimeout;
 
     const seen: Record<string, boolean> = {};
 

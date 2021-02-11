@@ -1,18 +1,18 @@
-import Message from "./schemas/message";
+import Message from "./message";
 
 class MessageQueue {
-  private lastReadAt: number = new Date().getTime();
-  private readonly messages: Message[] = [];
+  lastReadAt: number = new Date().getTime();
+  messages: Message[] = [];
 
-  public getLastReadAt(): number {
+  getLastReadAt(): number {
     return this.lastReadAt;
   }
 
-  public addMessage(message: Message): void {
+  addMessage(message: Message): void {
     this.messages.push(message);
   }
 
-  public readMessage(): Message | undefined {
+  readMessage(): Message | undefined {
     if (this.messages.length > 0) {
       this.lastReadAt = new Date().getTime();
       return this.messages.shift();
@@ -21,7 +21,7 @@ class MessageQueue {
     return undefined;
   }
 
-  public getMessages(): Message[] {
+  getMessages(): Message[] {
     return this.messages;
   }
 }

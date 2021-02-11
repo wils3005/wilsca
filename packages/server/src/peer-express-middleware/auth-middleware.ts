@@ -1,16 +1,22 @@
-import Config from "./schemas/config";
-import Errors from "./enums/errors";
+import Config from "./config";
+import Errors from "./errors";
 import Express from "express";
 import Realm from "./realm";
 
 class AuthMiddleware {
-  constructor(private readonly config: Config, private readonly realm: Realm) {}
+  realm: Realm;
+  config: Config;
 
-  public handle = (
+  constructor(realm: Realm, config: Config) {
+    this.realm = realm;
+    this.config = config;
+  }
+
+  requestHandler(
     req: Express.Request,
     res: Express.Response,
     next: Express.NextFunction
-  ): void => {
+  ): void {
     const { id, token, key } = req.params;
 
     if (key !== this.config.key) {
@@ -35,7 +41,7 @@ class AuthMiddleware {
     }
 
     next();
-  };
+  }
 }
 
 export default AuthMiddleware;

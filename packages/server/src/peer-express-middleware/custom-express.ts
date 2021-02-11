@@ -1,6 +1,6 @@
-import Client from "../classes/client";
+import Client from "./web-socket-wrapper";
 import Express from "express";
-import Message from "../schemas/message";
+import Message from "./message";
 
 interface CustomExpress extends Express.Express {
   on(event: string, callback: (...args: any[]) => void): this;

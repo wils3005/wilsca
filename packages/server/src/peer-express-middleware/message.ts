@@ -1,5 +1,5 @@
 import * as Zod from "zod";
-import MessageType from "../enums/message-type";
+import MessageType from "./message-handler/message-type";
 
 const Message = Zod.object({
   type: Zod.nativeEnum(MessageType),

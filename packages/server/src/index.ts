@@ -14,7 +14,7 @@ const knex = KnexWrapper(NODE_ENV);
 const logger = PinoWrapper();
 const rootApplication = ExpressWrapper(logger);
 const httpServer = rootApplication.listen(PORT);
-const peerServer = PeerExpressMiddleware(httpServer);
+const peerServer = new PeerExpressMiddleware(httpServer).app;
 
 rootApplication.use("/p", peerServer);
 User.knex(knex);

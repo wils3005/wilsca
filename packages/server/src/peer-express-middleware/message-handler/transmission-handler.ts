@@ -1,7 +1,7 @@
-import Client from "./client";
-import Message from "./schemas/message";
-import MessageType from "./enums/message-type";
-import Realm from "./realm";
+import Client from "../web-socket-wrapper";
+import Message from "../message";
+import MessageType from "./message-type";
+import Realm from "../realm";
 
 class TransmissionHandler {
   realm: Realm;

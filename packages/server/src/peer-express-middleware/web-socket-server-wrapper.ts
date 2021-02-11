@@ -1,71 +1,52 @@
 import * as Zod from "zod";
-import Client from "./client";
-import Config from "./schemas/config";
-import Errors from "./enums/errors";
+import Client from "./web-socket-wrapper";
+import Config from "./config";
+import Errors from "./errors";
 import EventEmitter from "events";
 import HTTP from "http";
-import Message from "./schemas/message";
-import MessageType from "./enums/message-type";
-import MyWebSocket from "./schemas/my-web-socket";
+import Message from "./message";
+import MessageType from "./message-handler/message-type";
 import Realm from "./realm";
 import URL from "url";
-import WS from "ws";
+import WebSocket from "ws";
 
 const { HOST, PORT } = Zod.object({
   HOST: Zod.string(),
   PORT: Zod.string(),
 }).parse(process.env);
 
-interface IAuthParams {
-  id?: string;
-  token?: string;
-  key?: string;
-}
-
 const WS_PATH = "peerjs";
 
-class WebSocketServer extends EventEmitter {
-  public readonly path: string;
-  private readonly realm: Realm;
-  private readonly config: Config;
-  public readonly socketServer: WS.Server;
+// receives HTTP.Server
+// receives Realm
+// creates WebSocket.Server
+// creates WebSocket (via event)
+// creates Client (via event)
+class WebSocketServerWrapper extends EventEmitter {
+  server: HTTP.Server;
+  path: string;
+  realm: Realm;
+  config: Config;
+  webSocketServer: WebSocket.Server;
 
-  constructor({
-    server,
-    realm,
-    config,
-  }: {
-    server: HTTP.Server;
-    realm: Realm;
-    config: Config;
-  }) {
+  constructor(server: HTTP.Server, realm: Realm, config: Config) {
     super();
-
-    this.setMaxListeners(0);
-
+    this.server = server;
     this.realm = realm;
     this.config = config;
-
+    this.setMaxListeners(0);
     const path = this.config.path;
     this.path = `${path}${path.endsWith("/") ? "" : "/"}${WS_PATH}`;
+    this.webSocketServer = new WebSocket.Server({ path: this.path, server });
 
-    this.socketServer = new WS.Server({ path: this.path, server });
-
-    this.socketServer.on("connection", (socket: MyWebSocket, req) =>
-      this._onSocketConnection(socket, req)
-    );
-    this.socketServer.on("error", (error: Error) => this._onSocketError(error));
+    this.webSocketServer.on("connection", (s, r) => this.onConnection(s, r));
+    this.webSocketServer.on("error", (e) => this.onError(e));
   }
 
-  private _onSocketConnection(
-    socket: MyWebSocket,
-    req: HTTP.IncomingMessage
-  ): void {
-    const query = Object.fromEntries(
+  onConnection(socket: WebSocket, req: HTTP.IncomingMessage): void {
+    const { id, token, key } = Object.fromEntries(
       new URL.URL(`http://${HOST}:${PORT}${String(req.url)}`).searchParams
     );
-
-    const { id, token, key }: IAuthParams = query;
 
     if (!id || !token || !key) {
       return this._sendErrorAndClose(socket, Errors.INVALID_WS_PARAMETERS);
@@ -90,41 +71,28 @@ class WebSocketServer extends EventEmitter {
         return socket.close();
       }
 
-      return this._configureWS(socket, client);
+      return this._configureWebSocket(socket, client);
     }
 
-    this._registerClient({ socket, id, token });
-  }
-
-  private _onSocketError(error: Error): void {
-    // handle error
-    this.emit("error", error);
-  }
-
-  private _registerClient({
-    socket,
-    id,
-    token,
-  }: {
-    socket: MyWebSocket;
-    id: string;
-    token: string;
-  }): void {
     // Check concurrent limit
     const clientsCount = this.realm.getClientsIds().length;
 
-    if (clientsCount >= this.config.concurrent_limit) {
+    if (clientsCount >= this.config.concurrentLimit) {
       return this._sendErrorAndClose(socket, Errors.CONNECTION_LIMIT_EXCEED);
     }
 
-    const newClient: Client = new Client({ id, token });
+    const newClient = new Client(id, token);
     this.realm.setClient(newClient, id);
     socket.send(JSON.stringify({ type: MessageType.OPEN }));
 
-    this._configureWS(socket, newClient);
+    this._configureWebSocket(socket, newClient);
   }
 
-  private _configureWS(socket: MyWebSocket, client: Client): void {
+  onError(error: Error): void {
+    this.emit("error", error);
+  }
+
+  _configureWebSocket(socket: WebSocket, client: Client): void {
     client.setSocket(socket);
 
     // Cleanup after a socket closes.
@@ -136,7 +104,7 @@ class WebSocketServer extends EventEmitter {
     });
 
     // Handle messages from peers.
-    socket.on("message", (data: WS.Data) => {
+    socket.on("message", (data: WebSocket.Data) => {
       try {
         const s = String(data);
         const message = Message.parse(JSON.parse(s));
@@ -152,7 +120,7 @@ class WebSocketServer extends EventEmitter {
     this.emit("connection", client);
   }
 
-  private _sendErrorAndClose(socket: MyWebSocket, msg: Errors): void {
+  _sendErrorAndClose(socket: WebSocket, msg: Errors): void {
     socket.send(
       JSON.stringify({
         type: MessageType.ERROR,
@@ -164,4 +132,4 @@ class WebSocketServer extends EventEmitter {
   }
 }
 
-export default WebSocketServer;
+export default WebSocketServerWrapper;
