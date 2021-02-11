@@ -1,5 +1,5 @@
 import Config from "./schemas/config";
-import CreateInstance from "./functions/create-instance";
+import CreateInstance from "./create-instance";
 import Express from "express";
 import HTTP from "http";
 
@@ -34,7 +34,7 @@ function main(server: HTTP.Server, options?: Config): Express.Express {
       );
     }
 
-    CreateInstance({ app, server, options: newOptions });
+    new CreateInstance(server, app, newOptions);
   });
 
   return app;

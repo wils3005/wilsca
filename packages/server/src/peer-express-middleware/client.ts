@@ -1,4 +1,4 @@
-import MyWebSocket from "../schemas/my-web-socket";
+import MyWebSocket from "./schemas/my-web-socket";
 
 class Client {
   private readonly id: string;

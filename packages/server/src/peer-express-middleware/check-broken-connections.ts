@@ -1,5 +1,5 @@
 import Client from "./client";
-import Config from "../schemas/config";
+import Config from "./schemas/config";
 import Realm from "./realm";
 
 const DEFAULT_CHECK_INTERVAL = 300;
@@ -7,27 +7,22 @@ const DEFAULT_CHECK_INTERVAL = 300;
 type CustomConfig = Pick<Config, "alive_timeout">;
 
 class CheckBrokenConnections {
-  public readonly checkInterval: number;
-  private timeoutId: NodeJS.Timeout | null = null;
   private readonly realm: Realm;
   private readonly config: CustomConfig;
+  public readonly checkInterval: number;
   private readonly onClose?: (client: Client) => void;
+  private timeoutId: NodeJS.Timeout | null = null;
 
-  constructor({
-    realm,
-    config,
-    checkInterval = DEFAULT_CHECK_INTERVAL,
-    onClose,
-  }: {
-    realm: Realm;
-    config: CustomConfig;
-    checkInterval?: number;
-    onClose?: (client: Client) => void;
-  }) {
+  constructor(
+    realm: Realm,
+    config: CustomConfig,
+    onClose: (client: Client) => void,
+    checkInterval?: number
+  ) {
     this.realm = realm;
     this.config = config;
     this.onClose = onClose;
-    this.checkInterval = checkInterval;
+    this.checkInterval = checkInterval ?? DEFAULT_CHECK_INTERVAL;
   }
 
   public start(): void {

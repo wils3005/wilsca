@@ -1,4 +1,4 @@
-import Message from "../schemas/message";
+import Message from "./schemas/message";
 
 class MessageQueue {
   private lastReadAt: number = new Date().getTime();

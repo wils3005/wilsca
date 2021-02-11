@@ -13,7 +13,7 @@ class PeerWrapper {
       host: "localhost",
       key: "peerjs",
       path: "/p",
-      port: 8081,
+      port: 8080,
     });
   }
 

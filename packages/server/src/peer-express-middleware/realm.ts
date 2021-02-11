@@ -1,6 +1,6 @@
 import * as UUID from "uuid";
 import Client from "./client";
-import Message from "../schemas/message";
+import Message from "./schemas/message";
 import MessageQueue from "./message-queue";
 
 class Realm {

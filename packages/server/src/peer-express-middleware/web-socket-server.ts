@@ -1,12 +1,12 @@
 import * as Zod from "zod";
 import Client from "./client";
-import Config from "../schemas/config";
-import Errors from "../enums/errors";
+import Config from "./schemas/config";
+import Errors from "./enums/errors";
 import EventEmitter from "events";
 import HTTP from "http";
-import Message from "../schemas/message";
-import MessageType from "../enums/message-type";
-import MyWebSocket from "../schemas/my-web-socket";
+import Message from "./schemas/message";
+import MessageType from "./enums/message-type";
+import MyWebSocket from "./schemas/my-web-socket";
 import Realm from "./realm";
 import URL from "url";
 import WS from "ws";

@@ -1,29 +1,24 @@
-import Config from "../schemas/config";
+import Config from "./schemas/config";
 import MessageHandler from "./message-handler";
-import MessageType from "../enums/message-type";
+import MessageType from "./enums/message-type";
 import Realm from "./realm";
 
 type CustomConfig = Pick<Config, "cleanup_out_msgs" | "expire_timeout">;
 
 class MessagesExpire {
   private readonly realm: Realm;
-  private readonly config: CustomConfig;
   private readonly messageHandler: MessageHandler;
-
+  private readonly config: CustomConfig;
   private timeoutId: NodeJS.Timeout | null = null;
 
-  constructor({
-    realm,
-    config,
-    messageHandler,
-  }: {
-    realm: Realm;
-    config: CustomConfig;
-    messageHandler: MessageHandler;
-  }) {
+  constructor(
+    realm: Realm,
+    messageHandler: MessageHandler,
+    config: CustomConfig
+  ) {
     this.realm = realm;
-    this.config = config;
     this.messageHandler = messageHandler;
+    this.config = config;
   }
 
   public startMessagesExpiration(): void {

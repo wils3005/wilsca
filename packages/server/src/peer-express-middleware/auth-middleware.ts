@@ -1,5 +1,5 @@
-import Config from "../schemas/config";
-import Errors from "../enums/errors";
+import Config from "./schemas/config";
+import Errors from "./enums/errors";
 import Express from "express";
 import Realm from "./realm";
 

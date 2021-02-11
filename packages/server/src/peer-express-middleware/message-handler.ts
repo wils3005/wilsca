@@ -1,19 +1,22 @@
 import Client from "./client";
-import Handler from "../interfaces/handler";
+import Handler from "./interfaces/handler";
 import HandlersRegistry from "./handlers-registry";
-import HeartbeatHandler from "../functions/heartbeat-handler";
-import Message from "../schemas/message";
-import MessageType from "../enums/message-type";
+import HeartbeatHandler from "./heartbeat-handler";
+import Message from "./schemas/message";
+import MessageType from "./enums/message-type";
 import Realm from "./realm";
-import TransmissionHandler from "../functions/transmission-handler";
+import TransmissionHandler from "./transmission-handler";
 
 class MessageHandler {
   constructor(
     realm: Realm,
     private readonly handlersRegistry = new HandlersRegistry()
   ) {
-    const transmissionHandler: Handler = TransmissionHandler({ realm });
-    const heartbeatHandler: Handler = HeartbeatHandler;
+    const transmissionHandler: Handler = new TransmissionHandler(
+      realm
+    ).handler();
+
+    const heartbeatHandler: Handler = new HeartbeatHandler().handler();
 
     const handleTransmission: Handler = (
       client: Client | undefined,
