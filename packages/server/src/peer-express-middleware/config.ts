@@ -5,7 +5,7 @@ const Config = Zod.object({
   port: Zod.number(),
   expireTimeout: Zod.number(),
   aliveTimeout: Zod.number(),
-  key: Zod.string(),
+  key: Zod.string().optional(),
   path: Zod.string(),
   concurrentLimit: Zod.number(),
   allowDiscovery: Zod.boolean(),

@@ -1,15 +1,18 @@
 import Config from "./config";
 import Errors from "./errors";
 import Express from "express";
+import Pino from "pino";
 import Realm from "./realm";
 
 class AuthMiddleware {
   realm: Realm;
   config: Config;
+  logger: Pino.Logger;
 
-  constructor(realm: Realm, config: Config) {
+  constructor(realm: Realm, config: Config, logger: Pino.Logger) {
     this.realm = realm;
     this.config = config;
+    this.logger = logger;
   }
 
   requestHandler(
@@ -17,6 +20,7 @@ class AuthMiddleware {
     res: Express.Response,
     next: Express.NextFunction
   ): void {
+    this.logger.info("AuthMiddleware.requestHandler");
     const { id, token, key } = req.params;
 
     if (key !== this.config.key) {

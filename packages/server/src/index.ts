@@ -1,22 +1,86 @@
 import * as Zod from "zod";
-import ExpressWrapper from "./express-wrapper";
-import KnexWrapper from "./knex-wrapper";
-import PeerExpressMiddleware from "./peer-express-middleware";
-import PinoWrapper from "./pino-wrapper";
+import Express from "express";
+import ExpressPinoLogger from "express-pino-logger";
+import Knex from "knex";
+import Path from "path";
+import Pino from "pino";
+import REPL from "repl";
 import User from "./user";
+import WebSocket from "ws";
 
-const { NODE_ENV, PORT } = Zod.object({
-  NODE_ENV: Zod.string(),
-  PORT: Zod.string(),
-}).parse(process.env);
+class Application {
+  env = Zod.object({
+    NODE_ENV: Zod.string(),
+    PORT: Zod.string(),
+    STATIC_PATH: Zod.string(),
+  }).parse(process.env);
 
-const knex = KnexWrapper(NODE_ENV);
-const logger = PinoWrapper();
-const rootApplication = ExpressWrapper(logger);
-const httpServer = rootApplication.listen(PORT);
-const peerServer = new PeerExpressMiddleware(httpServer).app;
+  knex = Knex({
+    client: "sqlite3",
+    connection: {
+      filename: Path.join(process.cwd(), `${this.env.NODE_ENV}.sqlite3`),
+    },
+    useNullAsDefault: true,
+  });
 
-rootApplication.use("/p", peerServer);
-User.knex(knex);
+  // level-change
+  logger = Pino({
+    redact: {
+      paths: ["client.socket"],
+    },
+  });
 
-export { NODE_ENV, PORT, knex, logger, rootApplication };
+  // mount
+  app = Express();
+
+  // close connection error listening upgrade
+  httpServer = this.app.listen(this.env.PORT);
+
+  // connection error headers close
+  webSocketServer = this.createWebSocketServer();
+
+  // close line pause resume SIGCONT SIGINT SIGTSTP exit reset
+  replServer = REPL.start("repl> ");
+
+  constructor() {
+    this.app.use(ExpressPinoLogger({ logger: this.logger }));
+    this.app.use(Express.json());
+    this.app.get("/healthz", (_req, res) => res.end());
+    this.app.use(Express.static(this.env.STATIC_PATH));
+
+    User.knex(this.knex);
+    Object.assign(this.replServer.context, { app: this });
+    this.logger.info("Application.constructor");
+  }
+
+  createWebSocketServer(): WebSocket.Server {
+    const server = new WebSocket.Server({ server: this.httpServer });
+    server.on("connection", (socket, request) => {
+      this.logger.info("Application.WebSocket.Server.connection", {
+        socket,
+        request,
+      });
+    });
+
+    server.on("error", (error) =>
+      this.logger.error("Application.WebSocket.Server.error", { error })
+    );
+
+    server.on("headers", (headers, request) =>
+      this.logger.error("Application.WebSocket.Server.headers", {
+        headers,
+        request,
+      })
+    );
+
+    server.on("close", (...args) =>
+      this.logger.error("Application.WebSocket.Server.close", { ...args })
+    );
+
+    return new WebSocket.Server({ server: this.httpServer });
+  }
+}
+
+new Application();
+
+export {};

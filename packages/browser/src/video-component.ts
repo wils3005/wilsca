@@ -1,6 +1,6 @@
 import * as Zod from "zod";
 
-class VideoElement {
+class VideoComponent {
   element: HTMLVideoElement;
 
   constructor(element?: HTMLVideoElement) {
@@ -9,7 +9,7 @@ class VideoElement {
 
   getParent(): HTMLElement {
     return Zod.instanceof(HTMLElement).parse(
-      document.querySelector("section#peer")
+      document.querySelector("section#video")
     );
   }
 
@@ -21,4 +21,4 @@ class VideoElement {
   }
 }
 
-export default VideoElement;
+export default VideoComponent;

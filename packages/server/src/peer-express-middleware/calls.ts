@@ -1,22 +1,30 @@
 import Express from "express";
 import Message from "./message";
 import MessageHandler from "./message-handler";
+import Pino from "pino";
 import Realm from "./realm";
 
 class Calls {
   realm: Realm;
   messageHandler: MessageHandler;
-  app: Express.Router;
+  logger: Pino.Logger;
+  router: Express.Router;
 
-  constructor(realm: Realm, messageHandler: MessageHandler) {
+  constructor(
+    realm: Realm,
+    messageHandler: MessageHandler,
+    logger: Pino.Logger
+  ) {
     this.realm = realm;
     this.messageHandler = messageHandler;
-    this.app = Express.Router();
+    this.logger = logger;
+    this.router = Express.Router();
 
-    this.app.post("/offer", (...args) => this.handle(...args));
-    this.app.post("/candidate", (...args) => this.handle(...args));
-    this.app.post("/answer", (...args) => this.handle(...args));
-    this.app.post("/leave", (...args) => this.handle(...args));
+    this.router.post("/offer", (...args) => this.handle(...args));
+    this.router.post("/candidate", (...args) => this.handle(...args));
+    this.router.post("/answer", (...args) => this.handle(...args));
+    this.router.post("/leave", (...args) => this.handle(...args));
+    this.logger.info("Calls.constructor");
   }
 
   handle(
@@ -24,6 +32,7 @@ class Calls {
     res: Express.Response,
     next: Express.NextFunction
   ): void {
+    this.logger.info("Calls.handle");
     const { id } = req.params;
     if (!id) return next();
 

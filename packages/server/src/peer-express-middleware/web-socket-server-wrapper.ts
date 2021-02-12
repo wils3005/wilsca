@@ -6,6 +6,7 @@ import EventEmitter from "events";
 import HTTP from "http";
 import Message from "./message";
 import MessageType from "./message-handler/message-type";
+import Pino from "pino";
 import Realm from "./realm";
 import URL from "url";
 import WebSocket from "ws";
@@ -15,7 +16,7 @@ const { HOST, PORT } = Zod.object({
   PORT: Zod.string(),
 }).parse(process.env);
 
-const WS_PATH = "peerjs";
+// const WS_PATH = "peerjs";
 
 // receives HTTP.Server
 // receives Realm
@@ -23,27 +24,36 @@ const WS_PATH = "peerjs";
 // creates WebSocket (via event)
 // creates Client (via event)
 class WebSocketServerWrapper extends EventEmitter {
-  server: HTTP.Server;
-  path: string;
+  httpServer: HTTP.Server;
   realm: Realm;
   config: Config;
+  logger: Pino.Logger;
   webSocketServer: WebSocket.Server;
 
-  constructor(server: HTTP.Server, realm: Realm, config: Config) {
+  constructor(
+    httpServer: HTTP.Server,
+    realm: Realm,
+    config: Config,
+    logger: Pino.Logger
+  ) {
     super();
-    this.server = server;
+    this.httpServer = httpServer;
     this.realm = realm;
     this.config = config;
+    this.logger = logger;
     this.setMaxListeners(0);
-    const path = this.config.path;
-    this.path = `${path}${path.endsWith("/") ? "" : "/"}${WS_PATH}`;
-    this.webSocketServer = new WebSocket.Server({ path: this.path, server });
+    this.webSocketServer = new WebSocket.Server({
+      path: this.config.path,
+      server: httpServer,
+    });
 
     this.webSocketServer.on("connection", (s, r) => this.onConnection(s, r));
     this.webSocketServer.on("error", (e) => this.onError(e));
+    this.logger.info("WebSocketServerWrapper.constructor");
   }
 
   onConnection(socket: WebSocket, req: HTTP.IncomingMessage): void {
+    this.logger.info("WebSocketServerWrapper.onConnection");
     const { id, token, key } = Object.fromEntries(
       new URL.URL(`http://${HOST}:${PORT}${String(req.url)}`).searchParams
     );
@@ -89,10 +99,12 @@ class WebSocketServerWrapper extends EventEmitter {
   }
 
   onError(error: Error): void {
+    this.logger.info("WebSocketServerWrapper.onError");
     this.emit("error", error);
   }
 
   _configureWebSocket(socket: WebSocket, client: Client): void {
+    this.logger.info("WebSocketServerWrapper._configureWebSocket");
     client.setSocket(socket);
 
     // Cleanup after a socket closes.
@@ -121,6 +133,7 @@ class WebSocketServerWrapper extends EventEmitter {
   }
 
   _sendErrorAndClose(socket: WebSocket, msg: Errors): void {
+    this.logger.info("WebSocketServerWrapper._sendErrorAndClose");
     socket.send(
       JSON.stringify({
         type: MessageType.ERROR,

@@ -7,11 +7,11 @@ import HTTP from "http";
 import Message from "./message";
 import MessageHandler from "./message-handler";
 import MessagesExpire from "./messages-expire";
-import Path from "path";
+import Pino from "pino";
 import Realm from "./realm";
 import WebSocketServerWrapper from "./web-socket-server-wrapper";
 
-// receives HTTP.Server
+// receives OR creates HTTP.Server
 // creates Express.Express
 // creates Config
 // creates Realm
@@ -22,6 +22,7 @@ import WebSocketServerWrapper from "./web-socket-server-wrapper";
 // creates WebSocketServerWrapper
 class PeerExpressMiddleware {
   server: HTTP.Server;
+  logger: Pino.Logger;
   app: Express.Express;
   config: Config;
   messageHandler: MessageHandler;
@@ -36,20 +37,27 @@ class PeerExpressMiddleware {
     port: 9000,
     expireTimeout: 5000,
     aliveTimeout: 60000,
-    key: "peerjs",
-    path: "/",
+    path: "/peerjs",
     concurrentLimit: 5000,
     allowDiscovery: false,
     cleanupOutMessages: 1000,
   };
 
-  constructor(server: HTTP.Server) {
+  constructor(server: HTTP.Server, logger: Pino.Logger) {
     this.server = server;
-    this.app = Express();
+    this.logger = logger;
+
     this.config = PeerExpressMiddleware.defaultConfig;
+    this.app = Express();
     this.realm = new Realm();
     this.messageHandler = new MessageHandler(this.realm);
-    this.api = new API(this.realm, this.messageHandler, this.config);
+    this.api = new API(
+      this.realm,
+      this.messageHandler,
+      this.config,
+      this.logger
+    );
+
     this.messagesExpire = new MessagesExpire(
       this.realm,
       this.messageHandler,
@@ -62,21 +70,26 @@ class PeerExpressMiddleware {
       (c) => this.app.emit("disconnect", c)
     );
 
-    this.app.use(this.config.path, this.api.app);
-    this.wss = new WebSocketServerWrapper(this.server, this.realm, {
-      ...this.config,
-      path: Path.posix.join(this.app.path(), this.config.path, "/"),
-    });
+    this.app.use(this.config.path, this.api.router);
+    this.wss = new WebSocketServerWrapper(
+      this.server,
+      this.realm,
+      this.config,
+      this.logger
+    );
 
     this.wss.on("connection", (c) => this.onConnection(c));
     this.wss.on("message", (c, m) => this.onMessage(c, m));
     this.wss.on("close", (c) => this.app.emit("disconnect", c));
     this.wss.on("error", (e) => this.app.emit("error", e));
-    this.messagesExpire.startMessagesExpiration();
-    this.checkBrokenConnections.start();
+
+    // this.messagesExpire.startMessagesExpiration();
+    // this.checkBrokenConnections.start();
+    this.logger.info("PeerExpressMiddleware.constructor");
   }
 
   onConnection(client: Client): void {
+    this.logger.info("PeerExpressMiddleware.onConnection");
     const messageQueue = this.realm.getMessageQueueById(client.getId());
     if (messageQueue) {
       let message: Message | undefined;
@@ -91,6 +104,7 @@ class PeerExpressMiddleware {
   }
 
   onMessage(client: Client, message: Message): void {
+    this.logger.info("PeerExpressMiddleware.onMessage");
     this.app.emit("message", client, message);
     this.messageHandler.handle(client, message);
   }
