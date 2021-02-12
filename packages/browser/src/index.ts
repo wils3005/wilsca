@@ -4,7 +4,7 @@ import * as Zod from "zod";
 // create websocket
 //   connect to websocket server
 
-class RTCClient {
+class Application {
   url = "http://localhost:8080";
 
   webSocket: WebSocket | null = null;
@@ -43,4 +43,6 @@ class RTCClient {
   }
 }
 
-export default RTCClient;
+new Application();
+
+export default Application;
