@@ -8,14 +8,13 @@ const config = {
   },
   devtool: "source-map",
   entry: {
-    app: Path.join(srcPath, "window-application.ts"),
-    sw: Path.join(srcPath, "service-worker-application.ts"),
+    app: Path.join(srcPath, "root-application.ts"),
   },
   mode: "development",
   module: {
     rules: [
       {
-        test: /\.(gif|jpe?g|json|m4a|mp3|ogg|png|)$/i,
+        test: /\.(css|gif|html|jpe?g|ico|json|m4a|mp3|ogg|png|svg)$/i,
         type: "asset/resource",
       },
       {
@@ -26,16 +25,12 @@ const config = {
           configFile: Path.join(__dirname, "tsconfig.build.json"),
         },
       },
-      {
-        test: /\.svg$/,
-        loader: "svg-inline-loader",
-      },
     ],
   },
   output: {
     assetModuleFilename: "[name][ext]",
     globalObject: "this",
-    path: Path.join(__dirname, "public", "js"),
+    path: Path.join(__dirname, "dist"),
   },
   plugins: [],
   resolve: {
