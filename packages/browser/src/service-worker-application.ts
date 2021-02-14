@@ -1,52 +1,24 @@
 import BaseApplication from "./base-application";
+import { LogLevel } from "./enums";
 
 class ServiceWorkerApplication extends BaseApplication {
   className = "ServiceWorkerApplication";
-
-  container: ServiceWorkerContainer | null = null;
-  registration: ServiceWorkerRegistration | null = null;
-  worker: ServiceWorker | null = null;
-
-  scriptURL = "./js/main.js";
+  ws: WebSocket | null = null;
+  wsURL = "ws://localhost:8080";
 
   constructor() {
     super();
-    globalThis.addEventListener("load", () => this.setContainer());
-    this.log("constructor");
+    this.setWS();
   }
 
-  setContainer(): void {
-    this.log("setContainer");
-    this.container = navigator.serviceWorker;
-    this.container.oncontrollerchange = (e) => this.log(e);
-    this.container.onmessage = (e) => this.log(e);
-    this.container.onmessageerror = (e) => this.log(e);
-
-    void this.container
-      .register(this.scriptURL)
-      .then((r) => this.setRegistration(r))
-      .catch((m) => this.log(m));
-  }
-
-  setRegistration(r: ServiceWorkerRegistration): void {
-    this.log("setRegistration");
-    this.registration = r;
-    r.onupdatefound = (e) => this.log(e);
-
-    const worker =
-      this.registration.installing ??
-      this.registration.waiting ??
-      this.registration.active;
-
-    if (worker) this.setWorker(worker);
-  }
-
-  setWorker(w: ServiceWorker): void {
-    this.log("setWorker");
-    this.worker = w;
-    this.worker.addEventListener("statechange", (e) => this.log(e));
-    this.worker.addEventListener("error", (e) => this.log(e, "error"));
+  setWS(): void {
+    this.log("setWS");
+    this.ws = new WebSocket(this.wsURL);
+    this.ws.onclose = (ev) => this.log(ev);
+    this.ws.onerror = (ev) => this.log(ev, LogLevel.ERROR);
+    this.ws.onmessage = (ev) => this.log(ev);
+    this.ws.onopen = (ev) => this.log(ev);
   }
 }
 
-export default ServiceWorkerApplication;
+new ServiceWorkerApplication();

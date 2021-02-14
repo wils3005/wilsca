@@ -8,8 +8,7 @@
     "check": "npm-check -y",
     "lint": "eslint --format compact --fix --report-unused-disable-directives .",
     "ts-node": "ts-node -r dotenv/config",
-    "start": "npm run ts-node -- node_modules/webpack/bin/webpack serve",
-    "watch": "tsc --build tsconfig.build.json --watch"
+    "start": "npm run ts-node -- node_modules/webpack/bin/webpack serve"
   },
   "devDependencies": {
     "@types/uuid": "^8.3.0",

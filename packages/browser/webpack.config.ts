@@ -1,9 +1,16 @@
 import Path from "path";
-import Webpack from "webpack";
 
-const config: Webpack.Configuration = {
+const srcPath = Path.join(__dirname, "src");
+
+const config = {
+  devServer: {
+    writeToDisk: true,
+  },
   devtool: "source-map",
-  entry: Path.join(__dirname, "src", "index.ts"),
+  entry: {
+    app: Path.join(srcPath, "window-application.ts"),
+    sw: Path.join(srcPath, "service-worker-application.ts"),
+  },
   mode: "development",
   module: {
     rules: [
