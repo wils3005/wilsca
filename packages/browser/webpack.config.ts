@@ -1,14 +1,12 @@
 import Path from "path";
 
-const srcPath = Path.join(__dirname, "src");
-
 const config = {
   devServer: {
     writeToDisk: true,
   },
   devtool: "source-map",
   entry: {
-    app: Path.join(srcPath, "root-application.ts"),
+    app: Path.join(__dirname, "src", "index.ts"),
   },
   mode: "development",
   module: {

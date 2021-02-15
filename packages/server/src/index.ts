@@ -17,79 +17,100 @@ class Application {
     STATIC_PATH: Zod.string(),
   }).parse(process.env);
 
-  knex = Knex({
-    client: "sqlite3",
-    connection: {
-      filename: Path.join(process.cwd(), `${this.env.NODE_ENV}.sqlite3`),
-    },
-    useNullAsDefault: true,
-  });
-
-  logger = this.createLogger();
-  app = this.createExpressApplication();
-  httpServer = this.createHTTPServer();
-  webSocketServer = this.createWebSocketServer();
-
   // close line pause resume SIGCONT SIGINT SIGTSTP exit reset
   replServer = REPL.start("repl> ");
 
-  constructor() {
-    this.app.use(ExpressPinoLogger({ logger: this.logger }));
-    this.app.use(Express.json());
-    this.app.get("/healthz", (_req, res) => res.end());
-    this.app.use(Express.static(this.env.STATIC_PATH));
+  private _express?: Express.Express;
+  private _httpServer?: HTTP.Server;
+  private _knex?: Knex;
+  private _logger?: Pino.Logger;
+  private _webSocketServer?: WebSocket.Server;
 
+  constructor() {
     User.knex(this.knex);
     Object.assign(this.replServer.context, { app: this });
+    this.webSocketServer;
     this.logger.info("application constructor");
   }
 
-  createLogger(): Pino.Logger {
+  get express(): Express.Express {
+    if (this._express) return this._express;
+
+    const express = Express();
+    express.use(ExpressPinoLogger({ logger: this.logger }));
+    express.use(Express.static(this.env.STATIC_PATH));
+    express.on("mount", () => this.logger.info("express mount"));
+    return (this._express = express);
+  }
+
+  get httpServer(): HTTP.Server {
+    if (this._httpServer) return this._httpServer;
+
+    const server = this.express.listen(this.env.PORT);
+    server.on("close", () => this.logger.info("httpServer close"));
+    server.on("connection", () => this.logger.info("httpServer connection"));
+    server.on("error", () => this.logger.error("httpServer error"));
+    server.on("listening", () => this.logger.info("httpServer listening"));
+    server.on("request", () => this.logger.info("httpServer request"));
+    server.on("upgrade", () => this.logger.info("httpServer upgrade"));
+    return (this._httpServer = server);
+  }
+
+  get knex(): Knex {
+    if (this._knex) return this._knex;
+
+    const knex = Knex({
+      client: "sqlite3",
+      connection: {
+        filename: Path.join(process.cwd(), `${this.env.NODE_ENV}.sqlite3`),
+      },
+      useNullAsDefault: true,
+    });
+
+    return (this._knex = knex);
+  }
+
+  get logger(): Pino.Logger {
+    if (this._logger) return this._logger;
+
     const logger = Pino({
       redact: {
         paths: ["client.socket"],
       },
     });
 
-    logger.on("level-change", () => this.logger.info("logger level-change"));
-    return logger;
+    logger.on("level-change", () => logger.info("logger level-change"));
+    return (this._logger = logger);
   }
 
-  // mount
-  createExpressApplication(): Express.Express {
-    const app = Express();
-    app.on("mount", () => this.logger.info("express application mount"));
-    return app;
+  get webSocketServer(): WebSocket.Server {
+    if (this._webSocketServer) return this._webSocketServer;
+
+    const wss = new WebSocket.Server({ server: this.httpServer });
+    wss.on("connection", (s) => this.onConnection(s));
+    wss.on("error", () => this.logger.error("webSocketServer error"));
+    wss.on("headers", () => this.logger.error("webSocketServer headers"));
+    wss.on("close", () => this.logger.error("webSocketServer close"));
+    return (this._webSocketServer = wss);
   }
 
-  // close connection error listening request upgrade
-  createHTTPServer(): HTTP.Server {
-    const server = this.app.listen(this.env.PORT);
-    server.on("close", () => this.logger.info("http server close"));
-    server.on("connection", () => this.logger.info("http server connection"));
-    server.on("error", () => this.logger.error("http server error"));
-    server.on("listening", () => this.logger.info("http server listening"));
-    server.on("request", () => this.logger.info("http server request"));
-    server.on("upgrade", () => this.logger.info("http server upgrade"));
-    return server;
+  // (webSocket: WebSocket, request: HTTP.IncomingMessage)
+  onConnection(webSocket: WebSocket): void {
+    this.logger.info("webSocketServer connection");
+    webSocket.onclose = (ev) => this.logger.info(ev);
+    webSocket.onerror = (ev) => this.logger.info(ev);
+    webSocket.onmessage = (ev) => this.onMessage(ev);
+    webSocket.onopen = (ev) => this.logger.info(ev);
   }
 
-  // connection error headers close
-  createWebSocketServer(): WebSocket.Server {
-    const server = new WebSocket.Server({ server: this.httpServer });
-    server.on("connection", () => {
-      this.logger.info("websocket server connection");
+  onMessage(event: WebSocket.MessageEvent): void {
+    const { data, target } = event;
+    this.logger.info(JSON.parse(String(data)));
+    this.webSocketServer.clients.forEach((ws) => {
+      if (ws == target) return;
+
+      ws.send(data);
     });
-
-    server.on("error", (error) =>
-      this.logger.error(
-        `websocket server error\n${error.name}\n${error.message}`
-      )
-    );
-
-    server.on("headers", () => this.logger.error("websocket server headers"));
-    server.on("close", () => this.logger.error("websocket server close"));
-    return server;
   }
 }
 

@@ -1,32 +1,26 @@
-import "./app.css";
-import "./favicon.ico";
-import "./index.html";
 import * as Zod from "zod";
 import { DBNames, LogLevel } from "./enums";
-import ServiceWorkerApplication from "./service-worker-application";
-import WindowApplication from "./window-application";
 
-class RootApplication {
-  bcName = "broadcast-channel-1";
-  bc = new BroadcastChannel(this.bcName);
+class BaseApplication {
+  BROADCAST_CHANNEL_NAME = "broadcast-channel-1";
+
+  bc: BroadcastChannel | null = null;
   databases = new Map<DBNames, IDBDatabase>();
-  swApp =
-    globalThis.constructor.name == "ServiceWorkerGlobalScope"
-      ? new ServiceWorkerApplication()
-      : null;
-
-  windowApp =
-    globalThis.constructor.name == "Window" ? new WindowApplication() : null;
 
   constructor() {
-    this.bc.onmessage = (ev) => this.logger(ev);
-    this.bc.onmessageerror = (ev) => this.logger(ev);
+    this.setBC();
     Object.values(DBNames).forEach((v) => this.setDB(v));
     this.logger("constructor");
   }
 
-  logger(msg?: unknown, level = LogLevel.DEBUG): void {
+  logger(msg: unknown, level = LogLevel.DEBUG): void {
     console[level](globalThis.constructor.name, this.constructor.name, msg);
+  }
+
+  setBC(): void {
+    this.bc = new BroadcastChannel(this.BROADCAST_CHANNEL_NAME);
+    this.bc.onmessage = (ev) => this.logger(ev);
+    this.bc.onmessageerror = (ev) => this.logger(ev);
   }
 
   setDB(dbName: DBNames): void {
@@ -54,6 +48,4 @@ class RootApplication {
   }
 }
 
-Object.assign(globalThis, { app: new RootApplication() });
-
-export default RootApplication;
+export default BaseApplication;

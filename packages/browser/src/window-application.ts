@@ -1,31 +1,33 @@
 import * as Zod from "zod";
 import { DBNames, LogLevel } from "./enums";
+import BaseApplication from "./base-application";
 
-class WindowApplication {
-  constraints = {
+class WindowApplication extends BaseApplication {
+  static CONSTRAINTS = {
     video: true,
     audio: true,
   };
+
+  static SW_URL = "app.js";
+  static WS_URL = "ws://localhost:8080";
 
   databases = new Map<DBNames, IDBDatabase>();
   peerConnections = new Map<string, RTCPeerConnection>();
   sw: ServiceWorker | null = null;
   swContainer: ServiceWorkerContainer | null = null;
   swRegistration: ServiceWorkerRegistration | null = null;
-  swURL = "app.js";
+  ws: WebSocket | null = null;
 
   constructor() {
+    super();
     this.setVideoElement();
+    this.setWS();
     globalThis.onload = () => this.setSWContainer();
-  }
-
-  logger(msg?: unknown, level = LogLevel.DEBUG): void {
-    console[level](globalThis.constructor.name, this.constructor.name, msg);
   }
 
   setVideoElement(): void {
     navigator.mediaDevices
-      .getUserMedia(this.constraints)
+      .getUserMedia(WindowApplication.CONSTRAINTS)
       .then((v) => this.setMediaStream(v))
       .catch((r) => this.logger(r, LogLevel.ERROR));
   }
@@ -49,7 +51,7 @@ class WindowApplication {
     this.swContainer.onmessageerror = (ev) => this.logger(ev);
 
     void this.swContainer
-      .register(this.swURL)
+      .register(WindowApplication.SW_URL)
       .then((v) => this.setSWRegistration(v))
       .catch((r) => this.logger(r));
   }
@@ -73,6 +75,26 @@ class WindowApplication {
     this.sw = sw;
     this.sw.onstatechange = (e) => this.logger(e);
     this.sw.onerror = (e) => this.logger(e, LogLevel.ERROR);
+  }
+
+  setWS(): void {
+    this.logger("setWS");
+    this.ws = new WebSocket(WindowApplication.WS_URL);
+    this.ws.onclose = (ev) => {
+      this.logger(ev);
+      this.setWS();
+    };
+
+    this.ws.onerror = (ev) => {
+      this.logger(ev, LogLevel.ERROR);
+      this.setWS();
+    };
+
+    this.ws.onmessage = (ev) => {
+      this.logger(ev);
+    };
+
+    this.ws.onopen = (ev) => this.logger(ev);
   }
 }
 
