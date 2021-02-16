@@ -1,17 +1,17 @@
 import "./app.css";
 import "./favicon.ico";
 import "./index.html";
-import ServiceWorkerApplication from "./service-worker-application";
-import WindowApplication from "./window-application";
+import ServiceWorkerComponent from "./service-worker-component";
+import WindowComponent from "./window-component";
 
 let app;
 
 switch (globalThis.constructor.name) {
   case "ServiceWorkerGlobalScope":
-    app = new ServiceWorkerApplication();
+    app = new ServiceWorkerComponent();
     break;
   case "Window":
-    app = new WindowApplication();
+    app = new WindowComponent();
     break;
   default:
     throw "oh no";
