@@ -21,7 +21,7 @@ class WebSocketComponent extends BaseComponent {
   }
 
   handleOpen(ev: Event): void {
-    this.logger(ev);
+    this.logger("handleOpen");
     const rtcPeerConnection = new RTCPeerConnection({
       iceServers: [
         {

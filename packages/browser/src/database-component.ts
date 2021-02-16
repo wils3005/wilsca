@@ -29,7 +29,7 @@ class DatabaseComponent extends BaseComponent {
   }
 
   handleSuccess(event: Event): void {
-    this.logger(event);
+    this.logger("handleSuccess");
     this.db = Zod.instanceof(IDBOpenDBRequest).parse(event.target).result;
     this.db.onabort = (ev) => this.logger(ev, LogLevel.WARN);
     this.db.onclose = (ev) => this.logger(ev);
@@ -39,7 +39,7 @@ class DatabaseComponent extends BaseComponent {
   }
 
   handleUpgradeNeeded(event: IDBVersionChangeEvent): void {
-    this.logger(event);
+    this.logger("handleUpgradeNeeded");
     DatabaseComponent.all.set(this.dbName, this);
   }
 }

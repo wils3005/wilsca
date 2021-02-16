@@ -8,9 +8,13 @@ class ServiceWorkerContainerComponent extends BaseComponent {
 
   constructor() {
     super();
-    this.container.oncontrollerchange = (ev) => this.logger(ev);
-    this.container.onmessage = (ev) => this.logger(ev);
-    this.container.onmessageerror = (ev) => this.logger(ev, LogLevel.ERROR);
+    this.container.oncontrollerchange = (ev) =>
+      this.logger("handleControllerChange");
+
+    this.container.onmessage = (ev) => this.logger("handleMessage");
+    this.container.onmessageerror = (ev) =>
+      this.logger("handleMessageError", LogLevel.ERROR);
+
     void this.container
       .register(ServiceWorkerContainerComponent.SW_URL)
       .then((registration) => this.handleRegistration(registration))
@@ -18,15 +22,19 @@ class ServiceWorkerContainerComponent extends BaseComponent {
   }
 
   handleRegistration(registration: ServiceWorkerRegistration): void {
-    registration.onupdatefound = (ev) => this.logger(ev);
-    registration.update().catch((r) => this.logger(r, LogLevel.ERROR));
+    this.logger("handleRegistration");
+    registration.onupdatefound = (ev) => this.logger("handleUpdateFound");
+    registration
+      .update()
+      .catch((r) => this.logger("handleError", LogLevel.ERROR));
+
     const serviceWorker =
       registration.installing ?? registration.waiting ?? registration.active;
 
     if (!serviceWorker) return;
 
-    serviceWorker.onstatechange = (e) => this.logger(e);
-    serviceWorker.onerror = (e) => this.logger(e, LogLevel.ERROR);
+    serviceWorker.onstatechange = (ev) => this.logger("handleStateChange");
+    serviceWorker.onerror = (ev) => this.logger("handleError", LogLevel.ERROR);
   }
 }
 
