@@ -1,21 +1,24 @@
 import * as Zod from "zod";
+import Base from "./base";
 import Express from "express";
 import ExpressPinoLogger from "express-pino-logger";
-import Pino from "pino";
 
-class ExpressWrapper {
+class ExpressWrapper extends Base {
   readonly env = Zod.object({
     STATIC_PATH: Zod.string(),
   }).parse(process.env);
 
   readonly express: Express.Express = Express();
-  readonly logger = Pino({ level: "debug", name: this.constructor.name });
 
   constructor() {
-    this.logger.debug("constructor");
-    this.express.use(ExpressPinoLogger({ logger: this.logger }));
+    super();
+    this.express.use(ExpressPinoLogger({ logger: this.pino }));
     this.express.use(Express.static(this.env.STATIC_PATH));
-    this.express.on("mount", () => this.logger.debug("mount"));
+    this.express.on("mount", () => this.mount());
+  }
+
+  mount(): void {
+    this.log("mount");
   }
 }
 

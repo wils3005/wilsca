@@ -1,12 +1,11 @@
 import Base, { LogLevel } from "./base";
 
 class PeerConnectionManager extends Base {
+  static all = new Set<PeerConnectionManager>();
+
   static readonly RTC_CONFIGURATION = {
-    iceServers: [
-      {
-        urls: "stun:stun.l.google.com:19302",
-      },
-    ],
+    iceServers: [{ urls: "stun:stun.1.google.com:19302" }],
+    sdpSemantics: "unified-plan",
   };
 
   static readonly CONSTRAINTS = {
@@ -14,11 +13,18 @@ class PeerConnectionManager extends Base {
     audio: true,
   };
 
-  connection = new RTCPeerConnection(PeerConnectionManager.RTC_CONFIGURATION);
+  static foo() {}
+
+  connection: RTCPeerConnection;
   webSocket: WebSocket;
 
-  constructor(webSocket: WebSocket) {
+  constructor(
+    connection = new RTCPeerConnection(PeerConnectionManager.RTC_CONFIGURATION),
+    webSocket: WebSocket
+  ) {
     super();
+    this.connection = connection;
+    this.handleConnection(this.connection);
     this.webSocket = webSocket;
 
     globalThis.navigator.mediaDevices
@@ -28,18 +34,78 @@ class PeerConnectionManager extends Base {
 
     this.connection
       .createOffer()
-      .then((x) => this.handleSessionDescriptionInit(x))
+      .then((x) => this.handleOffer(x))
       .catch((x) => this.log(x, LogLevel.ERROR));
 
     this.webSocket.send(
       JSON.stringify({ sdp: this.connection.localDescription })
     );
+    PeerConnectionManager.all.add(this);
   }
 
-  handleSessionDescriptionInit(init: RTCSessionDescriptionInit): void {
+  //when another user answers to our offer
+  // function onAnswer(answer) {
+  //   myConnection.setRemoteDescription(new RTCSessionDescription(answer));
+  // }
+
+  //when we got ice candidate from another user
+  // function onCandidate(candidate) {
+  //   myConnection.addIceCandidate(new RTCIceCandidate(candidate));
+  // }
+
+  answer(offer: RTCSessionDescriptionInit): void {
+    const rtcSessionDescription = new RTCSessionDescription(offer);
+    this.connection
+      .setRemoteDescription(rtcSessionDescription)
+      .catch((x) => this.log(x, LogLevel.ERROR));
+
+    this.connection
+      .createAnswer()
+      .then((x) => this.asdf(x))
+      .catch((x) => this.log(x, LogLevel.ERROR));
+  }
+
+  asdf(answer: RTCSessionDescriptionInit) {
+    this.connection
+      .setLocalDescription(answer)
+      .catch((x) => this.log(x, LogLevel.ERROR));
+
+    // this.webSocket.send({
+    //   type: "answer",
+    //   answer: answer,
+    // });
+  }
+
+  handleConnection(connection: RTCPeerConnection): void {
+    connection.onconnectionstatechange = (x) => this.log(x);
+    connection.ondatachannel = (x) => this.log(x);
+    connection.onicecandidate = (x) => this.handleIceCandidate(x);
+    connection.onicecandidateerror = (x) => this.log(x, LogLevel.ERROR);
+    connection.oniceconnectionstatechange = (x) => this.log(x);
+    connection.onicegatheringstatechange = (x) => this.log(x);
+    connection.onnegotiationneeded = (x) => this.log(x);
+    connection.onsignalingstatechange = (x) => this.log(x);
+    connection.onstatsended = (x) => this.log(x);
+    connection.ontrack = (x) => this.log(x);
+  }
+
+  handleIceCandidate(event: RTCPeerConnectionIceEvent): void {
+    this.log("handleIceCandidate");
+    if (!event.candidate) return;
+
+    // this.webSocket.send(
+    //   JSON.stringify({
+    //     name: "TODO",
+    //     type: "candidate",
+    //     candidate: event.candidate,
+    //   })
+    // );
+  }
+
+  handleOffer(init: RTCSessionDescriptionInit): void {
     this.connection
       .setLocalDescription(init)
-      .catch((r) => this.log(r, LogLevel.ERROR));
+      .catch((x) => this.log(x, LogLevel.ERROR));
   }
 
   handleStream(stream: MediaStream): void {

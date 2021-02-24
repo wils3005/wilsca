@@ -1,9 +1,9 @@
 import * as UUID from "uuid";
+import Base, { LogLevel } from "./base";
 import JSONObject from "./json-object";
-import Pino from "pino";
 import WebSocket from "ws";
 
-class Session {
+class Session extends Base {
   static readonly all = new Set<Session>();
 
   static ids(): string {
@@ -12,34 +12,34 @@ class Session {
     });
   }
 
-  readonly logger = Pino({ level: "debug", name: this.constructor.name });
   readonly webSocket: WebSocket;
   readonly id = UUID.v4();
 
   constructor(webSocket: WebSocket) {
-    this.logger.debug("constructor");
-    webSocket.onclose = (ev) => this.handleClose(ev);
-    webSocket.onerror = (ev) => this.handleError(ev);
-    webSocket.onmessage = (ev) => this.handleMessage(ev);
-    webSocket.onopen = (ev) => this.handleOpen(ev);
+    super();
+    this.log("constructor");
+    webSocket.onclose = () => this.close();
+    webSocket.onerror = (ev) => this.error(ev);
+    webSocket.onmessage = (ev) => this.message(ev);
+    webSocket.onopen = () => this.open();
     webSocket.send(Session.ids());
     this.webSocket = webSocket;
     Session.all.add(this);
   }
 
-  handleClose(event: WebSocket.CloseEvent): void {
-    this.logger.debug("handleClose");
+  close(): void {
+    this.log("close");
     Session.all.delete(this);
   }
 
-  handleError(event: WebSocket.ErrorEvent): void {
-    this.logger.error("handleError");
+  error(event: WebSocket.ErrorEvent): void {
+    this.log("error", LogLevel.ERROR);
     event.target.close();
     Session.all.delete(this);
   }
 
-  handleMessage(event: WebSocket.MessageEvent): void {
-    this.logger.debug("handleMessage");
+  message(event: WebSocket.MessageEvent): void {
+    this.log("message");
     const { data, target } = event;
 
     try {
@@ -51,12 +51,12 @@ class Session {
         );
       });
     } catch (e) {
-      this.logger.error(e);
+      this.log(e, LogLevel.ERROR);
     }
   }
 
-  handleOpen(event: WebSocket.OpenEvent): void {
-    this.logger.debug("handleOpen");
+  open(): void {
+    this.log("open");
   }
 }
 

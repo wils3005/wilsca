@@ -1,0 +1,40 @@
+{
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "env": {
+    "commonjs": true,
+    "node": true,
+    "es6": true,
+    "mocha": true
+  },
+  "ignorePatterns": [
+    ".vscode/",
+    "build/",
+    "coverage/",
+    "dist/",
+    "node_modules/",
+    "public/",
+    "src/types/phaser/",
+    "tmp/"
+  ],
+  "overrides": [
+    {
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+      ],
+      "files": ["**/*.ts", "**/*.tsx"],
+      "rules": {
+        "@typescript-eslint/camelcase": "warn",
+        "@typescript-eslint/explicit-function-return-type": "warn",
+        "@typescript-eslint/interface-name-prefix": "warn",
+        "@typescript-eslint/no-misused-promises": "warn",
+        "@typescript-eslint/unbound-method": "warn"
+      }
+    }
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": ["tsconfig.json"]
+  },
+  "rules": {}
+}

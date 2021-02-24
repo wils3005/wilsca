@@ -1,10 +1,10 @@
 import * as Zod from "zod";
+import Base from "./base";
 import Knex from "knex";
 import Path from "path";
-import Pino from "pino";
 import User from "./user";
 
-class KnexWrapper {
+class KnexWrapper extends Base {
   readonly env = Zod.object({
     NODE_ENV: Zod.string(),
   }).parse(process.env);
@@ -17,10 +17,8 @@ class KnexWrapper {
     useNullAsDefault: true,
   });
 
-  readonly logger = Pino({ level: "debug", name: this.constructor.name });
-
   constructor() {
-    this.logger.debug("constructor");
+    super();
     User.knex(this.knex);
   }
 }

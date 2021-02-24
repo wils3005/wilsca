@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext"],
+    "listFiles": true,
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "ES5"
+  },
+  "exclude": ["dist", "node_modules"]
+}

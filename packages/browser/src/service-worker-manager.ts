@@ -1,5 +1,4 @@
-import Base from "./base";
-import { LogLevel } from "./enums";
+import Base, { LogLevel } from "./base";
 
 class ServiceWorkerManager extends Base {
   static readonly SW_URL = "app.js";

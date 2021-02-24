@@ -1,0 +1,40 @@
+{
+  "name": "@wilsjs/peer-client",
+  "private": true,
+  "main": "dist/main.js",
+  "scripts": {
+    "prebuild": "rimraf dist/",
+    "build": "ts-node --transpile-only node_modules/webpack/bin/webpack",
+    "check": "npm-check --update",
+    "eslint": "eslint --format compact --fix --report-unused-disable-directives src/**/*.ts",
+    "mocha": "mocha -r ts-node/register -r jsdom-global/register test/**/*.ts"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^14.14.31",
+    "@types/terser-webpack-plugin": "^5.0.2",
+    "@typescript-eslint/eslint-plugin": "^4.15.2",
+    "@typescript-eslint/parser": "^4.15.2",
+    "chai": "^4.2.0",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eventemitter3": "^3.1.2",
+    "jsdom": "^16.2.2",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^7.1.2",
+    "mock-socket": "8.0.5",
+    "npm-check": "^5.9.2",
+    "peerjs-js-binarypack": "1.0.1",
+    "prettier": "^2.2.1",
+    "rimraf": "^2.6.3",
+    "standard": "^14.1.0",
+    "ts-loader": "^8.0.17",
+    "ts-node": "^9.1.1",
+    "typescript": "4.1",
+    "webpack": "^5.24.1",
+    "webpack-cli": "^4.5.0",
+    "webrtc-adapter": "^7.3.0"
+  }
+}

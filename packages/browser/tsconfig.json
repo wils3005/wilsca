@@ -13,6 +13,7 @@
     "moduleResolution": "node",
     "noEmit": true,
     "removeComments": true,
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,

@@ -1,19 +1,34 @@
+import Base, { LogLevel } from "./base";
 import HTTPServerWrapper from "./http-server-wrapper";
-import Pino from "pino";
 import Session from "./session";
 import WebSocket from "ws";
 
-class WebSocketServerWrapper {
+class WebSocketServerWrapper extends Base {
   readonly httpServer = new HTTPServerWrapper().server;
-  readonly logger = Pino({ level: "debug", name: this.constructor.name });
   readonly webSocketServer = new WebSocket.Server({ server: this.httpServer });
 
   constructor() {
-    this.logger.debug("constructor");
-    this.webSocketServer.on("connection", (s) => new Session(s));
-    this.webSocketServer.on("error", () => this.logger.error("error"));
-    this.webSocketServer.on("headers", () => this.logger.error("headers"));
-    this.webSocketServer.on("close", () => this.logger.error("close"));
+    super();
+    this.webSocketServer.on("close", () => this.close());
+    this.webSocketServer.on("connection", (x) => this.connection(x));
+    this.webSocketServer.on("error", () => this.error());
+    this.webSocketServer.on("headers", () => this.headers());
+  }
+
+  close(): void {
+    this.log("close", LogLevel.WARN);
+  }
+
+  connection(socket: WebSocket): void {
+    new Session(socket);
+  }
+
+  error(): void {
+    this.log("error", LogLevel.ERROR);
+  }
+
+  headers(): void {
+    this.log("headers");
   }
 }
 

@@ -6,9 +6,9 @@ enum DBNames {
 }
 
 class DatabaseManager extends Base {
-  static all = new Map<DBNames, DatabaseManager>();
+  static all = new Set<DatabaseManager>();
 
-  static init(): Map<DBNames, DatabaseManager> {
+  static init(): Set<DatabaseManager> {
     Object.values(DBNames).forEach((s) => new DatabaseManager(s));
     return DatabaseManager.all;
   }
@@ -20,32 +20,31 @@ class DatabaseManager extends Base {
   constructor(dbName: DBNames) {
     super();
     this.dbName = dbName;
-    this.handleRequest(globalThis.indexedDB.open(this.dbName));
+    this.setRequest(globalThis.indexedDB.open(this.dbName));
+    DatabaseManager.all.add(this);
   }
 
-  handleRequest(request: IDBOpenDBRequest): void {
+  setRequest(request: IDBOpenDBRequest): void {
     request.onblocked = (ev) => this.log(ev, LogLevel.WARN);
     request.onerror = (ev) => this.log(ev, LogLevel.ERROR);
-    request.onsuccess = (ev) => this.handleSuccess(ev);
-    request.onupgradeneeded = () => this.handleUpgradeNeeded();
+    request.onsuccess = (ev) => this.success(ev);
+    request.onupgradeneeded = () => this.upgradeNeeded();
     this.request = request;
   }
 
   // (this: IDBRequest<IDBDatabase>, ev: Event) => any)
-  handleSuccess(event: Event): void {
-    this.log("handleSuccess");
+  success(event: Event): void {
+    this.log("success");
     this.db = Zod.instanceof(IDBOpenDBRequest).parse(event.target).result;
     this.db.onabort = (ev) => this.log(ev, LogLevel.WARN);
     this.db.onclose = (ev) => this.log(ev);
     this.db.onerror = (ev) => this.log(ev, LogLevel.ERROR);
     this.db.onversionchange = (ev) => this.log(ev);
-    DatabaseManager.all.set(this.dbName, this);
   }
 
   // ((this: IDBOpenDBRequest, ev: IDBVersionChangeEvent) => any)
-  handleUpgradeNeeded(): void {
-    this.log("handleUpgradeNeeded");
-    DatabaseManager.all.set(this.dbName, this);
+  upgradeNeeded(): void {
+    this.log("upgradeNeeded");
   }
 }
 
