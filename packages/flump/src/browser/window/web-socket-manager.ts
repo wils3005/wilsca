@@ -1,7 +1,6 @@
 import * as Zod from "zod";
 import Logger from "../../shared/logger";
 import Message from "./message";
-import PeerConnectionManager from "./peer-connection-manager";
 import WindowApplication from ".";
 
 class WebSocketManager {
@@ -34,7 +33,7 @@ class WebSocketManager {
     this.webSocket.close();
   }
 
-  async message(event: MessageEvent<unknown>): Promise<void> {
+  message(event: MessageEvent<unknown>): void {
     try {
       const message = Message.parse(event.data);
 
@@ -42,36 +41,36 @@ class WebSocketManager {
       if (message.sender == "" && message.recipient)
         this.app.id = message.recipient;
 
-      if (message.ids) {
-        message.ids.forEach((id) => {
-          if (id == this.app.id) return;
+      // if (message.ids) {
+      //   message.ids.forEach((id) => {
+      //     if (id == this.app.id) return;
 
-          void new PeerConnectionManager(id, this.app, this).makeCall();
-        });
-      }
+      //     void new PeerConnectionManager(id, this.app, this).makeCall();
+      //   });
+      // }
 
       // 3)
-      if (message.offer) {
-        await new PeerConnectionManager(message.sender, this.app, this).answer(
-          message.offer
-        );
-      }
+      // if (message.offer) {
+      //   await new PeerConnectionManager(message.sender, this.app, this).answer(
+      //     message.offer
+      //   );
+      // }
 
       // 5)
-      if (message.answer) {
-        await Zod.instanceof(PeerConnectionManager)
-          .parse(PeerConnectionManager.all.get(message.sender))
-          .connection.setRemoteDescription(
-            new RTCSessionDescription(message.answer)
-          );
-      }
+      // if (message.answer) {
+      //   await Zod.instanceof(PeerConnectionManager)
+      //     .parse(PeerConnectionManager.all.get(message.sender))
+      //     .connection.setRemoteDescription(
+      //       new RTCSessionDescription(message.answer)
+      //     );
+      // }
 
-      if (message.candidate) {
-        this.log({ wat: message });
-        await Zod.instanceof(PeerConnectionManager)
-          .parse(PeerConnectionManager.all.get(message.sender))
-          .connection.addIceCandidate(message.candidate);
-      }
+      // if (message.candidate) {
+      //   this.log({ wat: message });
+      //   await Zod.instanceof(PeerConnectionManager)
+      //     .parse(PeerConnectionManager.all.get(message.sender))
+      //     .connection.addIceCandidate(message.candidate);
+      // }
     } catch (e) {
       this.log(e, "error");
     }

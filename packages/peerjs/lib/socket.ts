@@ -20,13 +20,17 @@ export class Socket extends EventEmitter {
     port: number,
     path: string,
     key: string,
-    private readonly pingInterval: number = 5000,
+    private readonly pingInterval: number = 5000
   ) {
     super();
 
     const wsProtocol = secure ? "wss://" : "ws://";
 
     this._baseUrl = wsProtocol + host + ":" + port + path + "peerjs?key=" + key;
+  }
+
+  get webSocket(): WebSocket | undefined {
+    return this._socket;
   }
 
   start(id: string, token: string): void {
