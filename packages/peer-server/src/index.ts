@@ -1,16 +1,14 @@
+import { Optional } from "./types";
 import express from "express";
 import http from "http";
 import https from "https";
 import { Server } from "net";
 
-import defaultConfig, { IConfig } from "./config";
+import defaultConfig, from "./config";
+import { IConfig } from "./types";
 import { createInstance } from "./instance";
 
-type Optional<T> = {
-  [P in keyof T]?: T[P] | undefined;
-};
-
-function ExpressPeerServer(server: Server, options?: IConfig) {
+function ExpressPeerServer(server: Server, options?: IConfig): express.Express {
   const app = express();
 
   const newOptions: IConfig = {
@@ -41,7 +39,7 @@ function ExpressPeerServer(server: Server, options?: IConfig) {
 function PeerServer(
   options: Optional<IConfig> = {},
   callback?: (server: Server) => void
-) {
+): express.Express {
   const app = express();
 
   let newOptions: IConfig = {
@@ -72,3 +70,4 @@ function PeerServer(
 }
 
 export { ExpressPeerServer, PeerServer };
+export * from "./types";

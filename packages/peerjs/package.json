@@ -1,0 +1,30 @@
+{
+  "name": "@wilsjs/peerjs",
+  "private": true,
+  "main": "./dist/peerjs.min.js",
+  "scripts": {
+    "build": "parcel build lib/exports.ts --out-file peerjs.min.js",
+    "build-nonminified": "parcel build lib/exports.ts --out-file peerjs.js --no-minify",
+    "prepublishOnly": "npm run build",
+    "test": "mocha -r ts-node/register -r jsdom-global/register test/**/*.ts"
+  },
+  "types": "./index.d.ts",
+  "devDependencies": {
+    "@types/chai": "^4.2.11",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^10.14.17",
+    "chai": "^4.2.0",
+    "eventemitter3": "^3.1.2",
+    "jsdom": "^16.2.2",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^7.1.2",
+    "mock-socket": "8.0.5",
+    "parcel-bundler": "^1.12.4",
+    "peerjs-js-binarypack": "1.0.1",
+    "standard": "^14.1.0",
+    "ts-node": "^8.10.1",
+    "typescript": "^3.8.3",
+    "webrtc-adapter": "^7.3.0"
+  },
+  "dependencies": {}
+}

@@ -15,7 +15,7 @@
     "incremental": true,
     "jsx": "react",
     "lib": ["DOM", "ESNext", "WebWorker"],
-    "module": "commonjs",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "noEmit": true,
     "removeComments": true,

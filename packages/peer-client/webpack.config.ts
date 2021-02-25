@@ -3,7 +3,7 @@ import TerserPlugin from "terser-webpack-plugin";
 
 const config = {
   devtool: "source-map",
-  entry: Path.join(__dirname, "src", "peer.ts"),
+  entry: Path.join(__dirname, "src", "index.ts"),
   mode: "production",
   module: {
     rules: [

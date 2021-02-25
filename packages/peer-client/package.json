@@ -2,6 +2,7 @@
   "name": "@wilsjs/peer-client",
   "private": true,
   "main": "dist/main.js",
+  "types": "dist/",
   "scripts": {
     "prebuild": "rimraf dist/",
     "build": "ts-node --transpile-only node_modules/webpack/bin/webpack",

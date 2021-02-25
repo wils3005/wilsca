@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "declaration": true,
     "downlevelIteration": true,
     "esModuleInterop": true,
     "lib": ["DOM", "ESNext"],
@@ -8,6 +9,7 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
+    "sourceMap": true,
     "target": "ES5"
   },
   "exclude": ["dist", "node_modules"]

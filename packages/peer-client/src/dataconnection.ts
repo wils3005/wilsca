@@ -7,7 +7,7 @@ import {
   SerializationType,
   ServerMessageType,
 } from "./enums";
-import { Peer } from "./peer";
+import { Peer } from ".";
 import { BaseConnection } from "./baseconnection";
 import { ServerMessage } from "./servermessage";
 import { EncodingQueue } from "./encodingQueue";

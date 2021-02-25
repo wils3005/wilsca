@@ -1,14 +1,17 @@
 {
   "name": "@wilsjs/peer-server",
   "private": true,
-  "main": "dist/main.js",
+  "main": "dist/index.js",
+  "types": "dist/",
   "scripts": {
     "prebuild": "rimraf dist/",
     "build": "ts-node --transpile-only node_modules/webpack/bin/webpack",
     "check": "npm-check --update",
     "dev": "nodemon --watch src -e ts --exec npm run dev:start",
     "eslint": "eslint --format compact --fix --report-unused-disable-directives src/**/*.ts",
-    "mocha": "mocha -r ts-node/register test/**/*.ts"
+    "mocha": "mocha -r ts-node/register test/**/*.ts",
+    "pretsc": "rimraf dist/",
+    "tsc": "tsc --build tsconfig.build.json"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

@@ -1,8 +1,8 @@
 import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
-import publicContent from "../../app.json";
-import { IConfig } from "../config";
+import publicContent from "../app.json";
+import { IConfig } from "../types";
 import { IMessageHandler } from "../messageHandler";
 import { IRealm } from "../models/realm";
 import { AuthMiddleware } from "./middleware/auth";

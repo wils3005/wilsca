@@ -1,5 +1,5 @@
 import { util } from "./util";
-import { Peer } from "./peer";
+import { Peer } from ".";
 
 export const peerjs = {
   Peer,

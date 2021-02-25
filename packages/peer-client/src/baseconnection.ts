@@ -1,5 +1,5 @@
 import { EventEmitter } from "eventemitter3";
-import { Peer } from "./peer";
+import { Peer } from ".";
 import { ServerMessage } from "./servermessage";
 import { ConnectionType } from "./enums";
 

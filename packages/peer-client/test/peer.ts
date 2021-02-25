@@ -1,6 +1,6 @@
 import "./setup";
 import { expect } from "chai";
-import { Peer } from "../src/peer";
+import { Peer } from "../src";
 import { Server } from "mock-socket";
 import {
   ConnectionType,

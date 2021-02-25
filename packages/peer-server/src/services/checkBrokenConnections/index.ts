@@ -1,4 +1,4 @@
-import { IConfig } from "../../config";
+import { IConfig } from "../../types";
 import { IClient } from "../../models/client";
 import { IRealm } from "../../models/realm";
 
