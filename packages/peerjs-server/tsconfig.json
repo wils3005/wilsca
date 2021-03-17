@@ -1,27 +1,17 @@
 {
-    "compilerOptions": {
-        "lib": [
-            "esnext"
-        ],
-        "target": "es2016",
-        "module": "commonjs",
-        "strict": true,
-        "esModuleInterop": true,
-        "downlevelIteration": true,
-        "moduleResolution": "node",
-        "noImplicitAny": true,
-        "noUnusedLocals": true,
-        "noUnusedParameters": true,
-        "resolveJsonModule": true,
-        "skipLibCheck": true,
-        "sourceMap": false,
-        "outDir": "dist"
-    },
-    "include": [
-        "./src/**/*",
-    ],
-    "exclude": [
-        "test",
-        "bin",
-    ]
+  "compilerOptions": {
+    "declaration": true,
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext"],
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "outDir": "dist/",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES5"
+  },
+  "exclude": ["dist", "node_modules"]
 }

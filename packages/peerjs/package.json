@@ -3,17 +3,28 @@
   "private": true,
   "main": "./dist/peerjs.min.js",
   "scripts": {
-    "build": "parcel build lib/exports.ts --out-file peerjs.min.js",
-    "build-nonminified": "parcel build lib/exports.ts --out-file peerjs.js --no-minify",
-    "prepublishOnly": "npm run build",
-    "test": "mocha -r ts-node/register -r jsdom-global/register test/**/*.ts"
+    "prebuild": "rimraf dist/",
+    "build": "npm run ts-node -- node_modules/webpack/bin/webpack",
+    "depcruise": "dependency-cruiser --exclude node_modules --output-type dot src/ | dot -T png > dependency-graph.png",
+    "lint": "eslint --fix .",
+    "mocha": "mocha -r ts-node/register -r jsdom-global/register test/**/*.ts",
+    "test": "npm run lint && npm run mocha && npm run build",
+    "ts-node": "ts-node --require dotenv/config --transpile-only"
   },
   "types": "./index.d.ts",
   "devDependencies": {
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
     "@types/node": "^10.14.17",
+    "@typescript-eslint/eslint-plugin": "^4.15.2",
+    "@typescript-eslint/parser": "^4.15.2",
     "chai": "^4.2.0",
+    "dependency-cruiser": "^9.23.2",
+    "dotenv": "^5.0.1",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
     "eventemitter3": "^3.1.2",
     "jsdom": "^16.2.2",
     "jsdom-global": "^3.0.2",
@@ -21,10 +32,14 @@
     "mock-socket": "8.0.5",
     "parcel-bundler": "^1.12.4",
     "peerjs-js-binarypack": "1.0.1",
-    "standard": "^14.1.0",
-    "ts-node": "^8.10.1",
+    "prettier": "^2.2.1",
+    "rimraf": "^2.6.3",
+    "ts-loader": "^8.0.17",
+    "ts-node": "^8.10.2",
     "typescript": "^3.8.3",
-    "webrtc-adapter": "^7.3.0"
-  },
-  "dependencies": {}
+    "webpack": "^5.24.2",
+    "webpack-cli": "^4.5.0",
+    "webrtc-adapter": "^7.3.0",
+    "zod": "^1.11.11"
+  }
 }

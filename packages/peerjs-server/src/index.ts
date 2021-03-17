@@ -1,70 +1,56 @@
-import express from "express";
-import http from "http";
-import https from "https";
-import { Server } from "net";
+import Config from "./schemas/config";
+import Express from "express";
+import Instance from "./instance";
+import Net from "net";
 
-import defaultConfig, { IConfig } from "./config";
-import { createInstance } from "./instance";
-
-type Optional<T> = {
-  [P in keyof T]?: (T[P] | undefined);
+const defaultConfig: Config = {
+  host: "::",
+  port: 9000,
+  expire_timeout: 5000,
+  alive_timeout: 60000,
+  key: "peerjs",
+  path: "/",
+  concurrent_limit: 5000,
+  allow_discovery: false,
+  proxied: false,
+  cleanup_out_msgs: 1000,
 };
 
-function ExpressPeerServer(server: Server, options?: IConfig) {
-  const app = express();
+class PeerServer {
+  server: Net.Server;
+  config: Config;
+  app = Express();
+  instance?: Instance;
 
-  const newOptions: IConfig = {
-    ...defaultConfig,
-    ...options
-  };
+  constructor(server: Net.Server, config?: Config) {
+    this.server = server;
 
-  if (newOptions.proxied) {
-    app.set("trust proxy", newOptions.proxied === "false" ? false : !!newOptions.proxied);
-  }
+    this.config = {
+      ...defaultConfig,
+      ...config,
+    };
 
-  app.on("mount", () => {
-    if (!server) {
-      throw new Error("Server is not passed to constructor - " +
-        "can't start PeerServer");
+    if (this.config.proxied) {
+      this.app.set(
+        "trust proxy",
+        this.config.proxied === "false" ? false : !!this.config.proxied
+      );
     }
 
-    createInstance({ app, server, options: newOptions });
-  });
+    this.app.on("mount", () => {
+      if (!server) {
+        throw new Error(
+          "Server is not passed to constructor - " + "can't start PeerServer"
+        );
+      }
 
-  return app;
-}
-
-function PeerServer(options: Optional<IConfig> = {}, callback?: (server: Server) => void) {
-  const app = express();
-
-  let newOptions: IConfig = {
-    ...defaultConfig,
-    ...options
-  };
-
-  const port = newOptions.port;
-  const host = newOptions.host;
-
-  let server: Server;
-
-  const { ssl, ...restOptions } = newOptions;
-  if (ssl && Object.keys(ssl).length) {
-    server = https.createServer(ssl, app);
-
-    newOptions = restOptions;
-  } else {
-    server = http.createServer(app);
+      this.instance = new Instance({
+        app: this.app,
+        server,
+        options: this.config,
+      });
+    });
   }
-
-  const peerjs = ExpressPeerServer(server, newOptions);
-  app.use(peerjs);
-
-  server.listen(port, host, () => callback?.(server));
-
-  return peerjs;
 }
 
-export {
-  ExpressPeerServer,
-  PeerServer
-};
+export default PeerServer;

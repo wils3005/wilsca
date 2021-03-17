@@ -1,4 +1,5 @@
 **/.nyc_output/
+**/.parcel-cache/
 **/.storybook/
 **/.vscode/
 **/build/
@@ -15,3 +16,4 @@
 *.code-workspace
 *.pem
 *.sqlite*
+*.tsbuildinfo

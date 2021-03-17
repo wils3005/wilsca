@@ -1,75 +1,97 @@
 import express from "express";
 import { Server } from "net";
 import path from "path";
-import { IClient } from "./models/client";
-import { IMessage } from "./models/message";
-import { Realm } from "./models/realm";
-import { IRealm } from "./models/realm";
-import { CheckBrokenConnections } from "./services/checkBrokenConnections";
-import { IMessagesExpire, MessagesExpire } from "./services/messagesExpire";
-import { IWebSocketServer, WebSocketServer } from "./services/webSocketServer";
-import { MessageHandler } from "./messageHandler";
+import { Client } from "./client";
+import { IMessage } from "./message";
+import { Realm, IRealm } from "./realm";
+
+import { CheckBrokenConnections } from "./check-broken-connections";
+import { IMessagesExpire, MessagesExpire } from "./messages-expire";
+import { WebSocketServerWrapper } from "./web-socket-server-wrapper";
+import { MessageHandler } from "./message-handler";
 import { Api } from "./api";
-import { IConfig } from "./config";
+import Config from "./schemas/config";
 
-export const createInstance = ({ app, server, options }: {
-  app: express.Application;
-  server: Server;
-  options: IConfig;
-}): void => {
-  const config = options;
-  const realm: IRealm = new Realm();
-  const messageHandler = new MessageHandler(realm);
+class Instance {
+  webSocketServerWrapper: WebSocketServerWrapper;
 
-  const api = Api({ config, realm, messageHandler });
-  const messagesExpire: IMessagesExpire = new MessagesExpire({ realm, config, messageHandler });
-  const checkBrokenConnections = new CheckBrokenConnections({
-    realm,
-    config,
-    onClose: client => {
-      app.emit("disconnect", client);
-    }
-  });
-
-  app.use(options.path, api);
-
-  //use mountpath for WS server
-  const customConfig = { ...config, path: path.posix.join(app.path(), options.path, '/') };
-
-  const wss: IWebSocketServer = new WebSocketServer({
+  constructor({
+    app,
     server,
-    realm,
-    config: customConfig
-  });
+    options,
+  }: {
+    app: express.Application;
+    server: Server;
+    options: Config;
+  }) {
+    {
+      const config = options;
+      const realm: IRealm = new Realm();
+      const messageHandler = new MessageHandler(realm);
 
-  wss.on("connection", (client: IClient) => {
-    const messageQueue = realm.getMessageQueueById(client.getId());
+      const api = Api({ config, realm, messageHandler });
+      const messagesExpire: IMessagesExpire = new MessagesExpire({
+        realm,
+        config,
+        messageHandler,
+      });
+      const checkBrokenConnections = new CheckBrokenConnections({
+        realm,
+        config,
+        onClose: (client) => {
+          app.emit("disconnect", client);
+        },
+      });
 
-    if (messageQueue) {
-      let message: IMessage | undefined;
+      app.use(String(options.path), api);
 
-      while ((message = messageQueue.readMessage())) {
-        messageHandler.handle(client, message);
-      }
-      realm.clearMessageQueue(client.getId());
+      //use mountpath for WS server
+      const customConfig = {
+        ...config,
+        path: path.posix.join(app.path(), options.path, "/"),
+      };
+
+      this.webSocketServerWrapper = new WebSocketServerWrapper({
+        server,
+        realm,
+        config: customConfig,
+      });
+
+      this.webSocketServerWrapper.on("connection", (client: Client) => {
+        const messageQueue = realm.getMessageQueueById(client.getId());
+
+        if (messageQueue) {
+          let message: IMessage | undefined;
+
+          while ((message = messageQueue.readMessage())) {
+            messageHandler.handle(client, message);
+          }
+          realm.clearMessageQueue(client.getId());
+        }
+
+        app.emit("connection", client);
+      });
+
+      this.webSocketServerWrapper.on(
+        "message",
+        (client: Client, message: IMessage) => {
+          app.emit("message", client, message);
+          messageHandler.handle(client, message);
+        }
+      );
+
+      this.webSocketServerWrapper.on("close", (client: Client) => {
+        app.emit("disconnect", client);
+      });
+
+      this.webSocketServerWrapper.on("error", (error: Error) => {
+        app.emit("error", error);
+      });
+
+      messagesExpire.startMessagesExpiration();
+      checkBrokenConnections.start();
     }
+  }
+}
 
-    app.emit("connection", client);
-  });
-
-  wss.on("message", (client: IClient, message: IMessage) => {
-    app.emit("message", client, message);
-    messageHandler.handle(client, message);
-  });
-
-  wss.on("close", (client: IClient) => {
-    app.emit("disconnect", client);
-  });
-
-  wss.on("error", (error: Error) => {
-    app.emit("error", error);
-  });
-
-  messagesExpire.startMessagesExpiration();
-  checkBrokenConnections.start();
-};
+export default Instance;

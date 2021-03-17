@@ -4,6 +4,7 @@
   "scripts": {
     "prebuild": "rimraf dist/",
     "build": "npm run ts-node -- node_modules/webpack/bin/webpack",
+    "check": "npm-check --update",
     "knex": "npm run ts-node -- ./node_modules/knex/bin/cli.js",
     "knex:make": "npm run knex -- migrate:make",
     "knex:migrate": "npm run knex -- migrate:latest",
@@ -14,7 +15,6 @@
     "ts-node": "ts-node --require dotenv/config --transpile-only"
   },
   "dependencies": {
-    "@wilsjs/peerjs-server": "file:../peerjs-server",
     "express": "^4.17.1",
     "express-pino-logger": "^6.0.0",
     "knex": "^0.21.17",
@@ -37,7 +37,6 @@
     "@types/ws": "^7.4.0",
     "@typescript-eslint/eslint-plugin": "4.14.1",
     "@typescript-eslint/parser": "4.14.1",
-    "@wilsjs/peerjs": "file:../peerjs",
     "css-loader": "^5.0.2",
     "dotenv": "^8.2.0",
     "eslint": "7.18.0",
@@ -46,7 +45,6 @@
     "eslint-plugin-prettier": "3.3.1",
     "nodemon": "^2.0.7",
     "npm-check": "^5.9.2",
-    "peerjs-js-binarypack": "^1.0.1",
     "phaser": "^3.52.0",
     "pino-pretty": "^4.5.0",
     "prettier": "2.2.1",
@@ -59,8 +57,7 @@
     "uuid": "^8.3.2",
     "webpack": "^5.23.0",
     "webpack-cli": "^4.5.0",
-    "webpack-dev-middleware": "^4.1.0",
-    "webpack-dev-server": "^3.11.2",
-    "webpack-node-externals": "^2.5.2"
+    "webpack-node-externals": "^2.5.2",
+    "webrtc-adapter": "^7.7.0"
   }
 }

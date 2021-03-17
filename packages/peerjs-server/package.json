@@ -1,21 +1,15 @@
 {
   "name": "@wilsjs/peer",
   "private": true,
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "preversion": "npm run clean && npm run build",
-    "build": "tsc",
-    "clean": "rimraf ./dist",
-    "lint": "eslint --ext .js,.ts .",
-    "tsc": "tsc",
-    "prebuild": "npm run lint",
-    "test": "npm run lint && mocha -r ts-node/register \"test/**/*\"",
-    "start": "bin/peerjs --port ${PORT:=9000}",
-    "dev:start": "npm-run-all build start",
-    "dev": "nodemon --watch src -e ts --exec npm run dev:start"
-  },
-  "release": {
-    "branch": "master"
+    "depcruise": "dependency-cruiser --exclude node_modules --output-type dot src/ | dot -T png > dependency-graph.png",
+    "lint": "eslint --fix .",
+    "pretsc": "rimraf ./dist",
+    "tsc": "tsc --build tsconfig.build.json",
+    "mocha": "mocha -r ts-node/register \"test/**/*\"",
+    "test": "npm run lint && npm run tsc && npm run mocha && npm run depcruise",
+    "watch": "npm run tsc -- --watch"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -23,7 +17,8 @@
     "express": "^4.17.1",
     "uuid": "^3.4.0",
     "ws": "^7.2.3",
-    "yargs": "^15.3.1"
+    "yargs": "^15.3.1",
+    "zod": "^3.0.0-alpha.4"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",
@@ -36,11 +31,16 @@
     "@typescript-eslint/eslint-plugin": "^2.24.0",
     "@typescript-eslint/parser": "^2.24.0",
     "chai": "^4.2.0",
-    "eslint": "^6.8.0",
+    "dependency-cruiser": "^9.23.2",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.3.1",
     "mocha": "^7.1.1",
     "mock-socket": "8.0.5",
     "nodemon": "^1.19.4",
     "npm-run-all": "^4.1.5",
+    "prettier": "^2.2.1",
     "rimraf": "^3.0.2",
     "sinon": "^7.5.0",
     "ts-node": "^8.7.0",
