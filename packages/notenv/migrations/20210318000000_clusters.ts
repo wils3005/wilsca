@@ -1,6 +1,6 @@
-import * as Knex from "knex";
+import Knex from "knex";
 
-const tableName = "users";
+const tableName = "clusters";
 
 function down(knex: Knex): Knex.SchemaBuilder {
   return knex.schema.dropTable(tableName);
@@ -9,10 +9,8 @@ function down(knex: Knex): Knex.SchemaBuilder {
 function up(knex: Knex): Knex.SchemaBuilder {
   return knex.schema.createTable(tableName, (table) => {
     table.integer("id").primary();
-    table.string("username").unique().notNullable();
-    table.string("password").notNullable();
+    table.string("value").unique().notNullable();
     table.timestamps(true, true);
-    table.timestamp("deleted_at");
   });
 }
 

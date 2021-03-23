@@ -1,11 +1,11 @@
 import * as Knex from "knex";
-import { object, string } from "zod";
+import * as Zod from "zod";
 
 const { env } = process;
 
-const { PASSWORD, USERNAME } = object({
-  PASSWORD: string(),
-  USERNAME: string(),
+const { PASSWORD, USERNAME } = Zod.object({
+  PASSWORD: Zod.string(),
+  USERNAME: Zod.string(),
 }).parse(env);
 
 async function seed(knex: Knex): Promise<void> {

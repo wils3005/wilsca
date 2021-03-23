@@ -42,14 +42,14 @@ const base = {
 const server = {
   ...base,
   entry: {
-    app: Path.join(__dirname, "src", "server", "index.ts"),
+    server: Path.join(__dirname, "src", "server.ts"),
   },
   externalsPresets: { node: true },
   externals: [WebpackNodeExternals()],
   output: {
     assetModuleFilename: "[name][ext]",
     globalObject: "this",
-    path: Path.join(__dirname, "dist", "server"),
+    path: Path.join(__dirname, "dist"),
   },
   target: "node",
 };
@@ -57,12 +57,12 @@ const server = {
 const browser = {
   ...base,
   entry: {
-    app: Path.join(__dirname, "src", "browser", "index.ts"),
+    main: Path.join(__dirname, "src", "main.ts"),
   },
   output: {
     assetModuleFilename: "[name][ext]",
     globalObject: "this",
-    path: Path.join(__dirname, "dist", "browser"),
+    path: Path.join(__dirname, "dist"),
   },
 };
 

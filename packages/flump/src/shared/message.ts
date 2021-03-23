@@ -23,8 +23,6 @@ class Message {
     return new Message(MessageOptions.parse(JSON.parse(String(data))));
   }
 
-  messageOptions: MessageOptions;
-
   sender: string;
 
   recipient: string;
@@ -37,19 +35,17 @@ class Message {
 
   candidate?: unknown;
 
-  constructor(messageOptions: MessageOptions) {
-    this.messageOptions = messageOptions;
-    // this.type = messageOptions.type;
-    this.sender = messageOptions.sender;
-    this.recipient = messageOptions.recipient;
-    this.ids = messageOptions.ids;
-    this.offer = messageOptions.offer;
-    this.answer = messageOptions.answer;
-    this.candidate = messageOptions.candidate;
+  constructor(options: MessageOptions) {
+    this.sender = options.sender;
+    this.recipient = options.recipient;
+    this.ids = options.ids;
+    this.offer = options.offer;
+    this.answer = options.answer;
+    this.candidate = options.candidate;
   }
 
   toString(): string {
-    return JSON.stringify(this.messageOptions);
+    return JSON.stringify(this);
   }
 }
 

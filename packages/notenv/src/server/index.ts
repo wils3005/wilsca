@@ -2,14 +2,12 @@ import Path from "path";
 import REPL from "repl";
 import * as Zod from "zod";
 import Express from "express";
-import ExpressPinoLogger from "express-pino-logger";
 import Knex from "knex";
 import WebSocket from "ws";
-import { Config } from "../shared";
-import * as Models from "./models";
-import { Connection } from "./connection";
+import { Config, Message } from "../shared";
+// import * as Models from "./models";
 
-class ServerApp {
+class Server {
   env = Zod.object({
     NODE_ENV: Zod.string(),
     PORT: Zod.string(),
@@ -35,47 +33,51 @@ class ServerApp {
 
   webSocketServer = new WebSocket.Server({ server: this.httpServer });
 
+  webSocket?: WebSocket;
+
   constructor(config: Config) {
     this.config = config;
     this.log = this.config.log.bind(this);
 
-    Object.values(Models).forEach((m) => m.knex(this.knex));
+    // Object.values(Models).forEach((m) => m.knex(this.knex));
 
-    this.express.use(ExpressPinoLogger({ logger: Config.pino }));
     this.express.use(Express.static(this.env.STATIC_PATH));
 
-    this.webSocketServer.on("close", () => this.close());
+    this.webSocketServer.on("close", () => this.log("close"));
     this.webSocketServer.on("connection", (x) => this.connection(x));
-    this.webSocketServer.on("error", () => this.error());
-    this.webSocketServer.on("headers", () => this.headers());
+    this.webSocketServer.on("error", () => this.log("error", "error"));
+    this.webSocketServer.on("headers", () => this.log("headers"));
 
     if (this.env.REPL) {
       Object.assign(REPL.start("repl> ").context, { app: this });
     }
   }
 
-  close(): void {
-    this.log("close");
-  }
-
   connection(socket: WebSocket): void {
-    Models.Session.query()
-      .insert()
-      .then(() => this.log("new session"))
-      .catch((e: Error) => this.log(e.message, "error"));
+    this.log("connection");
 
-    new Connection(this.config, socket);
+    socket.onclose = () => {
+      this.log("close");
+      this.webSocket = undefined;
+    };
+
+    socket.onerror = (event: WebSocket.ErrorEvent) => {
+      this.log("error", "error");
+      event.target.close();
+      this.webSocket = undefined;
+    };
+
+    socket.onmessage = () => this.log("message");
+    socket.onopen = () => this.log("open");
+    this.webSocket = socket;
   }
 
-  error(): void {
-    this.log("error", "error");
-  }
-
-  headers(): void {
-    this.log("headers");
+  send(msg: Message): void {
+    this.log("send");
+    this.webSocket?.send(msg.toString());
   }
 }
 
-Object.assign(globalThis, { app: new ServerApp(new Config()) });
+Object.assign(globalThis, { app: new Server(new Config()) });
 
-export { ServerApp };
+export { Server };

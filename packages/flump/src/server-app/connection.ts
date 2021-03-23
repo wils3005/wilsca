@@ -10,11 +10,11 @@ class Connection {
     return Array.from(this.all.keys());
   }
 
+  id = UUID.v4();
+
   config: Config;
 
   log: typeof Config.prototype.log;
-
-  id = UUID.v4();
 
   webSocket: WebSocket;
 
