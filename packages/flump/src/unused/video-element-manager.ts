@@ -1,4 +1,4 @@
-// import * as Zod from "zod";
+// import * as  zod from "zod";
 // import Config from "../../config";
 
 // class VideoElementManager {
@@ -28,7 +28,7 @@
 //   }
 
 //   get element(): HTMLVideoElement {
-//     return Zod.instanceof(HTMLVideoElement).parse(this._element);
+//     return  zod.instanceof(HTMLVideoElement).parse(this._element);
 //   }
 
 //   set element(element: HTMLVideoElement) {
@@ -37,7 +37,7 @@
 
 //     // local or remote stream?
 //     element.muted = true;
-//     Zod.instanceof(HTMLElement)
+//      zod.instanceof(HTMLElement)
 //       .parse(document.querySelector("section#video"))
 //       .appendChild(element);
 
@@ -45,7 +45,7 @@
 //   }
 
 //   get stream(): MediaStream {
-//     return Zod.instanceof(MediaStream).parse(this._stream);
+//     return  zod.instanceof(MediaStream).parse(this._stream);
 //   }
 
 //   set stream(stream: MediaStream) {

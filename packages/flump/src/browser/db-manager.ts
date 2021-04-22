@@ -1,4 +1,4 @@
-import * as Zod from "zod";
+import * as zod from "zod";
 import { Config } from "../shared";
 
 class DatabaseManager {
@@ -36,14 +36,15 @@ class DatabaseManager {
   private objectStore(
     mode: "readonly" | "readwrite" | "versionchange"
   ): IDBObjectStore {
-    return Zod.instanceof(IDBDatabase)
+    return zod
+      .instanceof(IDBDatabase)
       .parse(this.db)
       .transaction(DatabaseManager.STORE, mode)
       .objectStore(DatabaseManager.STORE);
   }
 
   private success(event: Event): void {
-    const db = Zod.instanceof(IDBOpenDBRequest).parse(event.target).result;
+    const db = zod.instanceof(IDBOpenDBRequest).parse(event.target).result;
     db.onabort = (ev) => this.log(ev, "warn");
     db.onclose = (ev) => this.log(ev);
     db.onerror = (ev) => this.log(ev, "error");
@@ -54,8 +55,9 @@ class DatabaseManager {
   private upgradeNeeded(event: IDBVersionChangeEvent): void {
     this.log("upgradeNeeded");
 
-    Zod.instanceof(IDBDatabase)
-      .parse(Zod.instanceof(IDBRequest).parse(event.target).result)
+    zod
+      .instanceof(IDBDatabase)
+      .parse(zod.instanceof(IDBRequest).parse(event.target).result)
       .createObjectStore(DatabaseManager.STORE, {
         autoIncrement: true,
       });
@@ -67,7 +69,7 @@ export { DatabaseManager };
 // getID(): string {
 //   if (this.id) return this.id;
 
-//   return Zod.string().parse(this.databaseManager.get("id").result);
+//   return  zod.string().parse(this.databaseManager.get("id").result);
 // }
 
 // setID(id: string): void {

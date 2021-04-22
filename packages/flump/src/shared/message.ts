@@ -1,22 +1,22 @@
-import * as Zod from "zod";
+import * as zod from "zod";
 
-const RTCSessionDescriptionInit = Zod.object({
-  sdp: Zod.string().optional(),
-  type: Zod.enum(["answer", "offer", "pranswer", "rollback"]).optional(),
+const RTCSessionDescriptionInit = zod.object({
+  sdp: zod.string().optional(),
+  type: zod.enum(["answer", "offer", "pranswer", "rollback"]).optional(),
 });
 
-type RTCSessionDescriptionInit = Zod.infer<typeof RTCSessionDescriptionInit>;
+type RTCSessionDescriptionInit = zod.infer<typeof RTCSessionDescriptionInit>;
 
-const MessageOptions = Zod.object({
-  sender: Zod.string(),
-  recipient: Zod.string(),
-  ids: Zod.array(Zod.string()).optional(),
+const MessageOptions = zod.object({
+  sender: zod.string(),
+  recipient: zod.string(),
+  ids: zod.array(zod.string()).optional(),
   offer: RTCSessionDescriptionInit.optional(),
   answer: RTCSessionDescriptionInit.optional(),
-  candidate: Zod.unknown().optional(),
+  candidate: zod.unknown().optional(),
 });
 
-type MessageOptions = Zod.infer<typeof MessageOptions>;
+type MessageOptions = zod.infer<typeof MessageOptions>;
 
 class Message {
   static parse(data: unknown): Message {

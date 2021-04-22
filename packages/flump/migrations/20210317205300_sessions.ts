@@ -1,12 +1,12 @@
-import * as Knex from "knex";
+import * as knex from "knex";
 
 const tableName = "sessions";
 
-function down(knex: Knex): Knex.SchemaBuilder {
+function down(knex: knex): knex.SchemaBuilder {
   return knex.schema.dropTable(tableName);
 }
 
-function up(knex: Knex): Knex.SchemaBuilder {
+function up(knex: knex): knex.SchemaBuilder {
   return knex.schema.createTable(tableName, (table) => {
     table.integer("id").primary();
     table.timestamps(true, true);

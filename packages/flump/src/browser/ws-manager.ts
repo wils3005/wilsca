@@ -62,7 +62,7 @@ class WebSocketManager {
 
       // 5)
       // if (message.answer) {
-      //   await Zod.instanceof(PeerConnectionManager)
+      //   await  zod.instanceof(PeerConnectionManager)
       //     .parse(PeerConnectionManager.all.get(message.sender))
       //     .connection.setRemoteDescription(
       //       new RTCSessionDescription(message.answer)
@@ -71,7 +71,7 @@ class WebSocketManager {
 
       // if (message.candidate) {
       //   this.log({ wat: message });
-      //   await Zod.instanceof(PeerConnectionManager)
+      //   await  zod.instanceof(PeerConnectionManager)
       //     .parse(PeerConnectionManager.all.get(message.sender))
       //     .connection.addIceCandidate(message.candidate);
       // }

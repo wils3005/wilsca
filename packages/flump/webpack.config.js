@@ -1,4 +1,4 @@
-import Path from "path";
+import path from "path";
 import TerserPlugin from "terser-webpack-plugin";
 import WebpackNodeExternals from "webpack-node-externals";
 
@@ -16,7 +16,7 @@ const base = {
         test: /\.tsx?$/,
         loader: "ts-loader",
         options: {
-          configFile: Path.join(__dirname, "tsconfig.build.json"),
+          configFile: path.join(__dirname, "tsconfig.build.json"),
         },
       },
     ],
@@ -42,14 +42,14 @@ const base = {
 const server = {
   ...base,
   entry: {
-    app: Path.join(__dirname, "src", "server", "index.ts"),
+    app: path.join(__dirname, "src", "server", "index.ts"),
   },
   externalsPresets: { node: true },
   externals: [WebpackNodeExternals()],
   output: {
     assetModuleFilename: "[name][ext]",
     globalObject: "this",
-    path: Path.join(__dirname, "dist", "server"),
+    path: path.join(__dirname, "dist", "server"),
   },
   target: "node",
 };
@@ -57,12 +57,12 @@ const server = {
 const browser = {
   ...base,
   entry: {
-    app: Path.join(__dirname, "src", "browser", "index.ts"),
+    app: path.join(__dirname, "src", "browser", "index.ts"),
   },
   output: {
     assetModuleFilename: "[name][ext]",
     globalObject: "this",
-    path: Path.join(__dirname, "dist", "browser"),
+    path: path.join(__dirname, "dist", "browser"),
   },
 };
 

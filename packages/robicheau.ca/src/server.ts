@@ -9,9 +9,7 @@ class Server {
     NODE_ENV: Zod.string(),
     PORT: Zod.string(),
     STATIC_PATH: Zod.string(),
-  })
-    .nonstrict()
-    .parse(process.env);
+  }).parse(process.env);
 
   knex = Knex({
     client: "sqlite3",

@@ -2,7 +2,7 @@ import { Config } from "../shared";
 import { BroadcastChannelManager } from "./bc-manager";
 import { DatabaseManager } from "./db-manager";
 import { ServiceWorkerApp } from "./sw-app";
-import { WindowApp } from "./window-app";
+import { WindowApp } from "./window";
 
 class BrowserApp {
   config: Config;
@@ -31,7 +31,7 @@ class BrowserApp {
 
         break;
       case "Window":
-        import("./window-app")
+        import("./window")
           .then((x) => this.setWindowApp(x))
           .catch((x) => this.log(x));
 
@@ -48,7 +48,7 @@ class BrowserApp {
     this.swApp = new mod.ServiceWorkerApp(this.config);
   }
 
-  setWindowApp(mod: typeof import("./window-app")): void {
+  setWindowApp(mod: typeof import("./window")): void {
     this.log("setWindowApp");
     this.windowApp = new mod.WindowApp(this.config);
   }

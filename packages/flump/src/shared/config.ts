@@ -1,10 +1,10 @@
-import * as Zod from "zod";
+import * as zod from "zod";
 import Pino from "pino";
 
-type LogLevel = Zod.infer<typeof Config.LogLevel>;
+type LogLevel = zod.infer<typeof Config.LogLevel>;
 
 class Config {
-  static LogLevel = Zod.enum(["trace", "debug", "info", "warn", "error"]);
+  static LogLevel = zod.enum(["trace", "debug", "info", "warn", "error"]);
 
   static pino = Pino({
     level: "debug",
